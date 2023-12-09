@@ -1,10 +1,9 @@
-import Link from 'next/link';
-
-import image from '@public/gobarber_image001.svg';
-
 import ImageContainer from '@/components/ImageContainer';
 import Logo from '@components/Logo';
+import Button from '@/components/Button';
 import CreateAccount from '@/components/CreateAccount';
+
+import image from '@public/gobarber_image001.svg';
 
 export default function Landing() {
   return (
@@ -27,9 +26,7 @@ export default function Landing() {
             demandas.
           </p>
 
-          <Link href='./logon' className='m-auto'>
-            <button>Fazer logon</button>
-          </Link>
+          <Button href='./logon' />
 
           <CreateAccount />
         </main>
