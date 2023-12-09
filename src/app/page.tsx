@@ -1,38 +1,48 @@
 import Image from 'next/image';
+import Link from 'next/link';
+import { FiLogIn } from 'react-icons/fi';
 
-import gobarberImage001 from '../../public/gobarber_image001.svg';
-import gobarberLogo001 from '../../public/gobarber_logo001.svg';
+import image from '@public/gobarber_image001.svg';
+import logo from '@public/gobarber_logo001.svg';
 
-export default function Home() {
+export default function Landing() {
   return (
     <body>
-      <Image
-        src={gobarberImage001}
-        alt='Foto de barbearia'
-        className='h-screen w-min'
-      />
+      <div className='flex'>
+        <div className='opacity-1 h-screen w-screen  max-sm:h-0 max-sm:w-0 max-sm:opacity-0'>
+          <Image src={image} alt='Foto de barbearia' />
+        </div>
 
-      <main className='grid w-screen'>
-        <Image
-          src={gobarberLogo001}
-          alt='Logo do Gobarber'
-          className='m-auto mt-16'
-        />
+        <main className='grid w-screen p-2 py-14 max-sm:py-4'>
+          <Image
+            src={logo}
+            alt='Logo do Gobarber'
+            className='m-auto max-sm:w-48'
+          />
 
-        <p className='m-auto w-[45%]'>
-          O GoBarber é uma aplicação voltada para barbeiros(a) e homens à
-          procura de um ótimo profissional para cuidar da sua beleza masculina.
-          <br />
-          <br />
-          Aqui você pode começar criando a sua conta como usuário e fazer o seu
-          primeiro agendamento, ou iniciar como um barbeiro e ir acompanhanto as
-          demandas.
-        </p>
+          <p className='m-auto w-[50%] max-sm:my-6 max-sm:w-[80%]'>
+            O <strong>GoBarber</strong> é uma aplicação voltada para
+            barbeiros(a) e homens à procura de um ótimo profissional para cuidar
+            da sua beleza masculina.
+            <br />
+            <br />
+            Aqui você pode começar criando a sua conta como{' '}
+            <strong>usuário</strong> e fazer o seu primeiro agendamento, ou
+            iniciar como um <strong>barbeiro</strong> e ir acompanhanto as
+            demandas.
+          </p>
 
-        <button className='m-auto mt-4'>Fazer logon</button>
+          <button className='m-auto'>Fazer logon</button>
 
-        <span className='m-auto'>Criar conta</span>
-      </main>
+          <Link
+            href='./logon'
+            className='m-auto flex text-orange hover:text-orange max-sm:mt-4'
+          >
+            <FiLogIn size={20} className='m-auto mx-4' />
+            Criar conta
+          </Link>
+        </main>
+      </div>
     </body>
   );
 }
