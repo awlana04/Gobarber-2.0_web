@@ -1,24 +1,19 @@
-import Image from 'next/image';
 import Link from 'next/link';
-import { FiLogIn } from 'react-icons/fi';
 
 import image from '@public/gobarber_image001.svg';
-import logo from '@public/gobarber_logo001.svg';
+
+import ImageContainer from '@/components/ImageContainer';
+import Logo from '@components/Logo';
+import CreateAccount from '@/components/CreateAccount';
 
 export default function Landing() {
   return (
     <body>
       <div className='flex'>
-        <div className='opacity-1 h-screen w-screen  max-sm:h-0 max-sm:w-0 max-sm:opacity-0'>
-          <Image src={image} alt='Foto de barbearia' />
-        </div>
+        <ImageContainer src={image} alt='Foto da barbearia' />
 
         <main className='grid w-screen p-2 py-14 max-sm:py-4'>
-          <Image
-            src={logo}
-            alt='Logo do Gobarber'
-            className='m-auto max-sm:w-48'
-          />
+          <Logo />
 
           <p className='m-auto w-[50%] max-sm:my-6 max-sm:w-[80%]'>
             O <strong>GoBarber</strong> é uma aplicação voltada para
@@ -32,15 +27,11 @@ export default function Landing() {
             demandas.
           </p>
 
-          <button className='m-auto'>Fazer logon</button>
-
-          <Link
-            href='./logon'
-            className='m-auto flex text-orange hover:text-orange max-sm:mt-4'
-          >
-            <FiLogIn size={20} className='m-auto mx-4' />
-            Criar conta
+          <Link href='./logon' className='m-auto'>
+            <button>Fazer logon</button>
           </Link>
+
+          <CreateAccount />
         </main>
       </div>
     </body>

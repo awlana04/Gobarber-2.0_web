@@ -35,6 +35,11 @@ button:hover {
   background-color: #c97200;
 }
 
+h1 {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
 p {
   font-size: 1.25rem;
   line-height: 1.75rem;
