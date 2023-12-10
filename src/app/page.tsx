@@ -7,7 +7,7 @@ import image from '@public/gobarber_image001.svg';
 
 export default function Landing() {
   return (
-    <body>
+    <div>
       <div className='flex items-center justify-center'>
         <ImageContainer src={image} alt='Foto da barbearia' />
 
@@ -31,6 +31,6 @@ export default function Landing() {
           <CreateAccount />
         </main>
       </div>
-    </body>
+    </div>
   );
 }

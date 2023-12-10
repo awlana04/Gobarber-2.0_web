@@ -48,6 +48,10 @@ span:hover {
   text-decoration: underline;
 }
 
+form span:hover {
+  text-decoration: none;
+}
+
 input {
   width: 21.25rem;
   height: 3.5rem;
