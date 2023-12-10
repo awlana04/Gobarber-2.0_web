@@ -12,6 +12,7 @@ const config: Config = {
       white: '#F4EDE8',
       buttonText: '#312E38',
       input: '#232129',
+      inputText: '#666360',
       background: '#312E38',
       red: '#FF0000',
       black: '#28262E',

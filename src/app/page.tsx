@@ -8,13 +8,13 @@ import image from '@public/gobarber_image001.svg';
 export default function Landing() {
   return (
     <body>
-      <div className='flex'>
+      <div className='flex items-center justify-center'>
         <ImageContainer src={image} alt='Foto da barbearia' />
 
         <main className='grid w-screen p-2 py-14 max-sm:py-4'>
           <Logo />
 
-          <p className='m-auto w-[50%] max-sm:my-6 max-sm:w-[80%]'>
+          <p className='m-auto my-10 w-[50%] max-sm:my-4 max-sm:w-[80%]'>
             O <strong>GoBarber</strong> é uma aplicação voltada para
             barbeiros(a) e homens à procura de um ótimo profissional para cuidar
             da sua beleza masculina.
