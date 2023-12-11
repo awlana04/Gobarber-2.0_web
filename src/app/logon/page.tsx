@@ -44,8 +44,6 @@ export default function Logon() {
         password: data.password,
       })
       .then((response) => {
-        console.log(response);
-
         const { token, user, barber } = response.data;
 
         localStorage.setItem('@GoBarber:token', token);
@@ -73,12 +71,12 @@ export default function Logon() {
             className='flex flex-col items-center'
           >
             <div className='py-4'>
-              <FiMail className='absolute mx-4 mt-5 text-inputText' />
+              <FiMail className='absolute mx-4 mt-5 text-inputText ' />
               <input
                 {...register('email')}
                 type='email'
                 placeholder='Email'
-                className='m-auto flex-row px-10 text-orange outline-none placeholder:text-inputText hover:outline-orange hover:placeholder:text-orange focus:outline-orange focus:placeholder:text-orange'
+                className='m-auto flex-row px-10 outline-none placeholder:text-inputText'
               />
               {errors.email && (
                 <span className='mt-2 flex flex-col'>
@@ -93,7 +91,7 @@ export default function Logon() {
                 {...register('password')}
                 type='password'
                 placeholder='Senha'
-                className='m-auto flex-row px-10 text-orange outline-none placeholder:text-inputText hover:outline-orange hover:placeholder:text-orange focus:outline-orange focus:placeholder:text-orange'
+                className='m-auto flex-row px-10 outline-none placeholder:text-inputText '
               />
               {errors.password && (
                 <span className='mt-2 flex flex-col'>
