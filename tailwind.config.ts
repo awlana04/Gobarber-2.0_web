@@ -9,6 +9,7 @@ const config: Config = {
   theme: {
     colors: {
       orange: '#FF9000',
+      buttonHover: '#c97200',
       white: '#F4EDE8',
       buttonText: '#312E38',
       input: '#232129',

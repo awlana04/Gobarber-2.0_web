@@ -24,30 +24,26 @@ export default function Signin() {
           <Logo />
 
           <form className='flex flex-col'>
-            {/* <div className='h-28 w-28 rounded-full bg-white'>
-              <div className='group absolute'>
-                <p className='group-hover:opacity-1 text-orange opacity-0'>
-                  Escolher
-                </p>
-
+            <div className='m-auto flex h-28 w-28 rounded-full bg-white text-white hover:bg-inputText'>
+              <input type='file' id='upload' className='file hidden' />
+              <label htmlFor='upload' className='group m-auto cursor-pointer'>
                 <Image
                   src={logo}
                   alt='Logo do GoBarber'
                   className='absolute m-3'
                 />
-              </div>
 
-              <div className='m-20 flex h-12 w-12 rounded-full bg-orange'>
-                <FiCamera className='m-auto text-black' size={28} />
-              </div>
+                <p className='group-hover:opacity-1 absolute m-3 mt-10 opacity-0'>
+                  Escolher
+                </p>
 
-              <input
-                type='file'
-                className='absolute -mt-48 ml-2 h-20 w-24 opacity-0'
-              />
-            </div> */}
+                <div className='group-hover:bg-buttonHover m-20 flex h-12 w-12 rounded-full bg-orange'>
+                  <FiCamera className='m-auto text-black' size={28} />
+                </div>
+              </label>
+            </div>
 
-            <div className='m-auto flex place-items-center p-4'>
+            <div className='m-auto flex place-items-center p-4 pt-8'>
               <div className='mr-24'>
                 <input
                   type='radio'
@@ -88,28 +84,31 @@ export default function Signin() {
             <input
               type='text'
               placeholder='Nome'
-              className='m-auto flex-row px-10 outline-none placeholder:text-inputText'
+              className='m-auto mb-2 flex-row px-10 outline-none placeholder:text-inputText'
             />
 
             <input
               type='email'
               placeholder='E-mail'
-              className='m-auto flex-row px-10 outline-none placeholder:text-inputText'
+              className='m-auto mb-2 flex-row px-10 outline-none placeholder:text-inputText'
             />
 
             <input
               type='password'
               placeholder='Senha'
-              className='m-auto flex-row px-10 outline-none placeholder:text-inputText'
+              className='m-auto mb-2 flex-row px-10 outline-none placeholder:text-inputText'
             />
 
             <input
               type='password'
               placeholder='Confirmar senha'
-              className='m-auto flex-row px-10 outline-none placeholder:text-inputText'
+              className='m-auto mb-2 flex-row px-10 outline-none placeholder:text-inputText'
             />
 
-            <button type='submit' className='m-auto my-6 bg-orange max-sm:my-4'>
+            <button
+              type='submit'
+              className='m-auto mb-4 mt-6 bg-orange max-sm:my-4'
+            >
               Entrar
             </button>
           </form>
