@@ -1,6 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import Image from 'next/image';
 import { FiCamera } from 'react-icons/fi';
 
@@ -8,12 +12,56 @@ import Logo from '@/components/Logo';
 import ImageContainer from '@/components/ImageContainer';
 import LinkToBack from '@/components/LinkToBack';
 
-import image from '@public/gobarber_image003.svg';
+import api from '../../services/api';
 
+import image from '@public/gobarber_image003.svg';
 import logo from '@public/gobarber_logo.svg';
 
+const SigninFormSchema = z.object({
+  name: z.string().min(3, 'Necessita ser um nome válido'),
+  email: z
+    .string()
+    .email('Email é obrigatório')
+    .min(6, 'Necessita ter no mínimo 6 caracteres'),
+  password: z.string().min(8, 'Necessita ter no mínimo 8 caracteres'),
+});
+
+type SigninFormType = z.infer<typeof SigninFormSchema>;
+
 export default function Signin() {
+  const Router = useRouter();
+
   const [isSelected, setIsSelected] = useState('client');
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SigninFormType>({
+    resolver: zodResolver(SigninFormSchema),
+  });
+
+  const submitHandler = (data: SigninFormType) => {
+    console.log(data);
+    // api
+    //   .post('/users/', {
+    //     name: data.name,
+    //     email: data.email,
+    //     password: data.password,
+    //     location: 'Somewhere Over the Rainbow',
+    //     avatar: null,
+    //   })
+    //   .then((response) => {
+    //     const { token, user } = response.data;
+
+    //     localStorage.setItem('@GoBarber:token', token);
+    //     localStorage.setItem('@GoBarber:user', JSON.stringify(user));
+
+    //     isSelected === 'client'
+    //       ? Router.push('../dashboard/client')
+    //       : Router.push('../dashboard/barber');
+    //   });
+  };
 
   return (
     <main>
@@ -23,7 +71,10 @@ export default function Signin() {
         <section className='grid w-screen'>
           <Logo />
 
-          <form className='flex flex-col'>
+          <form
+            onSubmit={handleSubmit(submitHandler)}
+            className='flex flex-col'
+          >
             <div className='m-auto flex h-28 w-28 rounded-full bg-white text-white hover:bg-inputText'>
               <input type='file' id='upload' className='file hidden' />
               <label htmlFor='upload' className='group m-auto cursor-pointer'>
@@ -37,7 +88,7 @@ export default function Signin() {
                   Escolher
                 </p>
 
-                <div className='group-hover:bg-buttonHover m-20 flex h-12 w-12 rounded-full bg-orange'>
+                <div className='m-20 flex h-12 w-12 rounded-full bg-orange group-hover:bg-buttonHover'>
                   <FiCamera className='m-auto text-black' size={28} />
                 </div>
               </label>
@@ -82,28 +133,36 @@ export default function Signin() {
             </div>
 
             <input
+              {...register('name')}
               type='text'
               placeholder='Nome'
               className='m-auto mb-2 flex-row px-10 outline-none placeholder:text-inputText'
             />
 
+            {errors.name && <span>{errors.name.message}</span>}
+
             <input
+              {...register('email')}
               type='email'
               placeholder='E-mail'
               className='m-auto mb-2 flex-row px-10 outline-none placeholder:text-inputText'
             />
 
+            {errors.email && <span>{errors.email.message}</span>}
+
             <input
+              {...register('password')}
               type='password'
               placeholder='Senha'
               className='m-auto mb-2 flex-row px-10 outline-none placeholder:text-inputText'
             />
 
-            <input
+            {errors.password && <span>{errors.password.message}</span>}
+            {/* <input
               type='password'
               placeholder='Confirmar senha'
               className='m-auto mb-2 flex-row px-10 outline-none placeholder:text-inputText'
-            />
+            /> */}
 
             <button
               type='submit'
