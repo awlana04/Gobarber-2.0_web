@@ -31,6 +31,8 @@ type SigninFormType = z.infer<typeof SigninFormSchema>;
 export default function Signin() {
   const Router = useRouter();
 
+  const [file, setFile] = useState<File | undefined>(undefined);
+  const [fileUrl, setFileUrl] = useState<string | undefined>(undefined);
   const [isSelected, setIsSelected] = useState('client');
 
   const {
@@ -41,26 +43,50 @@ export default function Signin() {
     resolver: zodResolver(SigninFormSchema),
   });
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+
+    setFile(file);
+
+    if (fileUrl) {
+      URL.revokeObjectURL(fileUrl);
+    }
+
+    if (file) {
+      const url = URL.createObjectURL(file);
+
+      console.log(file.name);
+
+      setFileUrl(url);
+    } else {
+      setFileUrl(undefined);
+    }
+  };
+
+  const handleRemove = () => {
+    setFileUrl(undefined);
+    setFile(undefined);
+  };
+
   const submitHandler = (data: SigninFormType) => {
-    console.log(data);
-    // api
-    //   .post('/users/', {
-    //     name: data.name,
-    //     email: data.email,
-    //     password: data.password,
-    //     location: 'Somewhere Over the Rainbow',
-    //     avatar: null,
-    //   })
-    //   .then((response) => {
-    //     const { token, user } = response.data;
+    api
+      .post('/users/', {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        location: 'Somewhere Over the Rainbow',
+        avatar: file?.name,
+      })
+      .then((response) => {
+        const { token, user } = response.data;
 
-    //     localStorage.setItem('@GoBarber:token', token);
-    //     localStorage.setItem('@GoBarber:user', JSON.stringify(user));
+        localStorage.setItem('@GoBarber:token', token);
+        localStorage.setItem('@GoBarber:user', JSON.stringify(user));
 
-    //     isSelected === 'client'
-    //       ? Router.push('../dashboard/client')
-    //       : Router.push('../dashboard/barber');
-    //   });
+        isSelected === 'client'
+          ? Router.push('../dashboard/client')
+          : Router.push('../dashboard/barber');
+      });
   };
 
   return (
@@ -75,23 +101,48 @@ export default function Signin() {
             onSubmit={handleSubmit(submitHandler)}
             className='flex flex-col'
           >
-            <div className='m-auto flex h-28 w-28 rounded-full bg-white text-white hover:bg-inputText'>
-              <input type='file' id='upload' className='file hidden' />
-              <label htmlFor='upload' className='group m-auto cursor-pointer'>
+            <div className='group m-auto flex h-28 w-28 cursor-pointer rounded-full bg-white text-white hover:bg-inputText'>
+              <input
+                type='file'
+                id='upload'
+                onChange={handleChange}
+                className='file hidden'
+              />
+
+              <label htmlFor='upload' className='m-auto'>
                 <Image
                   src={logo}
                   alt='Logo do GoBarber'
-                  className='absolute m-3'
+                  className='absolute -mt-10 ml-3 cursor-pointer'
                 />
 
                 <p className='group-hover:opacity-1 absolute m-3 mt-10 opacity-0'>
                   Escolher
                 </p>
-
-                <div className='m-20 flex h-12 w-12 rounded-full bg-orange group-hover:bg-buttonHover'>
-                  <FiCamera className='m-auto text-black' size={28} />
-                </div>
               </label>
+
+              {file && fileUrl && (
+                <div
+                  onClick={handleRemove}
+                  className='group absolute m-auto cursor-pointer'
+                >
+                  <Image
+                    src={fileUrl}
+                    alt={file.name}
+                    className='h-28 w-28 rounded-full'
+                    width={112}
+                    height={112}
+                  />
+
+                  <p className='group-hover:opacity-1 absolute m-3 mt-10 opacity-0'>
+                    Remover
+                  </p>
+                </div>
+              )}
+
+              <div className='z-10 m-20 flex h-12 w-12 rounded-full bg-orange p-2 group-hover:bg-buttonHover'>
+                <FiCamera className='m-auto text-black' size={28} />
+              </div>
             </div>
 
             <div className='m-auto flex place-items-center p-4 pt-8'>
