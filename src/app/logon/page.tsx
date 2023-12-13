@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { z } from 'zod';
@@ -27,6 +28,8 @@ const AuthenticateFormSchema = z.object({
 type AuthenticateFormType = z.infer<typeof AuthenticateFormSchema>;
 
 export default function Logon() {
+  const [isFilled, setIsFilled] = useState(false);
+
   const Router = useRouter();
 
   const {
@@ -36,6 +39,12 @@ export default function Logon() {
   } = useForm<AuthenticateFormType>({
     resolver: zodResolver(AuthenticateFormSchema),
   });
+
+  const handleFilled = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value) {
+      setIsFilled(true);
+    }
+  };
 
   const submitHandler = (data: AuthenticateFormType) => {
     api
@@ -70,14 +79,30 @@ export default function Logon() {
             onSubmit={handleSubmit(submitHandler)}
             className='flex flex-col items-center'
           >
-            <div className='py-4'>
-              <FiMail className='absolute mx-4 mt-5 text-inputText ' />
-              <input
-                {...register('email')}
-                type='email'
-                placeholder='Email'
-                className='m-auto flex-row px-10 outline-none placeholder:text-inputText'
-              />
+            <div
+              className='group relative flex items-center py-4'
+              onChange={handleFilled}
+            >
+              {isFilled ? (
+                <FiMail className='absolute mx-4 text-orange' />
+              ) : (
+                <FiMail className='absolute mx-4 text-inputText group-focus-within:text-orange' />
+              )}
+
+              {isFilled ? (
+                <input
+                  placeholder='Email'
+                  className='m-auto flex-row px-10 text-orange outline-none ring-2 ring-orange placeholder:text-inputText focus:placeholder:text-orange'
+                />
+              ) : (
+                <input
+                  {...register('email')}
+                  type='email'
+                  placeholder='Email'
+                  className='m-auto flex-row px-10 text-orange outline-none placeholder:text-inputText focus:ring-2 focus:ring-orange focus:placeholder:text-orange'
+                />
+              )}
+
               {errors.email && (
                 <span className='mt-2 flex flex-col'>
                   {errors.email.message}
