@@ -55,8 +55,6 @@ export default function Signin() {
     if (file) {
       const url = URL.createObjectURL(file);
 
-      console.log(file.name);
-
       setFileUrl(url);
     } else {
       setFileUrl(undefined);
@@ -70,13 +68,22 @@ export default function Signin() {
 
   const submitHandler = (data: SigninFormType) => {
     api
-      .post('/users/', {
-        name: data.name,
-        email: data.email,
-        password: data.password,
-        location: 'Somewhere Over the Rainbow',
-        avatar: file?.name,
-      })
+      .post(
+        '/users/',
+        {
+          name: data.name,
+          email: data.email,
+          password: data.password,
+          location: 'Somewhere Over the Rainbow',
+          avatar: file,
+        },
+        {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'multipart/form-data;boundary=None',
+          },
+        }
+      )
       .then((response) => {
         const { token, user } = response.data;
 
@@ -104,12 +111,12 @@ export default function Signin() {
             <div className='group m-auto flex h-28 w-28 cursor-pointer rounded-full bg-white text-white hover:bg-inputText'>
               <input
                 type='file'
-                id='upload'
+                id='avatar'
                 onChange={handleChange}
                 className='file hidden'
               />
 
-              <label htmlFor='upload' className='m-auto'>
+              <label htmlFor='avatar' className='m-auto'>
                 <Image
                   src={logo}
                   alt='Logo do GoBarber'
