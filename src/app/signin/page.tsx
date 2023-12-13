@@ -17,14 +17,20 @@ import api from '../../services/api';
 import image from '@public/gobarber_image003.svg';
 import logo from '@public/gobarber_logo.svg';
 
-const SigninFormSchema = z.object({
-  name: z.string().min(3, 'Necessita ser um nome válido'),
-  email: z
-    .string()
-    .email('Email é obrigatório')
-    .min(6, 'Necessita ter no mínimo 6 caracteres'),
-  password: z.string().min(8, 'Necessita ter no mínimo 8 caracteres'),
-});
+const SigninFormSchema = z
+  .object({
+    name: z.string().min(3, 'Necessita ser um nome válido'),
+    email: z
+      .string()
+      .email('Email é obrigatório')
+      .min(6, 'Necessita ter no mínimo 6 caracteres'),
+    password: z.string().min(8, 'Necessita ter no mínimo 8 caracteres'),
+    confirmPassword: z.string().min(8, 'Necessita confirmar a senha'),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'As senhas necessitam combinar',
+    path: ['confirmPassword'],
+  });
 
 type SigninFormType = z.infer<typeof SigninFormSchema>;
 
@@ -216,11 +222,17 @@ export default function Signin() {
             />
 
             {errors.password && <span>{errors.password.message}</span>}
-            {/* <input
+
+            <input
+              {...register('confirmPassword')}
               type='password'
               placeholder='Confirmar senha'
               className='m-auto mb-2 flex-row px-10 outline-none placeholder:text-inputText'
-            /> */}
+            />
+
+            {errors.confirmPassword && (
+              <span>{errors.confirmPassword.message}</span>
+            )}
 
             <button
               type='submit'
