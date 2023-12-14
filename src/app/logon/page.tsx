@@ -80,33 +80,36 @@ export default function Logon() {
             className='flex flex-col items-center'
           >
             <div
-              className='group relative flex items-center py-4'
+              className='group relative flex flex-col items-center py-3'
               onChange={handleFilled}
             >
               {isFilled ? (
-                <FiMail className='absolute mx-4 text-orange' />
+                <FiMail className='absolute mx-8 -ml-64 mt-5 text-orange' />
               ) : (
-                <FiMail className='absolute mx-4 text-inputText group-focus-within:text-orange' />
+                <FiMail className='absolute mx-8 -ml-64 mt-5 text-inputText group-focus-within:text-orange' />
               )}
 
               {isFilled ? (
                 <input
+                  {...register('email')}
+                  type='email'
                   placeholder='Email'
                   className='m-auto flex-row px-10 text-orange outline-none ring-2 ring-orange placeholder:text-inputText focus:placeholder:text-orange'
                 />
               ) : (
                 <input
-                  {...register('email')}
-                  type='email'
                   placeholder='Email'
                   className='m-auto flex-row px-10 text-orange outline-none placeholder:text-inputText focus:ring-2 focus:ring-orange focus:placeholder:text-orange'
                 />
               )}
 
               {errors.email && (
-                <span className='mt-2 flex flex-col'>
-                  {errors.email.message}
-                </span>
+                <div className='mt-4'>
+                  <div className='absolute -z-10 -mt-2 ml-48 h-4 w-4 rotate-45 bg-red' />
+                  <div className='rounded-xl bg-red p-2'>
+                    <span className=''>{errors.email.message}</span>
+                  </div>
+                </div>
               )}
             </div>
 
@@ -118,6 +121,7 @@ export default function Logon() {
                 placeholder='Senha'
                 className='m-auto flex-row px-10 outline-none placeholder:text-inputText '
               />
+
               {errors.password && (
                 <span className='mt-2 flex flex-col'>
                   {errors.password.message}
