@@ -98,7 +98,7 @@ export default function Signin() {
 
         isSelected === 'client'
           ? Router.push('../dashboard/client')
-          : Router.push('../dashboard/barber');
+          : Router.push('./barber');
       });
   };
 
@@ -238,7 +238,7 @@ export default function Signin() {
               type='submit'
               className='m-auto mb-4 mt-6 bg-orange max-sm:my-4'
             >
-              Entrar
+              Cadastrar
             </button>
           </form>
 
