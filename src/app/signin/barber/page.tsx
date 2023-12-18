@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+
 import ImageContainer from '@/components/ImageContainer';
 import Logo from '@components/Logo';
 
@@ -15,13 +16,13 @@ export default function SigninBarber() {
 
   return (
     <main>
-      {/* <ImageContainer src={image} alt='Foto de barbeiro' /> */}
-
       <div className='flex'>
-        <section className='grid w-screen'>
+        <ImageContainer src={image} alt='Foto de barbeiro' />
+
+        <section className='grid w-screen py-8'>
           <Logo />
 
-          <form className='m-auto flex flex-col'>
+          <form className='m-auto flex flex-col py-4'>
             <textarea
               placeholder='Selecione o lugar no mapa'
               className='mb-2 h-48 w-80 rounded-xl bg-input px-10 py-4 outline-none placeholder:text-inputText'
