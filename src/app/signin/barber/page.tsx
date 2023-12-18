@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { FiPlus } from 'react-icons/fi';
 
 import ImageContainer from '@/components/ImageContainer';
 import Logo from '@components/Logo';
@@ -25,7 +26,7 @@ export default function SigninBarber() {
           <form className='m-auto flex flex-col py-4'>
             <textarea
               placeholder='Selecione o lugar no mapa'
-              className='mb-2 h-48 w-80 rounded-xl bg-input px-10 py-4 outline-none placeholder:text-inputText'
+              className='mb-2 h-48 w-full resize-none rounded-xl bg-input px-10 py-4 outline-none placeholder:text-inputText'
             />
 
             <input
@@ -35,8 +36,21 @@ export default function SigninBarber() {
 
             <textarea
               placeholder='Descrição'
-              className='mb-2 h-48 w-80 rounded-xl bg-input px-10 py-4 outline-none placeholder:text-inputText'
+              className='mb-2 h-48 w-full resize-none rounded-xl bg-input px-10 py-4 outline-none placeholder:text-inputText'
             />
+
+            <h3 className='mt-4'>Fotos</h3>
+
+            <div>
+              <input type='file' id='images' className='file hidden' />
+
+              <label
+                htmlFor='images'
+                className='my-4 flex h-24 w-24 cursor-pointer items-center justify-center rounded-xl bg-input hover:bg-orange hover:text-buttonText'
+              >
+                <FiPlus size={24} className='text-inputText' />
+              </label>
+            </div>
 
             <h3 className='mt-4'>Sua barbearia é aberta à noite?</h3>
 
@@ -52,7 +66,7 @@ export default function SigninBarber() {
                 />
                 <label
                   htmlFor='openAtNightYes'
-                  className='cursor-pointer justify-center rounded-lg p-3 text-center hover:bg-input peer-checked:bg-orange peer-checked:text-buttonText'
+                  className='cursor-pointer justify-center rounded-lg p-3 px-6 text-center hover:bg-input peer-checked:bg-orange peer-checked:text-buttonText'
                 >
                   Sim
                 </label>
@@ -69,7 +83,7 @@ export default function SigninBarber() {
                 />
                 <label
                   htmlFor='openAtNightNo'
-                  className='cursor-pointer justify-center rounded-lg p-3 text-center hover:bg-input peer-checked:bg-orange peer-checked:text-buttonText'
+                  className='cursor-pointer justify-center rounded-lg p-3 px-6 text-center hover:bg-input peer-checked:bg-orange peer-checked:text-buttonText'
                 >
                   Não
                 </label>
@@ -90,7 +104,7 @@ export default function SigninBarber() {
                 />
                 <label
                   htmlFor='openOnWeekendsYes'
-                  className='cursor-pointer justify-center rounded-lg p-3 text-center hover:bg-input peer-checked:bg-orange peer-checked:text-buttonText'
+                  className='cursor-pointer justify-center rounded-lg p-3 px-6 text-center hover:bg-input peer-checked:bg-orange peer-checked:text-buttonText'
                 >
                   Sim
                 </label>
@@ -107,7 +121,7 @@ export default function SigninBarber() {
                 />
                 <label
                   htmlFor='openOnWeekendsNo'
-                  className='cursor-pointer justify-center rounded-lg p-3 text-center hover:bg-input peer-checked:bg-orange peer-checked:text-buttonText'
+                  className='cursor-pointer justify-center rounded-lg p-3 px-6 text-center hover:bg-input peer-checked:bg-orange peer-checked:text-buttonText'
                 >
                   Não
                 </label>
