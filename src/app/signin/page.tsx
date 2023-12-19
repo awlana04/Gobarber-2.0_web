@@ -91,7 +91,9 @@ export default function Signin() {
         }
       )
       .then((response) => {
-        const { token, user } = response.data;
+        const { token, user } = response.data.value;
+
+        console.log(token, user);
 
         localStorage.setItem('@GoBarber:token', token);
         localStorage.setItem('@GoBarber:user', JSON.stringify(user));
