@@ -72,36 +72,32 @@ export default function Signin() {
     setFile(undefined);
   };
 
-  const submitHandler = (data: SigninFormType) => {
-    api
-      .post(
-        '/users/',
-        {
-          name: data.name,
-          email: data.email,
-          password: data.password,
-          location: 'Somewhere Over the Rainbow',
-          avatar: file,
+  const submitHandler = async (data: SigninFormType) => {
+    const response = await api.post(
+      '/users/',
+      {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        location: 'Somewhere Over the Rainbow',
+        avatar: file,
+      },
+      {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'multipart/form-data;boundary=None',
         },
-        {
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'multipart/form-data;boundary=None',
-          },
-        }
-      )
-      .then((response) => {
-        const { token, user } = response.data.value;
+      }
+    );
 
-        console.log(token, user);
+    const { token, user } = response.data.value;
 
-        localStorage.setItem('@GoBarber:token', token);
-        localStorage.setItem('@GoBarber:user', JSON.stringify(user));
+    localStorage.setItem('@GoBarber:token', token);
+    localStorage.setItem('@GoBarber:user', JSON.stringify(user));
 
-        isSelected === 'client'
-          ? Router.push('../dashboard/client')
-          : Router.push('./barber');
-      });
+    isSelected === 'client'
+      ? Router.push('../dashboard/client')
+      : Router.push('./signin/barber');
   };
 
   return (

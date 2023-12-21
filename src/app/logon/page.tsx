@@ -46,26 +46,24 @@ export default function Logon() {
     }
   };
 
-  const submitHandler = (data: AuthenticateFormType) => {
-    api
-      .post('/users/session', {
-        email: data.email,
-        password: data.password,
-      })
-      .then((response) => {
-        const { token, user, barber } = response.data;
+  const submitHandler = async (data: AuthenticateFormType) => {
+    const response = await api.post('/users/session', {
+      email: data.email,
+      password: data.password,
+    });
 
-        localStorage.setItem('@GoBarber:token', token);
-        localStorage.setItem('@GoBarber:user', JSON.stringify(user));
+    const { token, user, barber } = response.data;
 
-        if (barber !== null) {
-          localStorage.setItem('@GoBarber:barber', JSON.stringify(barber));
+    localStorage.setItem('@GoBarber:token', token);
+    localStorage.setItem('@GoBarber:user', JSON.stringify(user));
 
-          Router.push('../dashboard/barber');
-        } else {
-          Router.push('../dashboard/client');
-        }
-      });
+    if (barber !== null) {
+      localStorage.setItem('@GoBarber:barber', JSON.stringify(barber));
+
+      Router.push('../dashboard/barber');
+    } else {
+      Router.push('../dashboard/client');
+    }
   };
 
   return (

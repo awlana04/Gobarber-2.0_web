@@ -2,10 +2,11 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FiPlus } from 'react-icons/fi';
+import { FiPlus, FiX } from 'react-icons/fi';
 
 import ImageContainer from '@/components/ImageContainer';
 import Logo from '@components/Logo';
@@ -26,6 +27,8 @@ type SigninBarberType = z.infer<typeof SigninBarberSchema>;
 export default function SigninBarber() {
   const Router = useRouter();
 
+  const [file, setFile] = useState<File[]>([]);
+  const [fileUrl, setFileUrl] = useState<string[]>([]);
   const [isOpenAtNightSelected, setIsOpenAtNightSelected] = useState(false);
   const [isOpenOnWeekendsSelected, setIsOpenOnWeekendsSelected] =
     useState(false);
@@ -38,28 +41,54 @@ export default function SigninBarber() {
     resolver: zodResolver(SigninBarberSchema),
   });
 
-  const submitHandler = (data: SigninBarberType) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) {
+      return;
+    }
+
+    const selectedImages = Array.from(e.target.files);
+
+    setFile(selectedImages);
+
+    const selectedImagesPreview = selectedImages.map((image) => {
+      return URL.createObjectURL(image);
+    });
+
+    setFileUrl(selectedImagesPreview.concat(fileUrl));
+  };
+
+  const submitHandler = async (data: SigninBarberType) => {
     const token = localStorage.getItem('@GoBarber:token');
     const user = JSON.parse(localStorage.getItem('@GoBarber:user')!);
 
     api.defaults.headers.authorization = `Bearer ${token}`;
 
-    api
-      .post(`/barbers/${user.id}`, {
-        name: data.name,
-        location: data.location,
-        description: data.description,
-        openAtNight: isOpenAtNightSelected,
-        openOnWeekends: isOpenOnWeekendsSelected,
-        userId: user.id,
-      })
-      .then((response) => {
-        const { barber } = response.data.value;
+    const response = await api.post(`/barbers/${user.id}`, {
+      name: data.name,
+      location: data.location,
+      description: data.description,
+      openAtNight: isOpenAtNightSelected,
+      openOnWeekends: isOpenOnWeekendsSelected,
+      userId: user.id,
+    });
 
-        localStorage.setItem('@GoBarber:barber', barber);
+    const barber = response.data.value;
 
-        Router.push('../../dashboard/barber');
-      });
+    const formData = new FormData();
+
+    file.forEach((image) => {
+      formData.append('images', image);
+    });
+
+    api.patch(`/barbers/${barber.id}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    localStorage.setItem('@GoBarber:barber', JSON.stringify(barber));
+
+    Router.push('../../dashboard/barber');
   };
 
   return (
@@ -95,14 +124,64 @@ export default function SigninBarber() {
             <h3 className='mt-4'>Fotos</h3>
 
             <div>
-              <input type='file' id='images' className='file hidden' />
+              <input
+                type='file'
+                id='images[]'
+                multiple
+                onChange={handleChange}
+                className='file hidden'
+              />
 
-              <label
-                htmlFor='images'
-                className='my-4 flex h-24 w-24 cursor-pointer items-center justify-center rounded-xl bg-input hover:bg-orange hover:text-buttonText'
-              >
-                <FiPlus size={24} className='text-inputText' />
-              </label>
+              {file && fileUrl && (
+                <div className='grid grid-flow-col grid-rows-4 gap-6'>
+                  {fileUrl.map((image) => {
+                    return (
+                      <div
+                        key={image}
+                        className='flex h-28 w-28 justify-end rounded-xl'
+                      >
+                        <div
+                          onClick={() => {
+                            const imageFile = fileUrl.findIndex(
+                              (file) => file === image
+                            );
+
+                            const fileIndex = file.at(imageFile);
+
+                            setFile(
+                              file.filter(
+                                (files) => files.name !== fileIndex!.name
+                              )
+                            );
+
+                            setFileUrl(
+                              fileUrl.filter((files) => files !== image)
+                            );
+                          }}
+                          className='absolute grid cursor-pointer rounded-lg bg-orange p-1 text-2xl text-inputText hover:h-28 hover:w-28 hover:bg-red hover:text-4xl'
+                        >
+                          <FiX className='m-auto' />
+                        </div>
+
+                        <Image
+                          key={image}
+                          src={image}
+                          alt={image}
+                          width={112}
+                          height={112}
+                        />
+                      </div>
+                    );
+                  })}
+
+                  <label
+                    htmlFor='images[]'
+                    className='my-4 flex h-24 w-24 cursor-pointer items-center justify-center rounded-xl bg-input hover:bg-orange hover:text-buttonText'
+                  >
+                    <FiPlus size={24} className='text-inputText' />
+                  </label>
+                </div>
+              )}
             </div>
 
             <h3 className='mt-4'>Sua barbearia é aberta à noite?</h3>

@@ -22,7 +22,7 @@ export default function Landing() {
             <br />
             Aqui você pode começar criando a sua conta como{' '}
             <strong>usuário</strong> e fazer o seu primeiro agendamento, ou
-            iniciar como um <strong>barbeiro</strong> e ir acompanhanto as
+            iniciar como um <strong>barbeiro</strong> e ir acompanhando as
             demandas.
           </p>
 
