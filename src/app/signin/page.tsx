@@ -5,17 +5,16 @@ import { useRouter } from 'next/navigation';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import Image from 'next/image';
-import { FiCamera } from 'react-icons/fi';
+import { FiUser, FiMail, FiLock } from 'react-icons/fi';
 
 import Logo from '@/components/Logo';
 import ImageContainer from '@/components/ImageContainer';
 import LinkToBack from '@/components/LinkToBack';
+import { Form } from '@/components/Form/index';
 
 import api from '../../services/api';
 
 import image from '@public/gobarber_image003.svg';
-import logo from '@public/gobarber_logo.svg';
 
 const SigninFormSchema = z
   .object({
@@ -38,7 +37,6 @@ export default function Signin() {
   const Router = useRouter();
 
   const [file, setFile] = useState<File | undefined>(undefined);
-  const [fileUrl, setFileUrl] = useState<string | undefined>(undefined);
   const [isSelected, setIsSelected] = useState('client');
 
   const {
@@ -48,29 +46,6 @@ export default function Signin() {
   } = useForm<SigninFormType>({
     resolver: zodResolver(SigninFormSchema),
   });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-
-    setFile(file);
-
-    if (fileUrl) {
-      URL.revokeObjectURL(fileUrl);
-    }
-
-    if (file) {
-      const url = URL.createObjectURL(file);
-
-      setFileUrl(url);
-    } else {
-      setFileUrl(undefined);
-    }
-  };
-
-  const handleRemove = () => {
-    setFileUrl(undefined);
-    setFile(undefined);
-  };
 
   const submitHandler = async (data: SigninFormType) => {
     const response = await api.post(
@@ -108,129 +83,19 @@ export default function Signin() {
         <section className='grid w-screen'>
           <Logo />
 
-          <form
-            onSubmit={handleSubmit(submitHandler)}
-            className='flex flex-col'
-          >
-            <div className='group m-auto flex h-28 w-28 cursor-pointer rounded-full bg-white text-white hover:bg-inputText'>
-              <input
-                type='file'
-                id='avatar'
-                onChange={handleChange}
-                className='file hidden'
-              />
+          <Form.Root>
+            <Form.Avatar />
 
-              <label htmlFor='avatar' className='m-auto'>
-                <Image
-                  src={logo}
-                  alt='Logo do GoBarber'
-                  className='absolute -mt-10 ml-3 cursor-pointer'
-                />
+            <Form.Radio />
 
-                <p className='group-hover:opacity-1 absolute m-3 mt-10 opacity-0'>
-                  Escolher
-                </p>
-              </label>
-
-              {file && fileUrl && (
-                <div
-                  onClick={handleRemove}
-                  className='group absolute m-auto cursor-pointer'
-                >
-                  <Image
-                    src={fileUrl}
-                    alt={file.name}
-                    className='h-28 w-28 rounded-full'
-                    width={112}
-                    height={112}
-                  />
-
-                  <p className='group-hover:opacity-1 absolute m-3 mt-10 opacity-0'>
-                    Remover
-                  </p>
-                </div>
-              )}
-
-              <div className='z-10 m-20 flex h-12 w-12 rounded-full bg-orange p-2 group-hover:bg-buttonHover'>
-                <FiCamera className='m-auto text-black' size={28} />
-              </div>
-            </div>
-
-            <div className='m-auto flex place-items-center p-4 pt-8'>
-              <div className='mr-24'>
-                <input
-                  type='radio'
-                  id='client'
-                  value='client'
-                  name='user'
-                  checked={isSelected === 'client'}
-                  onChange={(e) => setIsSelected(e.target.value)}
-                  className='peer hidden'
-                />
-                <label
-                  htmlFor='client'
-                  className='cursor-pointer justify-center rounded-lg p-3 text-center hover:bg-input peer-checked:bg-orange peer-checked:text-buttonText'
-                >
-                  Sou cliente
-                </label>
-              </div>
-
-              <div>
-                <input
-                  type='radio'
-                  id='barber'
-                  value='barber'
-                  name='user'
-                  checked={isSelected === 'barber'}
-                  onChange={(e) => setIsSelected(e.target.value)}
-                  className='peer hidden'
-                />
-                <label
-                  htmlFor='barber'
-                  className='cursor-pointer justify-center rounded-lg p-3 text-center hover:bg-input peer-checked:bg-orange peer-checked:text-buttonText'
-                >
-                  Sou barbeiro
-                </label>
-              </div>
-            </div>
-
-            <input
-              {...register('name')}
-              type='text'
-              placeholder='Nome'
-              className='m-auto mb-2 flex-row px-10 outline-none placeholder:text-inputText'
-            />
-
-            {errors.name && <span>{errors.name.message}</span>}
-
-            <input
-              {...register('email')}
-              type='email'
-              placeholder='E-mail'
-              className='m-auto mb-2 flex-row px-10 outline-none placeholder:text-inputText'
-            />
-
-            {errors.email && <span>{errors.email.message}</span>}
-
-            <input
-              {...register('password')}
-              type='password'
-              placeholder='Senha'
-              className='m-auto mb-2 flex-row px-10 outline-none placeholder:text-inputText'
-            />
-
-            {errors.password && <span>{errors.password.message}</span>}
-
-            <input
-              {...register('confirmPassword')}
+            <Form.Input icon={FiUser} type='text' placeholder='Nome' />
+            <Form.Input icon={FiMail} type='email' placeholder='E-mail' />
+            <Form.Input icon={FiLock} type='password' placeholder='Senha' />
+            <Form.Input
+              icon={FiLock}
               type='password'
               placeholder='Confirmar senha'
-              className='m-auto mb-2 flex-row px-10 outline-none placeholder:text-inputText'
             />
-
-            {errors.confirmPassword && (
-              <span>{errors.confirmPassword.message}</span>
-            )}
 
             <button
               type='submit'
@@ -238,7 +103,7 @@ export default function Signin() {
             >
               Cadastrar
             </button>
-          </form>
+          </Form.Root>
 
           <LinkToBack />
         </section>

@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { z } from 'zod';
@@ -9,9 +8,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FiMail, FiLock } from 'react-icons/fi';
 
 import Logo from '@/components/Logo';
-import Button from '@/components/Button';
 import CreateAccount from '@/components/CreateAccount';
 import ImageContainer from '@/components/ImageContainer';
+import { Form } from '@/components/Form';
 
 import image from '@public/gobarber_image002.svg';
 
@@ -28,8 +27,6 @@ const AuthenticateFormSchema = z.object({
 type AuthenticateFormType = z.infer<typeof AuthenticateFormSchema>;
 
 export default function Logon() {
-  const [isFilled, setIsFilled] = useState(false);
-
   const Router = useRouter();
 
   const {
@@ -39,12 +36,6 @@ export default function Logon() {
   } = useForm<AuthenticateFormType>({
     resolver: zodResolver(AuthenticateFormSchema),
   });
-
-  const handleFilled = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value) {
-      setIsFilled(true);
-    }
-  };
 
   const submitHandler = async (data: AuthenticateFormType) => {
     const response = await api.post('/users/session', {
@@ -71,66 +62,19 @@ export default function Logon() {
       <div className='flex items-center justify-center'>
         <main className='grid w-screen p-12'>
           <Logo />
-          <h1 className='m-auto mt-14'>Faça seu Logon</h1>
+          <h1 className='m-auto mb-4 mt-14'>Faça seu Logon</h1>
 
-          <form
-            onSubmit={handleSubmit(submitHandler)}
-            className='flex flex-col items-center'
-          >
-            <div
-              className='group relative flex flex-col items-center py-3'
-              onChange={handleFilled}
-            >
-              {isFilled ? (
-                <FiMail className='absolute mx-8 -ml-64 mt-5 text-orange' />
-              ) : (
-                <FiMail className='absolute mx-8 -ml-64 mt-5 text-inputText group-focus-within:text-orange' />
-              )}
+          <Form.Root onSubmit={handleSubmit(submitHandler)}>
+            <Form.Input icon={FiMail} type='email' placeholder='Email' />
 
-              {isFilled ? (
-                <input
-                  {...register('email')}
-                  type='email'
-                  placeholder='Email'
-                  className='m-auto flex-row px-10 text-orange outline-none ring-2 ring-orange placeholder:text-inputText focus:placeholder:text-orange'
-                />
-              ) : (
-                <input
-                  placeholder='Email'
-                  className='m-auto flex-row px-10 text-orange outline-none placeholder:text-inputText focus:ring-2 focus:ring-orange focus:placeholder:text-orange'
-                />
-              )}
+            {errors.email && <span>{errors.email.message}</span>}
 
-              {errors.email && (
-                <div className='mt-4'>
-                  <div className='absolute -z-10 -mt-2 ml-48 h-4 w-4 rotate-45 bg-red' />
-                  <div className='rounded-xl bg-red p-2'>
-                    <span className=''>{errors.email.message}</span>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            <div className='flex-row'>
-              <FiLock className='absolute mx-4 mt-5 text-inputText ' />
-              <input
-                {...register('password')}
-                type='password'
-                placeholder='Senha'
-                className='m-auto flex-row px-10 outline-none placeholder:text-inputText '
-              />
-
-              {errors.password && (
-                <span className='mt-2 flex flex-col'>
-                  {errors.password.message}
-                </span>
-              )}
-            </div>
+            <Form.Input icon={FiLock} type='password' placeholder='Senha' />
 
             <button type='submit' className='my-6 bg-orange max-sm:my-4'>
               Entrar
             </button>
-          </form>
+          </Form.Root>
 
           <Link href='./forgot-password' className='m-auto my-2'>
             Esqueci minha senha
