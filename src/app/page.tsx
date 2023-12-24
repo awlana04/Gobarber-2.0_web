@@ -11,10 +11,10 @@ export default function Landing() {
       <div className='flex items-center justify-center'>
         <ImageContainer src={image} alt='Foto da barbearia' />
 
-        <main className='grid w-screen p-2 py-14 max-sm:py-4'>
+        <main className='flex w-screen flex-col items-center justify-center p-2 py-14 max-sm:py-4'>
           <Logo />
 
-          <p className='m-auto my-10 w-[50%] max-sm:my-4 max-sm:w-[80%]'>
+          <p className='my-10 w-[50%] max-sm:my-4 max-sm:w-[80%]'>
             O <strong>GoBarber</strong> é uma aplicação voltada para
             barbeiros(a) e homens à procura de um ótimo profissional para cuidar
             da sua beleza masculina.
@@ -26,7 +26,7 @@ export default function Landing() {
             demandas.
           </p>
 
-          <Button href='./logon' />
+          <Button type='button' href='./logon' />
 
           <CreateAccount />
         </main>

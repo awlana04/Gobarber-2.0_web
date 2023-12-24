@@ -88,11 +88,11 @@ export default function Signin() {
 
             <Form.Radio />
 
-            <Form.Input icon={FiUser} type='text' placeholder='Nome' />
-            <Form.Input icon={FiMail} type='email' placeholder='E-mail' />
-            <Form.Input icon={FiLock} type='password' placeholder='Senha' />
+            <Form.Input iconName={FiUser} type='text' placeholder='Nome' />
+            <Form.Input iconName={FiMail} type='email' placeholder='E-mail' />
+            <Form.Input iconName={FiLock} type='password' placeholder='Senha' />
             <Form.Input
-              icon={FiLock}
+              iconName={FiLock}
               type='password'
               placeholder='Confirmar senha'
             />

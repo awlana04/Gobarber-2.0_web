@@ -11,6 +11,7 @@ import Logo from '@/components/Logo';
 import CreateAccount from '@/components/CreateAccount';
 import ImageContainer from '@/components/ImageContainer';
 import { Form } from '@/components/Form';
+import Button from '@/components/Button';
 
 import image from '@public/gobarber_image002.svg';
 
@@ -71,9 +72,7 @@ export default function Logon() {
 
             <Form.Input iconName={FiLock} type='password' placeholder='Senha' />
 
-            <button type='submit' className='my-6 bg-orange max-sm:my-4'>
-              Entrar
-            </button>
+            <Button type='submit' href='#' />
           </Form.Root>
 
           <Link href='./forgot-password' className='m-auto my-2'>
