@@ -4,6 +4,7 @@ import FormAvatarButton from './FormAvatarButton';
 import FormRadioButton from './FormRadioButton';
 import FormTitle from './FormTitle';
 import FormTextarea from './FormTextarea';
+import FormImagesInput from './FormImagesInput';
 
 export const Form = {
   Root: FormRoot,
@@ -12,4 +13,5 @@ export const Form = {
   Radio: FormRadioButton,
   Title: FormTitle,
   Textarea: FormTextarea,
+  Images: FormImagesInput,
 };

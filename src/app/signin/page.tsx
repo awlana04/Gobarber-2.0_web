@@ -87,7 +87,7 @@ export default function Signin() {
           <Form.Root>
             <Form.Avatar />
 
-            <Form.Radio firstStateName='client' secondStateName='barber' />
+            <Form.Radio />
 
             <Form.Input iconName={FiUser} type='text' placeholder='Nome' />
             <Form.Input iconName={FiMail} type='email' placeholder='E-mail' />
