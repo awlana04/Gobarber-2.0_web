@@ -72,7 +72,9 @@ export default function Logon() {
 
             <Form.Input iconName={FiLock} type='password' placeholder='Senha' />
 
-            <Button type='submit' href='#' />
+            <Button type='submit' href='#'>
+              Entrar
+            </Button>
           </Form.Root>
 
           <Link href='./forgot-password' className='m-auto my-2'>

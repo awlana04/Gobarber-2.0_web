@@ -11,6 +11,7 @@ import Logo from '@/components/Logo';
 import ImageContainer from '@/components/ImageContainer';
 import LinkToBack from '@/components/LinkToBack';
 import { Form } from '@/components/Form/index';
+import Button from '@/components/Button';
 
 import api from '../../services/api';
 
@@ -86,7 +87,7 @@ export default function Signin() {
           <Form.Root>
             <Form.Avatar />
 
-            <Form.Radio />
+            <Form.Radio firstStateName='client' secondStateName='barber' />
 
             <Form.Input iconName={FiUser} type='text' placeholder='Nome' />
             <Form.Input iconName={FiMail} type='email' placeholder='E-mail' />
@@ -97,12 +98,9 @@ export default function Signin() {
               placeholder='Confirmar senha'
             />
 
-            <button
-              type='submit'
-              className='m-auto mb-4 mt-6 bg-orange max-sm:my-4'
-            >
+            <Button type='submit' href='#'>
               Cadastrar
-            </button>
+            </Button>
           </Form.Root>
 
           <LinkToBack />

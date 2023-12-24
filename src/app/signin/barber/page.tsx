@@ -6,7 +6,13 @@ import Image from 'next/image';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FiPlus, FiX, FiScissors } from 'react-icons/fi';
+import {
+  FiPlus,
+  FiX,
+  FiScissors,
+  FiMessageSquare,
+  FiMapPin,
+} from 'react-icons/fi';
 
 import ImageContainer from '@/components/ImageContainer';
 import Logo from '@components/Logo';
@@ -100,16 +106,19 @@ export default function SigninBarber() {
         <section className='grid w-screen py-8'>
           <Logo />
 
-          <Form.Textarea placeholder='Selecione o lugar no mapa' />
+          <Form.Textarea
+            placeholder='Selecione o lugar no mapa'
+            iconName={FiMapPin}
+          />
 
           <Form.Root>
             <Form.Input
-              icon={FiScissors}
+              iconName={FiScissors}
               type='text'
               placeholder='Nome da barbearia'
             />
 
-            <Form.Textarea placeholder='Descrição' />
+            <Form.Textarea placeholder='Descrição' iconName={FiMessageSquare} />
 
             <Form.Title>Sua barbearia abre à noite?</Form.Title>
             <Form.Radio />

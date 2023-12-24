@@ -26,7 +26,9 @@ export default function Landing() {
             demandas.
           </p>
 
-          <Button type='button' href='./logon' />
+          <Button type='button' href='./logon'>
+            Fazer logon
+          </Button>
 
           <CreateAccount />
         </main>
