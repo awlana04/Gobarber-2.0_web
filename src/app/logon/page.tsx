@@ -65,11 +65,11 @@ export default function Logon() {
           <h1 className='m-auto mb-4 mt-14'>Faça seu Logon</h1>
 
           <Form.Root onSubmit={handleSubmit(submitHandler)}>
-            <Form.Input icon={FiMail} type='email' placeholder='Email' />
+            <Form.Input iconName={FiMail} type='email' placeholder='Email' />
 
             {errors.email && <span>{errors.email.message}</span>}
 
-            <Form.Input icon={FiLock} type='password' placeholder='Senha' />
+            <Form.Input iconName={FiLock} type='password' placeholder='Senha' />
 
             <button type='submit' className='my-6 bg-orange max-sm:my-4'>
               Entrar

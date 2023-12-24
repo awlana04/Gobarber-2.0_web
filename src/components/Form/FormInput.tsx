@@ -1,26 +1,21 @@
-'use client';
+import { ElementType, InputHTMLAttributes } from 'react';
 
-import { useState, ElementType, InputHTMLAttributes } from 'react';
+import { Icon } from '../Icon/index';
+import IconState from '../Icon/IconState';
 
 interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  icon: ElementType;
+  iconName: ElementType;
   type: 'email' | 'password' | 'text';
   placeholder: string;
 }
 
 export default function FormInput({
-  icon: Icon,
+  iconName,
   type,
   placeholder,
   ...rest
 }: FormInputProps) {
-  const [isFilled, setIsFilled] = useState(false);
-
-  const handleFilled = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value) {
-      setIsFilled(true);
-    }
-  };
+  const { isFilled, handleFilled } = IconState();
 
   return (
     <div
@@ -28,22 +23,22 @@ export default function FormInput({
       onChange={handleFilled}
     >
       {isFilled ? (
-        <Icon className='absolute mx-8 -ml-64 mt-5 text-orange' />
+        <Icon.IconFilled icon={iconName} />
       ) : (
-        <Icon className='absolute mx-8 -ml-64 mt-5 text-inputText group-focus-within:text-orange' />
+        <Icon.Icon icon={iconName} />
       )}
 
       {isFilled ? (
         <input
           type={type}
           {...rest}
-          className='m-auto flex-row px-10 text-orange outline-none ring-2 ring-orange placeholder:text-inputText focus:placeholder:text-orange'
+          className='m-auto flex-row px-12 text-orange outline-none ring-2 ring-orange placeholder:text-inputText focus:placeholder:text-orange'
         />
       ) : (
         <input
           {...rest}
           placeholder={placeholder}
-          className='m-auto flex-row px-10 text-orange outline-none placeholder:text-inputText focus:ring-2 focus:ring-orange focus:placeholder:text-orange'
+          className='m-auto flex-row px-12 text-orange outline-none placeholder:text-inputText focus:ring-2 focus:ring-orange focus:placeholder:text-orange'
         />
       )}
 
