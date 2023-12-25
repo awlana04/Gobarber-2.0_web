@@ -59,38 +59,33 @@ export default function Logon() {
   };
 
   return (
-    <div>
-      <div className='flex items-center justify-center'>
-        <main className='grid w-screen p-12'>
-          <Logo />
-          <h1 className='m-auto mb-4 mt-14 text-2xl font-medium'>
-            Faça seu Logon
-          </h1>
+    <main className='flex items-center justify-center'>
+      <section className='grid w-screen p-12'>
+        <Logo />
+        <h1 className='m-auto mb-4 mt-14 text-2xl font-medium'>
+          Faça seu Logon
+        </h1>
 
-          <Form.Root onSubmit={handleSubmit(submitHandler)}>
-            <Form.Input iconName={FiMail} type='email' placeholder='Email' />
+        <Form.Root onSubmit={handleSubmit(submitHandler)}>
+          <Form.Input iconName={FiMail} type='email' placeholder='Email' />
 
-            {errors.email && <span>{errors.email.message}</span>}
+          {errors.email && <span>{errors.email.message}</span>}
 
-            <Form.Input iconName={FiLock} type='password' placeholder='Senha' />
+          <Form.Input iconName={FiLock} type='password' placeholder='Senha' />
 
-            <Button type='submit' href='#'>
-              Entrar
-            </Button>
-          </Form.Root>
+          <Button type='submit' href='#'>
+            Entrar
+          </Button>
+        </Form.Root>
 
-          <Link
-            href='./forgot-password'
-            className='m-auto my-2 hover:underline'
-          >
-            Esqueci minha senha
-          </Link>
+        <Link href='./forgot-password' className='m-auto my-2 hover:underline'>
+          Esqueci minha senha
+        </Link>
 
-          <CreateAccount />
-        </main>
+        <CreateAccount />
+      </section>
 
-        <ImageContainer src={image} alt='Imagem da barbearia' />
-      </div>
-    </div>
+      <ImageContainer src={image} alt='Imagem da barbearia' />
+    </main>
   );
 }
