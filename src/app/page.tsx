@@ -14,7 +14,7 @@ export default function Landing() {
         <main className='flex w-screen flex-col items-center justify-center p-2 py-14 max-sm:py-4'>
           <Logo />
 
-          <p className='my-10 w-[50%] max-sm:my-4 max-sm:w-[80%]'>
+          <p className='my-10 w-[50%] text-xl max-sm:my-4 max-sm:w-[80%]'>
             O <strong>GoBarber</strong> é uma aplicação voltada para
             barbeiros(a) e homens à procura de um ótimo profissional para cuidar
             da sua beleza masculina.

@@ -63,7 +63,9 @@ export default function Logon() {
       <div className='flex items-center justify-center'>
         <main className='grid w-screen p-12'>
           <Logo />
-          <h1 className='m-auto mb-4 mt-14'>Faça seu Logon</h1>
+          <h1 className='m-auto mb-4 mt-14 text-2xl font-medium'>
+            Faça seu Logon
+          </h1>
 
           <Form.Root onSubmit={handleSubmit(submitHandler)}>
             <Form.Input iconName={FiMail} type='email' placeholder='Email' />
@@ -77,7 +79,10 @@ export default function Logon() {
             </Button>
           </Form.Root>
 
-          <Link href='./forgot-password' className='m-auto my-2'>
+          <Link
+            href='./forgot-password'
+            className='m-auto my-2 hover:underline'
+          >
             Esqueci minha senha
           </Link>
 

@@ -32,13 +32,13 @@ export default function FormInput({
         <input
           type={type}
           {...rest}
-          className='m-auto flex-row px-12 text-orange outline-none ring-2 ring-orange placeholder:text-inputText focus:placeholder:text-orange'
+          className='m-auto h-14 w-96 flex-row rounded-2xl bg-input px-12 text-orange outline-none ring-2 ring-orange placeholder:text-inputText focus:placeholder:text-orange'
         />
       ) : (
         <input
           {...rest}
           placeholder={placeholder}
-          className='m-auto flex-row px-12 text-orange outline-none placeholder:text-inputText focus:ring-2 focus:ring-orange focus:placeholder:text-orange'
+          className='m-auto h-14 w-96 flex-row rounded-2xl bg-input px-12 text-orange outline-none placeholder:text-inputText focus:ring-2 focus:ring-orange focus:placeholder:text-orange'
         />
       )}
 
