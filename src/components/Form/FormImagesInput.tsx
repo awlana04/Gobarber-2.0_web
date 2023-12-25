@@ -23,7 +23,7 @@ export default function FormImagesInput() {
   };
 
   return (
-    <div className='h-fit w-fit items-center justify-center'>
+    <div>
       <input
         type='file'
         id='images[]'
