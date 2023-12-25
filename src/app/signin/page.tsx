@@ -77,35 +77,33 @@ export default function Signin() {
   };
 
   return (
-    <main>
-      <div className='flex'>
-        <ImageContainer src={image} alt='Foto da barbearia' />
+    <main className='flex items-center justify-center'>
+      <ImageContainer src={image} alt='Foto da barbearia' />
 
-        <section className='grid w-screen'>
-          <Logo />
+      <section className='grid w-screen'>
+        <Logo />
 
-          <Form.Root>
-            <Form.Avatar />
+        <Form.Root>
+          <Form.Avatar />
 
-            <Form.Radio />
+          <Form.Radio />
 
-            <Form.Input iconName={FiUser} type='text' placeholder='Nome' />
-            <Form.Input iconName={FiMail} type='email' placeholder='E-mail' />
-            <Form.Input iconName={FiLock} type='password' placeholder='Senha' />
-            <Form.Input
-              iconName={FiLock}
-              type='password'
-              placeholder='Confirmar senha'
-            />
+          <Form.Input iconName={FiUser} type='text' placeholder='Nome' />
+          <Form.Input iconName={FiMail} type='email' placeholder='E-mail' />
+          <Form.Input iconName={FiLock} type='password' placeholder='Senha' />
+          <Form.Input
+            iconName={FiLock}
+            type='password'
+            placeholder='Confirmar senha'
+          />
 
-            <Button type='submit' href='#'>
-              Cadastrar
-            </Button>
-          </Form.Root>
+          <Button type='submit' href='#'>
+            Cadastrar
+          </Button>
+        </Form.Root>
 
-          <LinkToBack />
-        </section>
-      </div>
+        <LinkToBack />
+      </section>
     </main>
   );
 }

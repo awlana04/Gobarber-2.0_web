@@ -5,5 +5,5 @@ interface FormTitleProps {
 }
 
 export default function FormTitle({ children }: FormTitleProps) {
-  return <h3 className='mt-4'>{children}</h3>;
+  return <h3 className='my-4'>{children}</h3>;
 }

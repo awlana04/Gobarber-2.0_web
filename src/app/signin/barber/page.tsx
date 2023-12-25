@@ -76,44 +76,42 @@ export default function SigninBarber() {
   };
 
   return (
-    <main>
-      <div className='flex'>
-        <ImageContainer src={image} alt='Foto de barbeiro' />
+    <main className='flex'>
+      <ImageContainer src={image} alt='Foto de barbeiro' />
 
-        <section className='grid w-screen py-8'>
-          <Logo />
+      <section className='grid w-screen py-8'>
+        <Logo />
 
-          <Form.Textarea
-            placeholder='Selecione o lugar no mapa'
-            iconName={FiMapPin}
+        <Form.Textarea
+          placeholder='Selecione o lugar no mapa'
+          iconName={FiMapPin}
+        />
+
+        <Form.Root>
+          <Form.Input
+            iconName={FiScissors}
+            type='text'
+            placeholder='Nome da barbearia'
           />
 
-          <Form.Root>
-            <Form.Input
-              iconName={FiScissors}
-              type='text'
-              placeholder='Nome da barbearia'
-            />
+          <Form.Textarea placeholder='Descrição' iconName={FiMessageSquare} />
 
-            <Form.Textarea placeholder='Descrição' iconName={FiMessageSquare} />
+          <Form.Title>Fotos</Form.Title>
+          <Form.Images />
 
-            <Form.Title>Fotos</Form.Title>
-            <Form.Images />
+          <Form.Title>Sua barbearia abre à noite?</Form.Title>
+          <Form.Radio />
 
-            <Form.Title>Sua barbearia abre à noite?</Form.Title>
-            <Form.Radio />
+          <Form.Title>Sua barbearia abre aos finais de semana?</Form.Title>
+          <Form.Radio />
 
-            <Form.Title>Sua barbearia abre aos finais de semana?</Form.Title>
-            <Form.Radio />
+          <Button type='submit' href='#'>
+            Cadastrar
+          </Button>
+        </Form.Root>
 
-            <Button type='submit' href='#'>
-              Cadastrar
-            </Button>
-          </Form.Root>
-
-          <LinkToBack />
-        </section>
-      </div>
+        <LinkToBack />
+      </section>
     </main>
   );
 }

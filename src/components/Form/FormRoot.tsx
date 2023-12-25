@@ -6,7 +6,7 @@ interface FormRootProps extends FormHTMLAttributes<HTMLFormElement> {
 
 export default function FormRoot({ children, ...rest }: FormRootProps) {
   return (
-    <form {...rest} className='flex flex-col items-center'>
+    <form {...rest} className='m-auto flex flex-col'>
       {children}
     </form>
   );

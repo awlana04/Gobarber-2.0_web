@@ -23,7 +23,7 @@ export default function FormImagesInput() {
   };
 
   return (
-    <div>
+    <div className='h-fit w-fit items-center justify-center'>
       <input
         type='file'
         id='images[]'
@@ -33,7 +33,7 @@ export default function FormImagesInput() {
       />
 
       {file && fileUrl && (
-        <div className='grid grid-flow-col grid-rows-4 gap-6'>
+        <div className='flex h-fit w-96 flex-wrap gap-4'>
           {fileUrl.map((image) => {
             return (
               <div
@@ -72,7 +72,7 @@ export default function FormImagesInput() {
 
           <label
             htmlFor='images[]'
-            className='my-4 flex h-24 w-24 cursor-pointer items-center justify-center rounded-xl bg-input hover:bg-orange hover:text-buttonText'
+            className='m-auto flex h-20 w-20 cursor-pointer items-center justify-center rounded-xl bg-input hover:bg-orange hover:text-buttonText'
           >
             <FiPlus size={24} className='text-inputText' />
           </label>

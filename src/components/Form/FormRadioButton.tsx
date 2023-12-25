@@ -6,7 +6,7 @@ export default function FormRadioButton() {
   const [isOpenAtNightSelected, setIsOpenAtNightSelected] = useState(false);
 
   return (
-    <div className='m-auto flex place-items-center p-4 pt-8'>
+    <div className='my-2 flex items-center justify-center p-4'>
       <div className='mr-24'>
         <input
           type='radio'

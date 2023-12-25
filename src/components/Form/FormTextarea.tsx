@@ -28,12 +28,12 @@ export default function FormTextarea({
       {isFilled ? (
         <textarea
           placeholder={placeholder}
-          className='m-auto mb-2 h-48 w-80 resize-none rounded-xl bg-input px-10 py-4 text-orange outline-none ring-2 ring-orange placeholder:text-inputText'
+          className='mb-2 h-48 w-96 resize-none rounded-xl bg-input px-12 py-4 text-orange outline-none ring-2 ring-orange placeholder:text-inputText'
         />
       ) : (
         <textarea
           placeholder={placeholder}
-          className='m-auto mb-2 h-48 w-80 resize-none rounded-xl bg-input px-10 py-4 outline-none placeholder:text-inputText focus:ring-2 focus:ring-orange focus:placeholder:text-orange'
+          className='mb-2 h-48 w-96 resize-none rounded-xl bg-input px-12 py-4 outline-none placeholder:text-inputText focus:ring-2 focus:ring-orange focus:placeholder:text-orange'
         />
       )}
     </div>
