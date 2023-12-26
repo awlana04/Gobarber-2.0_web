@@ -77,10 +77,10 @@ export default function Signin() {
   };
 
   return (
-    <main className='flex items-center justify-center'>
+    <main className='flex'>
       <ImageContainer src={image} alt='Foto da barbearia' />
 
-      <section className='grid w-screen'>
+      <section className='flex w-screen flex-col items-center justify-center'>
         <Logo />
 
         <Form.Root>

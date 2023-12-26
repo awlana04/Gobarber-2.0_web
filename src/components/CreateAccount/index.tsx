@@ -5,9 +5,9 @@ export default function CreateAccount() {
   return (
     <Link
       href='./signin'
-      className='m-auto my-10 flex text-orange hover:text-orange hover:underline max-sm:my-4'
+      className='mx-auto my-6 mt-10 flex text-orange hover:text-orange hover:underline max-sm:mt-8'
     >
-      <FiLogIn size={20} className='m-auto mx-4' />
+      <FiLogIn size={20} className='mr-2' />
       Criar conta
     </Link>
   );

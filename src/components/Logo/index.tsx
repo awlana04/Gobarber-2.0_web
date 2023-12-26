@@ -7,7 +7,7 @@ export default function Logo() {
     <Image
       src={GoBarberLogo}
       alt='Foto de barbearia'
-      className='m-auto max-sm:mb-0 max-sm:w-48'
+      className='mx-auto max-sm:my-4 max-sm:w-48'
     />
   );
 }

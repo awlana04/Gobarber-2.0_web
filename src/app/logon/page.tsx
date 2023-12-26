@@ -59,10 +59,11 @@ export default function Logon() {
   };
 
   return (
-    <main className='flex items-center justify-center'>
-      <section className='grid w-screen p-12'>
+    <main className='flex'>
+      <section className='flex w-screen flex-col items-center justify-center'>
         <Logo />
-        <h1 className='m-auto mb-4 mt-14 text-2xl font-medium'>
+
+        <h1 className='my-6 mt-10 text-2xl font-medium max-sm:mt-4'>
           Faça seu Logon
         </h1>
 
@@ -78,7 +79,7 @@ export default function Logon() {
           </Button>
         </Form.Root>
 
-        <Link href='./forgot-password' className='m-auto my-2 hover:underline'>
+        <Link href='./forgot-password' className='my-4 mb-4 hover:underline'>
           Esqueci minha senha
         </Link>
 

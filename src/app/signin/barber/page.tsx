@@ -79,7 +79,7 @@ export default function SigninBarber() {
     <main className='flex'>
       <ImageContainer src={image} alt='Foto de barbeiro' />
 
-      <section className='grid w-screen py-8'>
+      <section className='grid w-screen items-center justify-center py-8'>
         <Logo />
 
         <Form.Textarea
