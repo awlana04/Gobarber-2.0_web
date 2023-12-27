@@ -1,7 +1,7 @@
 import { ElementType, InputHTMLAttributes } from 'react';
 
-import { Icon } from '../Icon/index';
-import IconState from '../Icon/IconState';
+import { Icon } from '../atoms/Icon';
+import useHandleFilledHook from '@/hooks/useHandleFilledHook';
 
 interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
   iconName: ElementType;
@@ -15,7 +15,7 @@ export default function FormInput({
   placeholder,
   ...rest
 }: FormInputProps) {
-  const { isFilled, handleFilled } = IconState();
+  const { isFilled, handleFilled } = useHandleFilledHook();
 
   return (
     <div
@@ -32,13 +32,13 @@ export default function FormInput({
         <input
           type={type}
           {...rest}
-          className='h-14 w-96 flex-row rounded-2xl bg-input px-12 text-orange outline-none ring-2 ring-orange placeholder:text-inputText focus:placeholder:text-orange max-lg:w-72 max-lg:px-10'
+          className='h-14 w-96 flex-row rounded-2xl bg-input px-12 text-orange outline-none ring-2 ring-orange placeholder:text-inputText focus:placeholder:text-orange max-lg:w-80 max-sm:w-72 max-sm:px-10'
         />
       ) : (
         <input
           {...rest}
           placeholder={placeholder}
-          className='h-14 w-96 flex-row rounded-2xl bg-input px-12 text-orange outline-none placeholder:text-inputText focus:ring-2 focus:ring-orange focus:placeholder:text-orange max-lg:w-72 max-lg:px-10'
+          className='h-14 w-96 flex-row rounded-2xl bg-input px-12 text-orange outline-none placeholder:text-inputText focus:ring-2 focus:ring-orange focus:placeholder:text-orange max-lg:w-80 max-sm:w-72 max-sm:px-10'
         />
       )}
 

@@ -1,7 +1,8 @@
 import { ElementType } from 'react';
 
-import { Icon } from '../Icon';
-import IconState from '../Icon/IconState';
+import { Icon } from '../atoms/Icon';
+
+import useHandleFilledHook from '@/hooks/useHandleFilledHook';
 
 interface FormTextareaProps {
   placeholder: string;
@@ -12,7 +13,7 @@ export default function FormTextarea({
   placeholder,
   iconName,
 }: FormTextareaProps) {
-  const { isFilled, handleFilled } = IconState();
+  const { isFilled, handleFilled } = useHandleFilledHook();
 
   return (
     <div

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-export default function IconState() {
+export default function useHandleFilledHook() {
   const [isFilled, setIsFilled] = useState(false);
 
   const handleFilled = (e: React.ChangeEvent<HTMLInputElement>) => {
