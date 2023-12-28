@@ -1,7 +1,8 @@
 import { ElementType, InputHTMLAttributes, forwardRef } from 'react';
 
-import { Icon } from '../atoms/Icon';
 import useHandleFilledHook from '@/hooks/useHandleFilledHook';
+
+import Icon from '../atoms/Icon';
 
 interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
   iconName: ElementType;
@@ -18,27 +19,16 @@ const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
         className='group relative flex flex-col items-center py-2'
         onChange={handleFilled}
       >
-        {isFilled ? (
-          <Icon.IconFilled icon={iconName} />
-        ) : (
-          <Icon.Icon icon={iconName} />
-        )}
+        <Icon icon={iconName} filled={isFilled} />
 
-        {isFilled ? (
-          <input
-            type={type}
-            {...rest}
-            ref={ref}
-            className='h-14 w-96 flex-row rounded-2xl bg-input px-12 text-orange outline-none ring-2 ring-orange placeholder:text-inputText focus:placeholder:text-orange max-lg:w-80 max-sm:w-72 max-sm:px-10'
-          />
-        ) : (
-          <input
-            {...rest}
-            placeholder={placeholder}
-            ref={ref}
-            className='h-14 w-96 flex-row rounded-2xl bg-input px-12 text-orange outline-none placeholder:text-inputText focus:ring-2 focus:ring-orange focus:placeholder:text-orange max-lg:w-80 max-sm:w-72 max-sm:px-10'
-          />
-        )}
+        <input
+          type={type}
+          ref={ref}
+          {...rest}
+          placeholder={placeholder}
+          data-filled={isFilled}
+          className='h-14 w-96 flex-row rounded-2xl bg-input px-12 text-orange outline-none placeholder:text-inputText focus:ring-2 focus:ring-orange focus:placeholder:text-orange data-[filled=true]:ring-2 data-[filled=true]:ring-orange data-[filled=true]:placeholder:text-orange max-lg:w-80 max-sm:w-72 max-sm:px-10'
+        />
 
         {/* {errors.email && (
         <div className='mt-4'>
@@ -53,6 +43,6 @@ const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
   }
 );
 
-FormInput.displayName = 'Input';
+FormInput.displayName = 'FormInput';
 
 export default FormInput;
