@@ -68,11 +68,21 @@ export default function Logon() {
         </h1>
 
         <Form.Root onSubmit={handleSubmit(submitHandler)}>
-          <Form.Input iconName={FiMail} type='email' placeholder='Email' />
+          <Form.Input
+            {...register('email')}
+            iconName={FiMail}
+            type='email'
+            placeholder='Email'
+          />
 
           {errors.email && <span>{errors.email.message}</span>}
 
-          <Form.Input iconName={FiLock} type='password' placeholder='Senha' />
+          <Form.Input
+            {...register('password')}
+            iconName={FiLock}
+            type='password'
+            placeholder='Senha'
+          />
 
           <Button type='submit' href='#'>
             Entrar
