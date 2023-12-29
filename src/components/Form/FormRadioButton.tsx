@@ -1,9 +1,9 @@
-'use client';
+import Label from '@components/atoms/Label';
 
-import { useState } from 'react';
+import useHandleUserHook from '@/hooks/useHandleUserHook';
 
 export default function FormRadioButton() {
-  const [isOpenAtNightSelected, setIsOpenAtNightSelected] = useState(false);
+  const { isBarberSelected, setIsBarberSelected } = useHandleUserHook();
 
   return (
     <div className='my-2 flex items-center justify-center p-4'>
@@ -11,34 +11,24 @@ export default function FormRadioButton() {
         <input
           type='radio'
           id='openAtNightYes'
-          checked={isOpenAtNightSelected === true}
-          onChange={() => setIsOpenAtNightSelected(true)}
+          checked={isBarberSelected === true}
+          onChange={() => setIsBarberSelected(true)}
           className='peer hidden'
         />
 
-        <label
-          htmlFor='openAtNightYes'
-          className='cursor-pointer justify-center rounded-lg p-3 px-6 text-center hover:bg-input peer-checked:bg-orange peer-checked:text-buttonText'
-        >
-          Sim
-        </label>
+        <Label htmlFor='openAtNightYes'>Sim</Label>
       </div>
 
       <div>
         <input
           type='radio'
           id='openAtNightNo'
-          checked={isOpenAtNightSelected === false}
-          onChange={() => setIsOpenAtNightSelected(false)}
+          checked={isBarberSelected === false}
+          onChange={() => setIsBarberSelected(false)}
           className='peer hidden'
         />
 
-        <label
-          htmlFor='openAtNightNo'
-          className='cursor-pointer justify-center rounded-lg p-3 px-6 text-center hover:bg-input peer-checked:bg-orange peer-checked:text-buttonText'
-        >
-          Não
-        </label>
+        <Label htmlFor='openAtNightNo'>Não</Label>
       </div>
     </div>
   );
