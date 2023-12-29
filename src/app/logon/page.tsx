@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { FiMail, FiLock } from 'react-icons/fi';
 
 import Logo from '@/components/Logo';
@@ -11,15 +12,37 @@ import Button from '@/components/Button';
 
 import image from '@public/gobarber_image002.svg';
 
-import AuthenticateFormHandler from '../../functions/AuthenticateFormHandler';
+import { AuthenticateFormHandler } from '../../functions/AuthenticateFormHandler';
 
 import { FormHandler } from '../../lib/FormHandler';
-import { AuthenticateFormSchema } from '../../validations/AuthenticateForm';
+import {
+  AuthenticateFormSchema,
+  AuthenticateFormType,
+} from '../../validations/AuthenticateForm';
 
 export default function Logon() {
   const { register, handleSubmit, errors } = FormHandler(
     AuthenticateFormSchema
   );
+
+  const Router = useRouter();
+
+  const submitHandler = async (data: AuthenticateFormType) => {
+    const result = await AuthenticateFormHandler({
+      email: data.email,
+      password: data.password,
+    });
+
+    const { response } = result;
+
+    const { barber } = response;
+
+    if (barber) {
+      Router.push('../dashboard/barber');
+    } else {
+      Router.push('../dashboard/client');
+    }
+  };
 
   return (
     <main className='flex'>
@@ -30,7 +53,7 @@ export default function Logon() {
           Faça seu Logon
         </h1>
 
-        <Form.Root onSubmit={handleSubmit(AuthenticateFormHandler)}>
+        <Form.Root onSubmit={handleSubmit(submitHandler)}>
           <Form.Input
             {...register('email')}
             iconName={FiMail}

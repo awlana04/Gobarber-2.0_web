@@ -1,14 +1,9 @@
-import { useRouter } from 'next/navigation';
 import { AuthenticateFormType } from '../validations/AuthenticateForm';
 
 import api from '@/services/api';
 
-export default function AuthenticateFormHandler(data: AuthenticateFormType) {
-  // console.log(data);
-
-  const Router = useRouter();
-
-  api
+export const AuthenticateFormHandler = async (data: AuthenticateFormType) => {
+  const response = await api
     .post('/users/session', {
       email: data.email,
       password: data.password,
@@ -21,12 +16,10 @@ export default function AuthenticateFormHandler(data: AuthenticateFormType) {
 
       if (barber !== null) {
         localStorage.setItem('@GoBarber:barber', JSON.stringify(barber));
-
-        Router.push('../dashboard/barber');
-      } else {
-        Router.push('../dashboard/client');
       }
+
+      return response.data;
     });
 
-  return console.log(data);
-}
+  return { response };
+};
