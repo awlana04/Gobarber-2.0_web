@@ -1,10 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { z } from 'zod';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { FiMail, FiLock } from 'react-icons/fi';
 
 import Logo from '@/components/Logo';
@@ -15,48 +11,15 @@ import Button from '@/components/Button';
 
 import image from '@public/gobarber_image002.svg';
 
-import api from '../../services/api';
+import AuthenticateFormHandler from '../../functions/AuthenticateFormHandler';
 
-const AuthenticateFormSchema = z.object({
-  email: z
-    .string()
-    .email('Necessita ser um email válido')
-    .min(6, 'Necessita ter no mínimo 6 caracteres'),
-  password: z.string().min(8, 'Necessita ter no mínimo 8 caracteres'),
-});
-
-type AuthenticateFormType = z.infer<typeof AuthenticateFormSchema>;
+import { FormHandler } from '../../lib/FormHandler';
+import { AuthenticateFormSchema } from '../../validations/AuthenticateForm';
 
 export default function Logon() {
-  const Router = useRouter();
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<AuthenticateFormType>({
-    resolver: zodResolver(AuthenticateFormSchema),
-  });
-
-  const submitHandler = async (data: AuthenticateFormType) => {
-    const response = await api.post('/users/session', {
-      email: data.email,
-      password: data.password,
-    });
-
-    const { token, user, barber } = response.data;
-
-    localStorage.setItem('@GoBarber:token', token);
-    localStorage.setItem('@GoBarber:user', JSON.stringify(user));
-
-    if (barber !== null) {
-      localStorage.setItem('@GoBarber:barber', JSON.stringify(barber));
-
-      Router.push('../dashboard/barber');
-    } else {
-      Router.push('../dashboard/client');
-    }
-  };
+  const { register, handleSubmit, errors } = FormHandler(
+    AuthenticateFormSchema
+  );
 
   return (
     <main className='flex'>
@@ -67,7 +30,7 @@ export default function Logon() {
           Faça seu Logon
         </h1>
 
-        <Form.Root onSubmit={handleSubmit(submitHandler)}>
+        <Form.Root onSubmit={handleSubmit(AuthenticateFormHandler)}>
           <Form.Input
             {...register('email')}
             iconName={FiMail}
