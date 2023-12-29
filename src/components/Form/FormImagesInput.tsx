@@ -1,26 +1,11 @@
-import { useState } from 'react';
 import Image from 'next/image';
 import { FiX, FiPlus } from 'react-icons/fi';
 
+import useHandleImagesHook from '@hooks/useHandleImagesHook';
+
 export default function FormImagesInput() {
-  const [file, setFile] = useState<File[]>([]);
-  const [fileUrl, setFileUrl] = useState<string[]>([]);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) {
-      return;
-    }
-
-    const selectedImages = Array.from(e.target.files);
-
-    setFile(selectedImages);
-
-    const selectedImagesPreview = selectedImages.map((image) => {
-      return URL.createObjectURL(image);
-    });
-
-    setFileUrl(selectedImagesPreview.concat(fileUrl));
-  };
+  const { file, setFile, fileUrl, setFileUrl, handleChange } =
+    useHandleImagesHook();
 
   return (
     <div className='h-fit w-fit items-center justify-center'>

@@ -6,7 +6,7 @@ import Icon from '../atoms/Icon';
 
 interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
   iconName: ElementType;
-  type: 'email' | 'password';
+  type: 'email' | 'password' | 'text';
   placeholder: string;
 }
 

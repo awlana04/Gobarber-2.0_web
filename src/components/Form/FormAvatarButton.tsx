@@ -1,37 +1,12 @@
-'use client';
-
-import { useState } from 'react';
 import Image from 'next/image';
-
-import logo from '@public/gobarber_logo.svg';
 import { FiCamera } from 'react-icons/fi';
 
+import logo from '@public/gobarber_logo.svg';
+
+import useHandleAvatarHook from '@hooks/useHandleAvatarHook';
+
 export default function FormAvatarButton() {
-  const [file, setFile] = useState<File | undefined>(undefined);
-  const [fileUrl, setFileUrl] = useState<string | undefined>(undefined);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-
-    setFile(file);
-
-    if (fileUrl) {
-      URL.revokeObjectURL(fileUrl);
-    }
-
-    if (file) {
-      const url = URL.createObjectURL(file);
-
-      setFileUrl(url);
-    } else {
-      setFileUrl(undefined);
-    }
-  };
-
-  const handleRemove = () => {
-    setFileUrl(undefined);
-    setFile(undefined);
-  };
+  const { file, fileUrl, handleChange, handleRemove } = useHandleAvatarHook();
 
   return (
     <div className='group m-auto flex h-28 w-28 cursor-pointer rounded-full bg-white text-white hover:bg-inputText'>

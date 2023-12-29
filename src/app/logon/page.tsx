@@ -1,5 +1,3 @@
-'use client';
-
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { FiMail, FiLock } from 'react-icons/fi';
@@ -21,11 +19,11 @@ import {
 } from '../../validations/AuthenticateForm';
 
 export default function Logon() {
+  const Router = useRouter();
+
   const { register, handleSubmit, errors } = FormHandler(
     AuthenticateFormSchema
   );
-
-  const Router = useRouter();
 
   const submitHandler = async (data: AuthenticateFormType) => {
     const result = await AuthenticateFormHandler({
@@ -35,9 +33,7 @@ export default function Logon() {
 
     const { response } = result;
 
-    const { barber } = response;
-
-    if (barber) {
+    if (response.barber) {
       Router.push('../dashboard/barber');
     } else {
       Router.push('../dashboard/client');
