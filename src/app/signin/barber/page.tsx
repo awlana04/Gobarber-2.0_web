@@ -100,7 +100,11 @@ export default function SigninBarber() {
           iconName={FiMapPin}
         /> */}
 
-        <Form.Root onSubmit={handleSubmit((data) => console.log(data, file))}>
+        <Form.Root
+          onSubmit={handleSubmit((data) =>
+            console.log(data, file, isOpenAtNight, isOpenOnWeekends)
+          )}
+        >
           <Form.Input
             {...register('name')}
             iconName={FiScissors}
@@ -114,7 +118,6 @@ export default function SigninBarber() {
             iconName={FiMessageSquare}
           /> */}
 
-          <Form.Title>Fotos</Form.Title>
           <Form.Images
             file={file}
             fileUrl={fileUrl}
@@ -123,16 +126,11 @@ export default function SigninBarber() {
             handleChange={handleChange}
           />
 
-          <Form.Title>Sua barbearia abre à noite?</Form.Title>
-          <Form.Radio
-            isBarberSelected={isOpenAtNight}
-            setIsBarberSelected={setIsOpenAtNight}
-          />
-
-          <Form.Title>Sua barbearia abre aos finais de semana?</Form.Title>
-          <Form.Radio
-            isBarberSelected={isOpenOnWeekends}
-            setIsBarberSelected={setIsOpenOnWeekends}
+          <Form.TwoRadio
+            isOpenAtNight={isOpenAtNight}
+            setIsOpenAtNight={setIsOpenAtNight}
+            isOpenOnWeekends={isOpenOnWeekends}
+            setIsOpenOnWeekends={setIsOpenOnWeekends}
           />
 
           <Button type='submit' href='#'>

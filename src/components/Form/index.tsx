@@ -2,7 +2,7 @@ import FormRoot from './FormRoot';
 import FormInput from './FormInput';
 import FormAvatarButton from './FormAvatarButton';
 import FormRadioButton from './FormRadioButton';
-import FormTitle from './FormTitle';
+import FormTwoRadioButton from './FormTwoRadioButton';
 import FormTextarea from './FormTextarea';
 import FormImagesInput from './FormImagesInput';
 
@@ -11,7 +11,7 @@ export const Form = {
   Input: FormInput,
   Avatar: FormAvatarButton,
   Radio: FormRadioButton,
-  Title: FormTitle,
+  TwoRadio: FormTwoRadioButton,
   Textarea: FormTextarea,
   Images: FormImagesInput,
 };

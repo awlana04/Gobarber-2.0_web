@@ -1,7 +1,5 @@
 import Label from '@components/atoms/Label';
 
-import useHandleUserHook from '@/hooks/useHandleUserHook';
-
 type FormRadioButtonProps = {
   isBarberSelected: boolean;
   setIsBarberSelected: (state: boolean) => void;

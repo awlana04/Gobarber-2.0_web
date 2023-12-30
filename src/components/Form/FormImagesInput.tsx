@@ -1,8 +1,8 @@
 import Image from 'next/image';
+import { ChangeEvent } from 'react';
 import { FiX, FiPlus } from 'react-icons/fi';
 
-import useHandleImagesHook from '@hooks/useHandleImagesHook';
-import { ChangeEvent } from 'react';
+import Title from '../atoms/Title';
 
 type FormImagesInputProps = {
   file: string | any;
@@ -21,6 +21,8 @@ export default function FormImagesInput({
 }: FormImagesInputProps) {
   return (
     <div className='h-fit w-fit items-center justify-center'>
+      <Title>Fotos</Title>
+
       <input
         type='file'
         id='images[]'
