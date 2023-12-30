@@ -2,8 +2,16 @@ import Label from '@components/atoms/Label';
 
 import useHandleUserHook from '@/hooks/useHandleUserHook';
 
-export default function FormRadioButton() {
-  const { isBarberSelected, setIsBarberSelected } = useHandleUserHook();
+type FormRadioButtonProps = {
+  isBarberSelected: boolean;
+  setIsBarberSelected: (state: boolean) => void;
+};
+
+export default function FormRadioButton({
+  isBarberSelected,
+  setIsBarberSelected,
+}: FormRadioButtonProps) {
+  // const { isBarberSelected, setIsBarberSelected } = useHandleUserHook();
 
   return (
     <div className='my-2 flex items-center justify-center p-4'>

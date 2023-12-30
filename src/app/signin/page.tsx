@@ -17,7 +17,8 @@ import api from '../../services/api';
 
 import image from '@public/gobarber_image003.svg';
 
-// import { isBarberSelected } from '@components/Form/FormRadioButton';
+import useHandleAvatarHook from '@hooks/useHandleAvatarHook';
+import useHandleUserHook from '@/hooks/useHandleUserHook';
 
 const SigninFormSchema = z
   .object({
@@ -39,9 +40,6 @@ type SigninFormType = z.infer<typeof SigninFormSchema>;
 export default function Signin() {
   const Router = useRouter();
 
-  // const [file, setFile] = useState<File | undefined>(undefined);
-  // const [isSelected, setIsSelected] = useState('client');
-
   const {
     register,
     handleSubmit,
@@ -50,36 +48,35 @@ export default function Signin() {
     resolver: zodResolver(SigninFormSchema),
   });
 
+  const { file, fileUrl, handleChange, handleRemove } = useHandleAvatarHook();
+  const { isBarberSelected, setIsBarberSelected } = useHandleUserHook();
+
   const submitHandler = async (data: SigninFormType) => {
-    event?.preventDefault();
+    const response = await api.post(
+      '/users/',
+      {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        location: 'Somewhere Over the Rainbow',
+        avatar: file,
+      },
+      {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'multipart/form-data;boundary=None',
+        },
+      }
+    );
 
-    // console.log(data, isBarberSelected);
+    const { token, user } = response.data.value;
 
-    // const response = await api.post(
-    //   '/users/',
-    //   {
-    //     name: data.name,
-    //     email: data.email,
-    //     password: data.password,
-    //     location: 'Somewhere Over the Rainbow',
-    //     avatar: file,
-    //   },
-    //   {
-    //     headers: {
-    //       Accept: 'application/json',
-    //       'Content-Type': 'multipart/form-data;boundary=None',
-    //     },
-    //   }
-    // );
+    localStorage.setItem('@GoBarber:token', token);
+    localStorage.setItem('@GoBarber:user', JSON.stringify(user));
 
-    // const { token, user } = response.data.value;
-
-    // localStorage.setItem('@GoBarber:token', token);
-    // localStorage.setItem('@GoBarber:user', JSON.stringify(user));
-
-    // isSelected === 'client'
-    //   ? Router.push('../dashboard/client')
-    //   : Router.push('./signin/barber');
+    isBarberSelected === true
+      ? Router.push('../dashboard/client')
+      : Router.push('./signin/barber');
   };
 
   return (
@@ -89,10 +86,22 @@ export default function Signin() {
       <section className='flex w-screen flex-col items-center justify-center'>
         <Logo />
 
-        <Form.Root onSubmit={handleSubmit(submitHandler)}>
-          <Form.Avatar />
+        <Form.Root
+          onSubmit={handleSubmit((data) =>
+            console.log(data, file, isBarberSelected)
+          )}
+        >
+          <Form.Avatar
+            file={file}
+            fileUrl={fileUrl}
+            handleChange={handleChange}
+            handleRemove={handleRemove}
+          />
 
-          <Form.Radio />
+          <Form.Radio
+            isBarberSelected={isBarberSelected}
+            setIsBarberSelected={setIsBarberSelected}
+          />
 
           <Form.Input
             {...register('name')}
@@ -100,18 +109,21 @@ export default function Signin() {
             type='text'
             placeholder='Nome'
           />
+
           <Form.Input
             {...register('email')}
             iconName={FiMail}
             type='email'
             placeholder='E-mail'
           />
+
           <Form.Input
             {...register('password')}
             iconName={FiLock}
             type='password'
             placeholder='Senha'
           />
+
           <Form.Input
             {...register('confirmPassword')}
             iconName={FiLock}

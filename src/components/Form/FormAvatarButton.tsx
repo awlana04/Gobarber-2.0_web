@@ -4,9 +4,22 @@ import { FiCamera } from 'react-icons/fi';
 import logo from '@public/gobarber_logo.svg';
 
 import useHandleAvatarHook from '@hooks/useHandleAvatarHook';
+import { ChangeEvent } from 'react';
 
-export default function FormAvatarButton() {
-  const { file, fileUrl, handleChange, handleRemove } = useHandleAvatarHook();
+type FormAvatarButtonProps = {
+  file: string | any;
+  fileUrl: string | any;
+  handleChange: (event: ChangeEvent<HTMLInputElement>) => any;
+  handleRemove: () => void;
+};
+
+export default function FormAvatarButton({
+  file,
+  fileUrl,
+  handleChange,
+  handleRemove,
+}: FormAvatarButtonProps) {
+  // const { file, fileUrl, handleChange, handleRemove } = useHandleAvatarHook();
 
   return (
     <div className='group m-auto flex h-28 w-28 cursor-pointer rounded-full bg-white text-white hover:bg-inputText'>
