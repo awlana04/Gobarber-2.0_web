@@ -2,11 +2,23 @@ import Image from 'next/image';
 import { FiX, FiPlus } from 'react-icons/fi';
 
 import useHandleImagesHook from '@hooks/useHandleImagesHook';
+import { ChangeEvent } from 'react';
 
-export default function FormImagesInput() {
-  const { file, setFile, fileUrl, setFileUrl, handleChange } =
-    useHandleImagesHook();
+type FormImagesInputProps = {
+  file: string | any;
+  fileUrl: string | any;
+  setFile: (file: any) => void;
+  setFileUrl: (file: any) => void;
+  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+};
 
+export default function FormImagesInput({
+  file,
+  setFile,
+  fileUrl,
+  setFileUrl,
+  handleChange,
+}: FormImagesInputProps) {
   return (
     <div className='h-fit w-fit items-center justify-center'>
       <input
@@ -19,7 +31,7 @@ export default function FormImagesInput() {
 
       {file && fileUrl && (
         <div className='flex h-fit w-96 flex-wrap gap-4'>
-          {fileUrl.map((image) => {
+          {fileUrl.map((image: any) => {
             return (
               <div
                 key={image}
@@ -28,16 +40,18 @@ export default function FormImagesInput() {
                 <div
                   onClick={() => {
                     const imageFile = fileUrl.findIndex(
-                      (file) => file === image
+                      (file: any) => file === image
                     );
 
                     const fileIndex = file.at(imageFile);
 
                     setFile(
-                      file.filter((files) => files.name !== fileIndex!.name)
+                      file.filter(
+                        (files: any) => files.name !== fileIndex!.name
+                      )
                     );
 
-                    setFileUrl(fileUrl.filter((files) => files !== image));
+                    setFileUrl(fileUrl.filter((files: any) => files !== image));
                   }}
                   className='absolute grid cursor-pointer items-center justify-center rounded-bl-lg rounded-se-lg bg-orange p-2 text-2xl text-inputText hover:h-28 hover:w-28 hover:rounded-lg hover:bg-red hover:text-4xl hover:opacity-60'
                 >

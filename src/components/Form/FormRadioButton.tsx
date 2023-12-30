@@ -11,8 +11,6 @@ export default function FormRadioButton({
   isBarberSelected,
   setIsBarberSelected,
 }: FormRadioButtonProps) {
-  // const { isBarberSelected, setIsBarberSelected } = useHandleUserHook();
-
   return (
     <div className='my-2 flex items-center justify-center p-4'>
       <div className='mr-24'>

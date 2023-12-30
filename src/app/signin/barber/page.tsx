@@ -17,10 +17,13 @@ import api from '../../../services/api';
 
 import image from '@public/gobarber_image004.svg';
 
+import useHandleUserHook from '@/hooks/useHandleUserHook';
+import useHandleImagesHook from '@/hooks/useHandleImagesHook';
+
 const SigninBarberSchema = z.object({
   name: z.string().min(3),
-  location: z.string().min(8),
-  description: z.string().min(16),
+  // location: z.string().min(8),
+  // description: z.string().min(16),
 });
 
 type SigninBarberType = z.infer<typeof SigninBarberSchema>;
@@ -28,10 +31,9 @@ type SigninBarberType = z.infer<typeof SigninBarberSchema>;
 export default function SigninBarber() {
   const Router = useRouter();
 
-  const [file, setFile] = useState<File[]>([]);
-  const [isOpenAtNightSelected, setIsOpenAtNightSelected] = useState(false);
-  const [isOpenOnWeekendsSelected, setIsOpenOnWeekendsSelected] =
-    useState(false);
+  // const [isOpenAtNightSelected, setIsOpenAtNightSelected] = useState(false);
+  // const [isOpenOnWeekendsSelected, setIsOpenOnWeekendsSelected] =
+  //   useState(false);
 
   const {
     register,
@@ -41,39 +43,49 @@ export default function SigninBarber() {
     resolver: zodResolver(SigninBarberSchema),
   });
 
-  const submitHandler = async (data: SigninBarberType) => {
-    const token = localStorage.getItem('@GoBarber:token');
-    const user = JSON.parse(localStorage.getItem('@GoBarber:user')!);
+  const {
+    isOpenAtNight,
+    setIsOpenAtNight,
+    isOpenOnWeekends,
+    setIsOpenOnWeekends,
+  } = useHandleUserHook();
 
-    api.defaults.headers.authorization = `Bearer ${token}`;
+  const { file, setFile, fileUrl, setFileUrl, handleChange } =
+    useHandleImagesHook();
 
-    const response = await api.post(`/barbers/${user.id}`, {
-      name: data.name,
-      location: data.location,
-      description: data.description,
-      openAtNight: isOpenAtNightSelected,
-      openOnWeekends: isOpenOnWeekendsSelected,
-      userId: user.id,
-    });
+  // const submitHandler = async (data: SigninBarberType) => {
+  //   const token = localStorage.getItem('@GoBarber:token');
+  //   const user = JSON.parse(localStorage.getItem('@GoBarber:user')!);
 
-    const barber = response.data.value;
+  //   api.defaults.headers.authorization = `Bearer ${token}`;
 
-    const formData = new FormData();
+  //   const response = await api.post(`/barbers/${user.id}`, {
+  //     name: data.name,
+  //     location: data.location,
+  //     description: data.description,
+  //     openAtNight: isOpenAtNight,
+  //     openOnWeekends: isOpenOnWeekends,
+  //     userId: user.id,
+  //   });
 
-    file.forEach((image) => {
-      formData.append('images', image);
-    });
+  //   const barber = response.data.value;
 
-    api.patch(`/barbers/${barber.id}`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
+  //   const formData = new FormData();
 
-    localStorage.setItem('@GoBarber:barber', JSON.stringify(barber));
+  //   file.forEach((image) => {
+  //     formData.append('images', image);
+  //   });
 
-    Router.push('../../dashboard/barber');
-  };
+  //   api.patch(`/barbers/${barber.id}`, formData, {
+  //     headers: {
+  //       'Content-Type': 'multipart/form-data',
+  //     },
+  //   });
+
+  //   localStorage.setItem('@GoBarber:barber', JSON.stringify(barber));
+
+  //   Router.push('../../dashboard/barber');
+  // };
 
   return (
     <main className='flex'>
@@ -82,28 +94,46 @@ export default function SigninBarber() {
       <section className='grid w-screen items-center justify-center py-8'>
         <Logo />
 
-        <Form.Textarea
+        {/* <Form.Textarea
+          {...register('location')}
           placeholder='Selecione o lugar no mapa'
           iconName={FiMapPin}
-        />
+        /> */}
 
-        <Form.Root>
+        <Form.Root onSubmit={handleSubmit((data) => console.log(data, file))}>
           <Form.Input
+            {...register('name')}
             iconName={FiScissors}
             type='text'
             placeholder='Nome da barbearia'
           />
 
-          <Form.Textarea placeholder='Descrição' iconName={FiMessageSquare} />
+          {/* <Form.Textarea
+            {...register('description')}
+            placeholder='Descrição'
+            iconName={FiMessageSquare}
+          /> */}
 
           <Form.Title>Fotos</Form.Title>
-          <Form.Images />
+          <Form.Images
+            file={file}
+            fileUrl={fileUrl}
+            setFile={setFile}
+            setFileUrl={setFileUrl}
+            handleChange={handleChange}
+          />
 
           <Form.Title>Sua barbearia abre à noite?</Form.Title>
-          <Form.Radio />
+          <Form.Radio
+            isBarberSelected={isOpenAtNight}
+            setIsBarberSelected={setIsOpenAtNight}
+          />
 
           <Form.Title>Sua barbearia abre aos finais de semana?</Form.Title>
-          <Form.Radio />
+          <Form.Radio
+            isBarberSelected={isOpenOnWeekends}
+            setIsBarberSelected={setIsOpenOnWeekends}
+          />
 
           <Button type='submit' href='#'>
             Cadastrar
