@@ -4,8 +4,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { AuthenticateFormType } from '../validations/AuthenticateForm';
 import { SigninBarberType } from '../validations/SigninBarberForm';
+import { SigninFormType } from '../validations/SigninForm';
 
-type FormHandlerType = SigninBarberType & AuthenticateFormType;
+type FormHandlerType = SigninBarberType & AuthenticateFormType & SigninFormType;
 
 export const FormHandler = (ZodSchema: ZodSchema) => {
   const {

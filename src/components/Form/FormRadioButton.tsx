@@ -10,7 +10,7 @@ export default function FormRadioButton({
   setIsBarberSelected,
 }: FormRadioButtonProps) {
   return (
-    <div className='my-2 flex items-center justify-center p-4'>
+    <div className='my-2 mt-6 flex items-center justify-center p-4'>
       <div className='mr-24'>
         <input
           type='radio'
