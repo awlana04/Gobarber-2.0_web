@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
@@ -22,18 +21,14 @@ import useHandleImagesHook from '@/hooks/useHandleImagesHook';
 
 const SigninBarberSchema = z.object({
   name: z.string().min(3),
-  // location: z.string().min(8),
-  // description: z.string().min(16),
+  location: z.string().min(8),
+  description: z.string().min(16),
 });
 
 type SigninBarberType = z.infer<typeof SigninBarberSchema>;
 
 export default function SigninBarber() {
   const Router = useRouter();
-
-  // const [isOpenAtNightSelected, setIsOpenAtNightSelected] = useState(false);
-  // const [isOpenOnWeekendsSelected, setIsOpenOnWeekendsSelected] =
-  //   useState(false);
 
   const {
     register,
@@ -94,11 +89,11 @@ export default function SigninBarber() {
       <section className='grid w-screen items-center justify-center py-8'>
         <Logo />
 
-        {/* <Form.Textarea
+        <Form.Textarea
           {...register('location')}
           placeholder='Selecione o lugar no mapa'
           iconName={FiMapPin}
-        /> */}
+        />
 
         <Form.Root
           onSubmit={handleSubmit((data) =>
@@ -112,11 +107,11 @@ export default function SigninBarber() {
             placeholder='Nome da barbearia'
           />
 
-          {/* <Form.Textarea
+          <Form.Textarea
             {...register('description')}
             placeholder='Descrição'
             iconName={FiMessageSquare}
-          /> */}
+          />
 
           <Form.Images
             file={file}
