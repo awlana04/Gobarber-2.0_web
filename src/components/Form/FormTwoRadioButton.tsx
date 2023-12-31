@@ -18,7 +18,7 @@ export default function FormTwoRadioButton({
     <div className='flex- my-2 flex flex-col p-4'>
       <Title>Sua barbearia abre à noite?</Title>
 
-      <div className='m-4 flex flex-row items-center justify-center'>
+      <div className='m-4 mb-8 flex flex-row items-center justify-center'>
         <div className='mr-24'>
           <input
             type='radio'
@@ -46,7 +46,7 @@ export default function FormTwoRadioButton({
 
       <Title>Sua barbearia abre aos finais de semana?</Title>
 
-      <div className='m-4 flex flex-row items-center justify-center'>
+      <div className='m-4 mb-8 flex flex-row items-center justify-center'>
         <div className='mr-24'>
           <input
             type='radio'

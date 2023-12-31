@@ -1,11 +1,11 @@
+import { ZodSchema } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { AuthenticateFormType } from '../validations/AuthenticateForm';
+import { SigninBarberType } from '../validations/SigninBarberForm';
 
-import { ZodSchema } from 'zod';
-
-type FormHandlerType = AuthenticateFormType;
+type FormHandlerType = SigninBarberType & AuthenticateFormType;
 
 export const FormHandler = (ZodSchema: ZodSchema) => {
   const {
