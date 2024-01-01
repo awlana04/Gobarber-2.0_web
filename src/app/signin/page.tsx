@@ -11,9 +11,11 @@ import Button from '@/components/Button';
 
 import image from '@public/gobarber_image003.svg';
 
+import { FormHandler } from '@/lib/FormHandler';
+
 import useHandleAvatarHook from '@hooks/useHandleAvatarHook';
 import useHandleUserHook from '@/hooks/useHandleUserHook';
-import { FormHandler } from '@/lib/FormHandler';
+
 import { SigninFormSchema, SigninFormType } from '../../validations/SigninForm';
 import { SigninFormHandler } from '../../functions/SigninFormHandler';
 

@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { FiMail, FiLock } from 'react-icons/fi';
@@ -55,6 +57,7 @@ export default function Logon() {
             iconName={FiMail}
             type='email'
             placeholder='Email'
+            errored={!!errors.email}
           />
 
           {errors.email && <span>{errors.email.message}</span>}
@@ -64,6 +67,7 @@ export default function Logon() {
             iconName={FiLock}
             type='password'
             placeholder='Senha'
+            errored={!!errors.password}
           />
 
           <Button type='submit' href='#'>
