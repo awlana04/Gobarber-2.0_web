@@ -20,12 +20,66 @@ import {
   AuthenticateFormType,
 } from '../../validations/AuthenticateForm';
 
+import toast, { Toaster } from 'react-hot-toast';
+
 export default function Logon() {
   const Router = useRouter();
 
   const { register, handleSubmit, errors } = FormHandler(
     AuthenticateFormSchema
   );
+
+  {
+    errors.email &&
+      toast.custom(
+        (t) => (
+          <div
+            className={`${
+              t.visible ? 'animate-enter' : 'animate-leave'
+            } w-80 rounded-lg bg-red px-6 py-4`}
+          >
+            <div className='flex flex-row justify-between'>
+              <p className='mb-4 text-xl font-bold'>E-mail invalido</p>
+
+              <FiX
+                className='cursor-pointer text-xl hover:text-buttonText'
+                onClick={() => toast.dismiss(t.id)}
+              />
+            </div>
+            <span className='text-lg font-medium'>
+              {errors.email!.message!}
+            </span>
+          </div>
+        ),
+        { id: errors.email.message }
+      );
+  }
+
+  {
+    errors.password &&
+      toast.custom(
+        (t) => (
+          <div
+            className={`${
+              t.visible ? 'animate-enter' : 'animate-leave'
+            } w-80 rounded-lg bg-red p-4`}
+          >
+            <div className='flex flex-row justify-between'>
+              <p className='mb-2 text-xl font-bold'>Senha invalido</p>
+
+              <FiX
+                className='cursor-pointer text-xl hover:text-buttonText'
+                onClick={() => toast.dismiss(t.id)}
+              />
+            </div>
+            <span className='text-lg font-medium'>
+              {errors.password!.message!}
+            </span>
+          </div>
+        ),
+        { id: errors.password.message }
+      );
+  }
 
   const submitHandler = async (data: AuthenticateFormType) => {
     const result = await AuthenticateFormHandler({
@@ -44,6 +98,8 @@ export default function Logon() {
 
   return (
     <main className='flex'>
+      <Toaster position='top-right' />
+
       <section className='flex w-screen flex-col items-center justify-center'>
         <Logo />
 
@@ -60,19 +116,6 @@ export default function Logon() {
             errored={!!errors.email}
           />
 
-          {errors.email && (
-            <div className='absolute right-0 top-0 z-10 m-4 w-80 items-end justify-end rounded-lg bg-red p-4'>
-              <div className='flex flex-row justify-between'>
-                <p className='mb-2 text-xl font-bold'>Erro!</p>
-
-                <FiX className='cursor-pointer text-xl hover:text-buttonText' />
-              </div>
-              <span className='text-lg font-medium'>
-                {errors.email.message}
-              </span>
-            </div>
-          )}
-
           <Form.Input
             {...register('password')}
             iconName={FiLock}
@@ -80,19 +123,6 @@ export default function Logon() {
             placeholder='Senha'
             errored={!!errors.password}
           />
-
-          {errors.password && (
-            <div className='absolute right-0 top-0 z-10 m-4 mt-32 w-80 items-end justify-end rounded-lg bg-red p-4'>
-              <div className='flex flex-row justify-between'>
-                <p className='mb-2 text-xl font-bold'>Erro!</p>
-
-                <FiX className='cursor-pointer text-xl hover:text-buttonText' />
-              </div>
-              <span className='text-lg font-medium'>
-                {errors.password.message}
-              </span>
-            </div>
-          )}
 
           <Button type='submit' href='#'>
             Entrar
