@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { FiMail, FiLock } from 'react-icons/fi';
+import { FiMail, FiLock, FiX } from 'react-icons/fi';
 
 import Logo from '@/components/Logo';
 import CreateAccount from '@/components/CreateAccount';
@@ -60,7 +60,18 @@ export default function Logon() {
             errored={!!errors.email}
           />
 
-          {errors.email && <span>{errors.email.message}</span>}
+          {errors.email && (
+            <div className='absolute right-0 top-0 z-10 m-4 w-80 items-end justify-end rounded-lg bg-red p-4'>
+              <div className='flex flex-row justify-between'>
+                <p className='mb-2 text-xl font-bold'>Erro!</p>
+
+                <FiX className='cursor-pointer text-xl hover:text-buttonText' />
+              </div>
+              <span className='text-lg font-medium'>
+                {errors.email.message}
+              </span>
+            </div>
+          )}
 
           <Form.Input
             {...register('password')}
@@ -69,6 +80,19 @@ export default function Logon() {
             placeholder='Senha'
             errored={!!errors.password}
           />
+
+          {errors.password && (
+            <div className='absolute right-0 top-0 z-10 m-4 mt-32 w-80 items-end justify-end rounded-lg bg-red p-4'>
+              <div className='flex flex-row justify-between'>
+                <p className='mb-2 text-xl font-bold'>Erro!</p>
+
+                <FiX className='cursor-pointer text-xl hover:text-buttonText' />
+              </div>
+              <span className='text-lg font-medium'>
+                {errors.password.message}
+              </span>
+            </div>
+          )}
 
           <Button type='submit' href='#'>
             Entrar
