@@ -3,29 +3,31 @@
 import { useRouter } from 'next/navigation';
 import { FiUser, FiMail, FiLock } from 'react-icons/fi';
 
-import Logo from '@/components/Logo';
-import ImageContainer from '@/components/ImageContainer';
-import LinkToBack from '@/components/LinkToBack';
-import { Form } from '@/components/Form/index';
-import Button from '@/components/Button';
+import AsideImage from '@/components/atoms/aside-image';
+import Logo from '@/components/atoms/logo';
+import BackToLogon from '@/components/atoms/back-to-logon';
+import Button from '@/components/atoms/button';
+
+import { Form } from '@/components/molecules/form';
 
 import image from '@public/gobarber_image003.svg';
 
-import { FormHandler } from '@/lib/FormHandler';
+import useHandleAvatarHook from '@hooks/use-handle-avatar-hook';
+import useHandleUserHook from '@/hooks/use-handle-user-hook';
 
-import useHandleAvatarHook from '@hooks/useHandleAvatarHook';
-import useHandleUserHook from '@/hooks/useHandleUserHook';
+import { FormHandler } from '@libs/form-handler';
 
-import { SigninFormSchema, SigninFormType } from '../../validations/SigninForm';
-import { SigninFormHandler } from '../../functions/SigninFormHandler';
+import { SigninFormSchema, SigninFormType } from '@validations/signin-form';
+
+import { SigninFormHandler } from '@handlers/signin-form-handler';
 
 export default function Signin() {
   const Router = useRouter();
 
-  const { register, handleSubmit, errors } = FormHandler(SigninFormSchema);
-
   const { file, fileUrl, handleChange, handleRemove } = useHandleAvatarHook();
   const { isBarberSelected, setIsBarberSelected } = useHandleUserHook();
+
+  const { register, handleSubmit, errors } = FormHandler(SigninFormSchema);
 
   const submitHandler = async (data: SigninFormType) => {
     await SigninFormHandler({
@@ -43,7 +45,7 @@ export default function Signin() {
 
   return (
     <main className='flex'>
-      <ImageContainer src={image} alt='Foto da barbearia' />
+      <AsideImage src={image} alt='Foto da barbearia' />
 
       <section className='flex w-screen flex-col items-center justify-center'>
         <Logo />
@@ -66,6 +68,7 @@ export default function Signin() {
             iconName={FiUser}
             type='text'
             placeholder='Nome'
+            errored={!!errors.name}
           />
 
           <Form.Input
@@ -73,6 +76,7 @@ export default function Signin() {
             iconName={FiMail}
             type='email'
             placeholder='E-mail'
+            errored={!!errors.email}
           />
 
           <Form.Input
@@ -80,6 +84,7 @@ export default function Signin() {
             iconName={FiLock}
             type='password'
             placeholder='Senha'
+            errored={!!errors.password}
           />
 
           <Form.Input
@@ -87,14 +92,13 @@ export default function Signin() {
             iconName={FiLock}
             type='password'
             placeholder='Confirmar senha'
+            errored={!!errors.confirmPassword}
           />
 
-          <Button type='submit' href='#'>
-            Cadastrar
-          </Button>
+          <Button type='submit'>Cadastrar</Button>
         </Form.Root>
 
-        <LinkToBack />
+        <BackToLogon />
       </section>
     </main>
   );

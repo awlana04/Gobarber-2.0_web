@@ -1,10 +1,10 @@
+import { ChangeEvent, InputHTMLAttributes } from 'react';
 import Image from 'next/image';
-import { ChangeEvent } from 'react';
 import { FiX, FiPlus } from 'react-icons/fi';
 
-import Title from '../atoms/Title';
+import Title from '@components/atoms/title';
 
-type FormImagesInputProps = {
+type FormImagesInputProps = InputHTMLAttributes<HTMLImageElement> & {
   file: string | any;
   fileUrl: string | any;
   setFile: (file: any) => void;

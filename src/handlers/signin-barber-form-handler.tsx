@@ -1,5 +1,6 @@
-import api from '@/services/api';
 import { SigninBarberType } from '@/validations/SigninBarberForm';
+
+import api from '@/services/api';
 
 type SigninBarberFormHandlerType = SigninBarberType & {
   file: File[];

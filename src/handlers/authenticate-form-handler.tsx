@@ -1,4 +1,4 @@
-import { AuthenticateFormType } from '../validations/AuthenticateForm';
+import { AuthenticateFormType } from '@validations/AuthenticateForm';
 
 import api from '@/services/api';
 

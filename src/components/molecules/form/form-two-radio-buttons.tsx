@@ -1,11 +1,13 @@
-import Label from '../atoms/Label';
-import Title from '../atoms/Title';
+import { InputHTMLAttributes } from 'react';
 
-type FormTwoRadioButtonProps = {
+import Title from '@components/atoms/title';
+import Label from '@components/atoms/label';
+
+type FormTwoRadioButtonProps = InputHTMLAttributes<HTMLInputElement> & {
   isOpenAtNight: boolean;
-  setIsOpenAtNight: (state: boolean) => void;
+  setIsOpenAtNight(state: boolean): void;
   isOpenOnWeekends: boolean;
-  setIsOpenOnWeekends: (state: boolean) => void;
+  setIsOpenOnWeekends(state: boolean): void;
 };
 
 export default function FormTwoRadioButton({

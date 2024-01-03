@@ -1,8 +1,8 @@
 import { FormHTMLAttributes, ReactNode } from 'react';
 
-interface FormRootProps extends FormHTMLAttributes<HTMLFormElement> {
+type FormRootProps = FormHTMLAttributes<HTMLFormElement> & {
   children: ReactNode;
-}
+};
 
 export default function FormRoot({ children, ...rest }: FormRootProps) {
   return (

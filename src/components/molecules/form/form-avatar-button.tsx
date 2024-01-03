@@ -1,16 +1,14 @@
+import { ChangeEvent, InputHTMLAttributes } from 'react';
 import Image from 'next/image';
 import { FiCamera } from 'react-icons/fi';
 
 import logo from '@public/gobarber_logo.svg';
 
-import useHandleAvatarHook from '@hooks/useHandleAvatarHook';
-import { ChangeEvent } from 'react';
-
-type FormAvatarButtonProps = {
+type FormAvatarButtonProps = InputHTMLAttributes<HTMLImageElement> & {
   file: string | any;
   fileUrl: string | any;
-  handleChange: (event: ChangeEvent<HTMLInputElement>) => any;
-  handleRemove: () => void;
+  handleChange(event: ChangeEvent<HTMLInputElement>): any;
+  handleRemove(): void;
 };
 
 export default function FormAvatarButton({
@@ -19,8 +17,6 @@ export default function FormAvatarButton({
   handleChange,
   handleRemove,
 }: FormAvatarButtonProps) {
-  // const { file, fileUrl, handleChange, handleRemove } = useHandleAvatarHook();
-
   return (
     <div className='group m-auto flex h-28 w-28 cursor-pointer rounded-full bg-white text-white hover:bg-inputText'>
       <input

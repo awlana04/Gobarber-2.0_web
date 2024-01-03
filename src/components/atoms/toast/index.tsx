@@ -1,5 +1,5 @@
 import toast, { Toaster } from 'react-hot-toast';
-import { FiX } from 'react-icons/fi';
+import { FiX, FiAlertCircle } from 'react-icons/fi';
 
 type ToastProps = {
   id: string;
@@ -10,9 +10,12 @@ type ToastProps = {
 export default function Toast({ id, title, description }: ToastProps) {
   toast.custom(
     (t) => (
-      <div className={'w-80 rounded-lg bg-red px-6 py-4'}>
+      <div className='w-80 rounded-lg bg-red px-6 py-4'>
         <div className='flex flex-row justify-between'>
-          <p className='mb-4 text-xl font-bold'>{title}</p>
+          <div className='flex flex-row'>
+            <FiAlertCircle className='m-1 mr-2 text-xl' />
+            <p className='mb-4 text-xl font-bold'>{title}</p>
+          </div>
 
           <FiX
             className='cursor-pointer text-xl hover:text-buttonText'

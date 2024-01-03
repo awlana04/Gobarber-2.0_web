@@ -3,28 +3,29 @@
 import { useRouter } from 'next/navigation';
 import { FiScissors, FiMessageSquare, FiMapPin } from 'react-icons/fi';
 
-import ImageContainer from '@/components/ImageContainer';
-import Logo from '@components/Logo';
-import LinkToBack from '@/components/LinkToBack';
-import { Form } from '@/components/Form';
-import Button from '@/components/Button';
+import AsideImage from '@/components/atoms/aside-image';
+import Logo from '@components/atoms/logo';
+import BackToLogon from '@/components/atoms/back-to-logon';
+import Button from '@/components/atoms/button';
+
+import { Form } from '@/components/molecules/form';
 
 import image from '@public/gobarber_image004.svg';
 
-import { FormHandler } from '../../../lib/FormHandler';
+import useHandleImagesHook from '@/hooks/use-handle-images-hook';
+import useHandleUserHook from '@/hooks/use-handle-user-hook';
 
-import useHandleUserHook from '@/hooks/useHandleUserHook';
-import useHandleImagesHook from '@/hooks/useHandleImagesHook';
+import { FormHandler } from '@libs/form-handler';
+
 import {
   SigninBarberSchema,
   SigninBarberType,
-} from '../../../validations/SigninBarberForm';
-import { SigninBarberFormHandler } from '../../../functions/SigninBarberFormHandler';
+} from '@validations/signin-barber-form';
+
+import { SigninBarberFormHandler } from '@handlers/signin-barber-form-handler';
 
 export default function SigninBarber() {
   const Router = useRouter();
-
-  const { register, handleSubmit, errors } = FormHandler(SigninBarberSchema);
 
   const {
     isOpenAtNight,
@@ -35,6 +36,8 @@ export default function SigninBarber() {
 
   const { file, setFile, fileUrl, setFileUrl, handleChange } =
     useHandleImagesHook();
+
+  const { register, handleSubmit, errors } = FormHandler(SigninBarberSchema);
 
   const submitHandler = async (data: SigninBarberType) => {
     await SigninBarberFormHandler({
@@ -51,7 +54,7 @@ export default function SigninBarber() {
 
   return (
     <main className='flex'>
-      <ImageContainer src={image} alt='Foto de barbeiro' />
+      <AsideImage src={image} alt='Foto de barbeiro' />
 
       <section className='grid w-screen items-center justify-center py-8'>
         <Logo />
@@ -61,6 +64,7 @@ export default function SigninBarber() {
             {...register('location')}
             placeholder='Selecione o lugar no mapa'
             iconName={FiMapPin}
+            errored={!!errors.location}
           />
 
           <Form.Input
@@ -68,12 +72,14 @@ export default function SigninBarber() {
             iconName={FiScissors}
             type='text'
             placeholder='Nome da barbearia'
+            errored={!!errors.name}
           />
 
           <Form.Textarea
             {...register('description')}
             placeholder='Descrição'
             iconName={FiMessageSquare}
+            errored={!!errors.description}
           />
 
           <Form.Images
@@ -91,12 +97,10 @@ export default function SigninBarber() {
             setIsOpenOnWeekends={setIsOpenOnWeekends}
           />
 
-          <Button type='submit' href='#'>
-            Cadastrar
-          </Button>
+          <Button type='submit'>Cadastrar</Button>
         </Form.Root>
 
-        <LinkToBack />
+        <BackToLogon />
       </section>
     </main>
   );

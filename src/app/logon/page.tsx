@@ -2,24 +2,26 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { FiMail, FiLock, FiX } from 'react-icons/fi';
+import { FiMail, FiLock } from 'react-icons/fi';
 
-import Logo from '@/components/Logo';
-import CreateAccount from '@/components/CreateAccount';
-import ImageContainer from '@/components/ImageContainer';
-import { Form } from '@/components/Form';
-import Button from '@/components/Button';
-import Toast from '@/components/Toast';
+import Logo from '@/components/atoms/logo';
+import CreateAccount from '@/components/atoms/create-account';
+import AsideImage from '@/components/atoms/aside-image';
+import Button from '@/components/atoms/button';
+import Toast from '@/components/atoms/toast';
+
+import { Form } from '@/components/molecules/form';
 
 import image from '@public/gobarber_image002.svg';
 
-import { AuthenticateFormHandler } from '../../functions/AuthenticateFormHandler';
+import { FormHandler } from '@libs/form-handler';
 
-import { FormHandler } from '../../lib/FormHandler';
 import {
   AuthenticateFormSchema,
   AuthenticateFormType,
-} from '../../validations/AuthenticateForm';
+} from '@validations/authenticate-form';
+
+import { AuthenticateFormHandler } from '@handlers/authenticate-form-handler';
 
 export default function Logon() {
   const Router = useRouter();
@@ -85,9 +87,7 @@ export default function Logon() {
             />
           )}
 
-          <Button type='submit' href='#'>
-            Entrar
-          </Button>
+          <Button type='submit'>Entrar</Button>
         </Form.Root>
 
         <Link href='./forgot-password' className='my-4 mb-4 hover:underline'>
@@ -97,7 +97,7 @@ export default function Logon() {
         <CreateAccount />
       </section>
 
-      <ImageContainer src={image} alt='Imagem da barbearia' />
+      <AsideImage src={image} alt='Imagem da barbearia' />
     </main>
   );
 }

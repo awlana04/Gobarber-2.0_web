@@ -1,5 +1,6 @@
-import api from '@/services/api';
 import { SigninFormType } from '@/validations/SigninForm';
+
+import api from '@/services/api';
 
 type SigninFormHandlerType = SigninFormType & { file: File | undefined };
 

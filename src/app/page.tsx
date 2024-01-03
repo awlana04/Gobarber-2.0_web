@@ -1,14 +1,16 @@
-import ImageContainer from '@/components/ImageContainer';
-import Logo from '@components/Logo';
-import Button from '@/components/Button';
-import CreateAccount from '@/components/CreateAccount';
+import Link from 'next/link';
+
+import AsideImage from '@/components/atoms/aside-image';
+import Logo from '@components/atoms/logo';
+import Button from '@/components/atoms/button';
+import CreateAccount from '@/components/atoms/create-account';
 
 import image from '@public/gobarber_image001.svg';
 
 export default function Landing() {
   return (
     <main className='flex'>
-      <ImageContainer src={image} alt='Foto da barbearia' />
+      <AsideImage src={image} alt='Foto da barbearia' />
 
       <section className='flex w-screen flex-col items-center justify-center'>
         <Logo />
@@ -25,9 +27,9 @@ export default function Landing() {
           demandas.
         </p>
 
-        <Button type='button' href='./logon'>
-          Fazer logon
-        </Button>
+        <Link href='./logon'>
+          <Button type='button'>Fazer logon</Button>
+        </Link>
 
         <CreateAccount />
       </section>
