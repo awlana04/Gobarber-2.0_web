@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import ContentContainer from '@/components/atoms/content-container';
+import ContentWrapper from '@/components/atoms/content-wrapper';
 import AsideImage from '@/components/atoms/aside-image';
 import Logo from '@components/atoms/logo';
 import Button from '@/components/atoms/button';
@@ -9,10 +11,10 @@ import image from '@public/gobarber_image001.svg';
 
 export default function Landing() {
   return (
-    <main className='flex'>
+    <ContentWrapper>
       <AsideImage src={image} alt='Foto da barbearia' />
 
-      <section className='flex w-screen flex-col items-center justify-center'>
+      <ContentContainer>
         <Logo />
 
         <p className='my-10 w-[55%] pb-4 text-xl max-lg:w-[80%] max-sm:my-2'>
@@ -32,7 +34,7 @@ export default function Landing() {
         </Link>
 
         <CreateAccount />
-      </section>
-    </main>
+      </ContentContainer>
+    </ContentWrapper>
   );
 }

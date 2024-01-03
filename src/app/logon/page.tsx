@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { FiMail, FiLock } from 'react-icons/fi';
 
+import ContentWrapper from '@/components/atoms/content-wrapper';
+import ContentContainer from '@/components/atoms/content-container';
 import Logo from '@/components/atoms/logo';
 import CreateAccount from '@/components/atoms/create-account';
 import AsideImage from '@/components/atoms/aside-image';
@@ -46,8 +48,8 @@ export default function Logon() {
   };
 
   return (
-    <main className='flex'>
-      <section className='flex w-screen flex-col items-center justify-center'>
+    <ContentWrapper>
+      <ContentContainer>
         <Logo />
 
         <h1 className='my-6 mt-10 text-2xl font-medium max-sm:mt-4'>
@@ -95,9 +97,9 @@ export default function Logon() {
         </Link>
 
         <CreateAccount />
-      </section>
+      </ContentContainer>
 
       <AsideImage src={image} alt='Imagem da barbearia' />
-    </main>
+    </ContentWrapper>
   );
 }

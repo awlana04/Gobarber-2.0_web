@@ -3,8 +3,11 @@
 import { useRouter } from 'next/navigation';
 import { FiScissors, FiMessageSquare, FiMapPin } from 'react-icons/fi';
 
+import ContentWrapper from '@/components/atoms/content-wrapper';
+import ContentContainer from '@/components/atoms/content-container';
 import AsideImage from '@/components/atoms/aside-image';
 import Logo from '@components/atoms/logo';
+import Toast from '@components/atoms/toast';
 import BackToLogon from '@/components/atoms/back-to-logon';
 import Button from '@/components/atoms/button';
 
@@ -53,10 +56,10 @@ export default function SigninBarber() {
   };
 
   return (
-    <main className='flex'>
+    <ContentWrapper>
       <AsideImage src={image} alt='Foto de barbeiro' />
 
-      <section className='grid w-screen items-center justify-center py-8'>
+      <ContentContainer>
         <Logo />
 
         <Form.Root onSubmit={handleSubmit(submitHandler)}>
@@ -67,6 +70,14 @@ export default function SigninBarber() {
             errored={!!errors.location}
           />
 
+          {errors.location && (
+            <Toast
+              id={errors.location.message!}
+              title='Localização invalida'
+              description={errors.location.message!}
+            />
+          )}
+
           <Form.Input
             {...register('name')}
             iconName={FiScissors}
@@ -75,12 +86,28 @@ export default function SigninBarber() {
             errored={!!errors.name}
           />
 
+          {errors.name && (
+            <Toast
+              id={errors.name.message!}
+              title='Nome invalida'
+              description={errors.name.message!}
+            />
+          )}
+
           <Form.Textarea
             {...register('description')}
             placeholder='Descrição'
             iconName={FiMessageSquare}
             errored={!!errors.description}
           />
+
+          {errors.description && (
+            <Toast
+              id={errors.description.message!}
+              title='Descrição invalida'
+              description={errors.description.message!}
+            />
+          )}
 
           <Form.Images
             file={file}
@@ -101,7 +128,7 @@ export default function SigninBarber() {
         </Form.Root>
 
         <BackToLogon />
-      </section>
-    </main>
+      </ContentContainer>
+    </ContentWrapper>
   );
 }
