@@ -11,21 +11,12 @@ import Toast from '@components/atoms/toast';
 
 import { Form } from '@components/molecules/form';
 
+import { ToastType } from '@interfaces/toast-type';
+import { InputType } from '@interfaces/input-type';
+
 import image from '@public/gobarber_image002.svg';
 
-type InputType = {
-  submitField: any;
-
-  errored: boolean;
-};
-
-type ToastType = {
-  conditional?: {} | any;
-  id?: string;
-  description?: string;
-};
-
-type LogonScreenType = {
+type LogonScreenProps = {
   submitHandler(data: any): void;
   emailInput: InputType;
   emailToast?: ToastType;
@@ -39,7 +30,7 @@ export default function LogonScreen({
   emailToast,
   passwordInput,
   passwordToast,
-}: LogonScreenType) {
+}: LogonScreenProps) {
   return (
     <ContentWrapper>
       <ContentContainer>

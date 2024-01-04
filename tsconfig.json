@@ -7,6 +7,7 @@
     "strict": true,
     "noEmit": true,
     "esModuleInterop": true,
+    "baseUrl": "./",
     "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
@@ -19,17 +20,18 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
-      "@public/*": ["./public/*"],
-      "@components/*": ["./src/presentation/components/*"],
-      "@hooks/*": ["./src/core/hooks/*"],
-      "@handlers/*": ["./src/core/handlers/*"],
-      "@validations/*": ["./src/core/validations/*"],
-      "@libs/*": ["./src/core/libs/*"],
-      "@services/*": ["./src/core/services/*"],
-      "@core/*": ["./src/core/*"],
-      "@pages/*": ["./src/core/pages/*"],
-      "@screens/*": ["./src/presentation/screens/*"]
+      "@/*": ["src/*"],
+      "@public/*": ["public/*"],
+      "@components/*": ["src/presentation/components/*"],
+      "@hooks/*": ["src/core/hooks/*"],
+      "@handlers/*": ["src/core/handlers/*"],
+      "@validations/*": ["src/core/validations/*"],
+      "@libs/*": ["src/core/libs/*"],
+      "@services/*": ["src/core/services/*"],
+      "@core/*": ["src/core/*"],
+      "@pages/*": ["src/core/pages/*"],
+      "@screens/*": ["src/presentation/screens/*"],
+      "@interfaces/*": ["src/presentation/interfaces/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
