@@ -1,21 +1,21 @@
-import { ElementType } from 'react';
 import Link from 'next/link';
+import { FiMail, FiLock } from 'react-icons/fi';
 
-import ContentWrapper from '@/components/atoms/content-wrapper';
-import ContentContainer from '@/components/atoms/content-container';
-import Logo from '@/components/atoms/logo';
-import CreateAccount from '@/components/atoms/create-account';
-import AsideImage from '@/components/atoms/aside-image';
-import Button from '@/components/atoms/button';
-import Toast from '@/components/atoms/toast';
+import ContentWrapper from '@components/atoms/content-wrapper';
+import ContentContainer from '@components/atoms/content-container';
+import Logo from '@components/atoms/logo';
+import CreateAccount from '@components/atoms/create-account';
+import AsideImage from '@components/atoms/aside-image';
+import Button from '@components/atoms/button';
+import Toast from '@components/atoms/toast';
 
-import { Form } from '@/components/molecules/form';
+import { Form } from '@components/molecules/form';
 
 import image from '@public/gobarber_image002.svg';
 
 type InputType = {
   submitField: any;
-  iconName: ElementType;
+
   errored: boolean;
 };
 
@@ -52,8 +52,7 @@ export default function LogonScreen({
         <Form.Root onSubmit={submitHandler}>
           <Form.Input
             {...emailInput.submitField}
-            // {...register('email')}
-            iconName={emailInput.iconName}
+            iconName={FiMail}
             type='email'
             placeholder='Email'
             errored={emailInput.errored}
@@ -69,14 +68,12 @@ export default function LogonScreen({
 
           <Form.Input
             {...passwordInput.submitField}
-            // {...register('password')}
-            iconName={passwordInput.iconName}
+            iconName={FiLock}
             type='password'
             placeholder='Senha'
             errored={passwordInput.errored}
           />
 
-          {/* {errors.password && ( */}
           {passwordToast?.conditional && (
             <Toast
               id={passwordToast.id!}
@@ -84,7 +81,6 @@ export default function LogonScreen({
               description={passwordToast.description!}
             />
           )}
-          {/* )} */}
 
           <Button type='submit'>Entrar</Button>
         </Form.Root>

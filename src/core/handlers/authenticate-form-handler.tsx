@@ -1,6 +1,6 @@
-import { AuthenticateFormType } from '@validations/AuthenticateForm';
+import { AuthenticateFormType } from '@validations/authenticate-form';
 
-import api from '@/services/api';
+import api from '@services/api';
 
 export const AuthenticateFormHandler = async (data: AuthenticateFormType) => {
   const response = await api

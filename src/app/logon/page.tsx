@@ -1,4 +1,4 @@
-import LogonPage from '@core/pages/logon-page';
+import LogonPage from '@pages/logon-page';
 
 export default function Logon() {
   return <LogonPage />;

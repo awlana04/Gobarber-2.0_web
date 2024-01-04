@@ -1,7 +1,6 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { FiMail, FiLock } from 'react-icons/fi';
 
 import { FormHandler } from '@libs/form-handler';
 
@@ -11,7 +10,8 @@ import {
 } from '@validations/authenticate-form';
 
 import { AuthenticateFormHandler } from '@handlers/authenticate-form-handler';
-import LogonScreen from '@/presentation/screens/logon-screen';
+
+import LogonScreen from '@screens/logon-screen';
 
 export default function LogonPage() {
   const Router = useRouter();
@@ -40,7 +40,6 @@ export default function LogonPage() {
       submitHandler={handleSubmit(submitHandler)}
       emailInput={{
         submitField: { ...register('email') },
-        iconName: FiMail,
         errored: !!errors.email,
       }}
       emailToast={{
@@ -50,7 +49,6 @@ export default function LogonPage() {
       }}
       passwordInput={{
         submitField: { ...register('password') },
-        iconName: FiLock,
         errored: !!errors.password,
       }}
       passwordToast={{

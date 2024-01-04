@@ -1,6 +1,6 @@
-import { SigninBarberType } from '@/validations/SigninBarberForm';
+import { SigninBarberType } from '@validations/signin-barber-form';
 
-import api from '@/services/api';
+import api from '@services/api';
 
 type SigninBarberFormHandlerType = SigninBarberType & {
   file: File[];
