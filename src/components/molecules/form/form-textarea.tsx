@@ -2,7 +2,7 @@ import { ElementType, forwardRef } from 'react';
 
 import Icon from '@components/atoms/icon';
 
-import useHandleFilledHook from '@/hooks/useHandleFilledHook';
+import useHandleFilledHook from '@hooks/use-handle-filled-hook';
 
 interface FormTextareaProps {
   placeholder: string;

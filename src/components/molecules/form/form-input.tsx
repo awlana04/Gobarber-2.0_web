@@ -1,6 +1,6 @@
 import { ElementType, InputHTMLAttributes, forwardRef } from 'react';
 
-import useHandleFilledHook from '@/hooks/useHandleFilledHook';
+import useHandleFilledHook from '@hooks/use-handle-filled-hook';
 
 import Icon from '@components/atoms/icon';
 

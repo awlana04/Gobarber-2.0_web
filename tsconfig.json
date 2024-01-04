@@ -26,7 +26,8 @@
       "@handlers/*": ["./src/handlers/*"],
       "@validations/*": ["./src/validations/*"],
       "@libs/*": ["./src/libs/*"],
-      "@services/*": ["./src/services/*"]
+      "@services/*": ["./src/services/*"],
+      "@core/*": ["./src/core/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
