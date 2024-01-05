@@ -1,11 +1,14 @@
 import { z } from 'zod';
 
+import { EMAIL_MESSAGES } from '@constants/email-messages';
+import { PASSWORD_MESSAGES } from '@constants/password-messages';
+
 export const AuthenticateFormSchema = z.object({
   email: z
     .string()
-    .email('Necessita ser um email válido')
-    .min(6, 'Necessita ter no mínimo 6 caracteres'),
-  password: z.string().min(8, 'Necessita ter no mínimo 8 caracteres'),
+    .email(EMAIL_MESSAGES.EMAIL_REQUIRED)
+    .min(6, EMAIL_MESSAGES.EMAIL_LENGTH),
+  password: z.string().min(8, PASSWORD_MESSAGES.PASSWORD_LENGTH),
 });
 
 export type AuthenticateFormType = z.infer<typeof AuthenticateFormSchema>;

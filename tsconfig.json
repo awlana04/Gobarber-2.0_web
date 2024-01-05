@@ -28,6 +28,7 @@
       "@validations/*": ["src/core/validations/*"],
       "@libs/*": ["src/core/libs/*"],
       "@services/*": ["src/core/services/*"],
+      "@constants/*": ["src/core/constants/*"],
       "@core/*": ["src/core/*"],
       "@pages/*": ["src/core/pages/*"],
       "@screens/*": ["src/presentation/screens/*"],
