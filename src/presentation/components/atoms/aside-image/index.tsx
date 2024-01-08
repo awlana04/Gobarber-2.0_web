@@ -1,6 +1,7 @@
 import Image, { ImageProps } from 'next/image';
+import { ImgHTMLAttributes, InputHTMLAttributes } from 'react';
 
-type AsideImageProps = ImageProps & {
+type AsideImageProps = ImgHTMLAttributes<HTMLImageElement> & {
   src: string;
   alt: string;
 };
@@ -12,6 +13,9 @@ export default function AsideImage({ src, alt }: AsideImageProps) {
         src={src}
         alt={alt}
         className='fixed h-screen w-1/2 object-cover'
+        fill
+        // width={200}
+        // height={200}
       />
     </div>
   );
