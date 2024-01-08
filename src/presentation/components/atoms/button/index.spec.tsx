@@ -1,7 +1,5 @@
 import { render } from '@testing-library/react';
 
-import '../../../../app/globals.css';
-
 import Button from './index';
 
 describe('<Button> component', () => {
@@ -23,5 +21,13 @@ describe('<Button> component', () => {
     const buttonElement = getByRole('button');
 
     expect(buttonElement).toHaveClass('bg-orange');
+  });
+
+  it('should not be able to render the button', () => {
+    const { queryByText } = render(<Button type='button'>Button</Button>);
+
+    const buttonElement = queryByText('wrong button');
+
+    expect(buttonElement).not.toBeInTheDocument();
   });
 });
