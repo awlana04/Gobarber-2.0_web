@@ -26,7 +26,7 @@ describe('<Button> component', () => {
   it('should not be able to render the button', () => {
     const { queryByText } = render(<Button type='button'>Button</Button>);
 
-    const buttonElement = queryByText('wrong button');
+    const buttonElement = queryByText('Wrong button');
 
     expect(buttonElement).not.toBeInTheDocument();
   });
