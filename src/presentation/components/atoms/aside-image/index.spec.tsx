@@ -8,8 +8,11 @@ describe('<AsideImage> component', () => {
       <AsideImage src='/image.png' alt='image' />
     );
 
-    expect(getByAltText('image')).toBeInTheDocument();
-    expect(getByRole('img')).toBeInTheDocument();
+    const imageComponent = getByRole('img');
+    const altText = getByAltText('image');
+
+    expect(altText).toBeInTheDocument();
+    expect(imageComponent).toBeInTheDocument();
   });
 
   it('should not be able to render the AsideImage component', () => {

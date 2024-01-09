@@ -1,9 +1,9 @@
 import { ButtonHTMLAttributes, ReactNode } from 'react';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   type: 'submit' | 'button';
   children: ReactNode;
-}
+};
 
 export default function Button({ type, children }: ButtonProps) {
   return (
