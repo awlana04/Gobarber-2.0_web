@@ -1,9 +1,7 @@
 import { FiScissors, FiMessageSquare, FiMapPin } from 'react-icons/fi';
 
-import ContentWrapper from '@components/atoms/content-wrapper';
-import ContentContainer from '@components/atoms/content-container';
-import AsideImage from '@components/atoms/aside-image';
-import Logo from '@components/atoms/logo';
+import ContentTemplate from '../templates/content-template';
+
 import Toast from '@components/atoms/toast';
 import BackToLogon from '@components/atoms/back-to-logon';
 import Button from '@components/atoms/button';
@@ -43,79 +41,73 @@ export default function SigninBarberScreen({
   openOnWeekends,
 }: SigninBarberScreenType) {
   return (
-    <ContentWrapper>
-      <AsideImage src={image} alt='Foto de barbeiro' />
+    <ContentTemplate position='left' src={image} alt='Imagem da barbearia'>
+      <Form.Root onSubmit={submitHandler}>
+        <Form.Textarea
+          {...locationInput.submitField}
+          placeholder='Selecione o lugar no mapa'
+          iconName={FiMapPin}
+          errored={locationInput.errored}
+        />
 
-      <ContentContainer>
-        <Logo />
-
-        <Form.Root onSubmit={submitHandler}>
-          <Form.Textarea
-            {...locationInput.submitField}
-            placeholder='Selecione o lugar no mapa'
-            iconName={FiMapPin}
-            errored={locationInput.errored}
+        {locationToast.conditional && (
+          <Toast
+            id={locationToast.id!}
+            title='Localização invalida'
+            description={locationToast.description!}
           />
+        )}
 
-          {locationToast.conditional && (
-            <Toast
-              id={locationToast.id!}
-              title='Localização invalida'
-              description={locationToast.description!}
-            />
-          )}
+        <Form.Input
+          {...nameInput.submitField}
+          iconName={FiScissors}
+          type='text'
+          placeholder='Nome da barbearia'
+          errored={nameInput.errored}
+        />
 
-          <Form.Input
-            {...nameInput.submitField}
-            iconName={FiScissors}
-            type='text'
-            placeholder='Nome da barbearia'
-            errored={nameInput.errored}
+        {nameToast?.conditional && (
+          <Toast
+            id={nameToast.id!}
+            title='Nome invalida'
+            description={nameToast.description!}
           />
+        )}
 
-          {nameToast?.conditional && (
-            <Toast
-              id={nameToast.id!}
-              title='Nome invalida'
-              description={nameToast.description!}
-            />
-          )}
+        <Form.Textarea
+          {...descriptionInput.submitField}
+          placeholder='Descrição'
+          iconName={FiMessageSquare}
+          errored={descriptionInput.errored}
+        />
 
-          <Form.Textarea
-            {...descriptionInput.submitField}
-            placeholder='Descrição'
-            iconName={FiMessageSquare}
-            errored={descriptionInput.errored}
+        {descriptionToast?.conditional && (
+          <Toast
+            id={descriptionToast.id!}
+            title='Descrição invalida'
+            description={descriptionToast.description!}
           />
+        )}
 
-          {descriptionToast?.conditional && (
-            <Toast
-              id={descriptionToast.id!}
-              title='Descrição invalida'
-              description={descriptionToast.description!}
-            />
-          )}
+        <Form.Images
+          file={images.file}
+          fileUrl={images.fileUrl}
+          setFile={images.setFile}
+          setFileUrl={images.setFileUrl}
+          handleChange={images.handleChange}
+        />
 
-          <Form.Images
-            file={images.file}
-            fileUrl={images.fileUrl}
-            setFile={images.setFile}
-            setFileUrl={images.setFileUrl}
-            handleChange={images.handleChange}
-          />
+        <Form.TwoRadio
+          isOpenAtNight={openAtNight.isBarberSelected}
+          setIsOpenAtNight={openAtNight.setIsBarberSelected}
+          isOpenOnWeekends={openOnWeekends.isBarberSelected}
+          setIsOpenOnWeekends={openOnWeekends.setIsBarberSelected}
+        />
 
-          <Form.TwoRadio
-            isOpenAtNight={openAtNight.isBarberSelected}
-            setIsOpenAtNight={openAtNight.setIsBarberSelected}
-            isOpenOnWeekends={openOnWeekends.isBarberSelected}
-            setIsOpenOnWeekends={openOnWeekends.setIsBarberSelected}
-          />
+        <Button type='submit'>Cadastrar</Button>
+      </Form.Root>
 
-          <Button type='submit'>Cadastrar</Button>
-        </Form.Root>
-
-        <BackToLogon />
-      </ContentContainer>
-    </ContentWrapper>
+      <BackToLogon />
+    </ContentTemplate>
   );
 }

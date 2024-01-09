@@ -1,9 +1,7 @@
 import { FiUser, FiMail, FiLock } from 'react-icons/fi';
 
-import ContentWrapper from '@components/atoms/content-wrapper';
-import ContentContainer from '@components/atoms/content-container';
-import AsideImage from '@components/atoms/aside-image';
-import Logo from '@components/atoms/logo';
+import ContentTemplate from '../templates/content-template';
+
 import Toast from '@components/atoms/toast';
 import BackToLogon from '@components/atoms/back-to-logon';
 import Button from '@components/atoms/button';
@@ -45,94 +43,88 @@ export default function SigninScreen({
   confirmPasswordToast,
 }: SigninProps) {
   return (
-    <ContentWrapper>
-      <AsideImage src={image} alt='Foto da barbearia' />
+    <ContentTemplate position='left' src={image} alt='Foto da barbearia'>
+      <Form.Root onSubmit={submitHandler}>
+        <Form.Avatar
+          file={avatar.file}
+          fileUrl={avatar.fileUrl}
+          handleChange={avatar.handleChange}
+          handleRemove={avatar.handleRemove}
+        />
 
-      <ContentContainer>
-        <Logo />
+        <Form.Radio
+          isBarberSelected={radio.isBarberSelected}
+          setIsBarberSelected={radio.setIsBarberSelected}
+        />
 
-        <Form.Root onSubmit={submitHandler}>
-          <Form.Avatar
-            file={avatar.file}
-            fileUrl={avatar.fileUrl}
-            handleChange={avatar.handleChange}
-            handleRemove={avatar.handleRemove}
+        <Form.Input
+          {...nameInput.submitField}
+          iconName={FiUser}
+          type='text'
+          placeholder='Nome'
+          errored={nameInput.errored}
+        />
+
+        {nameToast?.conditional && (
+          <Toast
+            id={nameToast.id!}
+            title='Nome invalido'
+            description={nameToast.description!}
           />
+        )}
 
-          <Form.Radio
-            isBarberSelected={radio.isBarberSelected}
-            setIsBarberSelected={radio.setIsBarberSelected}
+        <Form.Input
+          {...emailInput.submitField}
+          iconName={FiMail}
+          type='email'
+          placeholder='E-mail'
+          errored={emailInput.errored}
+        />
+
+        {emailToast?.conditional && (
+          <Toast
+            id={emailToast.id!}
+            title='E-mail invalido'
+            description={emailToast.description!}
           />
+        )}
 
-          <Form.Input
-            {...nameInput.submitField}
-            iconName={FiUser}
-            type='text'
-            placeholder='Nome'
-            errored={nameInput.errored}
+        <Form.Input
+          {...passwordInput.submitField}
+          iconName={FiLock}
+          type='password'
+          placeholder='Senha'
+          errored={passwordInput.errored}
+        />
+
+        {passwordToast?.conditional && (
+          <Toast
+            id={passwordToast.id!}
+            title='Senha invalido'
+            description={passwordToast.description!}
           />
+        )}
 
-          {nameToast?.conditional && (
-            <Toast
-              id={nameToast.id!}
-              title='Nome invalido'
-              description={nameToast.description!}
-            />
-          )}
+        <Form.Input
+          {...confirmPasswordInput.submitField}
+          iconName={FiLock}
+          type='password'
+          placeholder='Confirmar senha'
+          errored={confirmPasswordInput.errored}
+        />
 
-          <Form.Input
-            {...emailInput.submitField}
-            iconName={FiMail}
-            type='email'
-            placeholder='E-mail'
-            errored={emailInput.errored}
+        {confirmPasswordToast?.conditional && (
+          <Toast
+            id={confirmPasswordToast.id!}
+            title='Senha não combina'
+            description={confirmPasswordToast.description!}
           />
+        )}
 
-          {emailToast?.conditional && (
-            <Toast
-              id={emailToast.id!}
-              title='E-mail invalido'
-              description={emailToast.description!}
-            />
-          )}
+        <Button type='submit'>Cadastrar</Button>
+      </Form.Root>
 
-          <Form.Input
-            {...passwordInput.submitField}
-            iconName={FiLock}
-            type='password'
-            placeholder='Senha'
-            errored={passwordInput.errored}
-          />
-
-          {passwordToast?.conditional && (
-            <Toast
-              id={passwordToast.id!}
-              title='Senha invalido'
-              description={passwordToast.description!}
-            />
-          )}
-
-          <Form.Input
-            {...confirmPasswordInput.submitField}
-            iconName={FiLock}
-            type='password'
-            placeholder='Confirmar senha'
-            errored={confirmPasswordInput.errored}
-          />
-
-          {confirmPasswordToast?.conditional && (
-            <Toast
-              id={confirmPasswordToast.id!}
-              title='Senha não combina'
-              description={confirmPasswordToast.description!}
-            />
-          )}
-
-          <Button type='submit'>Cadastrar</Button>
-        </Form.Root>
-
-        <BackToLogon />
-      </ContentContainer>
-    </ContentWrapper>
+      <BackToLogon />
+    </ContentTemplate>
   );
 }

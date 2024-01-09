@@ -19,10 +19,13 @@ export default function ContentTemplate({
   return (
     <main className='flex'>
       {position === 'left' && <AsideImage src={src} alt={alt} />}
+
       <section className='flex w-screen flex-col items-center justify-center'>
         <Logo />
+
         {children}
       </section>
+
       {position === 'right' && <AsideImage src={src} alt={alt} />}
     </main>
   );
