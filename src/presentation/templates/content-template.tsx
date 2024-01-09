@@ -1,7 +1,9 @@
+import Image from 'next/image';
 import { ReactNode } from 'react';
 
-import Logo from '../components/atoms/logo';
 import AsideImage from './components/aside-image';
+
+import GoBarberLogo from '@public/gobarber_logo001.svg';
 
 type ContentTemplateType = {
   children: ReactNode;
@@ -21,7 +23,13 @@ export default function ContentTemplate({
       {position === 'left' && <AsideImage src={src} alt={alt} />}
 
       <section className='flex w-screen flex-col items-center justify-center'>
-        <Logo />
+        <Image
+          src={GoBarberLogo}
+          alt='Foto de barbearia'
+          width={0}
+          height={0}
+          className='mx-auto max-sm:my-4 max-sm:w-48'
+        />
 
         {children}
       </section>

@@ -22,7 +22,7 @@ describe('Content template', () => {
       </ContentTemplate>
     );
 
-    const ContentTemplateElement = queryByText('Template');
+    const ContentTemplateElement = queryByText('Wrong template');
 
     expect(ContentTemplateElement).not.toBeInTheDocument();
   });
