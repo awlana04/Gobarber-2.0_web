@@ -12,10 +12,9 @@ export default function AsideImage({ src, alt }: AsideImageProps) {
       <Image
         src={src}
         alt={alt}
+        width={0}
+        height={0}
         className='fixed h-screen w-1/2 object-cover'
-        fill
-        // width={200}
-        // height={200}
       />
     </div>
   );
