@@ -3,8 +3,10 @@ import LandingScreen from './landing-screen';
 
 describe('Landing screen layout', () => {
   it('should be able to render the landing screen', () => {
-    const { getByRole } = render(<LandingScreen />);
+    const { getByText } = render(<LandingScreen />);
 
-    expect(getByRole('paragraph')).toHaveAttribute('class');
+    const landingScreenElement = getByText('Fazer logon');
+
+    expect(landingScreenElement).toBeInTheDocument();
   });
 });
