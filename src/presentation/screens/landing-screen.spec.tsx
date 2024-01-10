@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react';
+
 import LandingScreen from './landing-screen';
 
 describe('Landing screen layout', () => {
@@ -8,5 +9,13 @@ describe('Landing screen layout', () => {
     const landingScreenElement = getByText('Fazer logon');
 
     expect(landingScreenElement).toBeInTheDocument();
+  });
+
+  it('should not ble able to render the landing screen', () => {
+    const { queryByText } = render(<LandingScreen />);
+
+    const landingScreenElement = queryByText('Não fazer logon');
+
+    expect(landingScreenElement).not.toBeInTheDocument();
   });
 });
