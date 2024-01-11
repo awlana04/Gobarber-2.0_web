@@ -1,10 +1,11 @@
 import Link from 'next/link';
-import { FiMail, FiLock } from 'react-icons/fi';
 
 import ContentTemplate from '../templates/content-template';
 
+import EmailInputFragment from '../fragments/email-input-fragment';
+import PasswordInputFragment from '../fragments/password-input-fragment';
+
 import Button from '@components/atoms/button';
-import Toast from '@components/atoms/toast';
 
 import { Form } from '@components/molecules/form';
 
@@ -12,7 +13,6 @@ import { ToastType } from '@interfaces/toast-type';
 import { InputType } from '@interfaces/input-type';
 
 import image from '@public/gobarber_image002.svg';
-
 type LogonScreenProps = {
   submitHandler(data: any): void;
   emailInput: InputType;
@@ -35,37 +35,11 @@ export default function LogonScreen({
       </h1>
 
       <Form.Root onSubmit={submitHandler}>
-        <Form.Input
-          {...emailInput.submitField}
-          iconName={FiMail}
-          type='email'
-          placeholder='Email'
-          errored={emailInput.errored}
+        <EmailInputFragment emailInput={emailInput} emailToast={emailToast} />
+        <PasswordInputFragment
+          passwordInput={passwordInput}
+          passwordToast={passwordToast}
         />
-
-        {emailToast?.conditional && (
-          <Toast
-            id={emailToast.id!}
-            title='E-mail invalido'
-            description={emailToast.description!}
-          />
-        )}
-
-        <Form.Input
-          {...passwordInput.submitField}
-          iconName={FiLock}
-          type='password'
-          placeholder='Senha'
-          errored={passwordInput.errored}
-        />
-
-        {passwordToast?.conditional && (
-          <Toast
-            id={passwordToast.id!}
-            title='Senha invalida'
-            description={passwordToast.description!}
-          />
-        )}
 
         <Button type='submit'>Entrar</Button>
       </Form.Root>

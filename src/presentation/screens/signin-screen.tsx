@@ -1,20 +1,21 @@
-import { FiUser, FiMail, FiLock } from 'react-icons/fi';
-
 import ContentTemplate from '../templates/content-template';
-
-import Toast from '@components/atoms/toast';
-import BackToLogon from '@components/atoms/back-to-logon';
-import Button from '@components/atoms/button';
-
-import { Form } from '@components/molecules/form';
 
 import { AvatarType } from '@interfaces/avatar-type';
 import { RadioType } from '@interfaces/radio-type';
 import { ToastType } from '@interfaces/toast-type';
 import { InputType } from '@interfaces/input-type';
 
-import image from '@public/gobarber_image003.svg';
+import NameInputFragment from '../fragments/name-input-fragment';
+import EmailInputFragment from '../fragments/email-input-fragment';
+import PasswordInputFragment from '../fragments/password-input-fragment';
+import ConfirmPasswordInputFragment from '../fragments/confirm-password-input-fragment';
 
+import BackToLogon from '@components/atoms/back-to-logon';
+import Button from '@components/atoms/button';
+
+import { Form } from '@components/molecules/form';
+
+import image from '@public/gobarber_image003.svg';
 type SigninProps = {
   submitHandler(data: any): void;
   avatar: AvatarType;
@@ -57,69 +58,20 @@ export default function SigninScreen({
           setIsBarberSelected={radio.setIsBarberSelected}
         />
 
-        <Form.Input
-          {...nameInput.submitField}
-          iconName={FiUser}
-          type='text'
-          placeholder='Nome'
-          errored={nameInput.errored}
+        <NameInputFragment
+          nameInput={nameInput}
+          nameToast={nameToast}
+          icon='user'
         />
-
-        {nameToast?.conditional && (
-          <Toast
-            id={nameToast.id!}
-            title='Nome invalido'
-            description={nameToast.description!}
-          />
-        )}
-
-        <Form.Input
-          {...emailInput.submitField}
-          iconName={FiMail}
-          type='email'
-          placeholder='E-mail'
-          errored={emailInput.errored}
+        <EmailInputFragment emailInput={emailInput} emailToast={emailToast} />
+        <PasswordInputFragment
+          passwordInput={passwordInput}
+          passwordToast={passwordToast}
         />
-
-        {emailToast?.conditional && (
-          <Toast
-            id={emailToast.id!}
-            title='E-mail invalido'
-            description={emailToast.description!}
-          />
-        )}
-
-        <Form.Input
-          {...passwordInput.submitField}
-          iconName={FiLock}
-          type='password'
-          placeholder='Senha'
-          errored={passwordInput.errored}
+        <ConfirmPasswordInputFragment
+          confirmPasswordInput={confirmPasswordInput}
+          confirmPasswordToast={confirmPasswordToast}
         />
-
-        {passwordToast?.conditional && (
-          <Toast
-            id={passwordToast.id!}
-            title='Senha invalido'
-            description={passwordToast.description!}
-          />
-        )}
-
-        <Form.Input
-          {...confirmPasswordInput.submitField}
-          iconName={FiLock}
-          type='password'
-          placeholder='Confirmar senha'
-          errored={confirmPasswordInput.errored}
-        />
-
-        {confirmPasswordToast?.conditional && (
-          <Toast
-            id={confirmPasswordToast.id!}
-            title='Senha não combina'
-            description={confirmPasswordToast.description!}
-          />
-        )}
 
         <Button type='submit'>Cadastrar</Button>
       </Form.Root>

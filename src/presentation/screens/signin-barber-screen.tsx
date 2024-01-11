@@ -1,4 +1,4 @@
-import { FiScissors, FiMessageSquare, FiMapPin } from 'react-icons/fi';
+import { FiScissors } from 'react-icons/fi';
 
 import ContentTemplate from '../templates/content-template';
 
@@ -14,6 +14,8 @@ import { ImagesType } from '@interfaces/images-type';
 import { RadioType } from '@interfaces/radio-type';
 
 import image from '@public/gobarber_image004.svg';
+import LocationInputFragment from '../fragments/location-input-fragment';
+import DescriptionInputFragment from '../fragments/description-input-fragment';
 
 type SigninBarberScreenType = {
   submitHandler(data: any): void;
@@ -43,20 +45,10 @@ export default function SigninBarberScreen({
   return (
     <ContentTemplate position='left' src={image} alt='Imagem da barbearia'>
       <Form.Root onSubmit={submitHandler}>
-        <Form.Textarea
-          {...locationInput.submitField}
-          placeholder='Selecione o lugar no mapa'
-          iconName={FiMapPin}
-          errored={locationInput.errored}
+        <LocationInputFragment
+          locationInput={locationInput}
+          locationToast={locationToast}
         />
-
-        {locationToast.conditional && (
-          <Toast
-            id={locationToast.id!}
-            title='Localização invalida'
-            description={locationToast.description!}
-          />
-        )}
 
         <Form.Input
           {...nameInput.submitField}
@@ -74,20 +66,10 @@ export default function SigninBarberScreen({
           />
         )}
 
-        <Form.Textarea
-          {...descriptionInput.submitField}
-          placeholder='Descrição'
-          iconName={FiMessageSquare}
-          errored={descriptionInput.errored}
+        <DescriptionInputFragment
+          descriptionInput={descriptionInput}
+          descriptionToast={descriptionToast}
         />
-
-        {descriptionToast?.conditional && (
-          <Toast
-            id={descriptionToast.id!}
-            title='Descrição invalida'
-            description={descriptionToast.description!}
-          />
-        )}
 
         <Form.Images
           file={images.file}
