@@ -6,6 +6,7 @@ import { InputType } from '../interfaces/input-type';
 import Toast from '@components/atoms/toast';
 
 import { Form } from '@components/molecules/form';
+import { ChangeEvent, Ref } from 'react';
 
 export type EmailInputFragmentType = {
   emailInput: InputType;
@@ -19,10 +20,12 @@ export default function EmailInputFragment({
   return (
     <>
       <Form.Input
-        {...emailInput.submitField}
+        // {...emailInput.submitField}
+        onChange={emailInput.submitField}
         iconName={FiMail}
         type='email'
-        placeholder='Email'
+        placeholder='E-mail'
+        aria-label='E-mail'
         errored={emailInput.errored}
       />
 
