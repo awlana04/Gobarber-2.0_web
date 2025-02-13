@@ -8,14 +8,15 @@ import Button from '@components/atoms/button';
 
 import { Form } from '@components/molecules/form';
 
+import LocationInputFragment from '../fragments/location-input-fragment';
+import DescriptionInputFragment from '../fragments/description-input-fragment';
+
 import { InputType } from '@interfaces/input-type';
 import { ToastType } from '@interfaces/toast-type';
 import { ImagesType } from '@interfaces/images-type';
 import { RadioType } from '@interfaces/radio-type';
 
 import image from '@public/gobarber_image004.svg';
-import LocationInputFragment from '../fragments/location-input-fragment';
-import DescriptionInputFragment from '../fragments/description-input-fragment';
 
 type SigninBarberScreenType = {
   submitHandler(data: any): void;

@@ -20,6 +20,7 @@ export default function PasswordInputFragment({
     <>
       <Form.Input
         {...passwordInput.submitField}
+        onChange={passwordInput.submitField}
         iconName={FiLock}
         type='password'
         placeholder='Senha'

@@ -5,8 +5,8 @@ import { useState } from 'react';
 export default function useHandleFilledHook() {
   const [isFilled, setIsFilled] = useState(false);
 
-  const handleFilled = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value) {
+  const handleFilled = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.value) {
       setIsFilled(true);
     } else {
       setIsFilled(false);

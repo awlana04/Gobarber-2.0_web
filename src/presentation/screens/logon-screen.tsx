@@ -13,12 +13,13 @@ import { ToastType } from '@interfaces/toast-type';
 import { InputType } from '@interfaces/input-type';
 
 import image from '@public/gobarber_image002.svg';
+
 type LogonScreenProps = {
-  submitHandler(data: any): void;
   emailInput: InputType;
   emailToast?: ToastType;
   passwordInput: InputType;
   passwordToast?: ToastType;
+  submitHandler(data: any): void;
 };
 
 export default function LogonScreen({
@@ -34,7 +35,7 @@ export default function LogonScreen({
         Faça seu Logon
       </h1>
 
-      <Form.Root onSubmit={submitHandler}>
+      <Form.Root onSubmit={(data) => console.log(data)}>
         <EmailInputFragment emailInput={emailInput} emailToast={emailToast} />
         <PasswordInputFragment
           passwordInput={passwordInput}
