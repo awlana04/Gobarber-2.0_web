@@ -1,7 +1,6 @@
 import Link from 'next/link';
 
 import ContentTemplate from '../templates/content-template';
-
 import EmailInputFragment from '../fragments/email-input-fragment';
 import PasswordInputFragment from '../fragments/password-input-fragment';
 
@@ -11,6 +10,8 @@ import { Form } from '@components/molecules/form';
 
 import { ToastType } from '@interfaces/toast-type';
 import { InputType } from '@interfaces/input-type';
+
+import { useToast } from '@contexts/use-toast-context';
 
 import image from '@public/gobarber_image002.svg';
 
@@ -29,6 +30,8 @@ export default function LogonScreen({
   passwordInput,
   passwordToast,
 }: LogonScreenProps) {
+  const { addToast } = useToast();
+
   return (
     <ContentTemplate position='right' src={image} alt='Imagem da barbearia'>
       <h1 className='my-6 mt-10 text-2xl font-medium max-sm:mt-4'>
@@ -42,7 +45,29 @@ export default function LogonScreen({
           passwordToast={passwordToast}
         />
 
-        <Button type='submit'>Entrar</Button>
+        <button
+          type='button'
+          onClick={() => {
+            addToast({
+              title: 'Deu tudo certo',
+              description: 'Você é fera',
+              type: 'success',
+            });
+            addToast({
+              title: 'Deu tudo certo',
+              description: 'Você é fera',
+              type: 'error',
+            });
+            addToast({
+              title: 'Deu tudo certo',
+              description: 'Você é fera',
+              type: 'info',
+            });
+          }}
+        >
+          entrar
+        </button>
+        {/* <Button type='submit'>Entrar</Button> */}
       </Form.Root>
 
       <Link href='./forgot-password' className='my-4 mb-4 hover:underline'>

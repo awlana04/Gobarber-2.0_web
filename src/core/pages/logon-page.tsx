@@ -12,6 +12,7 @@ import {
 import { AuthenticateFormHandler } from '@handlers/authenticate-form-handler';
 
 import LogonScreen from '@screens/logon-screen';
+import { useToast } from '../hooks/toast-hook';
 
 export default function LogonPage() {
   const Router = useRouter();

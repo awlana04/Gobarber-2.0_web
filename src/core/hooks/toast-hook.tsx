@@ -7,32 +7,22 @@ import {
   ReactNode,
   useContext,
 } from 'react';
-
-import ToastContainer from '@/presentation/components/molecules/toast-container';
 import { uuid } from 'uuidv4';
 
-type ToastMessage = {
-  id: string;
-  type?: 'error' | 'success' | 'info';
-  title: string;
-  description?: string;
-};
+import ToastContainer from '@/presentation/components/molecules/toast-container';
 
-interface ToastContextData {
-  addToast(message: Omit<ToastMessage, 'id'>): void;
-  removeToast(id: string): void;
-}
+import { ToastMessageType } from '@interfaces/toast-message-type';
 
-const ToastContext = createContext<ToastContextData>({} as ToastContextData);
+import { ToastContext } from '@contexts/use-toast-context';
 
 type ToastHookProps = {
   children?: ReactNode;
 };
 export default function ToastHook({ children }: ToastHookProps) {
-  const [messages, setMessages] = useState<ToastMessage[]>([]);
+  const [messages, setMessages] = useState<ToastMessageType[]>([]);
 
   const addToast = useCallback(
-    ({ type, title, description }: Omit<ToastMessage, 'id'>) => {
+    ({ type, title, description }: Omit<ToastMessageType, 'id'>) => {
       const id = uuid();
 
       const toast = {
@@ -44,7 +34,7 @@ export default function ToastHook({ children }: ToastHookProps) {
 
       setMessages((state) => [...state, toast]);
     },
-    [setMessages, messages]
+    []
   );
 
   const removeToast = useCallback((id: string) => {
@@ -57,14 +47,4 @@ export default function ToastHook({ children }: ToastHookProps) {
       <ToastContainer messages={messages} />
     </ToastContext.Provider>
   );
-}
-
-export function useToast(): ToastContextData {
-  const context = useContext(ToastContext);
-
-  if (!context) {
-    throw new Error('useToast must be used within a ToastProvider');
-  }
-
-  return context;
 }

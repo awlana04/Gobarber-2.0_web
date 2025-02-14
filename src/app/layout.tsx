@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Roboto_Slab } from 'next/font/google';
 import './globals.css';
 
+import ToastHook from '@hooks/toast-hook';
+
 const robotoSlab = Roboto_Slab({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -16,7 +18,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={robotoSlab.className}>{children}</body>
+      <body className={robotoSlab.className}>
+        <ToastHook>{children}</ToastHook>
+      </body>
     </html>
   );
 }

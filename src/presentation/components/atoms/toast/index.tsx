@@ -1,77 +1,58 @@
-import { FiX, FiAlertCircle } from 'react-icons/fi';
+import { useEffect } from 'react';
+import { FiAlertCircle, FiCheckCircle, FiInfo, FiX } from 'react-icons/fi';
+
+import { useToast } from '@contexts/use-toast-context';
+
+import { ToastMessageType } from '@/presentation/interfaces/toast-message-type';
 
 type ToastProps = {
-  id: string;
-  title: string;
-  description: string;
+  message: ToastMessageType;
 };
 
-const toastTypes = {
-  // success: {
-  //   icon: <IconCircleCheckFilled />,
-  //   iconClass: "success-icon",
-  //   progressBarClass: "success",
-  // },
-  // info: {
-  //   icon: <IconInfoCircleFilled />,
-  //   iconClass: "info-icon",
-  //   progressBarClass: "info",
-  // },
-  error: {
-    icon: <FiX />,
-    iconClass: 'error-icon',
-    progressBarClass: 'error',
-  },
-};
+export default function Toast({ message }: ToastProps) {
+  const { removeToast } = useToast();
 
-export default function Toast({ id, title, description }: ToastProps) {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      removeToast(message.id);
+    }, 3000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [removeToast, message.id]);
+
   return (
-    <div className='w-80 rounded-lg bg-red px-6 py-4'>
-      <div className='flex flex-row justify-between'>
-        <div className='flex flex-row'>
-          <FiAlertCircle className='m-1 mr-2 text-xl' />
-          <p className='mb-4 text-xl font-bold'>{title}</p>
+    <div className='p-2 px-4 align-top'>
+      <div
+        data-info={message.type === 'info'}
+        data-errored={message.type === 'error'}
+        className='data-[errored=false]:bg-successBackground data-[info=true]:bg-infoBackground data-[errored=true]:bg-errorBackground flex w-80 flex-col rounded-lg px-6 py-4'
+      >
+        <div className='flex flex-row justify-between'>
+          <div className='flex flex-row'>
+            {message.type === 'info' && <FiInfo className='m-1 mr-2 text-xl' />}
+            {message.type === 'error' && (
+              <FiAlertCircle className='m-1 mr-2 text-xl' />
+            )}
+            {message.type === 'success' && (
+              <FiCheckCircle className='m-1 mr-2 text-xl' />
+            )}
+
+            <p className='data-[errored=false]:bg-successText data-[info=true]:bg-infoText data-[errored=true]:bg-errorText mb-4 text-xl font-bold'>
+              {message.title}
+            </p>
+          </div>
+
+          <button onClick={() => removeToast(message.id)}>
+            <FiX className='mb-3 cursor-pointer text-xl hover:opacity-[0.8]' />
+          </button>
         </div>
 
-        {/* <FiX
-            className='cursor-pointer text-xl hover:text-buttonText'
-            onClick={() => toast.dismiss(t.id)}
-          /> */}
+        <span className='data-[errored=false]:bg-successText data-[info=true]:bg-infoText data-[errored=true]:bg-errorText ml-2 text-base font-medium'>
+          {message.description}
+        </span>
       </div>
-
-      <span className='text-lg font-medium'>{description}</span>
     </div>
   );
 }
-
-// import toast, { Toaster } from 'react-hot-toast';
-
-// type ToastProps = {
-//   id: string;
-//   title: string;
-//   description: string;
-// };
-
-// export default function Toast({ id, title, description }: ToastProps) {
-//   toast.custom(
-//     (t) => (
-//       <div className='w-80 rounded-lg bg-red px-6 py-4'>
-//         <div className='flex flex-row justify-between'>
-//           <div className='flex flex-row'>
-//             <FiAlertCircle className='m-1 mr-2 text-xl' />
-//             <p className='mb-4 text-xl font-bold'>{title}</p>
-//           </div>
-
-//           <FiX
-//             className='cursor-pointer text-xl hover:text-buttonText'
-//             onClick={() => toast.dismiss(t.id)}
-//           />
-//         </div>
-//         <span className='text-lg font-medium'>{description}</span>
-//       </div>
-//     ),
-//     { id: id }
-//   );
-
-//   return <Toaster position='top-right' />;
-// }

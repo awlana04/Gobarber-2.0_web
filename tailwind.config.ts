@@ -19,6 +19,12 @@ const config: Config = {
       red: '#FF0000',
       black: '#28262E',
       textHover: '#FFFFFF',
+      infoText: '#ebf8ff',
+      infoBackground: '#3172b7',
+      successText: '#e6fffa',
+      successBackground: '#2e656a',
+      errorText: '#fddede',
+      errorBackground: '#c53030',
     },
     // extend: {
     //   backgroundImage: {

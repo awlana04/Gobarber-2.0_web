@@ -24,6 +24,8 @@
       "@public/*": ["public/*"],
       "@components/*": ["src/presentation/components/*"],
       "@hooks/*": ["src/core/hooks/*"],
+      "@contexts/*": ["src/core/contexts/*"],
+      "@types/*": ["src/core/types/*"],
       "@handlers/*": ["src/core/handlers/*"],
       "@validations/*": ["src/core/validations/*"],
       "@libs/*": ["src/core/libs/*"],
