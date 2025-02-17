@@ -16,19 +16,19 @@ import { useToast } from '@contexts/use-toast-context';
 import image from '@public/gobarber_image002.svg';
 
 type LogonScreenProps = {
-  emailInput: InputType;
-  emailToast?: ToastType;
-  passwordInput: InputType;
-  passwordToast?: ToastType;
+  // emailInput: InputType;
+  // emailToast?: ToastType;
+  // passwordInput: InputType;
+  // passwordToast?: ToastType;
   submitHandler(data: any): void;
 };
 
 export default function LogonScreen({
   submitHandler,
-  emailInput,
-  emailToast,
-  passwordInput,
-  passwordToast,
+  // emailInput,
+  // emailToast,
+  // passwordInput,
+  // passwordToast,
 }: LogonScreenProps) {
   const { addToast } = useToast();
 
@@ -38,11 +38,13 @@ export default function LogonScreen({
         Faça seu Logon
       </h1>
 
-      <Form.Root onSubmit={(data) => console.log(data)}>
-        <EmailInputFragment emailInput={emailInput} emailToast={emailToast} />
+      <Form.Root submitHandler={submitHandler}>
+        <EmailInputFragment
+        // emailInput={emailInput} emailToast={emailToast}
+        />
         <PasswordInputFragment
-          passwordInput={passwordInput}
-          passwordToast={passwordToast}
+        // passwordInput={passwordInput}
+        // passwordToast={passwordToast}
         />
 
         {/* <button

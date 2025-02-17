@@ -1,13 +1,24 @@
-import { FormHTMLAttributes, ReactNode } from 'react';
+import Form from 'next/form';
 
-type FormRootProps = FormHTMLAttributes<HTMLFormElement> & {
-  children: ReactNode;
+type FormRootProps = {
+  children: React.ReactNode;
+  submitHandler: (data: FormData) => void;
 };
 
-export default function FormRoot({ children, ...rest }: FormRootProps) {
-  return (
-    <form {...rest} className='flex flex-col'>
-      {children}
-    </form>
-  );
+export default function FormRoot({ children, submitHandler }: FormRootProps) {
+  return <Form action={submitHandler}>{children}</Form>;
 }
+
+// import { FormHTMLAttributes, ReactNode } from 'react';
+
+// type FormRootProps = FormHTMLAttributes<HTMLFormElement> & {
+//   children: ReactNode;
+// };
+
+// export default function FormRoot({ children, ...rest }: FormRootProps) {
+//   return (
+//     <form {...rest} className='flex flex-col'>
+//       {children}
+//     </form>
+//   );
+// }

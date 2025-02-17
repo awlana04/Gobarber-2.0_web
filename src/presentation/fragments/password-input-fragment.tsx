@@ -12,28 +12,30 @@ export type PasswordInputFragmentType = {
   passwordToast?: ToastType;
 };
 
-export default function PasswordInputFragment({
-  passwordInput,
-  passwordToast,
-}: PasswordInputFragmentType) {
+export default function PasswordInputFragment() {
+  //   {
+  //   passwordInput,
+  //   passwordToast,
+  // }: PasswordInputFragmentType
   return (
     <>
       <Form.Input
-        {...passwordInput.submitField}
-        onChange={passwordInput.submitField}
+        // {...passwordInput.submitField}
+        // onChange={passwordInput.submitField}
         iconName={FiLock}
         type='password'
+        name='password'
         placeholder='Senha'
-        errored={passwordInput.errored}
+        // errored={passwordInput.errored}
       />
 
-      {passwordToast?.conditional && (
+      {/* {passwordToast?.conditional && (
         <Toast
           id={passwordToast.id!}
           title='Senha invalida'
           description={passwordToast.description!}
         />
-      )}
+      )} */}
     </>
   );
 }

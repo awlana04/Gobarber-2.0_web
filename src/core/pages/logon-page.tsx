@@ -4,6 +4,8 @@ import { useRouter } from 'next/navigation';
 
 import { FormHandler } from '@libs/form-handler';
 
+// import { submitHandler } from '../submit-handler';
+
 import {
   AuthenticateFormSchema,
   AuthenticateFormType,
@@ -12,51 +14,50 @@ import {
 import { AuthenticateFormHandler } from '@handlers/authenticate-form-handler';
 
 import LogonScreen from '@screens/logon-screen';
-import { useToast } from '../hooks/toast-hook';
+// import { useToast } from '../hooks/toast-hook';
 
 export default function LogonPage() {
   const Router = useRouter();
 
-  const { register, handleSubmit, errors } = FormHandler(
-    AuthenticateFormSchema
-  );
-
-  const submitHandler = async (data: AuthenticateFormType) => {
+  const submitHandler = async (formData: FormData) => {
+    // const Router = useRouter();
     const result = await AuthenticateFormHandler({
-      email: data.email,
-      password: data.password,
+      email: formData.get('email'),
+      password: formData.get('password'),
     });
 
     const { response } = result;
 
-    if (response.barber) {
-      Router.push('../dashboard/barber');
-    } else {
-      Router.push('../dashboard/client');
-    }
+    console.log(response);
+
+    // if (response.barber) {
+    //   Router.push('../dashboard/barber');
+    // } else {
+    //   Router.push('../dashboard/client');
+    // }
   };
 
   return (
     <LogonScreen
-      submitHandler={handleSubmit(submitHandler)}
-      emailInput={{
-        submitField: { ...register('email') },
-        errored: !!errors.email,
-      }}
-      emailToast={{
-        conditional: errors.email,
-        id: errors.email?.message,
-        description: errors.email?.message,
-      }}
-      passwordInput={{
-        submitField: { ...register('password') },
-        errored: !!errors.password,
-      }}
-      passwordToast={{
-        conditional: errors.password,
-        id: errors.password?.message,
-        description: errors.password?.message,
-      }}
+      submitHandler={submitHandler}
+      // emailInput={{
+      //   submitField: { ...register('email') },
+      //   errored: !!errors.email,
+      // }}
+      // emailToast={{
+      //   conditional: errors.email,
+      //   id: errors.email?.message,
+      //   description: errors.email?.message,
+      // }}
+      // passwordInput={{
+      //   submitField: { ...register('password') },
+      //   errored: !!errors.password,
+      // }}
+      // passwordToast={{
+      //   conditional: errors.password,
+      //   id: errors.password?.message,
+      //   description: errors.password?.message,
+      // }}
     />
   );
 }

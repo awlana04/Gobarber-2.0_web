@@ -12,29 +12,31 @@ export type EmailInputFragmentType = {
   emailToast?: ToastType;
 };
 
-export default function EmailInputFragment({
-  emailInput,
-  emailToast,
-}: EmailInputFragmentType) {
+export default function EmailInputFragment() {
+//   {
+//   emailInput,
+//   emailToast,
+// }: EmailInputFragmentType
   return (
     <>
       <Form.Input
-        {...emailInput.submitField}
-        onChange={emailInput.submitField}
+        // {...emailInput.submitField}
+        // onChange={emailInput.submitField}
         iconName={FiMail}
         type='email'
         placeholder='E-mail'
-        errored={emailInput.errored}
+        name='email'
+        // errored={emailInput.errored}
         // onChange={(data) => console.log(data)}
       />
 
-      {emailToast?.conditional && (
+      {/* {emailToast?.conditional && (
         <Toast
           id={emailToast.id!}
           title='E-mail invalido'
           description={emailToast.description!}
         />
-      )}
+      )} */}
     </>
   );
 }
