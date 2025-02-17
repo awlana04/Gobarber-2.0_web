@@ -45,7 +45,7 @@ export default function LogonScreen({
           passwordToast={passwordToast}
         />
 
-        <button
+        {/* <button
           type='button'
           onClick={() => {
             addToast({
@@ -66,8 +66,8 @@ export default function LogonScreen({
           }}
         >
           entrar
-        </button>
-        {/* <Button type='submit'>Entrar</Button> */}
+        </button> */}
+        <Button type='submit'>Entrar</Button>
       </Form.Root>
 
       <Link href='./forgot-password' className='my-4 mb-4 hover:underline'>

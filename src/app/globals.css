@@ -1,6 +1,42 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --color-*: initial;
+  --color-orange: #ff9000;
+  --color-button-hover: #c97200;
+  --color-white: #f4ede8;
+  --color-button-text: #312e38;
+  --color-input: #232129;
+  --color-input-text: #666360;
+  --color-background: #312e38;
+  --color-red: #ff0000;
+  --color-black: #28262e;
+  --color-text-hover: #ffffff;
+  --color-info-text: #ebf8ff;
+  --color-info-background: #3172b7;
+  --color-success-text: #e6fffa;
+  --color-success-background: #2e656a;
+  --color-error-text: #fddede;
+  --color-error-background: #c53030;
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
 
 body {
   width: 100vw;

@@ -29,7 +29,7 @@ const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
           placeholder={placeholder}
           data-filled={isFilled}
           data-errored={errored}
-          className='h-14 w-96 flex-row rounded-2xl bg-input px-12 text-orange outline-none placeholder:text-inputText focus:ring-2 focus:ring-orange focus:placeholder:text-orange data-[errored=true]:text-red data-[errored=true]:ring-2 data-[filled=true]:ring-2 data-[errored=true]:ring-red data-[filled=true]:data-[errored=false]:ring-orange data-[errored=true]:placeholder:text-red max-lg:w-80 max-sm:w-72 max-sm:px-10'
+          className='bg-input text-orange outline-hidden placeholder:text-input-text focus:ring-orange focus:placeholder:text-orange data-[errored=true]:text-red data-[errored=true]:ring-red data-[filled=true]:data-[errored=false]:ring-orange data-[errored=true]:placeholder:text-red h-14 w-96 flex-row rounded-2xl px-12 focus:ring-2 data-[errored=true]:ring-2 data-[filled=true]:ring-2 max-lg:w-80 max-sm:w-72 max-sm:px-10'
         />
       </div>
     );

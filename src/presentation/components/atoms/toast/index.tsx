@@ -27,7 +27,7 @@ export default function Toast({ message }: ToastProps) {
       <div
         data-info={message.type === 'info'}
         data-errored={message.type === 'error'}
-        className='data-[errored=false]:bg-successBackground data-[info=true]:bg-infoBackground data-[errored=true]:bg-errorBackground flex w-80 flex-col rounded-lg px-6 py-4'
+        className='data-[errored=false]:bg-success-background data-[info=true]:bg-info-background data-[errored=true]:bg-error-background flex w-80 flex-col rounded-lg px-6 py-4'
       >
         <div className='flex flex-row justify-between'>
           <div className='flex flex-row'>
@@ -39,7 +39,7 @@ export default function Toast({ message }: ToastProps) {
               <FiCheckCircle className='m-1 mr-2 text-xl' />
             )}
 
-            <p className='data-[errored=false]:bg-successText data-[info=true]:bg-infoText data-[errored=true]:bg-errorText mb-4 text-xl font-bold'>
+            <p className='data-[errored=false]:bg-success-text data-[info=true]:bg-info-text data-[errored=true]:bg-error-text mb-4 text-xl font-bold'>
               {message.title}
             </p>
           </div>
@@ -49,7 +49,7 @@ export default function Toast({ message }: ToastProps) {
           </button>
         </div>
 
-        <span className='data-[errored=false]:bg-successText data-[info=true]:bg-infoText data-[errored=true]:bg-errorText ml-2 text-base font-medium'>
+        <span className='data-[errored=false]:bg-success-text data-[info=true]:bg-info-text data-[errored=true]:bg-error-text ml-2 text-base font-medium'>
           {message.description}
         </span>
       </div>

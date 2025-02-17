@@ -8,7 +8,7 @@ type AsideImageProps = ImgHTMLAttributes<HTMLImageElement> & {
 
 export default function AsideImage({ src, alt }: AsideImageProps) {
   return (
-    <div className='opacity-1 h-screen w-screen max-lg:h-screen max-lg:w-screen max-sm:h-0 max-sm:w-0 max-sm:opacity-0'>
+    <div className='h-screen w-screen max-lg:h-screen max-lg:w-screen max-sm:h-0 max-sm:w-0 max-sm:opacity-0'>
       <Image
         src={src}
         alt={alt}
