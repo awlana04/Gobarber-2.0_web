@@ -2,7 +2,6 @@ import { FiScissors } from 'react-icons/fi';
 
 import ContentTemplate from '../templates/content-template';
 
-import Toast from '@components/atoms/toast';
 import BackToLogon from '@components/atoms/back-to-logon';
 import Button from '@components/atoms/button';
 
@@ -11,8 +10,6 @@ import { Form } from '@components/molecules/form';
 import LocationInputFragment from '../fragments/location-input-fragment';
 import DescriptionInputFragment from '../fragments/description-input-fragment';
 
-import { InputType } from '@interfaces/input-type';
-import { ToastType } from '@interfaces/toast-type';
 import { ImagesType } from '@interfaces/images-type';
 import { RadioType } from '@interfaces/radio-type';
 
@@ -20,12 +17,6 @@ import image from '@public/gobarber_image004.svg';
 
 type SigninBarberScreenType = {
   submitHandler(data: any): void;
-  locationInput: InputType;
-  locationToast: ToastType;
-  nameInput: InputType;
-  nameToast?: ToastType;
-  descriptionInput: InputType;
-  descriptionToast?: ToastType;
   images: ImagesType;
   openAtNight: RadioType;
   openOnWeekends: RadioType;
@@ -33,44 +24,24 @@ type SigninBarberScreenType = {
 
 export default function SigninBarberScreen({
   submitHandler,
-  locationInput,
-  locationToast,
-  nameInput,
-  nameToast,
-  descriptionInput,
-  descriptionToast,
   images,
   openAtNight,
   openOnWeekends,
 }: SigninBarberScreenType) {
   return (
     <ContentTemplate position='left' src={image} alt='Imagem da barbearia'>
-      <Form.Root onSubmit={submitHandler}>
-        <LocationInputFragment
-          locationInput={locationInput}
-          locationToast={locationToast}
-        />
+      <Form.Root submitHandler={submitHandler}>
+        <LocationInputFragment />
 
         <Form.Input
-          {...nameInput.submitField}
           iconName={FiScissors}
           type='text'
+          name='barberName'
           placeholder='Nome da barbearia'
-          errored={nameInput.errored}
+          // errored={nameInput.errored}
         />
 
-        {nameToast?.conditional && (
-          <Toast
-            id={nameToast.id!}
-            title='Nome invalida'
-            description={nameToast.description!}
-          />
-        )}
-
-        <DescriptionInputFragment
-          descriptionInput={descriptionInput}
-          descriptionToast={descriptionToast}
-        />
+        <DescriptionInputFragment />
 
         <Form.Images
           file={images.file}

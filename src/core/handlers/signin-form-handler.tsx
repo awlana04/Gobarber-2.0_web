@@ -1,6 +1,15 @@
-import { SigninFormType } from '@validations/signin-form';
+// import { SigninFormType } from '@validations/signin-form';
 
 import api from '@services/api';
+
+type SigninFormType = {
+  name: string | any;
+  email: string | any;
+  password: string | any;
+  // location: string | any;
+  confirmPassword: string | any;
+  file: File | any;
+};
 
 type SigninFormHandlerType = SigninFormType & { file: File | undefined };
 

@@ -55,7 +55,7 @@ export default function FormImagesInput({
 
                     setFileUrl(fileUrl.filter((files: any) => files !== image));
                   }}
-                  className='absolute grid cursor-pointer items-center justify-center rounded-bl-lg rounded-se-lg bg-orange p-2 text-2xl text-inputText hover:h-28 hover:w-28 hover:rounded-lg hover:bg-red hover:text-4xl hover:opacity-60'
+                  className='bg-orange text-inputText hover:bg-red absolute grid cursor-pointer items-center justify-center rounded-se-lg rounded-bl-lg p-2 text-2xl hover:h-28 hover:w-28 hover:rounded-lg hover:text-4xl hover:opacity-60'
                 >
                   <FiX />
                 </div>
@@ -73,7 +73,7 @@ export default function FormImagesInput({
 
           <label
             htmlFor='images[]'
-            className='flex h-20 w-20 cursor-pointer items-center justify-center rounded-xl bg-input hover:bg-orange hover:text-buttonText'
+            className='bg-input hover:bg-orange hover:text-buttonText flex h-20 w-20 cursor-pointer items-center justify-center rounded-xl'
           >
             <FiPlus size={24} className='text-inputText' />
           </label>

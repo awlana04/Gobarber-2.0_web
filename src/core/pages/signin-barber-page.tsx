@@ -5,14 +5,8 @@ import { useRouter } from 'next/navigation';
 import useHandleImagesHook from '@hooks/use-handle-images-hook';
 import useHandleUserHook from '@hooks/use-handle-user-hook';
 
-import { FormHandler } from '@libs/form-handler';
-
-import {
-  SigninBarberSchema,
-  SigninBarberType,
-} from '@validations/signin-barber-form';
-
 import { SigninBarberFormHandler } from '@handlers/signin-barber-form-handler';
+
 import SigninBarberScreen from '@/presentation/screens/signin-barber-screen';
 
 export default function SigninBarberPage() {
@@ -28,13 +22,11 @@ export default function SigninBarberPage() {
   const { file, setFile, fileUrl, setFileUrl, handleChange } =
     useHandleImagesHook();
 
-  const { register, handleSubmit, errors } = FormHandler(SigninBarberSchema);
-
-  const submitHandler = async (data: SigninBarberType) => {
+  const submitHandler = async (formData: FormData) => {
     await SigninBarberFormHandler({
-      name: data.name,
-      location: data.location,
-      description: data.description,
+      name: formData.get('barberName'),
+      location: formData.get('location'),
+      description: formData.get('description'),
       isOpenAtNight: isOpenAtNight,
       isOpenOnWeekends: isOpenOnWeekends,
       file: file,
@@ -45,34 +37,7 @@ export default function SigninBarberPage() {
 
   return (
     <SigninBarberScreen
-      submitHandler={handleSubmit(submitHandler)}
-      locationInput={{
-        submitField: { ...register('location') },
-        errored: !!errors.location,
-      }}
-      locationToast={{
-        conditional: errors.location,
-        id: errors.location?.message,
-        description: errors.location?.message,
-      }}
-      nameInput={{
-        submitField: { ...register('name') },
-        errored: !!errors.name,
-      }}
-      nameToast={{
-        conditional: errors.name,
-        id: errors.name?.message,
-        description: errors.name?.message,
-      }}
-      descriptionInput={{
-        submitField: { ...register('description') },
-        errored: !!errors.description,
-      }}
-      descriptionToast={{
-        conditional: errors.description,
-        id: errors.description?.message,
-        description: errors.description?.message,
-      }}
+      submitHandler={submitHandler}
       images={{
         file: file,
         fileUrl: fileUrl,

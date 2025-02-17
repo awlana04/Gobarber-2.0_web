@@ -2,8 +2,6 @@ import ContentTemplate from '../templates/content-template';
 
 import { AvatarType } from '@interfaces/avatar-type';
 import { RadioType } from '@interfaces/radio-type';
-import { ToastType } from '@interfaces/toast-type';
-import { InputType } from '@interfaces/input-type';
 
 import NameInputFragment from '../fragments/name-input-fragment';
 import EmailInputFragment from '../fragments/email-input-fragment';
@@ -20,32 +18,16 @@ type SigninProps = {
   submitHandler(data: any): void;
   avatar: AvatarType;
   radio: RadioType;
-  nameInput: InputType;
-  nameToast?: ToastType;
-  emailInput: InputType;
-  emailToast?: ToastType;
-  passwordInput: InputType;
-  passwordToast?: ToastType;
-  confirmPasswordInput: InputType;
-  confirmPasswordToast?: ToastType;
 };
 
 export default function SigninScreen({
   submitHandler,
   avatar,
   radio,
-  nameInput,
-  nameToast,
-  emailInput,
-  emailToast,
-  passwordInput,
-  passwordToast,
-  confirmPasswordInput,
-  confirmPasswordToast,
 }: SigninProps) {
   return (
     <ContentTemplate position='left' src={image} alt='Foto da barbearia'>
-      <Form.Root onSubmit={submitHandler}>
+      <Form.Root submitHandler={submitHandler}>
         <Form.Avatar
           file={avatar.file}
           fileUrl={avatar.fileUrl}
@@ -54,24 +36,15 @@ export default function SigninScreen({
         />
 
         <Form.Radio
+          isBarber={false}
           isBarberSelected={radio.isBarberSelected}
           setIsBarberSelected={radio.setIsBarberSelected}
         />
 
-        <NameInputFragment
-          nameInput={nameInput}
-          nameToast={nameToast}
-          icon='user'
-        />
-        <EmailInputFragment emailInput={emailInput} emailToast={emailToast} />
-        <PasswordInputFragment
-          passwordInput={passwordInput}
-          passwordToast={passwordToast}
-        />
-        <ConfirmPasswordInputFragment
-          confirmPasswordInput={confirmPasswordInput}
-          confirmPasswordToast={confirmPasswordToast}
-        />
+        <NameInputFragment icon='user' />
+        <EmailInputFragment />
+        <PasswordInputFragment />
+        <ConfirmPasswordInputFragment />
 
         <Button type='submit'>Cadastrar</Button>
       </Form.Root>

@@ -3,13 +3,13 @@
 import { useState } from 'react';
 
 export default function useHandleUserHook() {
-  const [isBarberSelected, setIsBarberSelected] = useState(false);
+  const [isClientSelected, setIsClientSelected] = useState(true);
   const [isOpenAtNight, setIsOpenAtNight] = useState(false);
   const [isOpenOnWeekends, setIsOpenOnWeekends] = useState(false);
 
   return {
-    isBarberSelected,
-    setIsBarberSelected,
+    isClientSelected,
+    setIsClientSelected,
     isOpenAtNight,
     setIsOpenAtNight,
     isOpenOnWeekends,
