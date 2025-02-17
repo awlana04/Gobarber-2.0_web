@@ -34,7 +34,9 @@
       "@core/*": ["src/core/*"],
       "@pages/*": ["src/core/pages/*"],
       "@screens/*": ["src/presentation/screens/*"],
-      "@interfaces/*": ["src/presentation/interfaces/*"]
+      "@interfaces/*": ["src/presentation/interfaces/*"],
+      "@templates/*": ["src/presentation/templates/*"],
+      "@fragments/*": ["src/presentation/fragments/*"]
     }
   },
   "include": [

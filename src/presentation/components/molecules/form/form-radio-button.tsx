@@ -15,7 +15,7 @@ export default function FormRadioButton({
 }: FormRadioButtonProps) {
   return (
     <div className='my-2 mt-6 flex items-center justify-center p-4'>
-      <div is-barber={isBarber} className='mr-24'>
+      <div className='mr-24'>
         <input
           type='radio'
           id='radioButtonYes'

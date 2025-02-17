@@ -66,6 +66,7 @@ export default function FormImagesInput({
                   alt={image}
                   width={112}
                   height={112}
+                  className='rounded-lg'
                 />
               </div>
             );

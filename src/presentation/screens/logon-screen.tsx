@@ -1,13 +1,13 @@
 import Link from 'next/link';
 
-import ContentTemplate from '../templates/content-template';
-
-import EmailInputFragment from '../fragments/email-input-fragment';
-import PasswordInputFragment from '../fragments/password-input-fragment';
-
 import Button from '@components/atoms/button';
-
+import CreateAccount from '@components/atoms/create-account';
 import { Form } from '@components/molecules/form';
+
+import EmailInputFragment from '@fragments/email-input-fragment';
+import PasswordInputFragment from '@fragments/password-input-fragment';
+
+import ContentTemplate from '@templates/content-template';
 
 import image from '@public/gobarber_image002.svg';
 
@@ -32,6 +32,8 @@ export default function LogonScreen({ submitHandler }: LogonScreenProps) {
       <Link href='./forgot-password' className='my-4 mb-4 hover:underline'>
         Esqueci minha senha
       </Link>
+
+      <CreateAccount />
     </ContentTemplate>
   );
 }

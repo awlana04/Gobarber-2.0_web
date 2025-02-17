@@ -12,7 +12,7 @@ export default function Icon({ icon: Icon, filled }: IconProps) {
       data-testid='iconElement'
       data-filled={filled}
       // data-errored={errored}
-      className='text-input-text data-[errored=true]:text-red data-[filled=true]:data-[errored=false]:text-orange group-focus-within:data-[errored=false]:text-orange absolute mx-8 -ml-72 mt-5 max-lg:-ml-52'
+      className='text-input-text data-[errored=true]:text-red data-[filled=true]:text-orange data-[filled=true]:data-[errored=false]:text-orange group-focus-within:text-orange group-focus-within:data-[errored=false]:text-orange absolute mx-8 mt-5 -ml-72 max-lg:-ml-52'
     />
   );
 }

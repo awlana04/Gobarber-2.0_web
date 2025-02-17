@@ -18,12 +18,12 @@ export default function FormAvatarButton({
   handleRemove,
 }: FormAvatarButtonProps) {
   return (
-    <div className='group m-auto flex h-28 w-28 cursor-pointer rounded-full bg-white text-white hover:bg-inputText'>
+    <div className='group hover:bg-input-text m-auto flex h-28 w-28 cursor-pointer rounded-full bg-white text-white'>
       <input
         type='file'
         id='avatar'
         onChange={handleChange}
-        className='file hidden'
+        className='file hidden cursor-pointer'
       />
 
       <label htmlFor='avatar' className='m-auto'>
@@ -33,7 +33,7 @@ export default function FormAvatarButton({
           className='absolute -mt-10 ml-3 cursor-pointer'
         />
 
-        <p className='group-hover:opacity-1 absolute m-3 mt-10 opacity-0'>
+        <p className='absolute -mt-2 ml-6 cursor-pointer opacity-0 group-hover:opacity-100'>
           Escolher
         </p>
       </label>
@@ -46,18 +46,18 @@ export default function FormAvatarButton({
           <Image
             src={fileUrl}
             alt={file.name}
-            className='h-28 w-28 rounded-full'
+            className='h-28 w-28 rounded-full opacity-100'
             width={112}
             height={112}
           />
 
-          <p className='group-hover:opacity-1 absolute m-3 mt-10 opacity-0'>
+          <p className='absolute -mt-14 ml-6 cursor-pointer opacity-0 group-hover:opacity-100'>
             Remover
           </p>
         </div>
       )}
 
-      <div className='z-10 m-20 flex h-12 w-12 rounded-full bg-orange p-2 group-hover:bg-buttonHover'>
+      <div className='bg-orange group-hover:bg-button-hover z-10 m-20 flex h-12 w-12 rounded-full p-2'>
         <FiCamera className='m-auto text-black' size={28} />
       </div>
     </div>
