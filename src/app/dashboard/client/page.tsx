@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 
-import api from '../../../services/api';
+import api from '@services/api';
 
 export default function Client() {
   const Router = useRouter();
