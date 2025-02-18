@@ -4,7 +4,7 @@ import FormRoot from './form-root';
 
 describe('<FormRoot> component', () => {
   it('should be able to render the form root component', () => {
-    render(<FormRoot>Root</FormRoot>);
+    render(<FormRoot submitHandler={() => {}}>Root</FormRoot>);
 
     const formRootElement = screen.getByText('Root');
 
@@ -12,7 +12,7 @@ describe('<FormRoot> component', () => {
   });
 
   it('should not be able to render the form root component', () => {
-    render(<FormRoot>Root</FormRoot>);
+    render(<FormRoot submitHandler={() => {}}>Root</FormRoot>);
 
     const formRootElement = screen.queryByText('Wrong root');
 

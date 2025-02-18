@@ -10,6 +10,7 @@ export default function EmailInputFragment() {
         type='email'
         placeholder='E-mail'
         name='email'
+        aria-label='email'
       />
     </>
   );

@@ -4,16 +4,9 @@ import EmailInputFragment from './email-input-fragment';
 
 describe('Email input fragment', () => {
   it('should be able to render the email input fragment', () => {
-    render(
-      <EmailInputFragment
-        emailInput={{
-          submitField: 'email',
-          errored: false,
-        }}
-      />
-    );
+    render(<EmailInputFragment />);
 
-    const inputElement = screen.getByRole('textbox', { name: 'E-mail' });
+    const inputElement = screen.getByRole('textbox', { name: 'email' });
 
     expect(inputElement).toBeVisible();
   });

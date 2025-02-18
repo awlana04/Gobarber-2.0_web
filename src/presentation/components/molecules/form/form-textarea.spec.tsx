@@ -5,7 +5,12 @@ import { FiLock } from 'react-icons/fi';
 describe('<FormTextarea> component', () => {
   it('should be able to render the form textarea', () => {
     render(
-      <FormTextarea iconName={FiLock} placeholder='textarea' errored={false} />
+      <FormTextarea
+        iconName={FiLock}
+        placeholder='textarea'
+        name='textarea'
+        // errored={false}
+      />
     );
 
     const formTextareaElement = screen.getByPlaceholderText('textarea');
@@ -15,7 +20,12 @@ describe('<FormTextarea> component', () => {
 
   it('should not be able to render the form textarea component', () => {
     render(
-      <FormTextarea iconName={FiLock} placeholder='textarea' errored={false} />
+      <FormTextarea
+        iconName={FiLock}
+        placeholder='textarea'
+        name='textarea'
+        // errored={false}
+      />
     );
 
     const formTextareaElement = screen.queryByPlaceholderText('Wrong textarea');

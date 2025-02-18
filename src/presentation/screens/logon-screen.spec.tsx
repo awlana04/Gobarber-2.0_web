@@ -5,19 +5,7 @@ import LogonScreen from './logon-screen';
 
 describe('LogonScreen', () => {
   it('should be able to render the logon screen', () => {
-    render(
-      <LogonScreen
-        submitHandler={() => {}}
-        emailInput={{
-          submitField: 'email',
-          errored: false,
-        }}
-        passwordInput={{
-          submitField: 'password',
-          errored: false,
-        }}
-      />
-    );
+    render(<LogonScreen submitHandler={() => {}} />);
 
     const emailInput = screen.getByRole('textbox', { name: 'E-mail' });
     const passwordInput = screen.getByRole('textbox', { name: 'Senha' });
@@ -29,24 +17,7 @@ describe('LogonScreen', () => {
   });
 
   it('should not be able to render the logon screen when fields are blank', async () => {
-    render(
-      <LogonScreen
-        submitHandler={() => {}}
-        emailInput={{
-          submitField: 'email',
-          errored: false,
-        }}
-        emailToast={{
-          id: 'emailID',
-          description: 'Campo inválido',
-          conditional: '',
-        }}
-        passwordInput={{
-          submitField: 'password',
-          errored: false,
-        }}
-      />
-    );
+    render(<LogonScreen submitHandler={() => {}} />);
 
     const emailInput = screen.getByRole('textbox', { name: 'E-mail' });
     const submitButton = screen.getByRole('button');
