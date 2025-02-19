@@ -1,11 +1,17 @@
+import '@testing-library/jest-dom';
+
 import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import LogonScreen from './logon-screen';
 
 describe('LogonScreen', () => {
-  it('should be able to render the logon screen', () => {
+  beforeEach(() => {
     render(<LogonScreen submitHandler={() => {}} />);
+  });
+
+  it('should be able to render the logon screen', () => {
+    // render(<LogonScreen />);
 
     const emailInput = screen.getByRole('textbox', { name: 'E-mail' });
     const passwordInput = screen.getByRole('textbox', { name: 'Senha' });
@@ -17,7 +23,7 @@ describe('LogonScreen', () => {
   });
 
   it('should not be able to render the logon screen when fields are blank', async () => {
-    render(<LogonScreen submitHandler={() => {}} />);
+    // render(<LogonScreen submitHandler={() => {}} />);
 
     const emailInput = screen.getByRole('textbox', { name: 'E-mail' });
     const submitButton = screen.getByRole('button');
