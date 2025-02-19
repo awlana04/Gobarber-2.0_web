@@ -29,6 +29,7 @@ export default function FormImagesInput({
         multiple
         onChange={handleChange}
         className='file hidden'
+        test-id='images'
       />
 
       {file && fileUrl && (
