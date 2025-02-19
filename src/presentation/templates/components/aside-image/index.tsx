@@ -1,5 +1,5 @@
-import Image, { ImageProps } from 'next/image';
-import { ImgHTMLAttributes, InputHTMLAttributes } from 'react';
+import Image from 'next/image';
+import { ImgHTMLAttributes } from 'react';
 
 type AsideImageProps = ImgHTMLAttributes<HTMLImageElement> & {
   src: string;

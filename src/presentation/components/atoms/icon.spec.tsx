@@ -1,20 +1,22 @@
-import { render } from '@testing-library/react';
-
-import Icon from './index';
+import { render, screen } from '@testing-library/react';
 import { FiLock } from 'react-icons/fi';
 
+import Icon from './icon';
+
 describe('<Icon> component', () => {
-  it('should be able to render the icon component', () => {
-    const { getByTestId } = render(
+  beforeEach(() => {
+    render(
       <Icon
         icon={FiLock}
         filled={false}
         // errored={false}
       />
     );
+  });
 
+  it('should be able to render the icon component', () => {
     // const iconElement = getByRole('');
-    const iconElement = getByTestId('iconElement');
+    const iconElement = screen.getByTestId('iconElement');
 
     expect(iconElement).toHaveClass('text-input-text');
     expect(iconElement).toBeInTheDocument();
@@ -48,15 +50,7 @@ describe('<Icon> component', () => {
   // });
 
   it('should not be able to render the icon component', () => {
-    const { queryByTestId } = render(
-      <Icon
-        icon={FiLock}
-        filled={false}
-        // errored={false}
-      />
-    );
-
-    const iconElement = queryByTestId('wrongIconElement');
+    const iconElement = screen.queryByTestId('wrongIconElement');
 
     expect(iconElement).not.toBeInTheDocument();
   });
