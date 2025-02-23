@@ -7,6 +7,8 @@ import useHandleUserHook from '@hooks/use-handle-user-hook';
 
 import { SigninFormHandler } from '@handlers/signin-form-handler';
 
+import HandleUserData from '../libs/handle-user-data';
+
 import SigninScreen from '@/presentation/screens/signin-screen';
 
 export default function SigninPage() {
@@ -31,7 +33,9 @@ export default function SigninPage() {
 
   return (
     <SigninScreen
-      submitHandler={submitHandler}
+      submitHandler={
+        process.env.NEXT_ENV !== 'test' ? HandleUserData : submitHandler
+      }
       avatar={{
         file: file,
         fileUrl: fileUrl,
