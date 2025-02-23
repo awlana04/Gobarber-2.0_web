@@ -6,8 +6,8 @@ export default class InvalidNameError extends AppError {
   constructor(name: string) {
     super('Invalid name: ' + name + '.');
 
-    // if (process.env.NEXT_ENV === 'test') {
-    throw new AppError('Invalid Name Error');
-    // }
+    if (process.env.NEXT_ENV === 'test') {
+      throw new AppError('Invalid Name Error');
+    }
   }
 }

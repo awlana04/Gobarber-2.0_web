@@ -7,7 +7,7 @@ import {
   ReactNode,
   useContext,
 } from 'react';
-import { uuid } from 'uuidv4';
+import { v4 } from 'uuid';
 
 import ToastContainer from '@/presentation/components/molecules/toast-container';
 
@@ -23,7 +23,7 @@ export default function ToastHook({ children }: ToastHookProps) {
 
   const addToast = useCallback(
     ({ type, title, description }: Omit<ToastMessageType, 'id'>) => {
-      const id = uuid();
+      const id = v4();
 
       const toast = {
         id,

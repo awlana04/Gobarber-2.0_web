@@ -1,3 +1,4 @@
+import InvalidPropError from '@/domain/shared/errors/invalid-prop-error';
 import { Either, left, right } from '../../shared/either';
 
 export default class Prop {
@@ -23,9 +24,9 @@ export default class Prop {
     return true;
   }
 
-  public static create(prop: string): Either<Error, Prop> {
+  public static create(prop: string): Either<InvalidPropError, Prop> {
     if (!Prop.validate(prop)) {
-      return left(new Error('Invalid prop: ' + prop + '.'));
+      return left(new InvalidPropError(prop));
     }
 
     return right(new Prop(prop));

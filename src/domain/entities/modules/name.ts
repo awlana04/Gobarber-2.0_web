@@ -1,3 +1,4 @@
+import InvalidNameError from '@/domain/shared/errors/invalid-name-error';
 import { Either, left, right } from '../../shared/either';
 
 export default class Name {
@@ -23,9 +24,9 @@ export default class Name {
     return true;
   }
 
-  public static create(name: string): Either<Error, Name> {
+  public static create(name: string): Either<InvalidNameError, Name> {
     if (!Name.validate(name)) {
-      return left(new Error('Invalid name: ' + name + '.'));
+      return left(new InvalidNameError(name));
     }
 
     return right(new Name(name));

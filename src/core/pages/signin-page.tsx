@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import useHandleAvatarHook from '@hooks/use-handle-avatar-hook';
 import useHandleUserHook from '@hooks/use-handle-user-hook';
+import { useToast } from '../contexts/use-toast-context';
 
 import { SigninFormHandler } from '@handlers/signin-form-handler';
 
@@ -19,6 +20,8 @@ export default function SigninPage() {
   const { file, fileUrl, handleChange, handleRemove } = useHandleAvatarHook();
   const { isClientSelected, setIsClientSelected } = useHandleUserHook();
   const { isErrored, setIsErrored } = useErrorHook();
+
+  const { addToast } = useToast();
 
   const submitHandler = async (formData: FormData) => {
     await SigninFormHandler({
@@ -51,8 +54,16 @@ export default function SigninPage() {
 
     const data = await createUserService.handle(initialData);
 
+    console.log(data);
+
     if (data !== initialData) {
       setIsErrored(true);
+
+      addToast({
+        title: 'Erro no Campo Nome',
+        type: 'error',
+        description: 'Nome: ' + name + ' é inválido!',
+      });
     }
   };
 

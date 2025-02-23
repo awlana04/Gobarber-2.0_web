@@ -1,3 +1,4 @@
+import InvalidEmailError from '@/domain/shared/errors/invalid-email-error';
 import { Either, left, right } from '../../shared/either';
 
 export default class Email {
@@ -50,9 +51,9 @@ export default class Email {
     return true;
   }
 
-  public static create(email: string): Either<Error, Email> {
+  public static create(email: string): Either<InvalidEmailError, Email> {
     if (!Email.validate(email)) {
-      return left(new Error('Invalid email: ' + email + '.'));
+      return left(new InvalidEmailError(email));
     }
 
     return right(new Email(email));

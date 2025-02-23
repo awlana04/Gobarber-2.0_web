@@ -1,3 +1,4 @@
+import InvalidPasswordError from '@/domain/shared/errors/invalid-password-error';
 import { Either, left, right } from '../../shared/either';
 
 export default class Password {
@@ -19,9 +20,11 @@ export default class Password {
     return true;
   }
 
-  public static create(password: string): Either<Error, Password> {
+  public static create(
+    password: string
+  ): Either<InvalidPasswordError, Password> {
     if (!Password.validate(password)) {
-      return left(new Error('Invalid password: ' + password + '.'));
+      return left(new InvalidPasswordError(password));
     }
 
     return right(new Password(password));
