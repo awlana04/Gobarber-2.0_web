@@ -2,7 +2,13 @@ import { FiMail } from 'react-icons/fi';
 
 import { Form } from '@components/molecules/form';
 
-export default function EmailInputFragment() {
+type EmailInputFragmentType = {
+  errored: boolean;
+};
+
+export default function EmailInputFragment({
+  errored,
+}: EmailInputFragmentType) {
   return (
     <>
       <Form.Input
@@ -10,6 +16,7 @@ export default function EmailInputFragment() {
         type='email'
         placeholder='E-mail'
         name='email'
+        errored={errored}
       />
     </>
   );

@@ -9,7 +9,7 @@ type FormInputProps = InputHTMLAttributes<HTMLInputElement> & {
   name: string;
   type: 'email' | 'password' | 'text';
   placeholder: string;
-  // errored: boolean;
+  errored: boolean;
 };
 
 export default function FormInput({
@@ -17,6 +17,7 @@ export default function FormInput({
   type,
   name,
   placeholder,
+  errored,
   ...rest
 }: FormInputProps) {
   const { isFilled, handleFilled } = useHandleFilledHook();
@@ -26,11 +27,7 @@ export default function FormInput({
       className='group relative flex flex-col items-center py-2'
       onChange={handleFilled}
     >
-      <Icon
-        icon={iconName}
-        filled={isFilled}
-        // errored={errored}
-      />
+      <Icon icon={iconName} filled={isFilled} errored={errored} />
 
       <input
         type={type}
@@ -38,8 +35,8 @@ export default function FormInput({
         {...rest}
         placeholder={placeholder}
         data-filled={isFilled}
-        // data-errored={errored}
-        className='bg-input text-orange outline-hidden placeholder:text-input-text focus:ring-orange focus:placeholder:text-orange data-[errored=true]:text-red data-[errored=true]:ring-red data-[filled=true]:data-[errored=false]:ring-orange data-[errored=true]:placeholder:text-red h-14 w-96 flex-row rounded-2xl px-12 focus:ring-2 data-[errored=true]:ring-2 data-[filled=true]:ring-2 max-lg:w-80 max-sm:w-72 max-sm:px-10'
+        data-errored={errored}
+        className='bg-input text-orange placeholder:text-input-text focus:ring-orange focus:placeholder:text-orange data-[errored=true]:text-red data-[errored=true]:ring-red data-[filled=true]:data-[errored=false]:ring-orange data-[errored=true]:placeholder:text-red h-14 w-96 flex-row rounded-2xl px-12 outline-hidden focus:ring-2 data-[errored=true]:ring-2 data-[filled=true]:ring-2 max-lg:w-80 max-sm:w-72 max-sm:px-10'
       />
     </div>
   );

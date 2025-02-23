@@ -4,9 +4,13 @@ import { Form } from '@components/molecules/form';
 
 type NameInputFragmentType = {
   icon: 'user' | 'barber';
+  errored: boolean;
 };
 
-export default function NameInputFragment({ icon }: NameInputFragmentType) {
+export default function NameInputFragment({
+  icon,
+  errored,
+}: NameInputFragmentType) {
   return (
     <>
       <Form.Input
@@ -14,7 +18,7 @@ export default function NameInputFragment({ icon }: NameInputFragmentType) {
         type='text'
         name='name'
         placeholder='Nome'
-        // errored={nameInput.errored}
+        errored={errored}
       />
     </>
   );

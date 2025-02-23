@@ -1,6 +1,7 @@
 import { Either, left, right } from '../shared/either';
 
 import User from '../entities/user';
+import InvalidNameError from '../shared/errors/invalid-name-error';
 
 type UserType = {
   name: string;
@@ -15,8 +16,8 @@ export default class CreateUserService {
     email,
     password,
     location,
-  }: UserType): Promise<Either<Error, User>> {
-    const userOrError: Either<Error, User> = User.create({
+  }: UserType): Promise<Either<InvalidNameError | Error, User>> {
+    const userOrError: Either<InvalidNameError | Error, User> = User.create({
       name,
       email,
       password,
@@ -24,6 +25,7 @@ export default class CreateUserService {
     });
 
     if (userOrError.isLeft()) {
+      // console.log(userOrError.value);
       return left(userOrError.value);
     }
 

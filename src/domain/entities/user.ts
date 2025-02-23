@@ -6,6 +6,7 @@ import Password from './modules/password';
 import Prop from './modules/prop';
 
 import { Either, left, right } from '../shared/either';
+import InvalidNameError from '../shared/errors/invalid-name-error';
 
 type UserProps = {
   name: string;
@@ -55,7 +56,7 @@ export default class User extends Entity<UserProps | UserValidationProps> {
     id?: string,
     createdAt?: Date,
     updatedAt?: Date
-  ): Either<Error, User> {
+  ): Either<InvalidNameError | Error, User> {
     const nameOrError = Name.create(props.name);
 
     if (nameOrError.isLeft()) {

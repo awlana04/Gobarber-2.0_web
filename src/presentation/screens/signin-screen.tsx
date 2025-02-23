@@ -18,12 +18,14 @@ type SigninProps = {
   submitHandler(data: any): void;
   avatar: AvatarType;
   radio: RadioType;
+  isErrored: boolean;
 };
 
 export default function SigninScreen({
   submitHandler,
   avatar,
   radio,
+  isErrored,
 }: SigninProps) {
   return (
     <ContentTemplate position='left' src={image} alt='Foto da barbearia'>
@@ -41,10 +43,10 @@ export default function SigninScreen({
           setIsBarberSelected={radio.setIsBarberSelected}
         />
 
-        <NameInputFragment icon='user' />
-        <EmailInputFragment />
-        <PasswordInputFragment />
-        <ConfirmPasswordInputFragment />
+        <NameInputFragment icon='user' errored={isErrored} />
+        <EmailInputFragment errored={isErrored} />
+        <PasswordInputFragment errored={isErrored} />
+        <ConfirmPasswordInputFragment errored={isErrored} />
 
         <Button type='submit'>Cadastrar</Button>
       </Form.Root>
