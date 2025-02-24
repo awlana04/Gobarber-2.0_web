@@ -13,6 +13,9 @@ import SigninScreen from '@/presentation/screens/signin-screen';
 import CreateUserService from '../../domain/services/create-user-service';
 
 import useErrorHook from '../hooks/use-error-hook';
+import EmailErrorHandling from '../errors/email-error-handling';
+import NameErrorHandling from '../errors/name-error-handling';
+import PasswordErrorHandling from '../errors/password-error-handling';
 
 export default function SigninPage() {
   const Router = useRouter();
@@ -45,6 +48,36 @@ export default function SigninPage() {
     const password = formData.get('password') as any;
     const location = formData.get('location') as any;
 
+    const emailError = {
+      type: 'error',
+      title: 'Erro no Email',
+      description: 'Email precisa ter no mínimo 4 dígitos',
+    } as any;
+
+    const nameError = {
+      title: 'Erro no Campo Nome',
+      type: 'error',
+      description: 'Nome: ' + name + ' é inválido!',
+    } as any;
+
+    const passwordError = {
+      title: 'Erro no Campo Senha',
+      type: 'error',
+      description: 'A senha necessita ter no mínimo 8 dígitos',
+    } as any;
+
+    EmailErrorHandling(email)
+      ? setIsErrored(false)
+      : (setIsErrored(true), addToast(emailError));
+
+    NameErrorHandling(name)
+      ? setIsErrored(false)
+      : (setIsErrored(true), addToast(nameError));
+
+    PasswordErrorHandling(password)
+      ? setIsErrored(false)
+      : (setIsErrored(true), addToast(passwordError));
+
     const initialData = {
       name,
       email,
@@ -52,19 +85,7 @@ export default function SigninPage() {
       location,
     } as any;
 
-    const data = await createUserService.handle(initialData);
-
-    console.log(data);
-
-    if (data !== initialData) {
-      setIsErrored(true);
-
-      addToast({
-        title: 'Erro no Campo Nome',
-        type: 'error',
-        description: 'Nome: ' + name + ' é inválido!',
-      });
-    }
+    await createUserService.handle(initialData);
   };
 
   return (
