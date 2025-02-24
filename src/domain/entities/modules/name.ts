@@ -1,5 +1,6 @@
 import InvalidNameError from '@/domain/shared/errors/invalid-name-error';
 import { Either, left, right } from '../../shared/either';
+import NameErrorHandling from '@/domain/validations/name-error-handling';
 
 export default class Name {
   public readonly value: string;
@@ -12,14 +13,11 @@ export default class Name {
     return this.value;
   }
 
-  public static validate(name: string): boolean {
-    if (!name) {
-      return false;
-    }
+  public static async validate(name: string) {
+    const checkName = new NameErrorHandling();
 
-    if (name.trim().length < 3 || name.trim().length > 128) {
-      return false;
-    }
+    await checkName.exists(name);
+    await checkName.length(name);
 
     return true;
   }

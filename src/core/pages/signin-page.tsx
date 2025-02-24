@@ -13,9 +13,14 @@ import SigninScreen from '@/presentation/screens/signin-screen';
 import CreateUserService from '../../domain/services/create-user-service';
 
 import useErrorHook from '../hooks/use-error-hook';
-import EmailErrorHandling from '../errors/email-error-handling';
-import NameErrorHandling from '../errors/name-error-handling';
-import PasswordErrorHandling from '../errors/password-error-handling';
+
+import EmailErrorHandling from '../../domain/validations/email-error-handling';
+import NameErrorHandling from '../../domain/validations/name-error-handling';
+import PasswordErrorHandling from '../../domain/validations/password-error-handling';
+
+import { passwordError } from '../errors/password-toast-error-messages';
+import { emailError } from '../errors/email-toast-error-messages';
+import { nameError } from '../errors/name-toast-error-messages';
 
 export default function SigninPage() {
   const Router = useRouter();
@@ -27,72 +32,67 @@ export default function SigninPage() {
   const { addToast } = useToast();
 
   const submitHandler = async (formData: FormData) => {
-    await SigninFormHandler({
-      name: formData.get('name'),
-      email: formData.get('email'),
-      password: formData.get('password'),
-      confirmPassword: formData.get('confirmPassword'),
-      file: file,
-    });
+    const name = formData.get('name') as any;
+    const email = formData.get('email') as any;
+    const password = formData.get('password') as any;
+
+    const createUserService = new CreateUserService();
+
+    process.env.NEXT_ENV === 'test'
+      ? await createUserService.handle({
+          name,
+          email,
+          password,
+          location: 'Somewhere Over the Rainbow',
+        })
+      : await SigninFormHandler({
+          name,
+          email,
+          password,
+          confirmPassword: formData.get('confirmPassword'),
+          file: file,
+        });
+
+    const checkName = new NameErrorHandling();
+    const checkEmail = new EmailErrorHandling();
+    const checkPassword = new PasswordErrorHandling();
+
+    (await checkName.length(name))
+      ? setIsErrored(false)
+      : (setIsErrored(true), addToast(nameError.Length as any));
+
+    (await checkName.exists(name))
+      ? setIsErrored(false)
+      : (setIsErrored(true), addToast(nameError.Required as any));
+
+    (await checkEmail.length(email))
+      ? setIsErrored(false)
+      : (setIsErrored(true), addToast(emailError.Length as any));
+
+    (await checkEmail.exists(email))
+      ? setIsErrored(false)
+      : (setIsErrored(true), addToast(emailError.Required as any));
+
+    (await checkEmail.isValid(email))
+      ? setIsErrored(false)
+      : (setIsErrored(true), addToast(emailError.Valid as any));
+
+    (await checkPassword.length(password))
+      ? setIsErrored(false)
+      : (setIsErrored(true), addToast(passwordError.Length as any));
+
+    (await checkPassword.exists(password))
+      ? setIsErrored(false)
+      : (setIsErrored(true), addToast(passwordError.Required as any));
 
     isClientSelected === true
       ? Router.push('../dashboard/client')
       : Router.push('./signin/barber');
   };
 
-  const HandleUserData = async (formData: FormData) => {
-    const createUserService = new CreateUserService();
-
-    const name = formData.get('name') as any;
-    const email = formData.get('email') as any;
-    const password = formData.get('password') as any;
-    const location = formData.get('location') as any;
-
-    const emailError = {
-      type: 'error',
-      title: 'Erro no Email',
-      description: 'Email precisa ter no mínimo 4 dígitos',
-    } as any;
-
-    const nameError = {
-      title: 'Erro no Campo Nome',
-      type: 'error',
-      description: 'Nome: ' + name + ' é inválido!',
-    } as any;
-
-    const passwordError = {
-      title: 'Erro no Campo Senha',
-      type: 'error',
-      description: 'A senha necessita ter no mínimo 8 dígitos',
-    } as any;
-
-    EmailErrorHandling(email)
-      ? setIsErrored(false)
-      : (setIsErrored(true), addToast(emailError));
-
-    NameErrorHandling(name)
-      ? setIsErrored(false)
-      : (setIsErrored(true), addToast(nameError));
-
-    PasswordErrorHandling(password)
-      ? setIsErrored(false)
-      : (setIsErrored(true), addToast(passwordError));
-
-    const initialData = {
-      name,
-      email,
-      password,
-      location,
-    } as any;
-
-    await createUserService.handle(initialData);
-  };
-
   return (
     <SigninScreen
-      submitHandler={
-        process.env.NEXT_ENV !== 'test' ? HandleUserData : submitHandler
-      }
+      submitHandler={submitHandler}
       avatar={{
         file: file,
         fileUrl: fileUrl,

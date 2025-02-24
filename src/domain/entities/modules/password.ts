@@ -1,6 +1,8 @@
 import InvalidPasswordError from '@/domain/shared/errors/invalid-password-error';
 import { Either, left, right } from '../../shared/either';
 
+import PasswordErrorHandling from '../../validations/password-error-handling';
+
 export default class Password {
   public readonly value: string;
 
@@ -8,14 +10,11 @@ export default class Password {
     this.value = password;
   }
 
-  public static validate(password: string): boolean {
-    if (!password) {
-      return false;
-    }
+  public static async validate(password: string) {
+    const checkPassword = new PasswordErrorHandling();
 
-    if (password.trim().length < 8 || password.trim().length > 128) {
-      return false;
-    }
+    await checkPassword.exists(password);
+    await checkPassword.length(password);
 
     return true;
   }

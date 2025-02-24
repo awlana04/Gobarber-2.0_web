@@ -27,7 +27,7 @@
       "@contexts/*": ["src/core/contexts/*"],
       "@types/*": ["src/core/types/*"],
       "@handlers/*": ["src/core/handlers/*"],
-      "@validations/*": ["src/core/validations/*"],
+      "@validations/*": ["src/core/errors/*"],
       "@libs/*": ["src/core/libs/*"],
       "@services/*": ["src/core/services/*"],
       "@constants/*": ["src/core/constants/*"],
