@@ -14,11 +14,15 @@ import Button from '@components/atoms/button';
 import { Form } from '@components/molecules/form';
 
 import image from '@public/gobarber_image003.svg';
+import { isErrored } from 'stream';
 type SigninProps = {
   submitHandler(data: any): void;
   avatar: AvatarType;
   radio: RadioType;
   isErrored: boolean;
+  nameErrored: boolean;
+  emailErrored: boolean;
+  passwordErrored: boolean;
 };
 
 export default function SigninScreen({
@@ -26,6 +30,9 @@ export default function SigninScreen({
   avatar,
   radio,
   isErrored,
+  nameErrored,
+  emailErrored,
+  passwordErrored,
 }: SigninProps) {
   return (
     <ContentTemplate position='left' src={image} alt='Foto da barbearia'>
@@ -43,9 +50,9 @@ export default function SigninScreen({
           setIsBarberSelected={radio.setIsBarberSelected}
         />
 
-        <NameInputFragment icon='user' errored={isErrored} />
-        <EmailInputFragment errored={isErrored} />
-        <PasswordInputFragment errored={isErrored} />
+        <NameInputFragment icon='user' nameErrored={nameErrored} />
+        <EmailInputFragment emailErrored={emailErrored} />
+        <PasswordInputFragment passwordErrored={passwordErrored} />
         <ConfirmPasswordInputFragment errored={isErrored} />
 
         <Button type='submit'>Cadastrar</Button>

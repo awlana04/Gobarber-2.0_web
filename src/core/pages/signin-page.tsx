@@ -27,7 +27,16 @@ export default function SigninPage() {
 
   const { file, fileUrl, handleChange, handleRemove } = useHandleAvatarHook();
   const { isClientSelected, setIsClientSelected } = useHandleUserHook();
-  const { isErrored, setIsErrored } = useErrorHook();
+  const {
+    isErrored,
+    setIsErrored,
+    isNameErrored,
+    setIsNameErrored,
+    isEmailErrored,
+    setIsEmailErrored,
+    isPasswordErrored,
+    setIsPasswordErrored,
+  } = useErrorHook();
 
   const { addToast } = useToast();
 
@@ -39,18 +48,18 @@ export default function SigninPage() {
     const createUserService = new CreateUserService();
 
     process.env.NEXT_ENV === 'test'
-      ? await createUserService.handle({
-          name,
-          email,
-          password,
-          location: 'Somewhere Over the Rainbow',
-        })
-      : await SigninFormHandler({
+      ? await SigninFormHandler({
           name,
           email,
           password,
           confirmPassword: formData.get('confirmPassword'),
           file: file,
+        })
+      : await createUserService.handle({
+          name,
+          email,
+          password,
+          location: 'Somewhere Over the Rainbow',
         });
 
     const checkName = new NameErrorHandling();
@@ -58,36 +67,40 @@ export default function SigninPage() {
     const checkPassword = new PasswordErrorHandling();
 
     (await checkName.length(name))
-      ? setIsErrored(false)
-      : (setIsErrored(true), addToast(nameError.Length as any));
+      ? setIsNameErrored(false)
+      : (setIsNameErrored(true), addToast(nameError.Length as any));
 
     (await checkName.exists(name))
-      ? setIsErrored(false)
-      : (setIsErrored(true), addToast(nameError.Required as any));
+      ? setIsNameErrored(false)
+      : (setIsNameErrored(true), addToast(nameError.Required as any));
 
     (await checkEmail.length(email))
-      ? setIsErrored(false)
-      : (setIsErrored(true), addToast(emailError.Length as any));
+      ? setIsEmailErrored(false)
+      : (setIsEmailErrored(true), addToast(emailError.Length as any));
 
     (await checkEmail.exists(email))
-      ? setIsErrored(false)
-      : (setIsErrored(true), addToast(emailError.Required as any));
+      ? setIsEmailErrored(false)
+      : (setIsEmailErrored(true), addToast(emailError.Required as any));
 
     (await checkEmail.isValid(email))
-      ? setIsErrored(false)
-      : (setIsErrored(true), addToast(emailError.Valid as any));
+      ? setIsEmailErrored(false)
+      : (setIsEmailErrored(true), addToast(emailError.Valid as any));
 
     (await checkPassword.length(password))
-      ? setIsErrored(false)
-      : (setIsErrored(true), addToast(passwordError.Length as any));
+      ? setIsPasswordErrored(false)
+      : (setIsPasswordErrored(true), addToast(passwordError.Length as any));
 
     (await checkPassword.exists(password))
-      ? setIsErrored(false)
-      : (setIsErrored(true), addToast(passwordError.Required as any));
+      ? setIsPasswordErrored(false)
+      : (setIsPasswordErrored(true), addToast(passwordError.Required as any));
 
-    isClientSelected === true
-      ? Router.push('../dashboard/client')
-      : Router.push('./signin/barber');
+    isNameErrored === false &&
+    isEmailErrored === false &&
+    isPasswordErrored === false
+      ? setIsErrored(true)
+      : isClientSelected === true
+        ? Router.push('../dashboard/client')
+        : Router.push('./signin/barber');
   };
 
   return (
@@ -104,6 +117,9 @@ export default function SigninPage() {
         setIsBarberSelected: setIsClientSelected,
       }}
       isErrored={isErrored}
+      nameErrored={isNameErrored}
+      emailErrored={isEmailErrored}
+      passwordErrored={isPasswordErrored}
     />
   );
 }

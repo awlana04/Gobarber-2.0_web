@@ -3,11 +3,11 @@ import { FiLock } from 'react-icons/fi';
 import { Form } from '@components/molecules/form';
 
 type PasswordInputFragmentType = {
-  errored: boolean;
+  passwordErrored: boolean;
 };
 
 export default function PasswordInputFragment({
-  errored,
+  passwordErrored,
 }: PasswordInputFragmentType) {
   return (
     <>
@@ -16,7 +16,7 @@ export default function PasswordInputFragment({
         type='password'
         name='password'
         placeholder='Senha'
-        errored={errored}
+        errored={passwordErrored}
       />
     </>
   );

@@ -8,7 +8,7 @@ export default class EmailErrorHandling {
   }
 
   public async length(email: string) {
-    if (email.length > 320 && email.length > 0) {
+    if (email.length > 320) {
       return false;
     }
 
