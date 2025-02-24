@@ -14,12 +14,12 @@ import Button from '@components/atoms/button';
 import { Form } from '@components/molecules/form';
 
 import image from '@public/gobarber_image003.svg';
-import { isErrored } from 'stream';
+
 type SigninProps = {
   submitHandler(data: any): void;
   avatar: AvatarType;
   radio: RadioType;
-  isErrored: boolean;
+  confirmPasswordErrored: boolean;
   nameErrored: boolean;
   emailErrored: boolean;
   passwordErrored: boolean;
@@ -29,7 +29,7 @@ export default function SigninScreen({
   submitHandler,
   avatar,
   radio,
-  isErrored,
+  confirmPasswordErrored,
   nameErrored,
   emailErrored,
   passwordErrored,
@@ -53,7 +53,7 @@ export default function SigninScreen({
         <NameInputFragment icon='user' nameErrored={nameErrored} />
         <EmailInputFragment emailErrored={emailErrored} />
         <PasswordInputFragment passwordErrored={passwordErrored} />
-        <ConfirmPasswordInputFragment errored={isErrored} />
+        <ConfirmPasswordInputFragment errored={confirmPasswordErrored} />
 
         <Button type='submit'>Cadastrar</Button>
       </Form.Root>

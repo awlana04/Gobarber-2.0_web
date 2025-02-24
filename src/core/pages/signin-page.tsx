@@ -36,6 +36,8 @@ export default function SigninPage() {
     setIsEmailErrored,
     isPasswordErrored,
     setIsPasswordErrored,
+    isConfirmPasswordErrored,
+    setIsConfirmPasswordErrored,
   } = useErrorHook();
 
   const { addToast } = useToast();
@@ -44,23 +46,9 @@ export default function SigninPage() {
     const name = formData.get('name') as any;
     const email = formData.get('email') as any;
     const password = formData.get('password') as any;
+    const confirmPassword = formData.get('confirmPassword') as any;
 
     const createUserService = new CreateUserService();
-
-    process.env.NEXT_ENV === 'test'
-      ? await SigninFormHandler({
-          name,
-          email,
-          password,
-          confirmPassword: formData.get('confirmPassword'),
-          file: file,
-        })
-      : await createUserService.handle({
-          name,
-          email,
-          password,
-          location: 'Somewhere Over the Rainbow',
-        });
 
     const checkName = new NameErrorHandling();
     const checkEmail = new EmailErrorHandling();
@@ -86,21 +74,60 @@ export default function SigninPage() {
       ? setIsEmailErrored(false)
       : (setIsEmailErrored(true), addToast(emailError.Valid as any));
 
-    (await checkPassword.length(password))
+    (await checkPassword.length(password)) && confirmPassword === password
       ? setIsPasswordErrored(false)
       : (setIsPasswordErrored(true), addToast(passwordError.Length as any));
 
-    (await checkPassword.exists(password))
+    (await checkPassword.exists(password)) && confirmPassword === password
       ? setIsPasswordErrored(false)
       : (setIsPasswordErrored(true), addToast(passwordError.Required as any));
 
-    isNameErrored === false &&
-    isEmailErrored === false &&
-    isPasswordErrored === false
-      ? setIsErrored(true)
-      : isClientSelected === true
-        ? Router.push('../dashboard/client')
-        : Router.push('./signin/barber');
+    if (
+      password !== confirmPassword ||
+      password.length === 0 ||
+      confirmPassword.length === 0
+    ) {
+      setIsConfirmPasswordErrored(true);
+
+      addToast({
+        type: 'error',
+        title: 'Erro na Senha',
+        description: 'As senhas necessitam serem iguais',
+      });
+    } else {
+      setIsConfirmPasswordErrored(false);
+    }
+
+    if (
+      isNameErrored === false &&
+      isEmailErrored === false &&
+      isPasswordErrored === false &&
+      isConfirmPasswordErrored === false
+    ) {
+      process.env.NEXT_ENV === 'test'
+        ? await SigninFormHandler({
+            name,
+            email,
+            password,
+            confirmPassword,
+            file: file,
+          })
+        : await createUserService.handle({
+            name,
+            email,
+            password,
+            location: 'Somewhere Over the Rainbow',
+          });
+
+      isNameErrored === false &&
+      isEmailErrored === false &&
+      isPasswordErrored === false &&
+      isConfirmPasswordErrored === false
+        ? setIsErrored(true)
+        : isClientSelected === true
+          ? Router.push('../dashboard/client')
+          : Router.push('./signin/barber');
+    }
   };
 
   return (
@@ -116,10 +143,10 @@ export default function SigninPage() {
         isBarberSelected: isClientSelected,
         setIsBarberSelected: setIsClientSelected,
       }}
-      isErrored={isErrored}
       nameErrored={isNameErrored}
       emailErrored={isEmailErrored}
       passwordErrored={isPasswordErrored}
+      confirmPasswordErrored={isConfirmPasswordErrored}
     />
   );
 }

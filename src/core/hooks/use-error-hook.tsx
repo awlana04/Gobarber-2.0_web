@@ -5,6 +5,8 @@ export default function useErrorHook() {
   const [isNameErrored, setIsNameErrored] = useState(false);
   const [isEmailErrored, setIsEmailErrored] = useState(false);
   const [isPasswordErrored, setIsPasswordErrored] = useState(false);
+  const [isConfirmPasswordErrored, setIsConfirmPasswordErrored] =
+    useState(false);
 
   return {
     isErrored,
@@ -15,5 +17,7 @@ export default function useErrorHook() {
     setIsNameErrored,
     isPasswordErrored,
     setIsPasswordErrored,
+    isConfirmPasswordErrored,
+    setIsConfirmPasswordErrored,
   };
 }
