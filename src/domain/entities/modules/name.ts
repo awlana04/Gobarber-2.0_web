@@ -13,11 +13,23 @@ export default class Name {
     return this.value;
   }
 
-  public static async validate(name: string) {
-    const checkName = new NameErrorHandling();
+  // public static async validate(name: string) {
+  //   const checkName = new NameErrorHandling();
 
-    await checkName.exists(name);
-    await checkName.length(name);
+  //   await checkName.exists(name);
+  //   await checkName.length(name);
+
+  //   return true;
+  // }
+
+  public static validate(name: string): boolean {
+    if (!name) {
+      return false;
+    }
+
+    if (name.trim().length < 3 || name.trim().length > 128) {
+      return false;
+    }
 
     return true;
   }

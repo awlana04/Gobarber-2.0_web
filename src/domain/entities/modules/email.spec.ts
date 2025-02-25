@@ -6,6 +6,7 @@ describe('Email value object', () => {
 
     const response = Email.create(invalidEmail).value as Error;
 
+    expect(response.name).toEqual('InvalidEmailError');
     expect(response.message).toEqual('Invalid email: ' + invalidEmail + '.');
   });
 
@@ -14,6 +15,7 @@ describe('Email value object', () => {
 
     const response = Email.create(invalidEmail).value as Error;
 
+    expect(response.name).toEqual('InvalidEmailError');
     expect(response.message).toEqual('Invalid email: ' + invalidEmail + '.');
   });
 
@@ -23,6 +25,7 @@ describe('Email value object', () => {
 
     const response = Email.create(invalidEmail).value as Error;
 
+    expect(response.name).toEqual('InvalidEmailError');
     expect(response.message).toEqual('Invalid email: ' + invalidEmail + '.');
   });
 
@@ -32,6 +35,7 @@ describe('Email value object', () => {
 
     const response = Email.create(invalidEmail).value as Error;
 
+    expect(response.name).toEqual('InvalidEmailError');
     expect(response.message).toEqual('Invalid email: ' + invalidEmail + '.');
   });
 
@@ -41,6 +45,7 @@ describe('Email value object', () => {
 
     const response = Email.create(invalidEmail).value as Error;
 
+    expect(response.name).toEqual('InvalidEmailError');
     expect(response.message).toEqual('Invalid email: ' + invalidEmail + '.');
   });
 

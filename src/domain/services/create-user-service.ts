@@ -41,10 +41,7 @@ export default class CreateUserService {
       location,
     });
 
-    console.log(userOrError, userOrError.value);
-
     if (userOrError.isLeft()) {
-      console.log(userOrError.value);
       return left(userOrError.value);
     }
 

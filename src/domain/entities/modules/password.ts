@@ -10,11 +10,23 @@ export default class Password {
     this.value = password;
   }
 
-  public static async validate(password: string) {
-    const checkPassword = new PasswordErrorHandling();
+  // public static async validate(password: string) {
+  //   const checkPassword = new PasswordErrorHandling();
 
-    await checkPassword.exists(password);
-    await checkPassword.length(password);
+  //   await checkPassword.exists(password);
+  //   await checkPassword.length(password);
+
+  //   return true;
+  // }
+
+  public static validate(password: string): boolean {
+    if (!password) {
+      return false;
+    }
+
+    if (password.trim().length < 8 || password.trim().length > 128) {
+      return false;
+    }
 
     return true;
   }
