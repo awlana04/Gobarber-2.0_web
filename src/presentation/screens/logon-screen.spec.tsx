@@ -7,7 +7,13 @@ import LogonScreen from './logon-screen';
 
 describe('LogonScreen', () => {
   beforeEach(() => {
-    render(<LogonScreen submitHandler={() => {}} />);
+    render(
+      <LogonScreen
+        submitHandler={() => {}}
+        emailErrored={false}
+        passwordErrored={false}
+      />
+    );
   });
 
   it('should be able to render the logon screen', () => {

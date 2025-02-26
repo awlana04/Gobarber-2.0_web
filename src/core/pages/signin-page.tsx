@@ -98,6 +98,30 @@ export default function SigninPage() {
       setIsConfirmPasswordErrored(false);
     }
 
+    await createUserService.handle({
+      name,
+      email,
+      password,
+      location: 'Somewhere Over the Rainbow',
+    });
+
+    // const res = await fetch('http://localhost:4000/users', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({
+    //     name,
+    //     email,
+    //     password,
+    //     location: 'Somewhere Over the Rainbow',
+    //   }),
+    // });
+
+    // console.log(res);
+
+    // if (res.ok) {
+    //   alert('User added successfully!');
+    // }
+
     if (
       isNameErrored === false &&
       isEmailErrored === false &&
@@ -112,22 +136,26 @@ export default function SigninPage() {
             confirmPassword,
             file: file,
           })
-        : await createUserService.handle({
-            name,
-            email,
-            password,
-            location: 'Somewhere Over the Rainbow',
+        : await fetch('http://localhost:4000/users', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name,
+              email,
+              password,
+              location: 'Somewhere Over the Rainbow',
+            }),
           });
-
-      isNameErrored === false &&
-      isEmailErrored === false &&
-      isPasswordErrored === false &&
-      isConfirmPasswordErrored === false
-        ? setIsErrored(true)
-        : isClientSelected === true
-          ? Router.push('../dashboard/client')
-          : Router.push('./signin/barber');
     }
+
+    isNameErrored === false &&
+    isEmailErrored === false &&
+    isPasswordErrored === false &&
+    isConfirmPasswordErrored === false
+      ? setIsErrored(true)
+      : isClientSelected === true
+        ? Router.push('../dashboard/client')
+        : Router.push('./signin/barber');
   };
 
   return (
