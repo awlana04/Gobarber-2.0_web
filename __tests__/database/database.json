@@ -13,6 +13,13 @@
       "email": "jane@doe.com",
       "password": "12345678",
       "location": "Somewhere Over the Rainbow"
+    },
+    {
+      "id": "0736",
+      "name": "Awlana Costa",
+      "email": "cawlana040@gmail.com",
+      "password": "12345678",
+      "location": "Somewhere Over the Rainbow"
     }
   ]
 }

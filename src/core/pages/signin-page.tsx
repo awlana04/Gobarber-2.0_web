@@ -21,6 +21,8 @@ import PasswordErrorHandling from '../../domain/validations/password-error-handl
 import { passwordError } from '../errors/password-toast-error-messages';
 import { emailError } from '../errors/email-toast-error-messages';
 import { nameError } from '../errors/name-toast-error-messages';
+import CreateUserFakeServer from '../server/create-user-fake-server';
+import { use } from 'react';
 
 export default function SigninPage() {
   const Router = useRouter();
@@ -105,23 +107,6 @@ export default function SigninPage() {
       location: 'Somewhere Over the Rainbow',
     });
 
-    // const res = await fetch('http://localhost:4000/users', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({
-    //     name,
-    //     email,
-    //     password,
-    //     location: 'Somewhere Over the Rainbow',
-    //   }),
-    // });
-
-    // console.log(res);
-
-    // if (res.ok) {
-    //   alert('User added successfully!');
-    // }
-
     if (
       isNameErrored === false &&
       isEmailErrored === false &&
@@ -136,26 +121,17 @@ export default function SigninPage() {
             confirmPassword,
             file: file,
           })
-        : await fetch('http://localhost:4000/users', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              name,
-              email,
-              password,
-              location: 'Somewhere Over the Rainbow',
-            }),
-          });
+        : await CreateUserFakeServer({ name, email, password });
     }
 
-    isNameErrored === false &&
-    isEmailErrored === false &&
-    isPasswordErrored === false &&
-    isConfirmPasswordErrored === false
-      ? setIsErrored(true)
-      : isClientSelected === true
-        ? Router.push('../dashboard/client')
-        : Router.push('./signin/barber');
+    // isNameErrored === false &&
+    // isEmailErrored === false &&
+    // isPasswordErrored === false &&
+    // isConfirmPasswordErrored === false
+    //   ? setIsErrored(true)
+    //   : isClientSelected === true
+    //     ? Router.push('../dashboard/client')
+    //     : Router.push('./signin/barber');
   };
 
   return (
