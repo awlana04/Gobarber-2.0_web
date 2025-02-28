@@ -1,7 +1,6 @@
 'use client';
 
 import { redirect } from 'next/navigation';
-import { useReducer } from 'react';
 
 import useHandleAvatarHook from '@hooks/use-handle-avatar-hook';
 import useHandleUserHook from '@hooks/use-handle-user-hook';
@@ -14,8 +13,6 @@ import SigninScreen from '@/presentation/screens/signin-screen';
 
 import CreateUserService from '../../domain/services/create-user-service';
 
-import useErrorHook from '../hooks/use-error-hook';
-
 import EmailErrorHandling from '../../domain/validations/email-error-handling';
 import NameErrorHandling from '../../domain/validations/name-error-handling';
 import PasswordErrorHandling from '../../domain/validations/password-error-handling';
@@ -26,57 +23,11 @@ import { nameError } from '../errors/name-toast-error-messages';
 
 import CreateUserFakeServer from '../server/create-user-fake-server';
 
-type Action = {
-  type:
-    | 'SET_NAME_ERROR'
-    | 'SET_NAME_SUCCESS'
-    | 'SET_EMAIL_ERROR'
-    | 'SET_EMAIL_SUCCESS'
-    | 'SET_PASSWORD_ERROR'
-    | 'SET_PASSWORD_SUCCESS'
-    | 'SET_CONFIRM_PASSWORD_ERROR'
-    | 'SET_CONFIRM_PASSWORD_SUCCESS';
-};
-
-type formState = {
-  isNameErrored: boolean;
-  isEmailErrored: boolean;
-  isPasswordErrored: boolean;
-  isConfirmPasswordErrored: boolean;
-};
-
-const initialState: formState = {
-  isNameErrored: false,
-  isEmailErrored: false,
-  isPasswordErrored: false,
-  isConfirmPasswordErrored: false,
-};
-
-function handleErrored(state: formState, action: Action) {
-  switch (action.type) {
-    case 'SET_NAME_ERROR':
-      return { ...state, isNameErrored: true };
-    case 'SET_NAME_SUCCESS':
-      return { ...state, isNameErrored: false };
-    case 'SET_EMAIL_ERROR':
-      return { ...state, isEmailErrored: true };
-    case 'SET_EMAIL_SUCCESS':
-      return { ...state, isEmailErrored: false };
-    case 'SET_PASSWORD_ERROR':
-      return { ...state, isPasswordErrored: true };
-    case 'SET_PASSWORD_SUCCESS':
-      return { ...state, isPasswordErrored: false };
-    case 'SET_CONFIRM_PASSWORD_ERROR':
-      return { ...state, isConfirmPasswordErrored: true };
-    case 'SET_CONFIRM_PASSWORD_SUCCESS':
-      return { ...state, isConfirmPasswordErrored: false };
-    default:
-      return state;
-  }
-}
+import useHandleErroredHook from '@hooks/use-handle-errored-hook';
 
 export default function SigninPage() {
-  const [state, dispatch] = useReducer(handleErrored, initialState);
+  // const [state, dispatch] = useReducer(useHandleErroredHook, initialState);
+  const { state, dispatch } = useHandleErroredHook();
 
   const { file, fileUrl, handleChange, handleRemove } = useHandleAvatarHook();
   const { isClientSelected, setIsClientSelected } = useHandleUserHook();
@@ -95,56 +46,80 @@ export default function SigninPage() {
     const checkEmail = new EmailErrorHandling();
     const checkPassword = new PasswordErrorHandling();
 
-    (await checkName.length(name))
-      ? dispatch({ type: 'SET_NAME_SUCCESS' })
-      : (dispatch({ type: 'SET_NAME_ERROR' }),
-        addToast(nameError.Length as any));
+    const emailLength = await checkEmail.length(email);
+    const emailExists = await checkEmail.exists(email);
+    const emailIsValid = await checkEmail.isValid(email);
 
-    (await checkName.exists(name))
-      ? dispatch({ type: 'SET_NAME_SUCCESS' })
-      : (dispatch({ type: 'SET_NAME_ERROR' }),
-        addToast(nameError.Required as any));
-
-    (await checkEmail.length(email))
-      ? dispatch({ type: 'SET_EMAIL_SUCCESS' })
-      : (dispatch({ type: 'SET_EMAIL_ERROR' }),
-        addToast(emailError.Length as any));
-
-    (await checkEmail.exists(email))
-      ? dispatch({ type: 'SET_EMAIL_SUCCESS' })
-      : (dispatch({ type: 'SET_EMAIL_ERROR' }),
-        addToast(emailError.Required as any));
-
-    (await checkEmail.isValid(email))
-      ? dispatch({ type: 'SET_EMAIL_SUCCESS' })
-      : (dispatch({ type: 'SET_EMAIL_ERROR' }),
-        addToast(emailError.Valid as any));
-
-    (await checkPassword.length(password)) && confirmPassword === password
-      ? dispatch({ type: 'SET_PASSWORD_SUCCESS' })
-      : (dispatch({ type: 'SET_PASSWORD_ERROR' }),
-        addToast(passwordError.Length as any));
-
-    (await checkPassword.exists(password)) && confirmPassword === password
-      ? dispatch({ type: 'SET_PASSWORD_SUCCESS' })
-      : (dispatch({ type: 'SET_PASSWORD_ERROR' }),
-        addToast(passwordError.Required as any));
-
-    if (
-      password !== confirmPassword ||
-      password.length === 0 ||
-      confirmPassword.length === 0
-    ) {
-      dispatch({ type: 'SET_CONFIRM_PASSWORD_ERROR' });
-
-      addToast({
-        type: 'error',
-        title: 'Erro na Senha',
-        description: 'As senhas necessitam serem iguais',
-      });
-    } else {
-      dispatch({ type: 'SET_CONFIRM_PASSWORD_SUCCESS' });
+    switch (emailLength || emailExists || emailIsValid) {
+      case emailLength: {
+        dispatch({ type: 'SET_EMAIL_ERROR' }),
+          addToast(emailError.Length as any);
+        break;
+      }
+      case emailExists: {
+        dispatch({ type: 'SET_EMAIL_ERROR' }),
+          addToast(emailError.Required as any);
+        break;
+      }
+      case emailIsValid: {
+        dispatch({ type: 'SET_EMAIL_ERROR' }),
+          addToast(emailError.Valid as any);
+        break;
+      }
+      default:
+        dispatch({ type: 'SET_EMAIL_SUCCESS' });
     }
+
+    (await checkPassword.length(password))
+      ? (dispatch({ type: 'SET_PASSWORD_ERROR' }),
+        addToast(passwordError.Length as any))
+      : dispatch({ type: 'SET_PASSWORD_SUCCESS' });
+
+    // (await checkName.length(name))
+    //   ? dispatch({ type: 'SET_NAME_SUCCESS' })
+    //   : (dispatch({ type: 'SET_NAME_ERROR' }),
+    //     addToast(nameError.Length as any));
+
+    // (await checkName.exists(name))
+    //   ? dispatch({ type: 'SET_NAME_SUCCESS' })
+    //   : (dispatch({ type: 'SET_NAME_ERROR' }),
+    //     addToast(nameError.Required as any));
+
+    // (await checkEmail.length(email))
+    //   ? dispatch({ type: 'SET_EMAIL_SUCCESS' })
+    //   : (dispatch({ type: 'SET_EMAIL_ERROR' }),
+    //     addToast(emailError.Length as any));
+
+    // (await checkEmail.isValid(email))
+    //   ? dispatch({ type: 'SET_EMAIL_SUCCESS' })
+    //   : (dispatch({ type: 'SET_EMAIL_ERROR' }),
+    //     addToast(emailError.Valid as any));
+
+    // (await checkPassword.length(password)) && confirmPassword === password
+    //   ? dispatch({ type: 'SET_PASSWORD_SUCCESS' })
+    //   : (dispatch({ type: 'SET_PASSWORD_ERROR' }),
+    //     addToast(passwordError.Length as any));
+
+    // (await checkPassword.exists(password)) && confirmPassword === password
+    //   ? dispatch({ type: 'SET_PASSWORD_SUCCESS' })
+    //   : (dispatch({ type: 'SET_PASSWORD_ERROR' }),
+    //     addToast(passwordError.Required as any));
+
+    // if (
+    //   password !== confirmPassword ||
+    //   password.length === 0 ||
+    //   confirmPassword.length === 0
+    // ) {
+    //   dispatch({ type: 'SET_CONFIRM_PASSWORD_ERROR' });
+
+    //   addToast({
+    //     type: 'error',
+    //     title: 'Erro na Senha',
+    //     description: 'As senhas necessitam serem iguais',
+    //   });
+    // } else {
+    //   dispatch({ type: 'SET_CONFIRM_PASSWORD_SUCCESS' });
+    // }
 
     await createUserService.handle({
       name,
@@ -183,6 +158,7 @@ export default function SigninPage() {
     //     : redirect('./signin/barber');
   };
 
+  console.log(state);
   return (
     <SigninScreen
       submitHandler={submitHandler}
@@ -196,9 +172,6 @@ export default function SigninPage() {
         isBarberSelected: isClientSelected,
         setIsBarberSelected: setIsClientSelected,
       }}
-      // nameErrored={isNameErrored}
-      // emailErrored={isEmailErrored}
-      // passwordErrored={isPasswordErrored}
       nameErrored={state.isNameErrored}
       emailErrored={state.isEmailErrored}
       passwordErrored={state.isPasswordErrored}

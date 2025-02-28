@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import Button from '@components/atoms/button';
 import CreateAccount from '@components/atoms/create-account';
+
 import { Form } from '@components/molecules/form';
 
 import EmailInputFragment from '@fragments/email-input-fragment';
