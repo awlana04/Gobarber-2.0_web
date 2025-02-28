@@ -10,18 +10,24 @@ export default function usePasswordUsecase() {
 
   const handlePasswordUsecase = async (
     password: string,
-    confirmPassword: string
+    confirmPassword?: string
   ) => {
-    const createUserService = new CreateUserService();
-
     const checkPassword = new PasswordErrorHandling();
 
-    const passwordLength =
-      (await checkPassword.length(password)) && confirmPassword === password;
-    const passwordExists =
-      (await checkPassword.exists(password)) && confirmPassword === password;
+    const passwordLength = await checkPassword.length(password);
+    const passwordExists = await checkPassword.exists(password);
 
-    switch (passwordLength === false || passwordExists === false) {
+    const confirmPasswordLength =
+      passwordLength && confirmPassword === password;
+    const confirmPasswordExists =
+      passwordExists && confirmPassword === password;
+
+    switch (
+      passwordLength === false ||
+      passwordExists === false ||
+      confirmPasswordExists === false ||
+      confirmPasswordLength === false
+    ) {
       case passwordLength: {
         dispatch({ type: 'SET_PASSWORD_ERROR' }),
           addToast(passwordError.Length as any);
