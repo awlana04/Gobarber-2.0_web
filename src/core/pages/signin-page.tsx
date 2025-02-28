@@ -46,11 +46,38 @@ export default function SigninPage() {
     const checkEmail = new EmailErrorHandling();
     const checkPassword = new PasswordErrorHandling();
 
+    const nameLength = await checkName.length(name);
+    const nameExists = await checkName.exists(name);
+
     const emailLength = await checkEmail.length(email);
     const emailExists = await checkEmail.exists(email);
     const emailIsValid = await checkEmail.isValid(email);
 
-    switch (emailLength || emailExists || emailIsValid) {
+    const passwordLength =
+      (await checkPassword.length(password)) && confirmPassword === password;
+    const passwordExists =
+      (await checkPassword.exists(password)) && confirmPassword === password;
+
+    switch (nameExists === false || nameLength === false) {
+      case nameExists: {
+        console.log(name);
+        dispatch({ type: 'SET_NAME_ERROR' }), addToast(nameError.Length as any);
+        break;
+      }
+      case nameLength: {
+        dispatch({ type: 'SET_NAME_ERROR' }),
+          addToast(nameError.Required as any);
+        break;
+      }
+      default:
+        dispatch({ type: 'SET_NAME_SUCCESS' });
+    }
+
+    switch (
+      emailLength === false ||
+      emailExists === false ||
+      emailIsValid === false
+    ) {
       case emailLength: {
         dispatch({ type: 'SET_EMAIL_ERROR' }),
           addToast(emailError.Length as any);
@@ -70,56 +97,36 @@ export default function SigninPage() {
         dispatch({ type: 'SET_EMAIL_SUCCESS' });
     }
 
-    (await checkPassword.length(password))
-      ? (dispatch({ type: 'SET_PASSWORD_ERROR' }),
-        addToast(passwordError.Length as any))
-      : dispatch({ type: 'SET_PASSWORD_SUCCESS' });
+    switch (passwordLength === false || passwordExists === false) {
+      case passwordLength: {
+        dispatch({ type: 'SET_PASSWORD_ERROR' }),
+          addToast(passwordError.Length as any);
+        break;
+      }
+      case passwordExists: {
+        dispatch({ type: 'SET_PASSWORD_ERROR' }),
+          addToast(passwordError.Required as any);
+        break;
+      }
+      default:
+        dispatch({ type: 'SET_PASSWORD_SUCCESS' });
+    }
 
-    // (await checkName.length(name))
-    //   ? dispatch({ type: 'SET_NAME_SUCCESS' })
-    //   : (dispatch({ type: 'SET_NAME_ERROR' }),
-    //     addToast(nameError.Length as any));
+    if (
+      password !== confirmPassword ||
+      password.length === 0 ||
+      confirmPassword.length === 0
+    ) {
+      dispatch({ type: 'SET_CONFIRM_PASSWORD_ERROR' });
 
-    // (await checkName.exists(name))
-    //   ? dispatch({ type: 'SET_NAME_SUCCESS' })
-    //   : (dispatch({ type: 'SET_NAME_ERROR' }),
-    //     addToast(nameError.Required as any));
-
-    // (await checkEmail.length(email))
-    //   ? dispatch({ type: 'SET_EMAIL_SUCCESS' })
-    //   : (dispatch({ type: 'SET_EMAIL_ERROR' }),
-    //     addToast(emailError.Length as any));
-
-    // (await checkEmail.isValid(email))
-    //   ? dispatch({ type: 'SET_EMAIL_SUCCESS' })
-    //   : (dispatch({ type: 'SET_EMAIL_ERROR' }),
-    //     addToast(emailError.Valid as any));
-
-    // (await checkPassword.length(password)) && confirmPassword === password
-    //   ? dispatch({ type: 'SET_PASSWORD_SUCCESS' })
-    //   : (dispatch({ type: 'SET_PASSWORD_ERROR' }),
-    //     addToast(passwordError.Length as any));
-
-    // (await checkPassword.exists(password)) && confirmPassword === password
-    //   ? dispatch({ type: 'SET_PASSWORD_SUCCESS' })
-    //   : (dispatch({ type: 'SET_PASSWORD_ERROR' }),
-    //     addToast(passwordError.Required as any));
-
-    // if (
-    //   password !== confirmPassword ||
-    //   password.length === 0 ||
-    //   confirmPassword.length === 0
-    // ) {
-    //   dispatch({ type: 'SET_CONFIRM_PASSWORD_ERROR' });
-
-    //   addToast({
-    //     type: 'error',
-    //     title: 'Erro na Senha',
-    //     description: 'As senhas necessitam serem iguais',
-    //   });
-    // } else {
-    //   dispatch({ type: 'SET_CONFIRM_PASSWORD_SUCCESS' });
-    // }
+      addToast({
+        type: 'error',
+        title: 'Erro na Senha',
+        description: 'As senhas necessitam serem iguais',
+      });
+    } else {
+      dispatch({ type: 'SET_CONFIRM_PASSWORD_SUCCESS' });
+    }
 
     await createUserService.handle({
       name,
@@ -158,7 +165,6 @@ export default function SigninPage() {
     //     : redirect('./signin/barber');
   };
 
-  console.log(state);
   return (
     <SigninScreen
       submitHandler={submitHandler}
