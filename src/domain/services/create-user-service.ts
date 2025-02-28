@@ -5,7 +5,6 @@ import InvalidNameError from '../shared/errors/invalid-name-error';
 import InvalidEmailError from '../shared/errors/invalid-email-error';
 import InvalidPasswordError from '../shared/errors/invalid-password-error';
 import InvalidPropError from '../shared/errors/invalid-prop-error';
-import { writeData } from '@/core/services/internal-database';
 
 type UserType = {
   name: string;
