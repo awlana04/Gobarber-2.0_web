@@ -25,6 +25,9 @@ import CreateUserFakeServer from '../server/create-user-fake-server';
 
 import useHandleErroredHook from '@hooks/use-handle-errored-hook';
 
+import useEmailUsecase from 'src/core/usecases/use-email-usecase';
+import email from '@/domain/entities/modules/email';
+
 export default function SigninPage() {
   // const [state, dispatch] = useReducer(useHandleErroredHook, initialState);
   const { state, dispatch } = useHandleErroredHook();
@@ -33,6 +36,8 @@ export default function SigninPage() {
   const { isClientSelected, setIsClientSelected } = useHandleUserHook();
 
   const { addToast } = useToast();
+
+  const { handleEmailUsecase, isEmailErrored } = useEmailUsecase();
 
   const submitHandler = async (formData: FormData) => {
     const name = formData.get('name') as any;
@@ -49,9 +54,9 @@ export default function SigninPage() {
     const nameLength = await checkName.length(name);
     const nameExists = await checkName.exists(name);
 
-    const emailLength = await checkEmail.length(email);
-    const emailExists = await checkEmail.exists(email);
-    const emailIsValid = await checkEmail.isValid(email);
+    // const emailLength = await checkEmail.length(email);
+    // const emailExists = await checkEmail.exists(email);
+    // const emailIsValid = await checkEmail.isValid(email);
 
     const passwordLength =
       (await checkPassword.length(password)) && confirmPassword === password;
@@ -73,29 +78,31 @@ export default function SigninPage() {
         dispatch({ type: 'SET_NAME_SUCCESS' });
     }
 
-    switch (
-      emailLength === false ||
-      emailExists === false ||
-      emailIsValid === false
-    ) {
-      case emailLength: {
-        dispatch({ type: 'SET_EMAIL_ERROR' }),
-          addToast(emailError.Length as any);
-        break;
-      }
-      case emailExists: {
-        dispatch({ type: 'SET_EMAIL_ERROR' }),
-          addToast(emailError.Required as any);
-        break;
-      }
-      case emailIsValid: {
-        dispatch({ type: 'SET_EMAIL_ERROR' }),
-          addToast(emailError.Valid as any);
-        break;
-      }
-      default:
-        dispatch({ type: 'SET_EMAIL_SUCCESS' });
-    }
+    await handleEmailUsecase(email);
+
+    // switch (
+    //   emailLength === false ||
+    //   emailExists === false ||
+    //   emailIsValid === false
+    // ) {
+    //   case emailLength: {
+    //     dispatch({ type: 'SET_EMAIL_ERROR' }),
+    //       addToast(emailError.Length as any);
+    //     break;
+    //   }
+    //   case emailExists: {
+    //     dispatch({ type: 'SET_EMAIL_ERROR' }),
+    //       addToast(emailError.Required as any);
+    //     break;
+    //   }
+    //   case emailIsValid: {
+    //     dispatch({ type: 'SET_EMAIL_ERROR' }),
+    //       addToast(emailError.Valid as any);
+    //     break;
+    //   }
+    //   default:
+    //     dispatch({ type: 'SET_EMAIL_SUCCESS' });
+    // }
 
     switch (passwordLength === false || passwordExists === false) {
       case passwordLength: {
@@ -179,7 +186,7 @@ export default function SigninPage() {
         setIsBarberSelected: setIsClientSelected,
       }}
       nameErrored={state.isNameErrored}
-      emailErrored={state.isEmailErrored}
+      emailErrored={isEmailErrored.isEmailErrored}
       passwordErrored={state.isPasswordErrored}
       confirmPasswordErrored={state.isConfirmPasswordErrored}
     />
