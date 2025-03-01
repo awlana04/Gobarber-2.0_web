@@ -18,6 +18,7 @@ import image from '@public/gobarber_image004.svg';
 type SigninBarberScreenType = {
   submitHandler(data: any): void;
   images: ImagesType;
+  nameErrored: boolean;
   openAtNight: RadioType;
   openOnWeekends: RadioType;
 };
@@ -25,6 +26,7 @@ type SigninBarberScreenType = {
 export default function SigninBarberScreen({
   submitHandler,
   images,
+  nameErrored,
   openAtNight,
   openOnWeekends,
 }: SigninBarberScreenType) {
@@ -38,7 +40,7 @@ export default function SigninBarberScreen({
           type='text'
           name='barberName'
           placeholder='Nome da barbearia'
-          // errored={nameInput.errored}
+          errored={nameErrored}
         />
 
         <DescriptionInputFragment />

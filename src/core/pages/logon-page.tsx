@@ -15,8 +15,6 @@ import { useHandleErroredContext } from '../contexts/use-handle-errored-context'
 export default function LogonPage() {
   const { state } = useHandleErroredContext();
 
-  console.log(state);
-
   const { handleEmailUsecase } = useEmailUsecase();
   const { handlePasswordUsecase } = usePasswordUsecase();
 
@@ -40,7 +38,7 @@ export default function LogonPage() {
     //   redirect('../dashboard/client');
     // }
   };
-  console.log(state.isEmailErrored, state.isPasswordErrored, state);
+
   return (
     <LogonScreen
       submitHandler={submitHandler}

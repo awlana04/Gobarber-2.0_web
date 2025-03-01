@@ -97,8 +97,6 @@ export default function SigninPage() {
     //     : redirect('./signin/barber');
   };
 
-  console.log(state);
-
   return (
     <SigninScreen
       submitHandler={submitHandler}
