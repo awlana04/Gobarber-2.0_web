@@ -1,13 +1,11 @@
 import EmailErrorHandling from '@/domain/validations/email-error-handling';
 import { emailError } from '../errors/email-toast-error-messages';
-// import useHandleErroredHook from '../hooks/use-handle-errored-hook';
 import { useToast } from '../contexts/use-toast-context';
-import { useContext } from 'react';
 import { useHandleErroredContext } from '../contexts/use-handle-errored-context';
 
 export default function useEmailUsecase() {
   const { addToast } = useToast();
-  const { state, dispatch } = useHandleErroredContext();
+  const { dispatch } = useHandleErroredContext();
 
   const handleEmailUsecase = async (email: string) => {
     const checkEmail = new EmailErrorHandling();

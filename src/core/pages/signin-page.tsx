@@ -15,8 +15,6 @@ import CreateUserService from '../../domain/services/create-user-service';
 
 import CreateUserFakeServer from '../server/create-user-fake-server';
 
-import useHandleErroredHook from '@hooks/use-handle-errored-hook';
-
 import useNameUsecase from '../usecases/use-name-usecase';
 import useEmailUsecase from '../usecases/use-email-usecase';
 import usePasswordUsecase from '../usecases/use-password-usecase';

@@ -1,4 +1,10 @@
-import { useReducer } from 'react';
+'use client';
+
+import { ReactNode, useReducer } from 'react';
+
+import { HandleErroredContext } from '../contexts/use-handle-errored-context';
+
+import { formState } from '../types/handle-errored-context-data-type';
 
 type Action = {
   type:
@@ -16,19 +22,6 @@ type Action = {
   // | 'SET_CLOSE_AT_NIGHT_SELECTED'
   // | 'SET_OPEN_ON_WEEKENDS'
   // | 'SET_CLOSE_ON_WEEKENDS';
-};
-
-type formState = {
-  isNameErrored: boolean;
-  isEmailErrored: boolean;
-  isPasswordErrored: boolean;
-  isConfirmPasswordErrored: boolean;
-  // isClientSelected: boolean;
-  // isBarberSelected: boolean;
-  // isOpenAtNightSelected: boolean;
-  // isCloseAtNightSelected: Boolean;
-  // isOpenAtWeekSelected: boolean;
-  // isCloseAtWeekSelected: Boolean;
 };
 
 const initialState: formState = {
@@ -71,8 +64,18 @@ const handleErrored = (state: formState, action: Action) => {
   }
 };
 
-export default function useHandleErroredHook() {
+type HandleErroredHookProps = {
+  children?: ReactNode;
+};
+
+export default function UseHandleErroredHook({
+  children,
+}: HandleErroredHookProps) {
   const [state, dispatch] = useReducer(handleErrored, initialState);
 
-  return { state, dispatch };
+  return (
+    <HandleErroredContext.Provider value={{ state, dispatch }}>
+      {children}
+    </HandleErroredContext.Provider>
+  );
 }

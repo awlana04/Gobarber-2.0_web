@@ -13,7 +13,7 @@ import usePasswordUsecase from '../usecases/use-password-usecase';
 import { useHandleErroredContext } from '../contexts/use-handle-errored-context';
 
 export default function LogonPage() {
-  const { state, dispatch } = useHandleErroredContext();
+  const { state } = useHandleErroredContext();
 
   console.log(state);
 
