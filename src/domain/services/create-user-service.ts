@@ -1,6 +1,7 @@
 import { Either, left, right } from '../shared/either';
 
 import User from '../entities/user';
+
 import InvalidNameError from '../shared/errors/invalid-name-error';
 import InvalidEmailError from '../shared/errors/invalid-email-error';
 import InvalidPasswordError from '../shared/errors/invalid-password-error';
