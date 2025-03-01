@@ -1,9 +1,13 @@
 export type formState = {
+  nameValue: string;
   isNameErrored: boolean;
+  emailValue: string;
   isEmailErrored: boolean;
   isPasswordErrored: boolean;
   isConfirmPasswordErrored: boolean;
+  locationValue: string;
   isLocationErrored: boolean;
+  descriptionValue: string;
   isDescriptionErrored: boolean;
   // isClientSelected: boolean;
   // isBarberSelected: boolean;

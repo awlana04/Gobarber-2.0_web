@@ -15,12 +15,14 @@ import image from '@public/gobarber_image002.svg';
 type LogonScreenProps = {
   emailErrored: boolean;
   passwordErrored: boolean;
+  emailValue: string;
   submitHandler: (data: any) => void;
 };
 
 export default function LogonScreen({
   emailErrored,
   passwordErrored,
+  emailValue,
   submitHandler,
 }: LogonScreenProps) {
   return (
@@ -30,7 +32,7 @@ export default function LogonScreen({
       </h1>
 
       <Form.Root submitHandler={submitHandler}>
-        <EmailInputFragment emailErrored={emailErrored} />
+        <EmailInputFragment emailErrored={emailErrored} value={emailValue} />
         <PasswordInputFragment passwordErrored={passwordErrored} />
 
         <Button type='submit'>Entrar</Button>

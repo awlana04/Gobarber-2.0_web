@@ -9,6 +9,7 @@ type FormInputProps = InputHTMLAttributes<HTMLInputElement> & {
   name: string;
   type: 'email' | 'password' | 'text';
   placeholder: string;
+  value?: string;
   errored: boolean;
 };
 
@@ -16,6 +17,7 @@ export default function FormInput({
   iconName,
   type,
   name,
+  value,
   placeholder,
   errored,
   ...rest
@@ -33,6 +35,7 @@ export default function FormInput({
         type={type}
         name={name}
         {...rest}
+        defaultValue={value}
         placeholder={placeholder}
         data-filled={isFilled}
         data-errored={errored}

@@ -26,14 +26,24 @@ type Action = {
   // | 'SET_CLOSE_AT_NIGHT_SELECTED'
   // | 'SET_OPEN_ON_WEEKENDS'
   // | 'SET_CLOSE_ON_WEEKENDS';
+  value: {
+    nameValue: string;
+    emailValue: string;
+    locationValue: string;
+    descriptionValue: string;
+  };
 };
 
 const initialState: formState = {
+  nameValue: '',
   isNameErrored: false,
+  emailValue: '',
   isEmailErrored: false,
   isPasswordErrored: false,
   isConfirmPasswordErrored: false,
+  locationValue: '',
   isLocationErrored: false,
+  descriptionValue: '',
   isDescriptionErrored: false,
   // isClientSelected: false,
   // isBarberSelected: false,
@@ -46,13 +56,21 @@ const initialState: formState = {
 const handleErrored = (state: formState, action: Action) => {
   switch (action.type) {
     case 'SET_NAME_ERROR':
-      return { ...state, isNameErrored: true };
+      return {
+        ...state,
+        isNameErrored: true,
+        nameValue: action.value.nameValue,
+      };
     case 'SET_NAME_SUCCESS':
-      return { ...state, isNameErrored: false };
+      return { ...state, isNameErrored: false, nameValue: '' };
     case 'SET_EMAIL_ERROR':
-      return { ...state, isEmailErrored: true };
+      return {
+        ...state,
+        isEmailErrored: true,
+        emailValue: action.value.emailValue,
+      };
     case 'SET_EMAIL_SUCCESS':
-      return { ...state, isEmailErrored: false };
+      return { ...state, isEmailErrored: false, emailValue: '' };
     case 'SET_PASSWORD_ERROR':
       return { ...state, isPasswordErrored: true };
     case 'SET_PASSWORD_SUCCESS':
@@ -62,13 +80,21 @@ const handleErrored = (state: formState, action: Action) => {
     case 'SET_CONFIRM_PASSWORD_SUCCESS':
       return { ...state, isConfirmPasswordErrored: false };
     case 'SET_LOCATION_ERROR':
-      return { ...state, isLocationErrored: true };
+      return {
+        ...state,
+        isLocationErrored: true,
+        locationValue: action.value.locationValue,
+      };
     case 'SET_LOCATION_SUCCESS':
-      return { ...state, isLocationErrored: false };
+      return { ...state, isLocationErrored: false, locationValue: '' };
     case 'SET_DESCRIPTION_ERROR':
-      return { ...state, isDescriptionErrored: true };
+      return {
+        ...state,
+        isDescriptionErrored: true,
+        descriptionValue: action.value.descriptionValue,
+      };
     case 'SET_DESCRIPTION_SUCCESS':
-      return { ...state, isDescriptionErrored: false };
+      return { ...state, isDescriptionErrored: false, descriptionValue: '' };
     // case 'SET_CLIENT_SELECTED':
     //   return { ...state, isClientSelected: true };
     // case 'SET_BARBER_SELECTED':

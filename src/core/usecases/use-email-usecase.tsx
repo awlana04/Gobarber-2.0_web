@@ -20,7 +20,7 @@ export default function useEmailUsecase() {
       emailIsValid === false
     ) {
       case emailLength: {
-        dispatch({ type: 'SET_EMAIL_ERROR' }),
+        dispatch({ type: 'SET_EMAIL_ERROR', value: { emailValue: email } }),
           addToast(emailError.Length as any);
         break;
       }

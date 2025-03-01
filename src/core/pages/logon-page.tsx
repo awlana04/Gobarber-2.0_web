@@ -38,10 +38,12 @@ export default function LogonPage() {
     //   redirect('../dashboard/client');
     // }
   };
+  console.log(state);
 
   return (
     <LogonScreen
       submitHandler={submitHandler}
+      emailValue={state.emailValue}
       emailErrored={state.isEmailErrored}
       passwordErrored={state.isPasswordErrored}
     />
