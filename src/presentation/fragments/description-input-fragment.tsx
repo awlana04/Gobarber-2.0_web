@@ -2,14 +2,20 @@ import { FiMessageSquare } from 'react-icons/fi';
 
 import { Form } from '@components/molecules/form';
 
-export default function DescriptionInputFragment() {
+type DescriptionInputFragmentType = {
+  errored: boolean;
+};
+
+export default function DescriptionInputFragment({
+  errored,
+}: DescriptionInputFragmentType) {
   return (
     <>
       <Form.Textarea
         placeholder='Descrição'
         name='description'
         iconName={FiMessageSquare}
-        // errored={descriptionInput.errored}
+        errored={errored}
       />
     </>
   );

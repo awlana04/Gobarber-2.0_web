@@ -5,15 +5,21 @@ import { redirect } from 'next/navigation';
 import useHandleImagesHook from '@hooks/use-handle-images-hook';
 import useHandleUserHook from '@hooks/use-handle-user-hook';
 
+import { useHandleErroredContext } from '../contexts/use-handle-errored-context';
+import { useToast } from '../contexts/use-toast-context';
+
 import { SigninBarberFormHandler } from '@handlers/signin-barber-form-handler';
 
 import SigninBarberScreen from '@/presentation/screens/signin-barber-screen';
-import { useHandleErroredContext } from '../contexts/use-handle-errored-context';
+
 import useNameUsecase from '../usecases/use-name-usecase';
+import useDescriptionUsecase from '../usecases/use-description-usecase';
+
 import CreateBarberService from '@/domain/services/create-barber-service';
 
 export default function SigninBarberPage() {
-  const { state } = useHandleErroredContext();
+  const { state, dispatch } = useHandleErroredContext();
+  const { addToast } = useToast();
 
   const {
     isOpenAtNight,
@@ -26,6 +32,7 @@ export default function SigninBarberPage() {
     useHandleImagesHook();
 
   const { handleNameUsecase } = useNameUsecase();
+  const { handleDescriptionUsecase } = useDescriptionUsecase();
 
   const createBarberService = new CreateBarberService();
 
@@ -35,6 +42,19 @@ export default function SigninBarberPage() {
     const description = formData.get('description') as any;
 
     await handleNameUsecase(barberName);
+    await handleDescriptionUsecase(description);
+
+    if (location.length < 3 && location.length > 0) {
+      dispatch({ type: 'SET_LOCATION_ERROR' });
+
+      addToast({
+        type: 'error',
+        title: 'Erro no campo Localização!',
+        description: 'É necessário informar a localização.',
+      });
+    } else {
+      dispatch({ type: 'SET_LOCATION_SUCCESS' });
+    }
 
     await createBarberService.handle({
       name: barberName,
@@ -61,6 +81,8 @@ export default function SigninBarberPage() {
     <SigninBarberScreen
       submitHandler={submitHandler}
       nameErrored={state.isNameErrored}
+      descriptionErrored={state.isDescriptionErrored}
+      locationErrored={state.isLocationErrored}
       images={{
         file: file,
         fileUrl: fileUrl,

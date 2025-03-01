@@ -15,7 +15,11 @@ type Action = {
     | 'SET_PASSWORD_ERROR'
     | 'SET_PASSWORD_SUCCESS'
     | 'SET_CONFIRM_PASSWORD_ERROR'
-    | 'SET_CONFIRM_PASSWORD_SUCCESS';
+    | 'SET_CONFIRM_PASSWORD_SUCCESS'
+    | 'SET_LOCATION_ERROR'
+    | 'SET_LOCATION_SUCCESS'
+    | 'SET_DESCRIPTION_ERROR'
+    | 'SET_DESCRIPTION_SUCCESS';
   // | 'SET_CLIENT_SELECTED'
   // | 'SET_BARBER_SELECTED'
   // | 'SET_OPEN_AT_NIGHT_SELECTED'
@@ -29,6 +33,8 @@ const initialState: formState = {
   isEmailErrored: false,
   isPasswordErrored: false,
   isConfirmPasswordErrored: false,
+  isLocationErrored: false,
+  isDescriptionErrored: false,
   // isClientSelected: false,
   // isBarberSelected: false,
   // isOpenAtNightSelected: false,
@@ -55,6 +61,14 @@ const handleErrored = (state: formState, action: Action) => {
       return { ...state, isConfirmPasswordErrored: true };
     case 'SET_CONFIRM_PASSWORD_SUCCESS':
       return { ...state, isConfirmPasswordErrored: false };
+    case 'SET_LOCATION_ERROR':
+      return { ...state, isLocationErrored: true };
+    case 'SET_LOCATION_SUCCESS':
+      return { ...state, isLocationErrored: false };
+    case 'SET_DESCRIPTION_ERROR':
+      return { ...state, isDescriptionErrored: true };
+    case 'SET_DESCRIPTION_SUCCESS':
+      return { ...state, isDescriptionErrored: false };
     // case 'SET_CLIENT_SELECTED':
     //   return { ...state, isClientSelected: true };
     // case 'SET_BARBER_SELECTED':
