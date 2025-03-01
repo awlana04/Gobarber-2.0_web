@@ -2,10 +2,12 @@ import CreateUserService from '@/domain/services/create-user-service';
 import PasswordErrorHandling from '@/domain/validations/password-error-handling';
 import { useToast } from '../contexts/use-toast-context';
 import { passwordError } from '../errors/password-toast-error-messages';
-import useHandleErroredHook from '../hooks/use-handle-errored-hook';
+import { useContext } from 'react';
+import { useHandleErroredContext } from '../contexts/use-handle-errored-context';
 
 export default function usePasswordUsecase() {
-  const { state: isPasswordErrored, dispatch } = useHandleErroredHook();
+  const { state, dispatch } = useHandleErroredContext();
+
   const { addToast } = useToast();
 
   const handlePasswordUsecase = async (
@@ -43,5 +45,5 @@ export default function usePasswordUsecase() {
     }
   };
 
-  return { handlePasswordUsecase, isPasswordErrored };
+  return { handlePasswordUsecase };
 }

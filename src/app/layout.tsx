@@ -4,6 +4,10 @@ import './globals.css';
 
 import ToastHook from '@hooks/toast-hook';
 
+// import HandleErroredContext from '@/core/contexts/use-handle-errored-context';
+
+import Contexts from '@/core/contexts';
+
 const robotoSlab = Roboto_Slab({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -19,7 +23,10 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={robotoSlab.className}>
-        <ToastHook>{children}</ToastHook>
+        <Contexts>{children}</Contexts>
+        {/* <HandleErroredContext>
+          <ToastHook>{children}</ToastHook>
+        </HandleErroredContext> */}
       </body>
     </html>
   );

@@ -20,18 +20,19 @@ import useHandleErroredHook from '@hooks/use-handle-errored-hook';
 import useNameUsecase from '../usecases/use-name-usecase';
 import useEmailUsecase from '../usecases/use-email-usecase';
 import usePasswordUsecase from '../usecases/use-password-usecase';
+import { useHandleErroredContext } from '../contexts/use-handle-errored-context';
 
 export default function SigninPage() {
-  const { state, dispatch } = useHandleErroredHook();
+  const { state, dispatch } = useHandleErroredContext();
 
   const { file, fileUrl, handleChange, handleRemove } = useHandleAvatarHook();
   const { isClientSelected, setIsClientSelected } = useHandleUserHook();
 
   const { addToast } = useToast();
 
-  const { handleNameUsecase, isNameErrored } = useNameUsecase();
-  const { handleEmailUsecase, isEmailErrored } = useEmailUsecase();
-  const { handlePasswordUsecase, isPasswordErrored } = usePasswordUsecase();
+  const { handleNameUsecase } = useNameUsecase();
+  const { handleEmailUsecase } = useEmailUsecase();
+  const { handlePasswordUsecase } = usePasswordUsecase();
 
   const submitHandler = async (formData: FormData) => {
     const name = formData.get('name') as any;
@@ -98,6 +99,8 @@ export default function SigninPage() {
     //     : redirect('./signin/barber');
   };
 
+  console.log(state);
+
   return (
     <SigninScreen
       submitHandler={submitHandler}
@@ -111,9 +114,9 @@ export default function SigninPage() {
         isBarberSelected: isClientSelected,
         setIsBarberSelected: setIsClientSelected,
       }}
-      nameErrored={isNameErrored.isNameErrored}
-      emailErrored={isEmailErrored.isEmailErrored}
-      passwordErrored={isPasswordErrored.isPasswordErrored}
+      nameErrored={state.isNameErrored}
+      emailErrored={state.isEmailErrored}
+      passwordErrored={state.isPasswordErrored}
       confirmPasswordErrored={state.isConfirmPasswordErrored}
     />
   );

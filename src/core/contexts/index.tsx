@@ -1,4 +1,15 @@
-import { useReducer } from 'react';
+'use client';
+
+import { useState, useCallback, useReducer } from 'react';
+import { v4 } from 'uuid';
+
+import ToastContainer from '@/presentation/components/molecules/toast-container';
+
+import { ToastMessageType } from '@interfaces/toast-message-type';
+
+import { ToastContext } from '@contexts/use-toast-context';
+
+import { HandleErroredContext } from './use-handle-errored-context';
 
 type Action = {
   type:
@@ -71,8 +82,46 @@ const handleErrored = (state: formState, action: Action) => {
   }
 };
 
-export default function useHandleErroredHook() {
+type ErroredContextType = {
+  state: formState;
+  dispatch: any;
+};
+
+type ContextsType = {
+  children: React.ReactNode;
+};
+
+export default function Contexts({ children }: ContextsType) {
+  const [messages, setMessages] = useState<ToastMessageType[]>([]);
+
+  const addToast = useCallback(
+    ({ type, title, description }: Omit<ToastMessageType, 'id'>) => {
+      const id = v4();
+
+      const toast = {
+        id,
+        type,
+        title,
+        description,
+      };
+
+      setMessages((state) => [...state, toast]);
+    },
+    []
+  );
+
+  const removeToast = useCallback((id: string) => {
+    setMessages((state) => state.filter((message) => message.id !== id));
+  }, []);
+
   const [state, dispatch] = useReducer(handleErrored, initialState);
 
-  return { state, dispatch };
+  return (
+    <ToastContext.Provider value={{ addToast, removeToast }}>
+      <HandleErroredContext.Provider value={{ state, dispatch }}>
+        {children}
+      </HandleErroredContext.Provider>
+      <ToastContainer messages={messages} />
+    </ToastContext.Provider>
+  );
 }

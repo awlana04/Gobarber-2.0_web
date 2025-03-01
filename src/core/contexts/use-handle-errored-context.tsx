@@ -1,4 +1,5 @@
-import { useReducer } from 'react';
+'use client';
+import { useReducer, createContext, ReactNode, useContext } from 'react';
 
 type Action = {
   type:
@@ -71,8 +72,26 @@ const handleErrored = (state: formState, action: Action) => {
   }
 };
 
-export default function useHandleErroredHook() {
-  const [state, dispatch] = useReducer(handleErrored, initialState);
+type ErroredContextType = {
+  state: formState;
+  dispatch: any;
+};
 
-  return { state, dispatch };
+export const HandleErroredContext = createContext({} as ErroredContextType);
+
+export function useHandleErroredContext(): ErroredContextType {
+  // const [state, dispatch] = useReducer(handleErrored, initialState);
+
+  const context = useContext(HandleErroredContext);
+
+  if (!context) {
+    throw new Error('useToast must be used within a ToastProvider');
+  }
+
+  return context;
+  // return (
+  //   <HandleErroredContext.Provider value={{ state, dispatch }}>
+  //     {[children]}
+  //   </HandleErroredContext.Provider>
+  // );
 }

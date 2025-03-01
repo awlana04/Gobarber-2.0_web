@@ -10,10 +10,15 @@ import CreateUserService from '@/domain/services/create-user-service';
 
 import useEmailUsecase from '../usecases/use-email-usecase';
 import usePasswordUsecase from '../usecases/use-password-usecase';
+import { useHandleErroredContext } from '../contexts/use-handle-errored-context';
 
 export default function LogonPage() {
-  const { handleEmailUsecase, isEmailErrored } = useEmailUsecase();
-  const { handlePasswordUsecase, isPasswordErrored } = usePasswordUsecase();
+  const { state, dispatch } = useHandleErroredContext();
+
+  console.log(state);
+
+  const { handleEmailUsecase } = useEmailUsecase();
+  const { handlePasswordUsecase } = usePasswordUsecase();
 
   const submitHandler = async (formData: FormData) => {
     const email = formData.get('email') as any;
@@ -35,12 +40,12 @@ export default function LogonPage() {
     //   redirect('../dashboard/client');
     // }
   };
-
+  console.log(state.isEmailErrored, state.isPasswordErrored, state);
   return (
     <LogonScreen
       submitHandler={submitHandler}
-      emailErrored={isEmailErrored.isEmailErrored}
-      passwordErrored={isPasswordErrored.isPasswordErrored}
+      emailErrored={state.isEmailErrored}
+      passwordErrored={state.isPasswordErrored}
     />
   );
 }

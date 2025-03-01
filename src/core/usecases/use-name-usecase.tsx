@@ -2,9 +2,11 @@ import NameErrorHandling from '@/domain/validations/name-error-handling';
 import { useToast } from '../contexts/use-toast-context';
 import { nameError } from '../errors/name-toast-error-messages';
 import useHandleErroredHook from '../hooks/use-handle-errored-hook';
+import { useContext } from 'react';
+import { useHandleErroredContext } from '../contexts/use-handle-errored-context';
 
 export default function useNameUsecase() {
-  const { state: isNameErrored, dispatch } = useHandleErroredHook();
+  const { state, dispatch } = useHandleErroredContext();
   const { addToast } = useToast();
 
   const handleNameUsecase = async (name: string) => {
@@ -29,5 +31,5 @@ export default function useNameUsecase() {
     }
   };
 
-  return { handleNameUsecase, isNameErrored };
+  return { handleNameUsecase };
 }

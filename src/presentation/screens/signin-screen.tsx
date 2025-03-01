@@ -16,7 +16,7 @@ import { Form } from '@components/molecules/form';
 import image from '@public/gobarber_image003.svg';
 
 type SigninProps = {
-  submitHandler(data: any): void;
+  submitHandler: (data: any) => void;
   avatar: AvatarType;
   radio: RadioType;
   confirmPasswordErrored: boolean;
