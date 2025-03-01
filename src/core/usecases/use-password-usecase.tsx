@@ -1,6 +1,7 @@
 import PasswordErrorHandling from '@/domain/validations/password-error-handling';
-import { useToast } from '../contexts/use-toast-context';
 import { passwordError } from '../errors/password-toast-error-messages';
+
+import { useToast } from '../contexts/use-toast-context';
 import { useHandleErroredContext } from '../contexts/use-handle-errored-context';
 
 export default function usePasswordUsecase() {
@@ -17,16 +18,11 @@ export default function usePasswordUsecase() {
     const passwordLength = await checkPassword.length(password);
     const passwordExists = await checkPassword.exists(password);
 
-    const confirmPasswordLength =
-      passwordLength && confirmPassword === password;
-    const confirmPasswordExists =
-      passwordExists && confirmPassword === password;
-
     switch (
-      passwordLength === false ||
-      passwordExists === false ||
-      confirmPasswordExists === false ||
-      confirmPasswordLength === false
+      confirmPassword
+        ? (passwordLength && confirmPassword === password) === false ||
+          (passwordExists && confirmPassword === password) === false
+        : passwordLength === false || passwordExists === false
     ) {
       case passwordLength: {
         dispatch({ type: 'SET_PASSWORD_ERROR' }),
