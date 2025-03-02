@@ -11,6 +11,7 @@ import CreateUserService from '@/domain/services/create-user-service';
 import useEmailUsecase from '../usecases/use-email-usecase';
 import usePasswordUsecase from '../usecases/use-password-usecase';
 import { useHandleErroredContext } from '../contexts/use-handle-errored-context';
+import AuthenticateUserFakeServer from '../server/authenticate-user-fake-server';
 
 export default function LogonPage() {
   const { state } = useHandleErroredContext();
@@ -25,6 +26,9 @@ export default function LogonPage() {
     await handleEmailUsecase(email);
     await handlePasswordUsecase(password);
 
+    process.env.NEXT_ENV === 'test'
+      ? await AuthenticateFormHandler({ email, password })
+      : await AuthenticateUserFakeServer({ email, password });
     // const result = await AuthenticateFormHandler({
     //   email,
     //   password,
@@ -38,7 +42,6 @@ export default function LogonPage() {
     //   redirect('../dashboard/client');
     // }
   };
-  console.log(state);
 
   return (
     <LogonScreen
