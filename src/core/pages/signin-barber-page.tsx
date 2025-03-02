@@ -44,8 +44,13 @@ export default function SigninBarberPage() {
     await handleNameUsecase(barberName);
     await handleDescriptionUsecase(description);
 
-    if (location.length < 3 && location.length > 0) {
-      dispatch({ type: 'SET_LOCATION_ERROR' });
+    console.log(location.length);
+
+    if (location.length < 12 && location.length >= 0) {
+      dispatch({
+        type: 'SET_LOCATION_ERROR',
+        value: { locationValue: location },
+      });
 
       addToast({
         type: 'error',
@@ -76,11 +81,14 @@ export default function SigninBarberPage() {
 
     // redirect('../../dashboard/barber');
   };
-
+  console.log(state);
   return (
     <SigninBarberScreen
       submitHandler={submitHandler}
       nameErrored={state.isNameErrored}
+      nameValue={state.nameValue}
+      descriptionValue={state.descriptionValue}
+      locationValue={state.locationValue}
       descriptionErrored={state.isDescriptionErrored}
       locationErrored={state.isLocationErrored}
       images={{

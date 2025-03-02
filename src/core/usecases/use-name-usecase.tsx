@@ -16,11 +16,12 @@ export default function useNameUsecase() {
     switch (nameExists === false || nameLength === false) {
       case nameExists: {
         console.log(name);
-        dispatch({ type: 'SET_NAME_ERROR' }), addToast(nameError.Length as any);
+        dispatch({ type: 'SET_NAME_ERROR', value: { nameValue: name } }),
+          addToast(nameError.Length as any);
         break;
       }
       case nameLength: {
-        dispatch({ type: 'SET_NAME_ERROR' }),
+        dispatch({ type: 'SET_NAME_ERROR', value: { nameValue: name } }),
           addToast(nameError.Required as any);
         break;
       }

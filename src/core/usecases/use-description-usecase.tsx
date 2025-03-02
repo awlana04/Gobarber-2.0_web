@@ -17,12 +17,18 @@ export default function useDescriptionUsecase() {
 
     switch (descriptionExists === false || descriptionLength === false) {
       case descriptionExists: {
-        dispatch({ type: 'SET_DESCRIPTION_ERROR' }),
+        dispatch({
+          type: 'SET_DESCRIPTION_ERROR',
+          value: { descriptionValue: description },
+        }),
           addToast(descriptionError.Length as any);
         break;
       }
       case descriptionLength: {
-        dispatch({ type: 'SET_DESCRIPTION_ERROR' }),
+        dispatch({
+          type: 'SET_DESCRIPTION_ERROR',
+          value: { descriptionValue: description },
+        }),
           addToast(descriptionError.Required as any);
         break;
       }

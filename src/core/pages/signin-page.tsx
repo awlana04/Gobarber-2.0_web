@@ -19,6 +19,7 @@ import useNameUsecase from '../usecases/use-name-usecase';
 import useEmailUsecase from '../usecases/use-email-usecase';
 import usePasswordUsecase from '../usecases/use-password-usecase';
 import { useHandleErroredContext } from '../contexts/use-handle-errored-context';
+import { useLayoutEffect } from 'react';
 
 export default function SigninPage() {
   const { state, dispatch } = useHandleErroredContext();
@@ -32,6 +33,12 @@ export default function SigninPage() {
   const { handleEmailUsecase } = useEmailUsecase();
   const { handlePasswordUsecase } = usePasswordUsecase();
 
+  useLayoutEffect(() => {
+    if (state.pageName !== 'signin-page') {
+      dispatch({ type: 'RESET_INITIAL_STATE', pageName: 'signin-page' });
+    }
+  });
+
   const submitHandler = async (formData: FormData) => {
     const name = formData.get('name') as any;
     const email = formData.get('email') as any;
@@ -39,6 +46,8 @@ export default function SigninPage() {
     const confirmPassword = formData.get('confirmPassword') as any;
 
     const createUserService = new CreateUserService();
+
+    dispatch({ type: 'CHECK_PAGE_NAME', pageName: 'signin-page' });
 
     await handleNameUsecase(name);
     await handleEmailUsecase(email);
@@ -97,6 +106,8 @@ export default function SigninPage() {
     //     : redirect('./signin/barber');
   };
 
+  console.log(state.pageName);
+
   return (
     <SigninScreen
       submitHandler={submitHandler}
@@ -111,6 +122,8 @@ export default function SigninPage() {
         setIsBarberSelected: setIsClientSelected,
       }}
       nameErrored={state.isNameErrored}
+      nameValue={state.nameValue}
+      emailValue={state.emailValue}
       emailErrored={state.isEmailErrored}
       passwordErrored={state.isPasswordErrored}
       confirmPasswordErrored={state.isConfirmPasswordErrored}

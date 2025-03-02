@@ -19,7 +19,9 @@ type Action = {
     | 'SET_LOCATION_ERROR'
     | 'SET_LOCATION_SUCCESS'
     | 'SET_DESCRIPTION_ERROR'
-    | 'SET_DESCRIPTION_SUCCESS';
+    | 'SET_DESCRIPTION_SUCCESS'
+    | 'RESET_INITIAL_STATE'
+    | 'CHECK_PAGE_NAME';
   // | 'SET_CLIENT_SELECTED'
   // | 'SET_BARBER_SELECTED'
   // | 'SET_OPEN_AT_NIGHT_SELECTED'
@@ -32,6 +34,7 @@ type Action = {
     locationValue: string;
     descriptionValue: string;
   };
+  pageName: string;
 };
 
 const initialState: formState = {
@@ -45,6 +48,7 @@ const initialState: formState = {
   isLocationErrored: false,
   descriptionValue: '',
   isDescriptionErrored: false,
+  pageName: '',
   // isClientSelected: false,
   // isBarberSelected: false,
   // isOpenAtNightSelected: false,
@@ -99,6 +103,13 @@ const handleErrored = (state: formState, action: Action) => {
     //   return { ...state, isClientSelected: true };
     // case 'SET_BARBER_SELECTED':
     //   return { ...state, isBarberSelected: false };
+    case 'CHECK_PAGE_NAME':
+      return { ...state, pageName: action.pageName };
+    case 'RESET_INITIAL_STATE':
+      return {
+        initialState,
+        pageName: action.pageName,
+      } as unknown as formState;
     default:
       return state;
   }

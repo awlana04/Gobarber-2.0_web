@@ -21,7 +21,9 @@ type SigninProps = {
   radio: RadioType;
   confirmPasswordErrored: boolean;
   nameErrored: boolean;
+  nameValue: string;
   emailErrored: boolean;
+  emailValue: string;
   passwordErrored: boolean;
 };
 
@@ -30,6 +32,8 @@ export default function SigninScreen({
   avatar,
   radio,
   confirmPasswordErrored,
+  nameValue,
+  emailValue,
   nameErrored,
   emailErrored,
   passwordErrored,
@@ -50,8 +54,12 @@ export default function SigninScreen({
           setIsBarberSelected={radio.setIsBarberSelected}
         />
 
-        <NameInputFragment icon='user' nameErrored={nameErrored} />
-        <EmailInputFragment emailErrored={emailErrored} />
+        <NameInputFragment
+          icon='user'
+          nameErrored={nameErrored}
+          value={nameValue}
+        />
+        <EmailInputFragment emailErrored={emailErrored} value={emailValue} />
         <PasswordInputFragment passwordErrored={passwordErrored} />
         <ConfirmPasswordInputFragment errored={confirmPasswordErrored} />
 

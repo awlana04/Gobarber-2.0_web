@@ -9,6 +9,7 @@ export type formState = {
   isLocationErrored: boolean;
   descriptionValue: string;
   isDescriptionErrored: boolean;
+  pageName: string;
   // isClientSelected: boolean;
   // isBarberSelected: boolean;
   // isOpenAtNightSelected: boolean;

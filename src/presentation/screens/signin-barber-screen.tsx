@@ -19,9 +19,12 @@ type SigninBarberScreenType = {
   submitHandler(data: any): void;
   images: ImagesType;
   nameErrored: boolean;
+  nameValue: string;
   locationErrored: boolean;
   descriptionErrored: boolean;
   openAtNight: RadioType;
+  locationValue: string;
+  descriptionValue: string;
   openOnWeekends: RadioType;
 };
 
@@ -31,23 +34,33 @@ export default function SigninBarberScreen({
   nameErrored,
   locationErrored,
   descriptionErrored,
+  nameValue,
+  locationValue,
+  descriptionValue,
   openAtNight,
   openOnWeekends,
 }: SigninBarberScreenType) {
   return (
     <ContentTemplate position='left' src={image} alt='Imagem da barbearia'>
       <Form.Root submitHandler={submitHandler}>
-        <LocationInputFragment errored={locationErrored} />
+        <LocationInputFragment
+          value={locationValue}
+          errored={locationErrored}
+        />
 
         <Form.Input
           iconName={FiScissors}
           type='text'
           name='barberName'
           placeholder='Nome da barbearia'
+          value={nameValue}
           errored={nameErrored}
         />
 
-        <DescriptionInputFragment errored={descriptionErrored} />
+        <DescriptionInputFragment
+          value={descriptionValue}
+          errored={descriptionErrored}
+        />
 
         <Form.Images
           file={images.file}
