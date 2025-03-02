@@ -16,7 +16,7 @@ export default async function CreateUserFakeServer({
   if (users.find((user) => user.email === email)) {
     alert('User already exists');
   } else {
-    await fetch('http://localhost:4000/users', {
+    const user = await fetch('http://localhost:4000/users', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -26,5 +26,10 @@ export default async function CreateUserFakeServer({
         location: 'Somewhere Over the Rainbow',
       }),
     });
+
+    const token = `gobarber_fake_server_token-${Math.random().toExponential(12).toString()}`;
+
+    localStorage.setItem('@GoBarber:token', token);
+    localStorage.setItem('@GoBarber:user', JSON.stringify(user));
   }
 }

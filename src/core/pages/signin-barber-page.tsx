@@ -16,6 +16,7 @@ import useNameUsecase from '../usecases/use-name-usecase';
 import useDescriptionUsecase from '../usecases/use-description-usecase';
 
 import CreateBarberService from '@/domain/services/create-barber-service';
+import { CreateBarberFakeServer } from '../server/create-barber-fake-server';
 
 export default function SigninBarberPage() {
   const { state, dispatch } = useHandleErroredContext();
@@ -44,8 +45,6 @@ export default function SigninBarberPage() {
     await handleNameUsecase(barberName);
     await handleDescriptionUsecase(description);
 
-    console.log(location.length);
-
     if (location.length < 12 && location.length >= 0) {
       dispatch({
         type: 'SET_LOCATION_ERROR',
@@ -70,18 +69,27 @@ export default function SigninBarberPage() {
       userId: '',
     });
 
-    // await SigninBarberFormHandler({
-    //   name: formData.get('barberName'),
-    //   location: formData.get('location'),
-    //   description: formData.get('description'),
-    //   isOpenAtNight: isOpenAtNight,
-    //   isOpenOnWeekends: isOpenOnWeekends,
-    //   file: file,
-    // });
+    process.env.NEXT_ENV === 'test'
+      ? await SigninBarberFormHandler({
+          name: barberName,
+          location,
+          description,
+          isOpenAtNight: isOpenAtNight,
+          isOpenOnWeekends: isOpenOnWeekends,
+          file: file,
+        })
+      : await CreateBarberFakeServer({
+          barberName,
+          description,
+          location,
+          images: fileUrl,
+          openAtNight: isOpenAtNight,
+          openOnWeekends: isOpenOnWeekends,
+        });
 
     // redirect('../../dashboard/barber');
   };
-  console.log(state);
+
   return (
     <SigninBarberScreen
       submitHandler={submitHandler}

@@ -6,6 +6,7 @@ import Password from './modules/password';
 import Prop from './modules/prop';
 
 import { Either, left, right } from '../shared/either';
+
 import InvalidNameError from '../shared/errors/invalid-name-error';
 import InvalidEmailError from '../shared/errors/invalid-email-error';
 import InvalidPasswordError from '../shared/errors/invalid-password-error';

@@ -18,7 +18,7 @@ export default async function AuthenticateUserFakeServer({
   console.log(selectedUser);
 
   if (selectedUser) {
-    const token = Math.random().toPrecision(12).toString();
+    const token = `gobarber_fake_server_token-${Math.random().toExponential(12).toString()}`;
 
     localStorage.setItem('@GoBarber:token', token);
     localStorage.setItem('@GoBarber:user', JSON.stringify(selectedUser));
