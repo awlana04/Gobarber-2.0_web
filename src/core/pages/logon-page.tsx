@@ -13,9 +13,33 @@ import usePasswordUsecase from '../usecases/use-password-usecase';
 import { useHandleErroredContext } from '../contexts/use-handle-errored-context';
 import AuthenticateUserFakeServer from '../server/authenticate-user-fake-server';
 import { useLayoutEffect } from 'react';
+import { useToast } from '../contexts/use-toast-context';
+
+type AuthenticateData = {
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    location: string;
+    avatar: string;
+    createdAt: string;
+    updatedAt: string;
+    barber: object;
+  };
+  token: string;
+  refreshToken: {
+    id: string;
+    expiresIn: number;
+    userId: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+  barber: null;
+};
 
 export default function LogonPage() {
   const { state, dispatch } = useHandleErroredContext();
+  const { addToast } = useToast();
 
   const { handleEmailUsecase } = useEmailUsecase();
   const { handlePasswordUsecase } = usePasswordUsecase();
@@ -35,14 +59,26 @@ export default function LogonPage() {
     await handleEmailUsecase(email);
     await handlePasswordUsecase(password);
 
-    process.env.NEXT_ENV === 'test'
-      ? await AuthenticateFormHandler({ email, password })
-      : await AuthenticateUserFakeServer({ email, password });
+    const response =
+      process.env.NEXT_PUBLIC_ENV === 'dev'
+        ? await AuthenticateFormHandler({ email, password }).then(
+            async (result) => {
+              if (!result.response.server.ok) {
+                addToast({
+                  type: 'error',
+                  title: 'Usuário não encontrado',
+                  description: 'Email ou senha não encontrados!',
+                });
+              }
+            }
+          )
+        : await AuthenticateUserFakeServer({ email, password });
     // const result = await AuthenticateFormHandler({
     //   email,
     //   password,
     // });
 
+    console.log(response);
     // const { response } = result;
 
     // if (response.barber) {

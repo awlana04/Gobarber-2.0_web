@@ -1,6 +1,7 @@
 'use client';
 
 import { redirect } from 'next/navigation';
+import { useLayoutEffect } from 'react';
 
 import useHandleAvatarHook from '@hooks/use-handle-avatar-hook';
 import useHandleUserHook from '@hooks/use-handle-user-hook';
@@ -18,8 +19,8 @@ import CreateUserFakeServer from '../server/create-user-fake-server';
 import useNameUsecase from '../usecases/use-name-usecase';
 import useEmailUsecase from '../usecases/use-email-usecase';
 import usePasswordUsecase from '../usecases/use-password-usecase';
+
 import { useHandleErroredContext } from '../contexts/use-handle-errored-context';
-import { useLayoutEffect } from 'react';
 
 export default function SigninPage() {
   const { state, dispatch } = useHandleErroredContext();
@@ -105,8 +106,6 @@ export default function SigninPage() {
     //     ? redirect('../dashboard/client')
     //     : redirect('./signin/barber');
   };
-
-  console.log(state.pageName);
 
   return (
     <SigninScreen

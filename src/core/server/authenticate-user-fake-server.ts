@@ -11,6 +11,8 @@ export default async function AuthenticateUserFakeServer({
 
   const user = (await data.json()) as Array<AuthenticateUserType>;
 
+  console.log(data);
+
   const selectedUser = user.find(
     (user) => user.email === email && user.password === password
   );

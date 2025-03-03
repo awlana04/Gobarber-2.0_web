@@ -7,7 +7,6 @@ import {
   ReactNode,
   useContext,
 } from 'react';
-import { v4 } from 'uuid';
 
 import ToastContainer from '@/presentation/components/molecules/toast-container';
 
@@ -23,7 +22,7 @@ export default function ToastHook({ children }: ToastHookProps) {
 
   const addToast = useCallback(
     ({ type, title, description }: Omit<ToastMessageType, 'id'>) => {
-      const id = v4();
+      const id = `gobarber_toast_id-${Math.random().toExponential(12)}-${Math.random().toPrecision(6)}`;
 
       const toast = {
         id,
