@@ -15,28 +15,6 @@ import AuthenticateUserFakeServer from '../server/authenticate-user-fake-server'
 import { useLayoutEffect } from 'react';
 import { useToast } from '../contexts/use-toast-context';
 
-type AuthenticateData = {
-  user: {
-    id: string;
-    name: string;
-    email: string;
-    location: string;
-    avatar: string;
-    createdAt: string;
-    updatedAt: string;
-    barber: object;
-  };
-  token: string;
-  refreshToken: {
-    id: string;
-    expiresIn: number;
-    userId: string;
-    createdAt: string;
-    updatedAt: string;
-  };
-  barber: null;
-};
-
 export default function LogonPage() {
   const { state, dispatch } = useHandleErroredContext();
   const { addToast } = useToast();
@@ -70,21 +48,18 @@ export default function LogonPage() {
                   description: 'Email ou senha não encontrados!',
                 });
               }
+
+              return result.response.user;
             }
           )
         : await AuthenticateUserFakeServer({ email, password });
-    // const result = await AuthenticateFormHandler({
-    //   email,
-    //   password,
-    // });
 
-    console.log(response);
-    // const { response } = result;
-
-    // if (response.barber) {
+    // if (response.server.ok) {
+    // if (response.user.barber) {
     //   redirect('../dashboard/barber');
     // } else {
     //   redirect('../dashboard/client');
+    // }
     // }
   };
 

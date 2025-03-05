@@ -1,56 +1,67 @@
-// import { SigninBarberType } from '@validations/signin-barber-form';
-
-import api from '@services/api';
-
-type SigninBarberType = {
+type SigninBarberFormType = {
   name: string | any;
   location: string | any;
   description: string | any;
-};
-
-type SigninBarberFormHandlerType = SigninBarberType & {
   file: File[];
-  isOpenAtNight: boolean;
-  isOpenOnWeekends: boolean;
+  openAtNight: boolean;
+  openOnWeekends: boolean;
 };
 
-export const SigninBarberFormHandler = async ({
-  name,
-  location,
-  description,
-  file,
-  isOpenAtNight,
-  isOpenOnWeekends,
-}: SigninBarberFormHandlerType) => {
+type SigninBarberType = {
+  value: {
+    id: string;
+    name: string | any;
+    location: string | any;
+    description: string | any;
+    images: [];
+    openAtNight: boolean;
+    openOnWeekends: boolean;
+    createdAt: string;
+    updatedAt: string;
+    userId: string;
+  };
+};
+
+export const SigninBarberFormHandler = async (data: SigninBarberFormType) => {
   const token = localStorage.getItem('@GoBarber:token');
+
   const user = JSON.parse(localStorage.getItem('@GoBarber:user')!);
 
-  api.defaults.headers.authorization = `Bearer ${token}`;
+  if (!token || !user) {
+    return 406;
+  }
 
-  const response = await api.post(`/barbers/${user.id}`, {
-    name: name,
-    location: location,
-    description: description,
-    openAtNight: isOpenAtNight,
-    openOnWeekends: isOpenOnWeekends,
-    userId: user.id,
+  const response = await fetch(
+    `http://localhost:3333/barbers/${user.user.id}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    }
+  ).then(async (response) => {
+    const barber = (await response.json()) as SigninBarberType;
+
+    const formData = new FormData();
+
+    data.file.forEach((image) => {
+      formData.append('images', image);
+    });
+
+    await fetch(`http://localhost:3333/barbers/${barber.value.id}`, {
+      method: 'PATCH',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    });
+
+    localStorage.setItem('@GoBarber:barber', JSON.stringify(barber));
+
+    return { server: response, barber };
   });
-
-  const barber = response.data.value;
-
-  const formData = new FormData();
-
-  file.forEach((image) => {
-    formData.append('images', image);
-  });
-
-  api.patch(`/barbers/${barber.id}`, formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
-
-  localStorage.setItem('@GoBarber:barber', JSON.stringify(barber));
 
   return { response };
 };

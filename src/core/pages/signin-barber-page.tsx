@@ -69,23 +69,62 @@ export default function SigninBarberPage() {
       userId: '',
     });
 
-    process.env.NEXT_ENV === 'test'
-      ? await SigninBarberFormHandler({
-          name: barberName,
-          location,
-          description,
-          isOpenAtNight: isOpenAtNight,
-          isOpenOnWeekends: isOpenOnWeekends,
-          file: file,
-        })
-      : await CreateBarberFakeServer({
-          barberName,
-          description,
-          location,
-          images: fileUrl,
-          openAtNight: isOpenAtNight,
-          openOnWeekends: isOpenOnWeekends,
-        });
+    const response =
+      process.env.NEXT_ENV !== 'test'
+        ? await SigninBarberFormHandler({
+            name: barberName,
+            location,
+            description,
+            openAtNight: isOpenAtNight,
+            openOnWeekends: isOpenOnWeekends,
+            file: file,
+          })
+        : await CreateBarberFakeServer({
+            barberName,
+            description,
+            location,
+            images: fileUrl,
+            openAtNight: isOpenAtNight,
+            openOnWeekends: isOpenOnWeekends,
+          });
+
+    console.log(file);
+
+    // if (response === 406) {
+    //   addToast({
+    //     type: 'error',
+    //     title: 'Aconteceu um erro!',
+    //     description: 'Você precisa estar logado.',
+    //   });
+    // }
+
+    // console.log(response.status);
+
+    // if (response.status !== 200 || response.status !== 201) {
+    //   addToast({
+    //     type: 'error',
+    //     title: 'Aconteceu um erro!',
+    //     description: 'Os dados informados são inválidos.',
+    //   });
+    // }
+
+    // process.env.NEXT_ENV === 'test'
+    //   ? await SigninBarberFormHandler({
+    //       name: barberName,
+    //       location,
+    //       description,
+    //       isOpenAtNight: isOpenAtNight,
+    //       isOpenOnWeekends: isOpenOnWeekends,
+    //       file: file,
+    //     })
+    //   : await CreateBarberFakeServer({
+    //       barberName,
+    //       description,
+    //       location,
+    //       images: fileUrl,
+    //       openAtNight: isOpenAtNight,
+    //       openOnWeekends: isOpenOnWeekends,
+    //     });
 
     // redirect('../../dashboard/barber');
   };
