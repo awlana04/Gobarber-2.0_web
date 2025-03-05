@@ -1,40 +1,86 @@
-// import { SigninFormType } from '@validations/signin-form';
-
-import api from '@services/api';
-
 type SigninFormType = {
-  name: string | any;
-  email: string | any;
+  name: string;
+  email: string;
   password: string | any;
   // location: string | any;
-  confirmPassword: string | any;
-  file: File | any;
+  avatar: File | any;
 };
 
-type SigninFormHandlerType = SigninFormType & { file: File | undefined };
+type SigninFormData = {
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    location: string;
+    avatar: string;
+    createdAt: string;
+    updatedAt: string;
+    barber: object;
+  };
+  token: string;
+  refreshToken: {
+    id: string;
+    expiresIn: number;
+    userId: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+  barber: object;
+};
 
-export const SigninFormHandler = async (data: SigninFormHandlerType) => {
-  const response = await api.post(
-    '/users/',
-    {
-      name: data.name,
-      email: data.email,
-      password: data.password,
-      location: 'Somewhere Over the Rainbow',
-      avatar: data.file,
-    },
-    {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'multipart/form-data;boundary=None',
-      },
+export const SigninFormHandler = async (data: SigninFormType) => {
+  const formData = new FormData();
+
+  formData.append('name', data.name);
+  formData.append('email', data.email);
+  formData.append('password', data.password);
+  formData.append('location', 'Somewhere Over the Rainbow');
+  formData.append('avatar', data.avatar);
+
+  const response = await fetch('http://localhost:3333/users/', {
+    method: 'POST',
+    body: formData,
+  }).then(async (response) => {
+    const user = (await response.json()) as SigninFormData;
+
+    localStorage.clear();
+
+    console.log(response.status);
+
+    if (response.ok) {
+      localStorage.setItem('@GoBarber:token', user.token);
+      localStorage.setItem('@GoBarber:user', JSON.stringify(user));
     }
-  );
 
-  const { token, user } = response.data.value;
+    console.log(response.status);
 
-  localStorage.setItem('@GoBarber:token', token);
-  localStorage.setItem('@GoBarber:user', JSON.stringify(user));
+    return { server: response, user };
+  });
+
+  console.log(response.server.status);
 
   return { response };
+  // const response = await api.post(
+  //   '/users/',
+  //   {
+  //     name: data.name,
+  //     email: data.email,
+  //     password: data.password,
+  //     location: 'Somewhere Over the Rainbow',
+  //     avatar: data.file,
+  //   },
+  //   {
+  //     headers: {
+  //       Accept: 'application/json',
+  //       'Content-Type': 'multipart/form-data;boundary=None',
+  //     },
+  //   }
+  // );
+
+  // const { token, user } = response.data.value;
+
+  // localStorage.setItem('@GoBarber:token', token);
+  // localStorage.setItem('@GoBarber:user', JSON.stringify(user));
+
+  // return { response };
 };

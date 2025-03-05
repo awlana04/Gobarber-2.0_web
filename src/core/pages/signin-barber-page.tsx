@@ -70,7 +70,7 @@ export default function SigninBarberPage() {
     });
 
     const response =
-      process.env.NEXT_ENV !== 'test'
+      process.env.NEXT_PUBLIC_ENV !== 'test'
         ? await SigninBarberFormHandler({
             name: barberName,
             location,

@@ -80,21 +80,26 @@ export default function SigninPage() {
     // if (
     //   state.isNameErrored === false &&
     //   state.isEmailErrored === false &&
-    //   state.isPasswordErrored === false
-    //   // isConfirmPasswordErrored === false
-    //   // initialState.isNameErrored &&
-    //   // initialState.isEmailErrored &&
-    //   // initialState.isPasswordErrored
+    //   state.isPasswordErrored === false &&
+    //   state.isConfirmPasswordErrored === false
     // ) {
-    //   process.env.NEXT_ENV === 'test'
-    //     ? await SigninFormHandler({
-    //         name,
-    //         email,
-    //         password,
-    //         confirmPassword,
-    //         file: file,
-    //       })
-    //     : await CreateUserFakeServer({ name, email, password });
+    const response =
+      process.env.NEXT_PUBLIC_ENV !== 'test'
+        ? await SigninFormHandler({
+            name,
+            email,
+            password,
+            avatar: file,
+          })
+        : await CreateUserFakeServer({ name, email, password });
+
+    if (response.response.server.status === 406) {
+      addToast({
+        type: 'error',
+        title: 'Erro no Email',
+        description: 'Você já tem conta na aplicação!',
+      });
+    }
     // }
 
     // isNameErrored === false &&

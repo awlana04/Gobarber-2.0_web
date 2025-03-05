@@ -1,6 +1,6 @@
 type AuthenticateFormType = {
-  email: any;
-  password: any;
+  email: string;
+  password: string;
 };
 
 type AuthenticateData = {
@@ -37,9 +37,7 @@ export const AuthenticateFormHandler = async (data: AuthenticateFormType) => {
 
     localStorage.clear();
 
-    if (!response.ok) {
-      return { server: response, user };
-    } else {
+    if (response.ok) {
       localStorage.setItem('@GoBarber:token', user.token);
       localStorage.setItem('@GoBarber:user', JSON.stringify(user));
 

@@ -39,19 +39,17 @@ export default function LogonPage() {
 
     const response =
       process.env.NEXT_PUBLIC_ENV === 'dev'
-        ? await AuthenticateFormHandler({ email, password }).then(
-            async (result) => {
-              if (!result.response.server.ok) {
-                addToast({
-                  type: 'error',
-                  title: 'Usuário não encontrado',
-                  description: 'Email ou senha não encontrados!',
-                });
-              }
-
-              return result.response.user;
+        ? await AuthenticateFormHandler({ email, password }).then((result) => {
+            if (!result.response.server.ok) {
+              addToast({
+                type: 'error',
+                title: 'Usuário não encontrado',
+                description: 'Email ou senha não encontrados!',
+              });
             }
-          )
+
+            return result.response.user;
+          })
         : await AuthenticateUserFakeServer({ email, password });
 
     // if (response.server.ok) {
