@@ -35,6 +35,8 @@ export const AuthenticateFormHandler = async (data: AuthenticateFormType) => {
   }).then(async (response) => {
     const user = (await response.json()) as AuthenticateData;
 
+    localStorage.clear();
+
     if (!response.ok) {
       return { server: response, user };
     } else {

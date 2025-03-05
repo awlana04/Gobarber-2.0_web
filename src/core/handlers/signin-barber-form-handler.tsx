@@ -24,12 +24,7 @@ type SigninBarberType = {
 
 export const SigninBarberFormHandler = async (data: SigninBarberFormType) => {
   const token = localStorage.getItem('@GoBarber:token');
-
   const user = JSON.parse(localStorage.getItem('@GoBarber:user')!);
-
-  if (!token || !user) {
-    return 406;
-  }
 
   const response = await fetch(
     `http://localhost:3333/barbers/${user.user.id}`,
@@ -42,25 +37,33 @@ export const SigninBarberFormHandler = async (data: SigninBarberFormType) => {
       body: JSON.stringify(data),
     }
   ).then(async (response) => {
-    const barber = (await response.json()) as SigninBarberType;
+    if (response.ok) {
+      const barber = (await response.json()) as SigninBarberType;
 
-    const formData = new FormData();
+      const formData = new FormData();
 
-    data.file.forEach((image) => {
-      formData.append('images', image);
-    });
+      data.file.forEach((image) => {
+        formData.append('images', image);
+      });
 
-    await fetch(`http://localhost:3333/barbers/${barber.value.id}`, {
-      method: 'PATCH',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: formData,
-    });
+      if (barber.value.id) {
+        await fetch(`http://localhost:3333/barbers/${barber.value.id}`, {
+          method: 'PATCH',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        });
+      }
 
-    localStorage.setItem('@GoBarber:barber', JSON.stringify(barber));
+      if (response.ok) {
+        localStorage.setItem('@GoBarber:barber', JSON.stringify(barber));
+      }
 
-    return { server: response, barber };
+      return { server: response, barber };
+    } else {
+      return response.status;
+    }
   });
 
   return { response };

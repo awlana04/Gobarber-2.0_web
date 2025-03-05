@@ -88,43 +88,19 @@ export default function SigninBarberPage() {
             openOnWeekends: isOpenOnWeekends,
           });
 
-    console.log(file);
+    if (response.server === 401) {
+      addToast({
+        type: 'error',
+        title: 'Você precisa estar logado!',
+      });
+    }
 
-    // if (response === 406) {
-    //   addToast({
-    //     type: 'error',
-    //     title: 'Aconteceu um erro!',
-    //     description: 'Você precisa estar logado.',
-    //   });
-    // }
-
-    // console.log(response.status);
-
-    // if (response.status !== 200 || response.status !== 201) {
-    //   addToast({
-    //     type: 'error',
-    //     title: 'Aconteceu um erro!',
-    //     description: 'Os dados informados são inválidos.',
-    //   });
-    // }
-
-    // process.env.NEXT_ENV === 'test'
-    //   ? await SigninBarberFormHandler({
-    //       name: barberName,
-    //       location,
-    //       description,
-    //       isOpenAtNight: isOpenAtNight,
-    //       isOpenOnWeekends: isOpenOnWeekends,
-    //       file: file,
-    //     })
-    //   : await CreateBarberFakeServer({
-    //       barberName,
-    //       description,
-    //       location,
-    //       images: fileUrl,
-    //       openAtNight: isOpenAtNight,
-    //       openOnWeekends: isOpenOnWeekends,
-    //     });
+    if (response.response === 406) {
+      addToast({
+        type: 'error',
+        title: 'Você já possui uma conta de barbeiro!',
+      });
+    }
 
     // redirect('../../dashboard/barber');
   };
