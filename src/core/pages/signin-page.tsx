@@ -21,8 +21,7 @@ import useEmailUsecase from '../usecases/use-email-usecase';
 import usePasswordUsecase from '../usecases/use-password-usecase';
 
 import { useHandleErroredContext } from '../contexts/use-handle-errored-context';
-import SendMailAdapter from '../adapters/implementations/send-mail-adapter';
-import sendMailAdapter from '../adapters/implementations/send-mail-adapter';
+import SigninPageFactory from '../factories/signin-page-factory';
 
 export default function SigninPage() {
   const { state, dispatch } = useHandleErroredContext();
@@ -43,14 +42,13 @@ export default function SigninPage() {
   });
 
   const submitHandler = async (formData: FormData) => {
+    // 'use server';
     const name = formData.get('name') as any;
     const email = formData.get('email') as any;
     const password = formData.get('password') as any;
     const confirmPassword = formData.get('confirmPassword') as any;
 
     // const createUserService = new CreateUserService();
-
-    // const sendMailAdapter = new SendMailAdapter();
 
     // dispatch({ type: 'CHECK_PAGE_NAME', pageName: 'signin-page' });
 
@@ -115,13 +113,16 @@ export default function SigninPage() {
     //     ? redirect('../dashboard/client')
     //     : redirect('./signin/barber');
 
-    SendMailAdapter({
-      email: 'gobarber-2.0@test.support.com',
-      sendTo: email,
-      subject: 'Você criou uma conta no GoBarber-2.0!',
-      text: 'Bem-vindo ao GoBarber-2.0!',
-      html: "<p style='color:#ff0000'>Comece a utilizar a aplicação!</p>",
-    });
+    SigninPageFactory(email);
+
+    //   SendMailAdapter({
+    //     email: 'gobarber-2.0@test.support.com',
+    //     sendTo: email,
+    //     subject: 'Você criou uma conta no GoBarber-2.0!',
+    //     text: 'Bem-vindo ao GoBarber-2.0!',
+    //     html: "<p style='color:#ff0000'>Comece a utilizar a aplicação!</p>",
+    //   });
+    // };
   };
 
   return (
