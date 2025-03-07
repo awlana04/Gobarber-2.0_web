@@ -16,6 +16,7 @@ type LogonScreenProps = {
   emailErrored: boolean;
   passwordErrored: boolean;
   emailValue: string;
+  isButtonDisabled: boolean;
   submitHandler: (data: any) => void;
 };
 
@@ -23,6 +24,7 @@ export default function LogonScreen({
   emailErrored,
   passwordErrored,
   emailValue,
+  isButtonDisabled,
   submitHandler,
 }: LogonScreenProps) {
   return (
@@ -35,7 +37,9 @@ export default function LogonScreen({
         <EmailInputFragment emailErrored={emailErrored} value={emailValue} />
         <PasswordInputFragment passwordErrored={passwordErrored} />
 
-        <Button type='submit'>Entrar</Button>
+        <Button type='submit' isDisabled={isButtonDisabled}>
+          Entrar
+        </Button>
       </Form.Root>
 
       <Link href='./forgot-password' className='my-4 mb-4 hover:underline'>

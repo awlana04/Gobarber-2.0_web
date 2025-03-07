@@ -14,13 +14,18 @@ import { useHandleErroredContext } from '../contexts/use-handle-errored-context'
 import AuthenticateUserFakeServer from '../server/authenticate-user-fake-server';
 import { useLayoutEffect } from 'react';
 import { useToast } from '../contexts/use-toast-context';
+import useHandleButtonDisabledHook from '../hooks/use-handle-button-disabled-hook';
 
 export default function LogonPage() {
   const { state, dispatch } = useHandleErroredContext();
   const { addToast } = useToast();
+  const { isButtonDisabled, setIsButtonDisabled } =
+    useHandleButtonDisabledHook();
 
   const { handleEmailUsecase } = useEmailUsecase();
   const { handlePasswordUsecase } = usePasswordUsecase();
+
+
 
   useLayoutEffect(() => {
     if (state.pageName !== 'logon-page') {
@@ -36,6 +41,8 @@ export default function LogonPage() {
 
     await handleEmailUsecase(email);
     await handlePasswordUsecase(password);
+
+    // setIsButtonDisabled(false);
 
     const response =
       process.env.NEXT_PUBLIC_ENV === 'dev'
@@ -59,13 +66,15 @@ export default function LogonPage() {
     //   redirect('../dashboard/client');
     // }
     // }
-  };
+
+
 
   return (
     <LogonScreen
       submitHandler={submitHandler}
       emailValue={state.emailValue}
       emailErrored={state.isEmailErrored}
+      isButtonDisabled={isButtonDisabled}
       passwordErrored={state.isPasswordErrored}
     />
   );
