@@ -4,25 +4,6 @@ import { SendMainType } from '../types/send-mail-type';
 
 import { transporter } from '../../libs/transporter-mail-lib';
 
-// export default async function SendMailAdapter({
-//   email,
-//   subject,
-//   sendTo,
-//   text,
-//   html,
-// }: SendMainType) {
-
-//   const info = await transporter.sendMail({
-//     from: email,
-//     to: sendTo,
-//     subject: subject,
-//     text: text,
-//     html: html,
-//   });
-
-//   return info;
-// }
-
 export default class SendMailAdapter implements SendMailAdapterModel {
   public async sendMail({
     email,
