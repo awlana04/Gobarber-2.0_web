@@ -21,7 +21,8 @@ import useEmailUsecase from '../usecases/use-email-usecase';
 import usePasswordUsecase from '../usecases/use-password-usecase';
 
 import { useHandleErroredContext } from '../contexts/use-handle-errored-context';
-import SigninPageFactory from '../factories/signin-page-factory';
+
+import SigninPageMailFactory from '../factories/signin-page-mail-factory';
 
 export default function SigninPage() {
   const { state, dispatch } = useHandleErroredContext();
@@ -113,16 +114,7 @@ export default function SigninPage() {
     //     ? redirect('../dashboard/client')
     //     : redirect('./signin/barber');
 
-    SigninPageFactory(email);
-
-    //   SendMailAdapter({
-    //     email: 'gobarber-2.0@test.support.com',
-    //     sendTo: email,
-    //     subject: 'Você criou uma conta no GoBarber-2.0!',
-    //     text: 'Bem-vindo ao GoBarber-2.0!',
-    //     html: "<p style='color:#ff0000'>Comece a utilizar a aplicação!</p>",
-    //   });
-    // };
+    SigninPageMailFactory(email, isClientSelected);
   };
 
   return (
