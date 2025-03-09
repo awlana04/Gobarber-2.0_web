@@ -43,7 +43,6 @@ export default function SigninPage() {
   });
 
   const submitHandler = async (formData: FormData) => {
-    // 'use server';
     const name = formData.get('name') as any;
     const email = formData.get('email') as any;
     const password = formData.get('password') as any;

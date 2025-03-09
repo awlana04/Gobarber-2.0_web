@@ -1,62 +1,88 @@
-import { Html, Head, Font, Img, Link } from '@react-email/components';
+// import { Html, Img, Link } from '@react-email/components';
 
-export default function WelcomToApplicationClientMail() {
+export default function WelcomeToApplicationClientMail() {
   return (
-    <Html>
-      <Head>
-        <Font
-          fontFamily='Roboto Slab'
-          fallbackFontFamily='Verdana'
-          webFont={{
-            url: 'https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap',
-            format: 'woff2',
-          }}
-          fontWeight={400}
-          fontStyle='normal'
-        />
-      </Head>
+    // <Html>
+    <div
+      style={{
+        backgroundColor: '#312e38',
+        // height: 'screen',
+        // width: 'screen',
+        fontFamily: 'sans-serif',
+        textAlign: 'justify',
+        fontSize: '30px',
+        color: '#f4ede8',
+      }}
+    >
+      <table align='center' style={{ backgroundColor: '#312e38' }}>
+        <td width={56} />
+        <td>
+          <tr>
+            <th align='center'>
+              <img
+                src='@public/gobarber_logo.png'
+                width={80}
+                height={40}
+                alt='Logo do GoBarber-2.0'
+              />
+            </th>
 
-      <div
-        style={{
-          backgroundColor: '#312e38',
-          height: 'screen',
-          width: 'screen',
-          fontFamily: 'RobotoSlab',
-          fontSize: '30px',
-          color: '#f4ede8',
-        }}
-      >
-        <Img src='../../../public/gobarber_image001.svg' />
+            <th>
+              {' '}
+              <h1
+                style={{
+                  color: '#ff9000',
+                  fontSize: '32px',
+                  textAlign: 'center',
+                }}
+              >
+                <strong>Bem vindo ao GoBarber-2.0!</strong>
+              </h1>
+            </th>
+          </tr>
 
-        <h1
+          <tr>
+            <p
+              style={{
+                fontSize: '26px',
+                color: '#f4ede8',
+              }}
+            >
+              Estamos muito felizes que você tenha ingressado em nossa
+              aplicação!
+            </p>
+            <br />
+            <p>
+              Esperamos que você sinta-se acolhido e contemplado com as
+              possibilidades e conteúdo disponibilizado pelos barbeiros.
+            </p>
+            <br />
+            <p>
+              Você pode começar fazendo um agendamento por 🚀
+              <a
+                href='http://localhost:3000/dashboard/client'
+                style={{ color: '#ff9000' }}
+              >
+                <strong>aqui</strong>.
+              </a>
+            </p>
+          </tr>
+        </td>
+        <td width={56} />
+      </table>
+      {/* <Img
+          src='../../../public/gobarber_logo.png'
+          width={80}
+          height={40}
           style={{
-            color: '#ff9000',
-            fontSize: '36px',
+            justifyContent: 'center',
+            alignItems: 'center',
+            margin: 'auto',
+            marginTop: '8px',
           }}
-        >
-          <strong>Bem vindo ao GoBarber-2.0!</strong>
-        </h1>
-
-        <p
-          style={{
-            fontSize: '30px',
-            color: '#f4ede8',
-          }}
-        >
-          Estamos muito felizes que você tenha ingressado em nossa aplicação!
-          <br />
-          Esperamos que você sinta-se acolhido e contemplado com as
-          possibilidades e conteúdo disponibilizado pelos barbeiros.
-        </p>
-        <br />
-        <p>
-          Você pode começar fazendo um agendamento por 🚀
-          <Link href='http://localhost:3000/dashboard/client'>
-            <strong> aqui.</strong>
-          </Link>
-        </p>
-      </div>
-    </Html>
+        /> */}
+    </div>
+    // </Html>
   );
 }
 
