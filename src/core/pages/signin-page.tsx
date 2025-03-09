@@ -48,60 +48,60 @@ export default function SigninPage() {
     const password = formData.get('password') as any;
     const confirmPassword = formData.get('confirmPassword') as any;
 
-    // const createUserService = new CreateUserService();
+    const createUserService = new CreateUserService();
 
-    // dispatch({ type: 'CHECK_PAGE_NAME', pageName: 'signin-page' });
+    dispatch({ type: 'CHECK_PAGE_NAME', pageName: 'signin-page' });
 
-    // await handleNameUsecase(name);
-    // await handleEmailUsecase(email);
-    // await handlePasswordUsecase(password, confirmPassword);
+    await handleNameUsecase(name);
+    await handleEmailUsecase(email);
+    await handlePasswordUsecase(password, confirmPassword);
+
+    if (
+      password !== confirmPassword ||
+      password.length === 0 ||
+      confirmPassword.length === 0
+    ) {
+      dispatch({ type: 'SET_CONFIRM_PASSWORD_ERROR' });
+
+      addToast({
+        type: 'error',
+        title: 'Erro na Senha',
+        description: 'As senhas necessitam serem iguais',
+      });
+    } else {
+      dispatch({ type: 'SET_CONFIRM_PASSWORD_SUCCESS' });
+    }
+
+    await createUserService.handle({
+      name,
+      email,
+      password,
+      location: 'Somewhere Over the Rainbow',
+    });
 
     // if (
-    //   password !== confirmPassword ||
-    //   password.length === 0 ||
-    //   confirmPassword.length === 0
+    //   state.isNameErrored === false &&
+    //   state.isEmailErrored === false &&
+    //   state.isPasswordErrored === false &&
+    //   state.isConfirmPasswordErrored === false
     // ) {
-    //   dispatch({ type: 'SET_CONFIRM_PASSWORD_ERROR' });
+    const response =
+      process.env.NEXT_PUBLIC_ENV !== 'test'
+        ? await SigninFormHandler({
+            name,
+            email,
+            password,
+            avatar: file,
+          })
+        : await CreateUserFakeServer({ name, email, password });
 
-    //   addToast({
-    //     type: 'error',
-    //     title: 'Erro na Senha',
-    //     description: 'As senhas necessitam serem iguais',
-    //   });
-    // } else {
-    //   dispatch({ type: 'SET_CONFIRM_PASSWORD_SUCCESS' });
-    // }
-
-    // await createUserService.handle({
-    //   name,
-    //   email,
-    //   password,
-    //   location: 'Somewhere Over the Rainbow',
-    // });
-
-    // // if (
-    // //   state.isNameErrored === false &&
-    // //   state.isEmailErrored === false &&
-    // //   state.isPasswordErrored === false &&
-    // //   state.isConfirmPasswordErrored === false
-    // // ) {
-    // const response =
-    //   process.env.NEXT_PUBLIC_ENV !== 'test'
-    //     ? await SigninFormHandler({
-    //         name,
-    //         email,
-    //         password,
-    //         avatar: file,
-    //       })
-    //     : await CreateUserFakeServer({ name, email, password });
-
-    // if (response.response.server.status === 406) {
-    //   addToast({
-    //     type: 'error',
-    //     title: 'Erro no Email',
-    //     description: 'Você já tem conta na aplicação!',
-    //   });
-    // }
+    if (response.response.server.status === 406) {
+      addToast({
+        type: 'error',
+        title: 'Erro no Email',
+        description: 'Você já tem conta na aplicação!',
+      });
+    }
     // }
 
     // isNameErrored === false &&
@@ -113,7 +113,7 @@ export default function SigninPage() {
     //     ? redirect('../dashboard/client')
     //     : redirect('./signin/barber');
 
-    SigninPageMailFactory(email, isClientSelected);
+    // SigninPageMailFactory(email, isClientSelected);
   };
 
   return (
