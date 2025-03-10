@@ -12,21 +12,16 @@ import InvalidEmailError from '../shared/errors/invalid-email-error';
 import InvalidPasswordError from '../shared/errors/invalid-password-error';
 import InvalidPropError from '../shared/errors/invalid-prop-error';
 
-type UserProps = {
-  name: string;
-  email: string;
-  password: string;
-  location: string;
-  avatar?: string;
-};
+import { UserType } from '../types/user-type';
 
-type UserValidationProps = {
-  name: Name;
-  email: Email;
-  password: Password;
-  location: Prop;
-  avatar?: string;
-};
+type UserValidationProps =
+  | UserType
+  | {
+      name: Name;
+      email: Email;
+      password: Password;
+      location: Prop;
+    };
 
 type UpdateUserProps = {
   name?: string;
@@ -34,29 +29,33 @@ type UpdateUserProps = {
   location?: string;
 };
 
-export default class User extends Entity<UserProps | UserValidationProps> {
-  public name: Name;
-  public password: Password;
-  public location: Prop;
+// type Validation = Name & Email & Password & Prop;
 
-  public readonly email: Email;
+export default class User extends Entity<
+  UserType<Name, Email, Password, Prop>
+> {
+  // public name: Name;
+  // public password: Password;
+  // public location: Prop;
 
-  private constructor(
-    props: UserValidationProps,
-    id?: string,
-    createdAt?: Date,
-    updatedAt?: Date
-  ) {
-    super(props, id, createdAt, updatedAt);
+  // public readonly email: Email;
 
-    this.name = props.name;
-    this.email = props.email;
-    this.password = props.password;
-    this.location = props.location;
-  }
+  // private constructor(
+  //   props: UserType<Validation>,
+  //   id?: string,
+  //   createdAt?: Date,
+  //   updatedAt?: Date
+  // ) {
+  //   super(props, id, createdAt, updatedAt);
+
+  //   this.name = props.name;
+  //   this.email = props.email;
+  //   this.password = props.password;
+  //   this.location = props.location;
+  // }
 
   public static create(
-    props: UserProps,
+    props: UserType,
     id?: string,
     createdAt?: Date,
     updatedAt?: Date
@@ -91,10 +90,10 @@ export default class User extends Entity<UserProps | UserValidationProps> {
       return left(locationOrError.value);
     }
 
-    const name: Name = nameOrError.value as Name;
-    const email: Email = emailOrError.value as Email;
-    const password: Password = passwordOrError.value as Password;
-    const location: Prop = locationOrError.value as Prop;
+    const name = nameOrError.value;
+    const email = emailOrError.value;
+    const password = passwordOrError.value;
+    const location = locationOrError.value;
     const avatar = props.avatar;
 
     return right(
@@ -107,43 +106,43 @@ export default class User extends Entity<UserProps | UserValidationProps> {
     );
   }
 
-  public static update(props: UpdateUserProps): Either<Error, User> {
-    if (props.name) {
-      const nameOrError = Name.create(props.name);
+  // public static update(props: UpdateUserProps): Either<Error, User> {
+  //   if (props.name) {
+  //     const nameOrError = Name.create(props.name);
 
-      if (nameOrError.isLeft()) {
-        return left(nameOrError.value);
-      }
+  //     if (nameOrError.isLeft()) {
+  //       return left(nameOrError.value);
+  //     }
 
-      const name: Name = nameOrError.value as Name;
+  //     const name: Name = nameOrError.value as Name;
 
-      User.prototype.name = name;
-    }
+  //     User.prototype.name = name;
+  //   }
 
-    if (props.password) {
-      const passwordOrError = Password.create(props.password);
+  //   if (props.password) {
+  //     const passwordOrError = Password.create(props.password);
 
-      if (passwordOrError.isLeft()) {
-        return left(passwordOrError.value);
-      }
+  //     if (passwordOrError.isLeft()) {
+  //       return left(passwordOrError.value);
+  //     }
 
-      const password: Password = passwordOrError.value as Password;
+  //     const password: Password = passwordOrError.value as Password;
 
-      User.prototype.password = password;
-    }
+  //     User.prototype.password = password;
+  //   }
 
-    if (props.location) {
-      const locationOrError = Prop.create(props.location);
+  //   if (props.location) {
+  //     const locationOrError = Prop.create(props.location);
 
-      if (locationOrError.isLeft()) {
-        return left(locationOrError.value);
-      }
+  //     if (locationOrError.isLeft()) {
+  //       return left(locationOrError.value);
+  //     }
 
-      const location: Prop = locationOrError.value as Prop;
+  //     const location: Prop = locationOrError.value as Prop;
 
-      User.prototype.location = location;
-    }
+  //     User.prototype.location = location;
+  //   }
 
-    return right(User.prototype);
-  }
+  //   return right(User.prototype);
+  // }
 }

@@ -1,4 +1,10 @@
-export default abstract class Entity<T> {
+import { Either } from '@/domain/shared/either';
+import InvalidPropError from '@/domain/shared/errors/invalid-prop-error';
+import { BarberType } from '@/domain/types/barber-type';
+import { UserType } from '@/domain/types/user-type';
+
+export type EntityType = UserType | BarberType;
+export default abstract class Entity<T = EntityType> {
   protected _id: string;
 
   public props: T;

@@ -9,9 +9,9 @@ export default class Name {
     this.value = name;
   }
 
-  get name() {
-    return this.value;
-  }
+  // get name() {
+  //   return this.value;
+  // }
 
   // public static async validate(name: string) {
   //   const checkName = new NameErrorHandling();

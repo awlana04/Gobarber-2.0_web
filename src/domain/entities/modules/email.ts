@@ -10,9 +10,9 @@ export default class Email {
     this.value = email;
   }
 
-  get email() {
-    return this.value;
-  }
+  // get email() {
+  //   return this.value;
+  // }
 
   private static validate(email: string): boolean {
     if (!email) {
