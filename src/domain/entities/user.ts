@@ -1,3 +1,7 @@
+import { Either, left, right } from '../shared/either';
+import InvalidPropError from '../shared/errors/invalid-prop-error';
+import Prop from './modules/prop';
+
 type EntityType = {
   id: string;
   createdAt: Date;
@@ -14,7 +18,13 @@ type UserType = {
   password: string;
 };
 
-class Entity<Type> {
+interface EntityInterface<Type> {
+  create(
+    props: IEntity<EntityType & Type>
+  ): Either<InvalidPropError, IEntity<EntityType & Type>>;
+}
+
+abstract class Entity<Type> implements EntityInterface<Type> {
   protected id: string;
 
   readonly createdAt: Date;
@@ -26,8 +36,14 @@ class Entity<Type> {
     this.updatedAt = props.updatedAt;
   }
 
-  create(props: IEntity<EntityType & Type>) {
-    return props;
+  create(
+    props: IEntity<EntityType & Type>
+  ): Either<InvalidPropError, IEntity<EntityType & Type>> {
+    if (!props) {
+      return left(new InvalidPropError(props));
+    }
+
+    return right(props);
   }
 }
 
@@ -58,10 +74,18 @@ export default class User extends Entity<UserType> {
     this.password = password;
   }
 
-  create(props: IEntity<EntityType & UserType>) {
-    const userName = props.name;
-    const userEmail = props.email;
-    const userPassword = props.password;
+  create(
+    props: IEntity<EntityType & UserType>
+  ): Either<InvalidPropError, IEntity<EntityType & UserType>> {
+    // const userName = props.name;
+    // const userEmail = props.email;
+    // const userPassword = props.password;
+
+    const nameOrError = Prop.create(props.name);
+
+    if (nameOrError.isLeft()) {
+      return left(nameOrError.value);
+    }
 
     // const { id, name, password, email } = new User(
     //   userName,
@@ -69,9 +93,9 @@ export default class User extends Entity<UserType> {
     //   userPassword
     // );
 
-    const user = new User(userName, userEmail, userPassword);
+    // const user = new User(userName, userEmail, userPassword);
 
-    return props;
+    return right(props);
 
     // return { id, name, password, email };
   }
