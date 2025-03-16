@@ -16,14 +16,6 @@ import { EntityMappedType, EntityType } from './shared/entity-type';
 
 import { UserType } from '../types/user-type';
 
-// type UserType = {
-//   name: string;
-//   email: string;
-//   password: string;
-//   location: string;
-//   avatar?: string;
-// };
-
 export default class User extends Entity<UserType> {
   public name: string;
   public location: string;

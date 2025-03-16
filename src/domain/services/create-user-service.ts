@@ -1,3 +1,5 @@
+import crypto from 'crypto';
+
 import { Either, left, right } from '../shared/either';
 
 import User from '../entities/user';
@@ -7,12 +9,7 @@ import InvalidEmailError from '../shared/errors/invalid-email-error';
 import InvalidPasswordError from '../shared/errors/invalid-password-error';
 import InvalidPropError from '../shared/errors/invalid-prop-error';
 
-type UserType = {
-  name: string;
-  email: string;
-  password: string;
-  location: string;
-};
+import { UserType } from '../types/user-type';
 
 export default class CreateUserService {
   public async handle({
@@ -26,7 +23,7 @@ export default class CreateUserService {
       | InvalidEmailError
       | InvalidPasswordError
       | InvalidPropError,
-      User
+      UserType
     >
   > {
     const userOrError: Either<
@@ -34,12 +31,15 @@ export default class CreateUserService {
       | InvalidEmailError
       | InvalidPasswordError
       | InvalidPropError,
-      User
-    > = User.create({
+      UserType
+    > = new User().create({
+      id: crypto.randomUUID(),
       name,
       email,
       password,
       location,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     });
 
     if (userOrError.isLeft()) {

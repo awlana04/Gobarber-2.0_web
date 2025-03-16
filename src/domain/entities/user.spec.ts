@@ -81,6 +81,6 @@ describe('User entity', () => {
     expect(response.location).toEqual(location);
     expect(response.avatar).toEqual(avatar);
 
-    // expect(response).toBeInstanceOf(User);
+    expect(user).toBeInstanceOf(User);
   });
 });
