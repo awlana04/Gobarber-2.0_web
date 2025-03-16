@@ -1,4 +1,3 @@
-import email from './modules/email';
 import User from './user';
 
 describe('User entity', () => {
@@ -46,9 +45,11 @@ describe('User entity', () => {
       name: userName,
       email: userEmail,
       password,
+      location,
+      avatar,
       createdAt: new Date(),
       updatedAt: new Date(),
-    }).value;
+    }).value as unknown as User;
 
     console.log(response);
 
