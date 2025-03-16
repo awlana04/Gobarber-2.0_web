@@ -1,3 +1,4 @@
+import { UserType } from '../types/user-type';
 import User from './user';
 
 describe('User entity', () => {
@@ -49,7 +50,7 @@ describe('User entity', () => {
       avatar,
       createdAt: new Date(),
       updatedAt: new Date(),
-    }).value as unknown as User;
+    }).value as UserType;
 
     console.log(response);
 
@@ -74,11 +75,11 @@ describe('User entity', () => {
     //   avatar,
     // }).value as User;
 
-    // expect(response.name).toEqual(userName);
-    // expect(response.email).toEqual(userEmail);
-    // expect(response.props.password.value).toEqual(password);
-    // expect(response.props.location.value).toEqual(location);
-    // expect(response.props.avatar).toEqual(avatar);
+    expect(response.name).toEqual(userName);
+    expect(response.email).toEqual(userEmail);
+    expect(response.password).toEqual(password);
+    expect(response.location).toEqual(location);
+    expect(response.avatar).toEqual(avatar);
 
     // expect(response).toBeInstanceOf(User);
   });

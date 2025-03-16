@@ -15,8 +15,6 @@ import Prop from './modules/prop';
 import { EntityMappedType, EntityType } from './shared/entity-type';
 
 import { UserType } from '../types/user-type';
-import email from './modules/email';
-import password from './modules/password';
 
 // type UserType = {
 //   name: string;
@@ -26,14 +24,12 @@ import password from './modules/password';
 //   avatar?: string;
 // };
 
-export default class User extends Entity<
-  UserType<Name, Email, Password, Prop>
-> {
-  public name: Name;
-  public location: Prop;
+export default class User extends Entity<UserType> {
+  public name: string;
+  public location: string;
   public avatar?: string;
 
-  protected email: Email;
+  protected email: string;
 
   private password: string;
 
@@ -99,19 +95,12 @@ export default class User extends Entity<
       return left(locationOrError.value);
     }
 
-    const name = nameOrError.value;
+    // const name = nameOrError.value as unknown as string;
+    // const email = emailOrError.value as unknown as string;
+    // const password = passwordOrError.value as unknown as string;
+    // const location = locationOrError.value as unknown as string;
+    // const avatar = props.avatar;
 
-    return right(
-      new User().create({
-        id: '12345678',
-        name,
-        email,
-        password,
-        location,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        avatar,
-      }).value
-    );
+    return right(props);
   }
 }
