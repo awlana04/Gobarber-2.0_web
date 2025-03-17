@@ -1,15 +1,15 @@
 import crypto from 'crypto';
 
-import { Either, left, right } from '../shared/either';
+import { Either, left, right } from '@/utils/either';
 
-import User from '../entities/user';
+import User from '@/entities/user';
 
-import InvalidNameError from '../shared/errors/invalid-name-error';
-import InvalidEmailError from '../shared/errors/invalid-email-error';
-import InvalidPasswordError from '../shared/errors/invalid-password-error';
-import InvalidPropError from '../shared/errors/invalid-prop-error';
+import InvalidNameError from '@/domain/errors/invalid-name-error';
+import InvalidEmailError from '@/domain/errors/invalid-email-error';
+import InvalidPasswordError from '@/domain/errors/invalid-password-error';
+import InvalidPropError from '@/domain/errors/invalid-prop-error';
 
-import { UserType } from '../types/user-type';
+import { UserType } from '@/domain/types/user-type';
 
 export default class CreateUserService {
   public async handle({

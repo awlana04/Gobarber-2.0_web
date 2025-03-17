@@ -1,5 +1,6 @@
-import { UserType } from '../types/user-type';
 import User from './user';
+
+import { UserType } from '../types/user-type';
 
 describe('User entity', () => {
   // const name = 'John Doe Junior';
@@ -53,27 +54,6 @@ describe('User entity', () => {
     }).value as UserType;
 
     console.log(response);
-
-    // const user = User.prototype.create({})
-
-    // const response = new Entity({
-    //   name,
-    //   email,
-    //   password,
-    //   location,
-    //   avatar,
-    // }).create(
-    //   { name, email, password, location },
-    //   { name, email, password, location, avatar }
-    // );
-
-    // const response = User.create({
-    //   name,
-    //   email,
-    //   password,
-    //   location,
-    //   avatar,
-    // }).value as User;
 
     expect(response.name).toEqual(userName);
     expect(response.email).toEqual(userEmail);

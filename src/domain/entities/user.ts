@@ -1,17 +1,16 @@
 import Entity from './shared/entity';
 
-import InvalidEmailError from '../shared/errors/invalid-email-error';
-import InvalidNameError from '../shared/errors/invalid-name-error';
-import InvalidPasswordError from '../shared/errors/invalid-password-error';
-import InvalidPropError from '../shared/errors/invalid-prop-error';
+import InvalidEmailError from '@/domain/errors/invalid-email-error';
+import InvalidNameError from '@/domain/errors/invalid-name-error';
+import InvalidPasswordError from '@/domain/errors/invalid-password-error';
+import InvalidPropError from '@/domain/errors/invalid-prop-error';
 
-import { Either, left, right } from '../shared/either';
-
-import TypeGuard from '../shared/type-guard';
+import { Either, left, right } from '@/utils/either';
+import TypeGuard from '@/utils/type-guard';
 
 import { EntityMappedType, EntityType } from './shared/entity-type';
 
-import { UserType } from '../types/user-type';
+import { UserType } from '@/domain/types/user-type';
 
 export default class User extends Entity<UserType> {
   public name: string;

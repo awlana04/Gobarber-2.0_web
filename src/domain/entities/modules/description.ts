@@ -1,6 +1,6 @@
-import { Either, left, right } from '../../shared/either';
+import { Either, left, right } from '@/utils/either';
 
-import InvalidDescriptionError from '../../shared/errors/invalid-description-error';
+import InvalidDescriptionError from '@/domain/errors/invalid-description-error';
 
 export default class Description {
   public readonly value: string;

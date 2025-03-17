@@ -1,5 +1,6 @@
-import InvalidEmailError from '@/domain/shared/errors/invalid-email-error';
-import { Either, left, right } from '../../shared/either';
+import InvalidEmailError from '@/domain/errors/invalid-email-error';
+
+import { Either, left, right } from '@/utils/either';
 
 import EmailErrorHandling from '../../validations/email-error-handling';
 

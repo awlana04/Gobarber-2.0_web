@@ -1,5 +1,6 @@
-import InvalidPasswordError from '@/domain/shared/errors/invalid-password-error';
-import { Either, left, right } from '../../shared/either';
+import InvalidPasswordError from '@/domain/errors/invalid-password-error';
+
+import { Either, left, right } from '@/utils/either';
 
 import PasswordErrorHandling from '../../validations/password-error-handling';
 

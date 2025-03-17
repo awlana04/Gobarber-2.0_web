@@ -1,5 +1,7 @@
-import InvalidNameError from '@/domain/shared/errors/invalid-name-error';
-import { Either, left, right } from '../../shared/either';
+import InvalidNameError from '@/domain/errors/invalid-name-error';
+
+import { Either, left, right } from '@/utils/either';
+
 import NameErrorHandling from '@/domain/validations/name-error-handling';
 
 export default class Name {
