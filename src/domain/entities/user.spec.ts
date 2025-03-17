@@ -33,7 +33,7 @@ describe('User entity', () => {
   // });
 
   it('should be able to create a new user', async () => {
-    const userName = 'John Doe';
+    const userName = 'Jo';
     const userEmail = 'john@doe.com';
     const password = '12345678';
     const location = 'Somewhere Over the Rainbow';

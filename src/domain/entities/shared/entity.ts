@@ -32,7 +32,7 @@ export default abstract class Entity<T> implements IEntity<T> {
     this.updatedAt = props.updatedAt;
   }
 
-  create(
+  public create(
     props: EntityMappedType<EntityType<T>>
   ): Either<InvalidPropError | ErrorType, EntityMappedType<EntityType<T>>> {
     if (!props) {

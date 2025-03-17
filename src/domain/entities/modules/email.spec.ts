@@ -52,9 +52,9 @@ describe('Email value object', () => {
   it('should be able to create a new email', () => {
     const email = 'john@doe.com';
 
-    const response = Email.create(email).value;
+    const response = Email.create(email).value as Email;
 
-    expect(response).toEqual(email);
+    expect(response.value).toEqual(email);
     expect(response).toBeInstanceOf(Email);
   });
 });

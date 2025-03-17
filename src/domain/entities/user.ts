@@ -7,8 +7,9 @@ import InvalidPropError from '../shared/errors/invalid-prop-error';
 
 import { Either, left, right } from '../shared/either';
 
+import Guard from '../shared/guard';
+
 import Email from './modules/email';
-import Name from './modules/name';
 import Password from './modules/password';
 import Prop from './modules/prop';
 
@@ -54,7 +55,7 @@ export default class User extends Entity<UserType> {
     this.avatar = avatar;
   }
 
-  create(
+  public create(
     props: EntityMappedType<EntityType<UserType>>
   ): Either<
     | InvalidPropError
@@ -63,10 +64,8 @@ export default class User extends Entity<UserType> {
     | InvalidPasswordError,
     EntityMappedType<EntityType<UserType>>
   > {
-    const nameOrError = Name.create(props.name);
-
-    if (nameOrError.isLeft()) {
-      return left(nameOrError.value);
+    if (Guard.checkName(props.name).value instanceof InvalidNameError) {
+      return left(new InvalidNameError(props.name));
     }
 
     const emailOrError = Email.create(props.email);
@@ -86,12 +85,6 @@ export default class User extends Entity<UserType> {
     if (locationOrError.isLeft()) {
       return left(locationOrError.value);
     }
-
-    // const name = nameOrError.value as unknown as string;
-    // const email = emailOrError.value as unknown as string;
-    // const password = passwordOrError.value as unknown as string;
-    // const location = locationOrError.value as unknown as string;
-    // const avatar = props.avatar;
 
     return right(props);
   }
