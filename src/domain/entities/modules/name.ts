@@ -15,21 +15,14 @@ export default class Name {
   //   return this.value;
   // }
 
-  // public static async validate(name: string) {
-  //   const checkName = new NameErrorHandling();
-
-  //   await checkName.exists(name);
-  //   await checkName.length(name);
-
-  //   return true;
-  // }
-
   public static validate(name: string): boolean {
-    if (!name) {
+    const checkName = new NameErrorHandling();
+
+    if (checkName.exists(name) === false) {
       return false;
     }
 
-    if (name.trim().length < 3 || name.trim().length > 128) {
+    if (checkName.length(name) === false) {
       return false;
     }
 
@@ -37,6 +30,7 @@ export default class Name {
   }
 
   public static create(name: string): Either<InvalidNameError, Name> {
+    console.log(Name.validate(name));
     if (!Name.validate(name)) {
       return left(new InvalidNameError(name));
     }

@@ -1,5 +1,5 @@
 export default class NameErrorHandling {
-  public async exists(name: string) {
+  public exists(name: string): boolean {
     if (!name) {
       return false;
     }
@@ -7,7 +7,7 @@ export default class NameErrorHandling {
     return true;
   }
 
-  public async length(name: string) {
+  public length(name: string): boolean {
     if (
       (name.trim().length < 3 && name.length > 0) ||
       name.trim().length > 128

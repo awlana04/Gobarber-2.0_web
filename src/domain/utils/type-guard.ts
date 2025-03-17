@@ -1,12 +1,12 @@
-import Name from '../entities/modules/name';
-import Email from '../entities/modules/email';
-import Password from '../entities/modules/password';
-import Prop from '../entities/modules/prop';
+import Name from '@/entities/modules/name';
+import Email from '@/entities/modules/email';
+import Password from '@/entities/modules/password';
+import Prop from '@/entities/modules/prop';
 
-import InvalidNameError from './errors/invalid-name-error';
-import InvalidEmailError from './errors/invalid-email-error';
-import InvalidPasswordError from './errors/invalid-password-error';
-import InvalidPropError from './errors/invalid-prop-error';
+import InvalidNameError from '@/domain/errors/invalid-name-error';
+import InvalidEmailError from '@/domain/errors/invalid-email-error';
+import InvalidPasswordError from '@/domain/errors/invalid-password-error';
+import InvalidPropError from '@/domain/errors/invalid-prop-error';
 
 import { Either, left, right } from './either';
 
