@@ -7,11 +7,7 @@ import InvalidPropError from '../shared/errors/invalid-prop-error';
 
 import { Either, left, right } from '../shared/either';
 
-import Guard from '../shared/guard';
-
-import Email from './modules/email';
-import Password from './modules/password';
-import Prop from './modules/prop';
+import TypeGuard from '../shared/type-guard';
 
 import { EntityMappedType, EntityType } from './shared/entity-type';
 
@@ -64,26 +60,23 @@ export default class User extends Entity<UserType> {
     | InvalidPasswordError,
     EntityMappedType<EntityType<UserType>>
   > {
-    if (Guard.checkName(props.name).value instanceof InvalidNameError) {
+    if (TypeGuard.checkName(props.name).value instanceof InvalidNameError) {
       return left(new InvalidNameError(props.name));
     }
 
-    const emailOrError = Email.create(props.email);
-
-    if (emailOrError.isLeft()) {
-      return left(emailOrError.value);
+    if (TypeGuard.checkEmail(props.email).value instanceof InvalidEmailError) {
+      return left(new InvalidEmailError(props.email));
     }
 
-    const passwordOrError = Password.create(props.password);
-
-    if (passwordOrError.isLeft()) {
-      return left(passwordOrError.value);
+    if (
+      TypeGuard.checkPassword(props.password).value instanceof
+      InvalidPasswordError
+    ) {
+      return left(new InvalidPasswordError(props.password));
     }
 
-    const locationOrError = Prop.create(props.location);
-
-    if (locationOrError.isLeft()) {
-      return left(locationOrError.value);
+    if (TypeGuard.checkName(props.location).value instanceof InvalidPropError) {
+      return left(new InvalidPropError(props.location));
     }
 
     return right(props);
