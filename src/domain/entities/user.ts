@@ -1,3 +1,5 @@
+import crypto from 'crypto';
+
 import Entity from './shared/entity';
 
 import InvalidEmailError from '@/domain/errors/invalid-email-error';
@@ -12,46 +14,9 @@ import { EntityMappedType, EntityType } from './shared/entity-type';
 
 import { UserType } from '@/domain/types/user-type';
 
-export default class User extends Entity<UserType> {
-  public name: string;
-  public location: string;
-  public avatar?: string;
-
-  protected email: string;
-
-  private password: string;
-
-  constructor(
-    id = '',
-    name = '',
-    email = '',
-    password = '',
-    location = '',
-    avatar = '',
-    createdAt = new Date(),
-    updatedAt = new Date()
-  ) {
-    super({
-      id,
-      name,
-      email,
-      password,
-      location,
-      avatar,
-      createdAt,
-      updatedAt,
-    });
-
-    this.id = id;
-    this.name = name;
-    this.email = email;
-    this.password = password;
-    this.location = location;
-    this.avatar = avatar;
-  }
-
+export default class User implements Entity<UserType> {
   public create(
-    props: EntityMappedType<EntityType<UserType>>
+    props: UserType
   ): Either<
     | InvalidPropError
     | InvalidEmailError
@@ -78,6 +43,15 @@ export default class User extends Entity<UserType> {
       return left(new InvalidPropError(props.location));
     }
 
-    return right(props);
+    return right({
+      id: crypto.randomUUID(),
+      name: props.name,
+      email: props.email,
+      password: props.password,
+      location: props.location,
+      avatar: props.avatar,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
   }
 }

@@ -43,17 +43,12 @@ describe('User entity', () => {
     const user = new User();
 
     const response = user.create({
-      id: '12345678',
       name: userName,
       email: userEmail,
       password,
       location,
       avatar,
-      createdAt: new Date(),
-      updatedAt: new Date(),
     }).value as UserType;
-
-    console.log(response);
 
     expect(response.name).toEqual(userName);
     expect(response.email).toEqual(userEmail);

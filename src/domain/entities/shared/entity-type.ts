@@ -1,7 +1,7 @@
 export type EntityType<T> = T & {
-  id: string;
-  createdAt: Date;
-  updatedAt: Date;
+  readonly id: string;
+  readonly createdAt: Date;
+  readonly updatedAt: Date;
 };
 
 export type EntityMappedType<T> = {

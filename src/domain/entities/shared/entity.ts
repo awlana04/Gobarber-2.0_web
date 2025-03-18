@@ -14,24 +14,7 @@ type ErrorType =
   | InvalidPasswordError
   | InvalidDescriptionError;
 
-interface IEntity<T> {
-  create(
-    props: EntityMappedType<EntityType<T>>
-  ): Either<InvalidPropError | ErrorType, EntityMappedType<EntityType<T>>>;
-}
-
-export default abstract class Entity<T> implements IEntity<T> {
-  protected id: string;
-
-  readonly createdAt: Date;
-  readonly updatedAt: Date;
-
-  constructor(props: EntityMappedType<EntityType<T>>) {
-    this.id = props.id;
-    this.createdAt = props.createdAt;
-    this.updatedAt = props.updatedAt;
-  }
-
+export default abstract class Entity<T> {
   public create(
     props: EntityMappedType<EntityType<T>>
   ): Either<InvalidPropError | ErrorType, EntityMappedType<EntityType<T>>> {

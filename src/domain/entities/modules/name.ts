@@ -11,10 +11,6 @@ export default class Name {
     this.value = name;
   }
 
-  // get name() {
-  //   return this.value;
-  // }
-
   public static validate(name: string): boolean {
     const checkName = new NameErrorHandling();
 
@@ -30,7 +26,6 @@ export default class Name {
   }
 
   public static create(name: string): Either<InvalidNameError, Name> {
-    console.log(Name.validate(name));
     if (!Name.validate(name)) {
       return left(new InvalidNameError(name));
     }
