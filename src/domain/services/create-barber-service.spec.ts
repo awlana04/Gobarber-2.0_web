@@ -1,18 +1,19 @@
 import User from '../entities/user';
+import { UserType } from '../types/user-type';
 
 import CreateBarberService from './create-barber-service';
 
 describe('Create barber service', () => {
-  const user = User.create({
+  const user = new User().create({
     name: 'John Doe',
     email: 'john@doe.com',
     password: '12345678',
     location: 'Somewhere Over the Rainbow',
-  }).value as User;
+  }).value as UserType;
 
   console.log(user);
 
-  it('should be able to create a new barber', async () => {
+  it('should be able to create a new barber', () => {
     const createBarberService = new CreateBarberService();
 
     const name = 'John Doe Barber';
@@ -21,7 +22,7 @@ describe('Create barber service', () => {
     const openAtNight = true;
     const openOnWeekends = true;
 
-    const barber = await createBarberService.handle({
+    const barber = createBarberService.handle({
       name,
       location,
       description,

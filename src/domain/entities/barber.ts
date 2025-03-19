@@ -17,23 +17,18 @@ export default class Barber implements Entity<BarberType> {
   public create(
     props: BarberType
   ): Either<
-    InvalidPropError | (InvalidNameError | InvalidDescriptionError),
+    InvalidPropError | InvalidNameError | InvalidDescriptionError,
     EntityMappedType<EntityType<BarberType>>
   > {
-    if (TypeGuard.checkName(props.name).value instanceof InvalidNameError) {
+    if (TypeGuard.checkName(props.name).isLeft()) {
       return left(new InvalidNameError(props.name));
     }
 
-    if (
-      TypeGuard.checkDescription(props.description).value instanceof
-      InvalidDescriptionError
-    ) {
+    if (TypeGuard.checkDescription(props.description).isLeft()) {
       return left(new InvalidDescriptionError(props.description));
     }
 
-    if (
-      TypeGuard.checkProp(props.description).value instanceof InvalidPropError
-    ) {
+    if (TypeGuard.checkProp(props.description).isLeft()) {
       return left(new InvalidPropError(props.description));
     }
 

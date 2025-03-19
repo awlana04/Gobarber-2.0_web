@@ -1,41 +1,36 @@
-import { Either, left, right } from '../shared/either';
+import ServiceModel from './service-model';
 
-import InvalidNameError from '../shared/errors/invalid-name-error';
-import InvalidDescriptionError from '../shared/errors/invalid-description-error';
-import InvalidPropError from '../shared/errors/invalid-prop-error';
+import { Either, left, right } from '@/utils/either';
 
-import Barber from '../entities/barber';
+import InvalidNameError from '@/domain/errors/invalid-name-error';
+import InvalidDescriptionError from '@/domain/errors/invalid-description-error';
+import InvalidPropError from '@/domain/errors/invalid-prop-error';
 
-interface ICreateBarberServiceRequest {
-  name: string;
-  location: string;
-  description: string;
-  openAtNight: boolean;
-  openOnWeekends: boolean;
-  userId: string;
-}
+import Barber from '@/entities/barber';
 
-export default class CreateBarberService {
-  public async handle({
+import { BarberType } from '@/domain/types/barber-type';
+
+export default class CreateBarberService implements ServiceModel<BarberType> {
+  public handle({
     name,
     location,
     description,
+    images,
     openAtNight,
     openOnWeekends,
     userId,
-  }: ICreateBarberServiceRequest): Promise<
-    Either<
-      InvalidNameError | InvalidDescriptionError | InvalidPropError,
-      Barber
-    >
+  }: BarberType): Either<
+    InvalidNameError | InvalidDescriptionError | InvalidPropError,
+    BarberType
   > {
     const barberOrError: Either<
       InvalidNameError | InvalidDescriptionError | InvalidPropError,
-      Barber
-    > = Barber.create({
+      BarberType
+    > = new Barber().create({
       name,
       location,
       description,
+      images,
       openAtNight,
       openOnWeekends,
       userId,

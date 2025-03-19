@@ -2,13 +2,13 @@ import crypto from 'crypto';
 
 import Entity from './shared/entity';
 
+import { Either, left, right } from '@/utils/either';
+import TypeGuard from '@/utils/type-guard';
+
 import InvalidEmailError from '@/domain/errors/invalid-email-error';
 import InvalidNameError from '@/domain/errors/invalid-name-error';
 import InvalidPasswordError from '@/domain/errors/invalid-password-error';
 import InvalidPropError from '@/domain/errors/invalid-prop-error';
-
-import { Either, left, right } from '@/utils/either';
-import TypeGuard from '@/utils/type-guard';
 
 import { EntityMappedType, EntityType } from './shared/entity-type';
 
@@ -24,22 +24,19 @@ export default class User implements Entity<UserType> {
     | InvalidPasswordError,
     EntityMappedType<EntityType<UserType>>
   > {
-    if (TypeGuard.checkName(props.name).value instanceof InvalidNameError) {
+    if (TypeGuard.checkName(props.name).isLeft()) {
       return left(new InvalidNameError(props.name));
     }
 
-    if (TypeGuard.checkEmail(props.email).value instanceof InvalidEmailError) {
+    if (TypeGuard.checkEmail(props.email).isLeft()) {
       return left(new InvalidEmailError(props.email));
     }
 
-    if (
-      TypeGuard.checkPassword(props.password).value instanceof
-      InvalidPasswordError
-    ) {
+    if (TypeGuard.checkPassword(props.password).isLeft()) {
       return left(new InvalidPasswordError(props.password));
     }
 
-    if (TypeGuard.checkName(props.location).value instanceof InvalidPropError) {
+    if (TypeGuard.checkName(props.location).isLeft()) {
       return left(new InvalidPropError(props.location));
     }
 

@@ -1,6 +1,7 @@
 import crypto from 'crypto';
 
 import Barber from './barber';
+
 import { BarberType } from '../types/barber-type';
 
 describe('Barber entity', () => {
@@ -28,8 +29,6 @@ describe('Barber entity', () => {
       openOnWeekends,
       userId,
     }).value as BarberType;
-
-    console.log(response);
 
     expect(response.name).toEqual(name);
     expect(response.location).toEqual(location);
