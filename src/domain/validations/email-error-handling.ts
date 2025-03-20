@@ -1,5 +1,5 @@
 export default class EmailErrorHandling {
-  public async exists(email: string) {
+  public exists(email: string) {
     if (!email) {
       return false;
     }
@@ -7,7 +7,7 @@ export default class EmailErrorHandling {
     return true;
   }
 
-  public async length(email: string) {
+  public length(email: string) {
     if (email.length > 320) {
       return false;
     }
@@ -15,7 +15,7 @@ export default class EmailErrorHandling {
     return true;
   }
 
-  public async isValid(email: string) {
+  public isValid(email: string) {
     const emailRegex =
       /^[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
 

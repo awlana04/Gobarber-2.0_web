@@ -1,17 +1,21 @@
-import InvalidNameError from '@/domain/errors/invalid-name-error';
-
-import { Either, left, right } from '@/utils/either';
+import ValueObjectModel from './value-object-model';
 
 import NameErrorHandling from '@/domain/validations/name-error-handling';
 
-export default class Name {
+import { Either, left, right } from '@/utils/either';
+
+import InvalidNameError from '@/domain/errors/invalid-name-error';
+
+export default class Name
+  implements ValueObjectModel<string, InvalidNameError, Name>
+{
   public readonly value: string;
 
   constructor(name: string) {
     this.value = name;
   }
 
-  public static validate(name: string): boolean {
+  public validate(name: string): boolean {
     const checkName = new NameErrorHandling();
 
     if (checkName.exists(name) === false) {
@@ -25,8 +29,10 @@ export default class Name {
     return true;
   }
 
-  public static create(name: string): Either<InvalidNameError, Name> {
-    if (!Name.validate(name)) {
+  public create(): Either<InvalidNameError, Name> {
+    const name = this.value;
+
+    if (!this.validate(name)) {
       return left(new InvalidNameError(name));
     }
 

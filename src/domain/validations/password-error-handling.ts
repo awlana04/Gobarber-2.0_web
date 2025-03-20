@@ -1,5 +1,5 @@
 export default class PasswordErrorHandling {
-  public async length(password: string) {
+  public length(password: string) {
     if (
       (password.trim().length < 8 && password.trim().length > 0) ||
       password.trim().length > 128
@@ -10,7 +10,7 @@ export default class PasswordErrorHandling {
     return true;
   }
 
-  public async exists(password: string) {
+  public exists(password: string) {
     if (!password) {
       return false;
     }

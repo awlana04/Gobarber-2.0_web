@@ -1,15 +1,19 @@
-import { Either, left, right } from '@/utils/either';
+import ValueObjectModel from './value-object-model';
 
 import InvalidDescriptionError from '@/domain/errors/invalid-description-error';
 
-export default class Description {
+import { Either, left, right } from '@/utils/either';
+
+export default class Description
+  implements ValueObjectModel<string, InvalidDescriptionError, Description>
+{
   public readonly value: string;
 
   constructor(description: string) {
     this.value = description;
   }
 
-  private static validate(description: string): boolean {
+  public validate(description: string): boolean {
     if (!description) {
       return false;
     }
@@ -21,10 +25,10 @@ export default class Description {
     return true;
   }
 
-  public static create(
-    description: string
-  ): Either<InvalidDescriptionError, Description> {
-    if (!Description.validate(description)) {
+  public create(): Either<InvalidDescriptionError, Description> {
+    const description = this.value;
+
+    if (!this.validate(description)) {
       return left(new InvalidDescriptionError(description));
     }
 

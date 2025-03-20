@@ -1,83 +1,42 @@
+import ValueObjectModel from './value-object-model';
+
 import InvalidEmailError from '@/domain/errors/invalid-email-error';
+
+import EmailErrorHandling from '@/domain/validations/email-error-handling';
 
 import { Either, left, right } from '@/utils/either';
 
-import EmailErrorHandling from '../../validations/email-error-handling';
-
-export default class Email {
+export default class Email
+  implements ValueObjectModel<string, InvalidEmailError, Email>
+{
   public readonly value: string;
 
-  private constructor(email: string) {
+  constructor(email: string) {
     this.value = email;
   }
 
-  // get email() {
-  //   return this.value;
-  // }
+  public validate(email: string): boolean {
+    const checkEmail = new EmailErrorHandling();
 
-  private static validate(email: string): boolean {
-    if (!email) {
+    if (checkEmail.exists(email) === false) {
       return false;
     }
 
-    if (email.length > 320) {
+    if (checkEmail.length(email) === false) {
       return false;
     }
 
-    const emailRegex =
-      /^[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
-
-    if (!emailRegex.test(email)) {
-      return false;
-    }
-
-    const [local, domain] = email.split('@');
-
-    if (local.length > 64 || local.length === 0) {
-      return false;
-    }
-
-    if (domain.length > 255 || domain.length === 0) {
-      return false;
-    }
-
-    const domainParts = domain.split('.');
-
-    if (
-      domainParts.some(function (part) {
-        return part.length > 63;
-      })
-    ) {
+    if (checkEmail.isValid(email) === false) {
       return false;
     }
 
     return true;
   }
 
-  // private static async validate(email: string): Promise<boolean> {
-  //   const checkEmail = new EmailErrorHandling();
+  public create(): Either<InvalidEmailError, Email> {
+    const email = this.value;
 
-  //   await checkEmail.exists(email);
-  //   await checkEmail.length(email);
-  //   await checkEmail.isValid(email);
-
-  //   console.log(email);
-
-  //   return true;
-  // }
-
-  // public static async create(
-  //   email: string
-  // ): Promise<Either<InvalidEmailError, Email>> {
-  //   if (await !Email.validate(email)) {
-  //     return left(new InvalidEmailError(email));
-  //   }
-
-  //   return right(new Email(email));
-  // }
-
-  public static create(email: string): Either<InvalidEmailError, Email> {
-    if (!Email.validate(email)) {
+    if (!this.validate(email)) {
       return left(new InvalidEmailError(email));
     }
 

@@ -14,7 +14,7 @@ import InvalidDescriptionError from '../errors/invalid-description-error';
 
 export default class TypeGuard {
   public static checkName(name: string): Either<InvalidNameError, Name> {
-    const nameOrError = Name.create(name);
+    const nameOrError = new Name(name).create();
 
     if (nameOrError.isLeft()) {
       return left(nameOrError.value);
@@ -24,7 +24,7 @@ export default class TypeGuard {
   }
 
   public static checkEmail(email: string): Either<InvalidEmailError, Email> {
-    const emailOrError = Email.create(email);
+    const emailOrError = new Email(email).create();
 
     if (emailOrError.isLeft()) {
       return left(emailOrError.value);
@@ -36,7 +36,7 @@ export default class TypeGuard {
   public static checkPassword(
     password: string
   ): Either<InvalidPasswordError, Password> {
-    const passwordOrError = Password.create(password);
+    const passwordOrError = new Password(password).create();
 
     if (passwordOrError.isLeft()) {
       return left(passwordOrError.value);
@@ -48,7 +48,7 @@ export default class TypeGuard {
   public static checkDescription(
     description: string
   ): Either<InvalidDescriptionError, Description> {
-    const descriptionOrError = Description.create(description);
+    const descriptionOrError = new Description(description).create();
 
     if (descriptionOrError.isLeft()) {
       return left(descriptionOrError.value);
@@ -58,7 +58,7 @@ export default class TypeGuard {
   }
 
   public static checkProp(prop: any): Either<InvalidPropError, Prop> {
-    const propOrError = Prop.create(prop);
+    const propOrError = new Prop(prop).create();
 
     if (propOrError.isLeft()) {
       return left(propOrError.value);

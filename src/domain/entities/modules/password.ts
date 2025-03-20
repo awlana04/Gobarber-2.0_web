@@ -1,41 +1,38 @@
+import ValueObjectModel from './value-object-model';
+
 import InvalidPasswordError from '@/domain/errors/invalid-password-error';
+
+import PasswordErrorHandling from '@/domain/validations/password-error-handling';
 
 import { Either, left, right } from '@/utils/either';
 
-import PasswordErrorHandling from '../../validations/password-error-handling';
-
-export default class Password {
+export default class Password
+  implements ValueObjectModel<string, InvalidPasswordError, Password>
+{
   public readonly value: string;
 
   constructor(password: string) {
     this.value = password;
   }
 
-  // public static async validate(password: string) {
-  //   const checkPassword = new PasswordErrorHandling();
+  public validate(password: string): boolean {
+    const checkPassword = new PasswordErrorHandling();
 
-  //   await checkPassword.exists(password);
-  //   await checkPassword.length(password);
-
-  //   return true;
-  // }
-
-  public static validate(password: string): boolean {
-    if (!password) {
+    if (checkPassword.exists(password) === false) {
       return false;
     }
 
-    if (password.trim().length < 8 || password.trim().length > 128) {
+    if (checkPassword.length(password) === false) {
       return false;
     }
 
     return true;
   }
 
-  public static create(
-    password: string
-  ): Either<InvalidPasswordError, Password> {
-    if (!Password.validate(password)) {
+  public create(): Either<InvalidPasswordError, Password> {
+    const password = this.value;
+
+    if (!this.validate(password)) {
       return left(new InvalidPasswordError(password));
     }
 
