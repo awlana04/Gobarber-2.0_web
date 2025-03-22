@@ -1,18 +1,18 @@
 import crypto from 'crypto';
 
-import Entity from './shared/entity';
+import Entity from '@/domain/bases/entity-base';
 
-import { Either, left, right } from '@/utils/either';
-import TypeGuard from '@/utils/type-guard';
+import { Either, left, right } from '@/domain/utils/either';
+import TypeGuard from '@/domain/utils/type-guard';
 
 import InvalidEmailError from '@/domain/errors/invalid-email-error';
 import InvalidNameError from '@/domain/errors/invalid-name-error';
 import InvalidPasswordError from '@/domain/errors/invalid-password-error';
 import InvalidPropError from '@/domain/errors/invalid-prop-error';
 
-import { EntityMappedType, EntityType } from './shared/entity-type';
+import { EntityMappedType, EntityType } from '@/domain/types/entity-type';
 
-import { UserType } from '@/domain/types/user-type';
+import { UserType } from '@/domain/types/entities/user-type';
 
 export default class User implements Entity<UserType> {
   public create(

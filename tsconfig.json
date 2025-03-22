@@ -38,7 +38,6 @@
       "@/templates/*": ["src/presentation/templates/*"],
       "@/fragments/*": ["src/presentation/fragments/*"],
       "@/entities/*": ["src/domain/entities/*"],
-      "@/utils/*": ["src/domain/utils/*"],
       "@/usecases/*": ["src/core/usecases/*"],
       "@/infra/*": ["src/infra/*"],
       "@/api/*": ["src/core/api/*"],

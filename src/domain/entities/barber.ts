@@ -1,17 +1,17 @@
 import crypto from 'crypto';
 
-import Entity from './shared/entity';
+import Entity from '@/domain/bases/entity-base';
 
-import { Either, left, right } from '@/utils/either';
-import TypeGuard from '../utils/type-guard';
+import { Either, left, right } from '@/domain/utils/either';
+import TypeGuard from '@/domain/utils/type-guard';
 
 import InvalidNameError from '@/domain/errors/invalid-name-error';
 import InvalidDescriptionError from '@/domain/errors/invalid-description-error';
 import InvalidPropError from '@/domain/errors/invalid-prop-error';
 
-import { BarberType } from '../types/barber-type';
+import { EntityMappedType, EntityType } from '@/domain/types/entity-type';
 
-import { EntityMappedType, EntityType } from './shared/entity-type';
+import { BarberType } from '@/domain/types/entities/barber-type';
 
 export default class Barber implements Entity<BarberType> {
   public create(

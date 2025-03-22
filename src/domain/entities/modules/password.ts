@@ -1,10 +1,10 @@
-import ValueObjectModel from './value-object-model';
+import ValueObjectModel from '@/domain/bases/value-object-base';
+
+import { Either, left, right } from '@/domain/utils/either';
 
 import InvalidPasswordError from '@/domain/errors/invalid-password-error';
 
 import PasswordErrorHandling from '@/domain/validations/password-error-handling';
-
-import { Either, left, right } from '@/utils/either';
 
 export default class Password
   implements ValueObjectModel<string, InvalidPasswordError, Password>

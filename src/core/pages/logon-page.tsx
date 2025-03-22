@@ -25,8 +25,6 @@ export default function LogonPage() {
   const { handleEmailUsecase } = useEmailUsecase();
   const { handlePasswordUsecase } = usePasswordUsecase();
 
-
-
   useLayoutEffect(() => {
     if (state.pageName !== 'logon-page') {
       dispatch({ type: 'RESET_INITIAL_STATE', pageName: 'logon-page' });
@@ -65,9 +63,7 @@ export default function LogonPage() {
     // } else {
     //   redirect('../dashboard/client');
     // }
-    // }
-
-
+  };
 
   return (
     <LogonScreen

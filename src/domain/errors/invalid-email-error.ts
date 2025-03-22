@@ -1,4 +1,4 @@
-import AppError from '@/utils/app-error';
+import AppError from '@/domain/utils/app-error';
 
 export default class InvalidEmailError extends AppError {
   public readonly name = 'InvalidEmailError';

@@ -1,8 +1,8 @@
-import ValueObjectModel from './value-object-model';
+import ValueObjectModel from '@/domain/bases/value-object-base';
+
+import { Either, left, right } from '@/domain/utils/either';
 
 import NameErrorHandling from '@/domain/validations/name-error-handling';
-
-import { Either, left, right } from '@/utils/either';
 
 import InvalidNameError from '@/domain/errors/invalid-name-error';
 

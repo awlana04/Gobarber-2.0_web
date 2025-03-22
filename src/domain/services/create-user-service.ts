@@ -1,6 +1,6 @@
-import ServiceModel from './service-model';
+import ServiceModel from '@/domain/bases/service-base';
 
-import { Either, left, right } from '@/utils/either';
+import { Either, left, right } from '@/domain/utils/either';
 
 import InvalidNameError from '@/domain/errors/invalid-name-error';
 import InvalidEmailError from '@/domain/errors/invalid-email-error';
@@ -9,7 +9,7 @@ import InvalidPropError from '@/domain/errors/invalid-prop-error';
 
 import User from '@/entities/user';
 
-import { UserType } from '@/domain/types/user-type';
+import { UserType } from '@/domain/types/entities/user-type';
 
 export default class CreateUserService implements ServiceModel<UserType> {
   public handle({

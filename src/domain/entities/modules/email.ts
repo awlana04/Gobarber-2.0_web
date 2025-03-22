@@ -1,10 +1,10 @@
-import ValueObjectModel from './value-object-model';
+import ValueObjectModel from '@/domain/bases/value-object-base';
+
+import { Either, left, right } from '@/domain/utils/either';
 
 import InvalidEmailError from '@/domain/errors/invalid-email-error';
 
 import EmailErrorHandling from '@/domain/validations/email-error-handling';
-
-import { Either, left, right } from '@/utils/either';
 
 export default class Email
   implements ValueObjectModel<string, InvalidEmailError, Email>

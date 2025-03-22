@@ -1,8 +1,8 @@
-import ValueObjectModel from './value-object-model';
+import ValueObjectModel from '@/domain/bases/value-object-base';
+
+import { Either, left, right } from '@/domain/utils/either';
 
 import InvalidPropError from '@/domain/errors/invalid-prop-error';
-
-import { Either, left, right } from '@/utils/either';
 
 export default class Prop
   implements ValueObjectModel<string, InvalidPropError, Prop>

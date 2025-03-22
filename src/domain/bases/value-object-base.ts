@@ -1,8 +1,10 @@
 import { Either } from '@/domain/utils/either';
 
-export default abstract class ValueObjectModel<
+import { ErrorType } from '@/domain/types/error-type';
+
+export default abstract class ValueObjectBase<
   Value extends string,
-  InvalidError,
+  ErrorType,
   Object,
 > {
   public readonly value: Value;
@@ -13,5 +15,5 @@ export default abstract class ValueObjectModel<
 
   abstract validate(value: Value): boolean;
 
-  abstract create(value: Value): Either<InvalidError, Object>;
+  abstract create(value: Value): Either<ErrorType, Object>;
 }
