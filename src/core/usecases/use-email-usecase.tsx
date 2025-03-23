@@ -7,12 +7,12 @@ export default function useEmailUsecase() {
   const { addToast } = useToast();
   const { dispatch } = useHandleErroredContext();
 
-  const handleEmailUsecase = async (email: string) => {
+  const handleEmailUsecase = (email: string) => {
     const checkEmail = new EmailErrorHandling();
 
-    const emailLength = await checkEmail.length(email);
-    const emailExists = await checkEmail.exists(email);
-    const emailIsValid = await checkEmail.isValid(email);
+    const emailLength = checkEmail.length(email);
+    const emailExists = checkEmail.exists(email);
+    const emailIsValid = checkEmail.isValid(email);
 
     switch (
       emailLength === false ||
