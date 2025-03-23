@@ -1,5 +1,5 @@
-import LogonPage from '@/pages/logon-page';
+import LogonWindow from '@/infra/windows/logon-window';
 
 export default function Logon() {
-  return <LogonPage />;
+  return <LogonWindow />;
 }

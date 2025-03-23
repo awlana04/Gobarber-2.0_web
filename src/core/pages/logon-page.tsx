@@ -1,14 +1,14 @@
-'use client';
-
 import { useLayoutEffect } from 'react';
 
 import { useHandleErroredContext } from '@/contexts/use-handle-errored-context';
 
-import useAuthenticateFormSubmitHandler from '@/handlers/authenticate-form-submit-handler';
-
 import LogonScreen from '@/screens/logon-screen';
 
-export default function LogonPage() {
+type LogonPageType = {
+  submitHandler: (data: any) => void;
+};
+
+export default function LogonPage({ submitHandler }: LogonPageType) {
   const { state, dispatch } = useHandleErroredContext();
 
   useLayoutEffect(() => {
@@ -16,8 +16,6 @@ export default function LogonPage() {
       dispatch({ type: 'RESET_INITIAL_STATE', pageName: 'logon-page' });
     }
   });
-
-  const { submitHandler } = useAuthenticateFormSubmitHandler();
 
   return (
     <LogonScreen
