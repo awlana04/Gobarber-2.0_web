@@ -1,8 +1,8 @@
 import { ElementType } from 'react';
 
-import Icon from '@components/atoms/icon';
+import Icon from '@/atoms/icon';
 
-import useHandleFilledHook from '@hooks/use-handle-filled-hook';
+import useHandleFilledHook from '@/hooks/use-handle-filled-hook';
 
 interface FormTextareaProps {
   placeholder: string;

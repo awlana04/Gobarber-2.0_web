@@ -25,7 +25,7 @@
       "@/public/*": ["public/*"],
       "@/components/*": ["src/presentation/components/*"],
       "@/atoms*": ["src/presentation/components/atoms/*"],
-      "@/molecules/*": ["src/presentation/components/molecules*"],
+      "@/molecules/*": ["src/presentation/components/molecules/*"],
       "@/hooks/*": ["src/core/hooks/*"],
       "@/contexts/*": ["src/core/contexts/*"],
       "@/handlers/*": ["src/core/handlers/*"],

@@ -1,4 +1,4 @@
-import Toast from '@components/atoms/toast';
+import Toast from '@/components/atoms/toast';
 
 import { ToastMessageType } from '@/presentation/interfaces/toast-message-type';
 
@@ -8,7 +8,7 @@ type ToastContainerProps = {
 
 export default function ToastContainer({ messages }: ToastContainerProps) {
   return (
-    <div className='absolute right-0 top-0'>
+    <div className='absolute top-0 right-0'>
       {messages.map((message) => (
         <Toast key={message.id} message={message} />
       ))}

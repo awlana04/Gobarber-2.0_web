@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 
 import AsideImage from './components/aside-image';
 
-import GoBarberLogo from '@public/gobarber_logo001.svg';
+import GoBarberLogo from '@/public/gobarber_logo001.svg';
 
 type ContentTemplateType = {
   children: ReactNode;

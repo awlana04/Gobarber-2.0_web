@@ -2,7 +2,7 @@ import { ChangeEvent, InputHTMLAttributes } from 'react';
 import Image from 'next/image';
 import { FiCamera } from 'react-icons/fi';
 
-import logo from '@public/gobarber_logo.svg';
+import logo from '@/public/gobarber_logo.svg';
 
 type FormAvatarButtonProps = InputHTMLAttributes<HTMLImageElement> & {
   file: string | any;

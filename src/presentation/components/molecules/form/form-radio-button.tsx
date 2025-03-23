@@ -1,6 +1,6 @@
 import { InputHTMLAttributes } from 'react';
 
-import Label from '@components/atoms/label';
+import Label from '@/atoms/label';
 
 type FormRadioButtonProps = InputHTMLAttributes<HTMLInputElement> & {
   isBarberSelected: boolean;

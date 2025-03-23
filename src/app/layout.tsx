@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Roboto_Slab } from 'next/font/google';
 import './globals.css';
 
-import ToastHook from '@hooks/toast-hook';
+import ToastHook from '@/hooks/toast-hook';
 
 import UseHandleErroredHook from '@/core/hooks/use-handle-errored-hook';
 

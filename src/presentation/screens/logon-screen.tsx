@@ -1,23 +1,23 @@
 import Link from 'next/link';
 
-import Button from '@components/atoms/button';
-import CreateAccount from '@components/atoms/create-account';
+import Button from '@/atoms/button';
+import CreateAccount from '@/atoms/create-account';
 
-import { Form } from '@components/molecules/form';
+import { Form } from '@/molecules/form';
 
-import EmailInputFragment from '@fragments/email-input-fragment';
-import PasswordInputFragment from '@fragments/password-input-fragment';
+import EmailInputFragment from '@/fragments/email-input-fragment';
+import PasswordInputFragment from '@/fragments/password-input-fragment';
 
-import ContentTemplate from '@templates/content-template';
+import ContentTemplate from '@/templates/content-template';
 
-import image from '@public/gobarber_image002.svg';
+import image from '@/public/gobarber_image002.svg';
 
 type LogonScreenProps = {
   emailErrored: boolean;
   passwordErrored: boolean;
   emailValue: string;
   isButtonDisabled: boolean;
-  submitHandler: (data: any) => void;
+  submitHandler: () => Promise<void>;
 };
 
 export default function LogonScreen({

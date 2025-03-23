@@ -10,9 +10,9 @@ import {
 
 import ToastContainer from '@/presentation/components/molecules/toast-container';
 
-import { ToastMessageType } from '@interfaces/toast-message-type';
+import { ToastMessageType } from '@/presentation/interfaces/toast-message-type';
 
-import { ToastContext } from '@contexts/use-toast-context';
+import { ToastContext } from '@/contexts/use-toast-context';
 
 type ToastHookProps = {
   children?: ReactNode;

@@ -1,19 +1,19 @@
-import ContentTemplate from '../templates/content-template';
+import ContentTemplate from '@/templates/content-template';
 
-import { AvatarType } from '@interfaces/avatar-type';
-import { RadioType } from '@interfaces/radio-type';
+import { AvatarType } from '@/presentation/interfaces/avatar-type';
+import { RadioType } from '@/presentation/interfaces/radio-type';
 
-import NameInputFragment from '../fragments/name-input-fragment';
-import EmailInputFragment from '../fragments/email-input-fragment';
-import PasswordInputFragment from '../fragments/password-input-fragment';
-import ConfirmPasswordInputFragment from '../fragments/confirm-password-input-fragment';
+import NameInputFragment from '@/fragments/name-input-fragment';
+import EmailInputFragment from '@/fragments/email-input-fragment';
+import PasswordInputFragment from '@/fragments/password-input-fragment';
+import ConfirmPasswordInputFragment from '@/fragments/confirm-password-input-fragment';
 
-import BackToLogon from '@components/atoms/back-to-logon';
-import Button from '@components/atoms/button';
+import BackToLogon from '@/atoms/back-to-logon';
+import Button from '@/atoms/button';
 
-import { Form } from '@components/molecules/form';
+import { Form } from '@/molecules/form';
 
-import image from '@public/gobarber_image003.svg';
+import image from '@/public/gobarber_image003.svg';
 
 type SigninProps = {
   submitHandler: (data: any) => void;
@@ -63,7 +63,9 @@ export default function SigninScreen({
         <PasswordInputFragment passwordErrored={passwordErrored} />
         <ConfirmPasswordInputFragment errored={confirmPasswordErrored} />
 
-        <Button type='submit'>Cadastrar</Button>
+        <Button type='submit' isDisabled={false}>
+          Cadastrar
+        </Button>
       </Form.Root>
 
       <BackToLogon />

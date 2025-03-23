@@ -1,6 +1,6 @@
 import { FiUser, FiScissors } from 'react-icons/fi';
 
-import { Form } from '@components/molecules/form';
+import { Form } from '@/molecules/form';
 
 type NameInputFragmentType = {
   icon: 'user' | 'barber';

@@ -1,6 +1,6 @@
 import { FiLock } from 'react-icons/fi';
 
-import { Form } from '@components/molecules/form';
+import { Form } from '@/molecules/form';
 
 type ConfirmPasswordInputFragmentType = {
   errored: boolean;

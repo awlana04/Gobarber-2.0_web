@@ -1,8 +1,8 @@
 import { ElementType, InputHTMLAttributes } from 'react';
 
-import useHandleFilledHook from '@hooks/use-handle-filled-hook';
+import useHandleFilledHook from '@/hooks/use-handle-filled-hook';
 
-import Icon from '@components/atoms/icon';
+import Icon from '@/atoms/icon';
 
 type FormInputProps = InputHTMLAttributes<HTMLInputElement> & {
   iconName: ElementType;

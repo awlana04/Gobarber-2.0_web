@@ -2,9 +2,10 @@
 
 import { redirect } from 'next/navigation';
 
-import { AuthenticateFormHandler } from '@handlers/authenticate-form-handler';
+// import { AuthenticateFormHandler } from '@/handlers/authenticate-form-handler';
+import AuthenticateFormBackendAPI from '@/api/backend/form-backend-api';
 
-import LogonScreen from '@screens/logon-screen';
+import LogonScreen from '@/screens/logon-screen';
 
 import CreateUserService from '@/domain/services/create-user-service';
 
@@ -15,6 +16,7 @@ import AuthenticateUserFakeServer from '../server/authenticate-user-fake-server'
 import { useLayoutEffect } from 'react';
 import { useToast } from '../contexts/use-toast-context';
 import useHandleButtonDisabledHook from '../hooks/use-handle-button-disabled-hook';
+import AuthenticateFormSubmitHandler from '../handlers/authenticate-form-submit-handler';
 
 export default function LogonPage() {
   const { state, dispatch } = useHandleErroredContext();
@@ -31,46 +33,56 @@ export default function LogonPage() {
     }
   });
 
-  const submitHandler = async (formData: FormData) => {
-    const email = formData.get('email') as any;
-    const password = formData.get('password') as any;
+  const submitHandler = async () =>
+    await AuthenticateFormSubmitHandler(
+      dispatch,
+      handleEmailUsecase,
+      handlePasswordUsecase,
+      addToast
+    );
 
-    dispatch({ type: 'CHECK_PAGE_NAME', pageName: 'logon-page' });
+  // const submitHandler = async (formData: FormData) => {
+  //   const email = formData.get('email') as any;
+  //   const password = formData.get('password') as any;
 
-    await handleEmailUsecase(email);
-    await handlePasswordUsecase(password);
+  //   dispatch({ type: 'CHECK_PAGE_NAME', pageName: 'logon-page' });
 
-    // setIsButtonDisabled(false);
+  //   await handleEmailUsecase(email);
+  //   await handlePasswordUsecase(password);
 
-    const response =
-      process.env.NEXT_PUBLIC_ENV === 'dev'
-        ? await AuthenticateFormHandler({ email, password }).then((result) => {
-            if (!result.response.server.ok) {
-              addToast({
-                type: 'error',
-                title: 'Usuário não encontrado',
-                description: 'Email ou senha não encontrados!',
-              });
-            }
+  //   // setIsButtonDisabled(false);
 
-            return result.response.user;
-          })
-        : await AuthenticateUserFakeServer({ email, password });
+  //   const response =
+  //     process.env.NEXT_PUBLIC_ENV === 'dev'
+  //       ? await AuthenticateFormBackendAPI({ email, password }).then(
+  //           (result) => {
+  //             if (!result.server.ok) {
+  //               addToast({
+  //                 type: 'error',
+  //                 title: 'Usuário não encontrado',
+  //                 description: 'Email ou senha não encontrados!',
+  //               });
+  //             }
 
-    // if (response.server.ok) {
-    // if (response.user.barber) {
-    //   redirect('../dashboard/barber');
-    // } else {
-    //   redirect('../dashboard/client');
-    // }
-  };
+  //             return result.user;
+  //           }
+  //         )
+  //       : await AuthenticateUserFakeServer({ email, password });
+
+  //   // if (response.server.ok) {
+  //   // if (response.user.barber) {
+  //   //   redirect('../dashboard/barber');
+  //   // } else {
+  //   //   redirect('../dashboard/client');
+  //   // }
+  // };
 
   return (
     <LogonScreen
       submitHandler={submitHandler}
       emailValue={state.emailValue}
       emailErrored={state.isEmailErrored}
-      isButtonDisabled={isButtonDisabled}
+      isButtonDisabled={false}
       passwordErrored={state.isPasswordErrored}
     />
   );

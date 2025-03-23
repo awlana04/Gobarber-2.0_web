@@ -3,26 +3,26 @@
 import { redirect } from 'next/navigation';
 import { useLayoutEffect } from 'react';
 
-import useHandleAvatarHook from '@hooks/use-handle-avatar-hook';
-import useHandleUserHook from '@hooks/use-handle-user-hook';
+import useHandleAvatarHook from '@/hooks/use-handle-avatar-hook';
+import useHandleUserHook from '@/hooks/use-handle-user-hook';
 
 import { useToast } from '../contexts/use-toast-context';
 
-import { SigninFormHandler } from '@handlers/signin-form-handler';
+import { SigninFormHandler } from '@/handlers/signin-form-handler';
 
 import SigninScreen from '@/presentation/screens/signin-screen';
 
-import CreateUserService from '../../domain/services/create-user-service';
+import CreateUserService from '@/services/create-user-service';
 
-import CreateUserFakeServer from '../server/create-user-fake-server';
+import CreateUserFakeServer from '@/core/server/create-user-fake-server';
 
-import useNameUsecase from '../usecases/use-name-usecase';
-import useEmailUsecase from '../usecases/use-email-usecase';
-import usePasswordUsecase from '../usecases/use-password-usecase';
+import useNameUsecase from '@/usecases/use-name-usecase';
+import useEmailUsecase from '@/usecases/use-email-usecase';
+import usePasswordUsecase from '@/usecases/use-password-usecase';
 
-import { useHandleErroredContext } from '../contexts/use-handle-errored-context';
+import { useHandleErroredContext } from '@/contexts/use-handle-errored-context';
 
-import SigninPageMailFactory from '../factories/signin-page-mail-factory';
+import SigninPageMailFactory from '@/factories/signin-page-mail-factory';
 
 export default function SigninPage() {
   const { state, dispatch } = useHandleErroredContext();

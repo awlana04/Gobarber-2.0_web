@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { FiAlertCircle, FiCheckCircle, FiInfo, FiX } from 'react-icons/fi';
 
-import { useToast } from '@contexts/use-toast-context';
+import { useToast } from '@/contexts/use-toast-context';
 
 import { ToastMessageType } from '@/presentation/interfaces/toast-message-type';
 

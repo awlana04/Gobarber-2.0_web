@@ -1,7 +1,7 @@
 import { InputHTMLAttributes } from 'react';
 
-import Title from '@components/atoms/title';
-import Label from '@components/atoms/label';
+import Title from '@/atoms/title';
+import Label from '@/atoms/label';
 
 type FormTwoRadioButtonProps = InputHTMLAttributes<HTMLInputElement> & {
   isOpenAtNight: boolean;

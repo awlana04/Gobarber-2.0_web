@@ -2,7 +2,7 @@ import { ChangeEvent, InputHTMLAttributes } from 'react';
 import Image from 'next/image';
 import { FiX, FiPlus } from 'react-icons/fi';
 
-import Title from '@components/atoms/title';
+import Title from '@/atoms/title';
 
 type FormImagesInputProps = InputHTMLAttributes<HTMLImageElement> & {
   file: string | any;
