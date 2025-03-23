@@ -1,31 +1,15 @@
 'use client';
 
-import { redirect } from 'next/navigation';
+import { useLayoutEffect } from 'react';
 
-// import { AuthenticateFormHandler } from '@/handlers/authenticate-form-handler';
-import AuthenticateFormBackendAPI from '@/api/backend/form-backend-api';
+import { useHandleErroredContext } from '@/contexts/use-handle-errored-context';
+
+import useAuthenticateFormSubmitHandler from '@/handlers/authenticate-form-submit-handler';
 
 import LogonScreen from '@/screens/logon-screen';
 
-import CreateUserService from '@/domain/services/create-user-service';
-
-import useEmailUsecase from '../usecases/use-email-usecase';
-import usePasswordUsecase from '../usecases/use-password-usecase';
-import { useHandleErroredContext } from '../contexts/use-handle-errored-context';
-import AuthenticateUserFakeServer from '../server/authenticate-user-fake-server';
-import { useLayoutEffect } from 'react';
-import { useToast } from '../contexts/use-toast-context';
-import useHandleButtonDisabledHook from '../hooks/use-handle-button-disabled-hook';
-import AuthenticateFormSubmitHandler from '../handlers/authenticate-form-submit-handler';
-
 export default function LogonPage() {
   const { state, dispatch } = useHandleErroredContext();
-  const { addToast } = useToast();
-  const { isButtonDisabled, setIsButtonDisabled } =
-    useHandleButtonDisabledHook();
-
-  const { handleEmailUsecase } = useEmailUsecase();
-  const { handlePasswordUsecase } = usePasswordUsecase();
 
   useLayoutEffect(() => {
     if (state.pageName !== 'logon-page') {
@@ -33,49 +17,7 @@ export default function LogonPage() {
     }
   });
 
-  const submitHandler = async () =>
-    await AuthenticateFormSubmitHandler(
-      dispatch,
-      handleEmailUsecase,
-      handlePasswordUsecase,
-      addToast
-    );
-
-  // const submitHandler = async (formData: FormData) => {
-  //   const email = formData.get('email') as any;
-  //   const password = formData.get('password') as any;
-
-  //   dispatch({ type: 'CHECK_PAGE_NAME', pageName: 'logon-page' });
-
-  //   await handleEmailUsecase(email);
-  //   await handlePasswordUsecase(password);
-
-  //   // setIsButtonDisabled(false);
-
-  //   const response =
-  //     process.env.NEXT_PUBLIC_ENV === 'dev'
-  //       ? await AuthenticateFormBackendAPI({ email, password }).then(
-  //           (result) => {
-  //             if (!result.server.ok) {
-  //               addToast({
-  //                 type: 'error',
-  //                 title: 'Usuário não encontrado',
-  //                 description: 'Email ou senha não encontrados!',
-  //               });
-  //             }
-
-  //             return result.user;
-  //           }
-  //         )
-  //       : await AuthenticateUserFakeServer({ email, password });
-
-  //   // if (response.server.ok) {
-  //   // if (response.user.barber) {
-  //   //   redirect('../dashboard/barber');
-  //   // } else {
-  //   //   redirect('../dashboard/client');
-  //   // }
-  // };
+  const { submitHandler } = useAuthenticateFormSubmitHandler();
 
   return (
     <LogonScreen

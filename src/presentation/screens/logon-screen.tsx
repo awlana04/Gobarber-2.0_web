@@ -17,7 +17,7 @@ type LogonScreenProps = {
   passwordErrored: boolean;
   emailValue: string;
   isButtonDisabled: boolean;
-  submitHandler: () => Promise<void>;
+  submitHandler: (data: any) => void;
 };
 
 export default function LogonScreen({
