@@ -31,17 +31,19 @@ export default function useAuthenticateFormSubmitHandler() {
       description: 'Email ou senha não encontrados!',
     });
 
+    const authenticateFormBackendAPI = new AuthenticateFormBackendAPI();
+
     const response =
       process.env.NEXT_PUBLIC_ENV === 'dev'
-        ? await AuthenticateFormBackendAPI({ email, password }).then(
-            (result) => {
+        ? await authenticateFormBackendAPI
+            .run({ email, password })
+            .then((result) => {
               if (!result.server.ok) {
                 authenticateErrorToast;
               }
 
               return result.user;
-            }
-          )
+            })
         : await AuthenticateFormFrontendFakeAPI({ email, password });
 
     // if (response.server.ok) {
