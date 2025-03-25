@@ -1,4 +1,4 @@
-export default interface IFetchAPIData {
+export default interface FetchAPIDataModel {
   fetch(
     path: string,
     fetchOptions?: {

@@ -10,14 +10,14 @@ export default class ManageDataInBrowser implements ManageDataInBrowserModel {
   }
 
   async updateData(keyName: string, data: any): Promise<any> {
-    const storedData = this.getData(keyName);
+    const storedData = await this.getData(keyName);
 
     if (!storedData) {
       throw new Error('No stored data in browser with this key name!');
     } else {
       localStorage.removeItem(keyName);
 
-      return this.saveData(keyName, data);
+      return await this.saveData(keyName, data);
     }
   }
 

@@ -6,8 +6,9 @@ import usePasswordUsecase from '@/usecases/use-password-usecase';
 
 import AuthenticateFormBackendAPI from '@/api/backend/authenticate-form-backend-api';
 import AuthenticateFormFrontendFakeAPI from '@/api/frontend/authenticate-form-frontend-fake-api';
-import FetchAPIBase from '@/api/fetch-api-base';
-import ManageDataInBrowser from '../adapters/implementations/manage-data-in-browser-model';
+
+import FetchAPIData from '@/adapters/implementations/fetch-api-data';
+import ManageDataInBrowser from '@/adapters/implementations/manage-data-in-browser-model';
 
 export default function useAuthenticateFormSubmitHandler() {
   const { dispatch } = useHandleErroredContext();
@@ -34,7 +35,7 @@ export default function useAuthenticateFormSubmitHandler() {
     });
 
     const authenticateFormBackendAPI = new AuthenticateFormBackendAPI(
-      new FetchAPIBase(),
+      new FetchAPIData(),
       new ManageDataInBrowser()
     );
 

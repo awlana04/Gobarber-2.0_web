@@ -1,5 +1,5 @@
+import FetchAPIDataModel from '@/adapters/models/fetch-api-data-model';
 import ManageDataInBrowserModel from '@/adapters/models/manage-data-in-browser-model';
-import IFetchAPIData from '@/infra/interfaces/i-form-backend-api';
 
 type AuthenticateFormType = {
   email: string;
@@ -30,7 +30,7 @@ type AuthenticateData = {
 
 export default class AuthenticateFormBackendAPI {
   constructor(
-    private readonly fetchAPIData: IFetchAPIData,
+    private readonly fetchAPIData: FetchAPIDataModel,
     private readonly manageDataInBrowser: ManageDataInBrowserModel
   ) {}
 

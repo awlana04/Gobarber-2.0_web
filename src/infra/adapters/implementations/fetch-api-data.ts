@@ -1,6 +1,6 @@
-import IFetchAPIData from '@/infra/interfaces/i-form-backend-api';
+import FetchAPIDataModel from '@/adapters/models/fetch-api-data-model';
 
-export default class FetchAPIBase implements IFetchAPIData {
+export default class FetchAPIData implements FetchAPIDataModel {
   public async fetch(
     path: string,
     fetchOptions?: {
