@@ -1,3 +1,4 @@
+import ManageDataInBrowserModel from '@/adapters/models/manage-data-in-browser-model';
 import IFetchAPIData from '@/infra/interfaces/i-form-backend-api';
 
 type AuthenticateFormType = {
@@ -28,7 +29,10 @@ type AuthenticateData = {
 };
 
 export default class AuthenticateFormBackendAPI {
-  constructor(private readonly fetchAPIData: IFetchAPIData) {}
+  constructor(
+    private readonly fetchAPIData: IFetchAPIData,
+    private readonly manageDataInBrowser: ManageDataInBrowserModel
+  ) {}
 
   public async run(
     data: AuthenticateFormType
@@ -44,14 +48,20 @@ export default class AuthenticateFormBackendAPI {
       .then(async (response) => {
         const user = (await response.json()) as AuthenticateData;
 
-        localStorage.clear();
+        await this.manageDataInBrowser.clearAllData();
 
         if (response.ok) {
-          localStorage.setItem('@GoBarber:token', user.token);
-          localStorage.setItem('@GoBarber:user', JSON.stringify(user));
+          await this.manageDataInBrowser.saveData(
+            '@GoBarber:token',
+            user.token
+          );
+          await this.manageDataInBrowser.saveData(
+            '@GoBarber:user',
+            JSON.stringify(user)
+          );
 
           if (user.barber !== null) {
-            localStorage.setItem(
+            await this.manageDataInBrowser.saveData(
               '@GoBarber:barber',
               JSON.stringify(user.barber)
             );
@@ -61,28 +71,3 @@ export default class AuthenticateFormBackendAPI {
       });
   }
 }
-
-// const AuthenticateFormBackendAPI = async (data: AuthenticateFormType) =>
-//   await FetchAPIBase('/users/session/', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     data,
-//   }).then(async (response) => {
-//     const user = (await response.json()) as AuthenticateData;
-
-//     localStorage.clear();
-
-//     if (response.ok) {
-//       localStorage.setItem('@GoBarber:token', user.token);
-//       localStorage.setItem('@GoBarber:user', JSON.stringify(user));
-
-//       if (user.barber !== null) {
-//         localStorage.setItem('@GoBarber:barber', JSON.stringify(user.barber));
-//       }
-//     }
-//     return { server: response, user };
-//   });
-
-// export default AuthenticateFormBackendAPI;
