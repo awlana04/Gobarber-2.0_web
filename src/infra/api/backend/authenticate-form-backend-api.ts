@@ -1,4 +1,4 @@
-import FetchAPIBase from '../fetch-api-base';
+import IFetchAPIData from '@/infra/interfaces/i-form-backend-api';
 
 type AuthenticateFormType = {
   email: string;
@@ -28,30 +28,37 @@ type AuthenticateData = {
 };
 
 export default class AuthenticateFormBackendAPI {
+  constructor(private readonly fetchAPIData: IFetchAPIData) {}
+
   public async run(
     data: AuthenticateFormType
   ): Promise<{ server: Response; user: AuthenticateData }> {
-    return await FetchAPIBase('/users/session/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      data,
-    }).then(async (response) => {
-      const user = (await response.json()) as AuthenticateData;
+    return await this.fetchAPIData
+      .fetch('/users/session/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        data,
+      })
+      .then(async (response) => {
+        const user = (await response.json()) as AuthenticateData;
 
-      localStorage.clear();
+        localStorage.clear();
 
-      if (response.ok) {
-        localStorage.setItem('@GoBarber:token', user.token);
-        localStorage.setItem('@GoBarber:user', JSON.stringify(user));
+        if (response.ok) {
+          localStorage.setItem('@GoBarber:token', user.token);
+          localStorage.setItem('@GoBarber:user', JSON.stringify(user));
 
-        if (user.barber !== null) {
-          localStorage.setItem('@GoBarber:barber', JSON.stringify(user.barber));
+          if (user.barber !== null) {
+            localStorage.setItem(
+              '@GoBarber:barber',
+              JSON.stringify(user.barber)
+            );
+          }
         }
-      }
-      return { server: response, user };
-    });
+        return { server: response, user };
+      });
   }
 }
 

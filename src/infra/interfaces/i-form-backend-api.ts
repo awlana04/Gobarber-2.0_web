@@ -1,5 +1,10 @@
-export default interface IFormBackendAPI {
-  AuthenticateFormBackendApi(
-    data: any
-  ): Promise<{ server: Response; user: any }>;
+export default interface IFetchAPIData {
+  fetch(
+    path: string,
+    fetchOptions?: {
+      method: string;
+      headers: any;
+      data: any;
+    }
+  ): Promise<Response>;
 }

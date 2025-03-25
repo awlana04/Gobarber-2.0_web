@@ -6,6 +6,7 @@ import usePasswordUsecase from '@/usecases/use-password-usecase';
 
 import AuthenticateFormBackendAPI from '@/api/backend/authenticate-form-backend-api';
 import AuthenticateFormFrontendFakeAPI from '@/api/frontend/authenticate-form-frontend-fake-api';
+import FetchAPIBase from '@/api/fetch-api-base';
 
 export default function useAuthenticateFormSubmitHandler() {
   const { dispatch } = useHandleErroredContext();
@@ -31,7 +32,9 @@ export default function useAuthenticateFormSubmitHandler() {
       description: 'Email ou senha não encontrados!',
     });
 
-    const authenticateFormBackendAPI = new AuthenticateFormBackendAPI();
+    const authenticateFormBackendAPI = new AuthenticateFormBackendAPI(
+      new FetchAPIBase()
+    );
 
     const response =
       process.env.NEXT_PUBLIC_ENV === 'dev'
