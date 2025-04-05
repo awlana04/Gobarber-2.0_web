@@ -51,18 +51,12 @@ export default class AuthenticateFormAPI {
         await this.manageDataInBrowser.clearAllData();
 
         if (response.ok) {
-          await this.manageDataInBrowser.saveData(
-            '@GoBarber:token',
-            user.token
-          );
-          await this.manageDataInBrowser.saveData(
-            '@GoBarber:user',
-            JSON.stringify(user)
-          );
+          await this.manageDataInBrowser.saveData('user', user.token);
+          await this.manageDataInBrowser.saveData('user', JSON.stringify(user));
 
           if (user.barber !== null) {
             await this.manageDataInBrowser.saveData(
-              '@GoBarber:barber',
+              'barber',
               JSON.stringify(user.barber)
             );
           }
@@ -82,9 +76,9 @@ export default class AuthenticateFormAPI {
       if (selectedUser) {
         const token = `gobarber_fake_server_token-${Math.random().toExponential(12).toString()}`;
 
-        await this.manageDataInBrowser.saveData('@GoBarber:token', token);
+        await this.manageDataInBrowser.saveData('token', token);
         await this.manageDataInBrowser.saveData(
-          '@GoBarber:user',
+          'user',
           JSON.stringify(selectedUser)
         );
       } else {
