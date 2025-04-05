@@ -4,8 +4,7 @@ import { useToast } from '@/contexts/use-toast-context';
 import useEmailUsecase from '@/usecases/use-email-usecase';
 import usePasswordUsecase from '@/usecases/use-password-usecase';
 
-import AuthenticateFormBackendAPI from '@/api/backend/authenticate-form-backend-api';
-import AuthenticateFormFrontendFakeAPI from '@/api/frontend/authenticate-form-frontend-fake-api';
+import AuthenticateFormAPI from '@/api/authenticate-form-backend-api';
 
 import FetchAPIData from '@/adapters/implementations/fetch-api-data';
 import ManageDataInBrowser from '@/adapters/implementations/manage-data-in-browser-model';
@@ -32,23 +31,21 @@ export default function useAuthenticateFormSubmitHandler() {
         description: 'Email ou senha não encontrados!',
       });
 
-    const authenticateFormBackendAPI = new AuthenticateFormBackendAPI(
+    const authenticateFormAPI = new AuthenticateFormAPI(
       new FetchAPIData(),
       new ManageDataInBrowser()
     );
 
     const response =
       process.env.NEXT_PUBLIC_ENV === 'dev'
-        ? await authenticateFormBackendAPI
-            .run({ email, password })
-            .then((result) => {
-              if (!result.server.ok) {
-                authenticateErrorToast();
-              }
+        ? await authenticateFormAPI.go({ email, password }).then((result) => {
+            if (!result.server.ok) {
+              authenticateErrorToast();
+            }
 
-              return result.user;
-            })
-        : await AuthenticateFormFrontendFakeAPI({ email, password });
+            return result.user;
+          })
+        : await authenticateFormAPI.fake({ email, password });
 
     // if (response.server.ok) {
     // if (response.user.barber) {

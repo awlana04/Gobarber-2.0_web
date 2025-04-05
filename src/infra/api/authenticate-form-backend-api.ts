@@ -28,13 +28,13 @@ type AuthenticateData = {
   barber: object;
 };
 
-export default class AuthenticateFormBackendAPI {
+export default class AuthenticateFormAPI {
   constructor(
     private readonly fetchAPIData: FetchAPIDataModel,
     private readonly manageDataInBrowser: ManageDataInBrowserModel
   ) {}
 
-  public async run(
+  public async go(
     data: AuthenticateFormType
   ): Promise<{ server: Response; user: AuthenticateData }> {
     return await this.fetchAPIData
@@ -69,5 +69,27 @@ export default class AuthenticateFormBackendAPI {
         }
         return { server: response, user };
       });
+  }
+
+  public async fake(data: AuthenticateFormType) {
+    return await this.fetchAPIData.fetch('/users').then(async (response) => {
+      const user = (await response.json()) as Array<AuthenticateFormType>;
+
+      const selectedUser = user.find(
+        (user) => user.email === data.email && user.password === data.password
+      );
+
+      if (selectedUser) {
+        const token = `gobarber_fake_server_token-${Math.random().toExponential(12).toString()}`;
+
+        await this.manageDataInBrowser.saveData('@GoBarber:token', token);
+        await this.manageDataInBrowser.saveData(
+          '@GoBarber:user',
+          JSON.stringify(selectedUser)
+        );
+      } else {
+        alert('User not found');
+      }
+    });
   }
 }
