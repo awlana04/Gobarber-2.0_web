@@ -17,10 +17,7 @@ export default function useAuthenticateFormSubmitHandler() {
   const { handleEmailUsecase } = useEmailUsecase();
   const { handlePasswordUsecase } = usePasswordUsecase();
 
-  const submitHandler = async (formData: FormData) => {
-    const email = formData.get('email') as any;
-    const password = formData.get('password') as any;
-
+  const submitHandler = async (email: string, password: string) => {
     dispatch({ type: 'CHECK_PAGE_NAME', pageName: 'logon-page' });
 
     await handleEmailUsecase(email);
@@ -28,11 +25,12 @@ export default function useAuthenticateFormSubmitHandler() {
 
     // setIsButtonDisabled(false);
 
-    const authenticateErrorToast = addToast({
-      type: 'error',
-      title: 'Usuário não encontrado',
-      description: 'Email ou senha não encontrados!',
-    });
+    const authenticateErrorToast = () =>
+      addToast({
+        type: 'error',
+        title: 'Usuário não encontrado',
+        description: 'Email ou senha não encontrados!',
+      });
 
     const authenticateFormBackendAPI = new AuthenticateFormBackendAPI(
       new FetchAPIData(),
@@ -45,7 +43,7 @@ export default function useAuthenticateFormSubmitHandler() {
             .run({ email, password })
             .then((result) => {
               if (!result.server.ok) {
-                authenticateErrorToast;
+                authenticateErrorToast();
               }
 
               return result.user;

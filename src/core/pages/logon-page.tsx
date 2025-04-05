@@ -1,14 +1,20 @@
-import { useLayoutEffect } from 'react';
+import { Ref, useLayoutEffect } from 'react';
 
 import { useHandleErroredContext } from '@/contexts/use-handle-errored-context';
 
 import LogonScreen from '@/screens/logon-screen';
 
 type LogonPageType = {
+  emailRef: Ref<HTMLInputElement>;
+  passwordRef: Ref<HTMLInputElement>;
   submitHandler: (data: any) => void;
 };
 
-export default function LogonPage({ submitHandler }: LogonPageType) {
+export default function LogonPage({
+  emailRef,
+  passwordRef,
+  submitHandler,
+}: LogonPageType) {
   const { state, dispatch } = useHandleErroredContext();
 
   useLayoutEffect(() => {
@@ -19,6 +25,8 @@ export default function LogonPage({ submitHandler }: LogonPageType) {
 
   return (
     <LogonScreen
+      emailRef={emailRef}
+      passwordRef={passwordRef}
       submitHandler={submitHandler}
       emailValue={state.emailValue}
       emailErrored={state.isEmailErrored}

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Ref } from 'react';
 
 import Button from '@/atoms/button';
 import CreateAccount from '@/atoms/create-account';
@@ -17,6 +18,8 @@ type LogonScreenProps = {
   passwordErrored: boolean;
   emailValue: string;
   isButtonDisabled: boolean;
+  emailRef: Ref<HTMLInputElement>;
+  passwordRef: Ref<HTMLInputElement>;
   submitHandler: (data: any) => void;
 };
 
@@ -25,6 +28,8 @@ export default function LogonScreen({
   passwordErrored,
   emailValue,
   isButtonDisabled,
+  emailRef,
+  passwordRef,
   submitHandler,
 }: LogonScreenProps) {
   return (
@@ -34,8 +39,15 @@ export default function LogonScreen({
       </h1>
 
       <Form.Root submitHandler={submitHandler}>
-        <EmailInputFragment emailErrored={emailErrored} value={emailValue} />
-        <PasswordInputFragment passwordErrored={passwordErrored} />
+        <EmailInputFragment
+          emailErrored={emailErrored}
+          emailRef={emailRef}
+          value={emailValue}
+        />
+        <PasswordInputFragment
+          passwordErrored={passwordErrored}
+          passwordRef={passwordRef}
+        />
 
         <Button type='submit' isDisabled={isButtonDisabled}>
           Entrar

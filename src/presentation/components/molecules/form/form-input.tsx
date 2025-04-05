@@ -1,4 +1,4 @@
-import { ElementType, InputHTMLAttributes } from 'react';
+import { ElementType, InputHTMLAttributes, Ref } from 'react';
 
 import useHandleFilledHook from '@/hooks/use-handle-filled-hook';
 
@@ -9,6 +9,7 @@ type FormInputProps = InputHTMLAttributes<HTMLInputElement> & {
   name: string;
   type: 'email' | 'password' | 'text';
   placeholder: string;
+  ref: Ref<HTMLInputElement>;
   value?: string;
   errored: boolean;
 };
@@ -18,6 +19,7 @@ export default function FormInput({
   type,
   name,
   value,
+  ref,
   placeholder,
   errored,
   ...rest
@@ -35,6 +37,7 @@ export default function FormInput({
         type={type}
         name={name}
         {...rest}
+        ref={ref}
         defaultValue={value}
         placeholder={placeholder}
         data-filled={isFilled}
