@@ -12,13 +12,14 @@ export default function LogonWindow() {
 
   const { submitHandler } = useAuthenticateFormSubmitHandler();
 
+  const submit = () =>
+    submitHandler(emailRef.current!.value, passwordRef.current!.value);
+
   return (
     <LogonPage
       emailRef={emailRef}
       passwordRef={passwordRef}
-      submitHandler={() =>
-        submitHandler(emailRef.current!.value, passwordRef.current!.value)
-      }
+      submitHandler={submit}
     />
   );
 }

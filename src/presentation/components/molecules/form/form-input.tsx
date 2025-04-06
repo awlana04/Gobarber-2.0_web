@@ -1,4 +1,4 @@
-import { ElementType, InputHTMLAttributes, Ref } from 'react';
+import { ElementType, InputHTMLAttributes } from 'react';
 
 import useHandleFilledHook from '@/hooks/use-handle-filled-hook';
 

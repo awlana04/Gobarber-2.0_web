@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { EmailInputPropsType } from '@/presentation/types/email-input-props-type';
 import { PasswordInputPropsType } from '@/presentation/types/password-input-props-type';
+import { SubmitHandlerType } from '@/presentation/types/submit-handler-type';
 
 import Button from '@/atoms/button';
 import CreateAccount from '@/atoms/create-account';
@@ -16,33 +17,25 @@ import ContentTemplate from '@/templates/content-template';
 import image from '@/public/gobarber_image002.svg';
 
 type LogonScreenProps = EmailInputPropsType &
-  PasswordInputPropsType & {
-    submitHandler: (data: any) => void;
-  };
+  PasswordInputPropsType &
+  SubmitHandlerType;
 
-export default function LogonScreen({
-  emailErrored,
-  passwordErrored,
-  emailValue,
-  emailRef,
-  passwordRef,
-  submitHandler,
-}: LogonScreenProps) {
+export default function LogonScreen(props: LogonScreenProps) {
   return (
     <ContentTemplate position='right' src={image} alt='Imagem da barbearia'>
       <h1 className='my-6 mt-10 text-2xl font-medium max-sm:mt-4'>
         Faça seu Logon
       </h1>
 
-      <Form.Root submitHandler={submitHandler}>
+      <Form.Root submitHandler={props.submitHandler}>
         <EmailInputFragment
-          emailErrored={emailErrored}
-          emailRef={emailRef}
-          emailValue={emailValue}
+          emailErrored={props.emailErrored}
+          emailRef={props.emailRef}
+          emailValue={props.emailValue}
         />
         <PasswordInputFragment
-          passwordErrored={passwordErrored}
-          passwordRef={passwordRef}
+          passwordErrored={props.passwordErrored}
+          passwordRef={props.passwordRef}
         />
 
         <Button type='submit' isDisabled={false}>
