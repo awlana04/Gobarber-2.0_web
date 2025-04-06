@@ -1,5 +1,7 @@
 import Link from 'next/link';
-import { Ref } from 'react';
+
+import { EmailInputPropsType } from '@/presentation/types/email-input-props-type';
+import { PasswordInputPropsType } from '@/presentation/types/password-input-props-type';
 
 import Button from '@/atoms/button';
 import CreateAccount from '@/atoms/create-account';
@@ -13,21 +15,15 @@ import ContentTemplate from '@/templates/content-template';
 
 import image from '@/public/gobarber_image002.svg';
 
-type LogonScreenProps = {
-  emailErrored: boolean;
-  passwordErrored: boolean;
-  emailValue: string;
-  isButtonDisabled: boolean;
-  emailRef: Ref<HTMLInputElement>;
-  passwordRef: Ref<HTMLInputElement>;
-  submitHandler: (data: any) => void;
-};
+type LogonScreenProps = EmailInputPropsType &
+  PasswordInputPropsType & {
+    submitHandler: (data: any) => void;
+  };
 
 export default function LogonScreen({
   emailErrored,
   passwordErrored,
   emailValue,
-  isButtonDisabled,
   emailRef,
   passwordRef,
   submitHandler,
@@ -42,14 +38,14 @@ export default function LogonScreen({
         <EmailInputFragment
           emailErrored={emailErrored}
           emailRef={emailRef}
-          value={emailValue}
+          emailValue={emailValue}
         />
         <PasswordInputFragment
           passwordErrored={passwordErrored}
           passwordRef={passwordRef}
         />
 
-        <Button type='submit' isDisabled={isButtonDisabled}>
+        <Button type='submit' isDisabled={false}>
           Entrar
         </Button>
       </Form.Root>

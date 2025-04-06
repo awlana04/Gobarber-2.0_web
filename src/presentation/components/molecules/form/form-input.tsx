@@ -4,15 +4,15 @@ import useHandleFilledHook from '@/hooks/use-handle-filled-hook';
 
 import Icon from '@/atoms/icon';
 
-type FormInputProps = InputHTMLAttributes<HTMLInputElement> & {
-  iconName: ElementType;
-  name: string;
-  type: 'email' | 'password' | 'text';
-  placeholder: string;
-  ref: Ref<HTMLInputElement>;
-  value?: string;
-  errored: boolean;
-};
+import { BaseInputPropsType } from '@/presentation/types/input-props-mapped-type';
+
+type FormInputProps = InputHTMLAttributes<HTMLInputElement> &
+  BaseInputPropsType & {
+    iconName: ElementType;
+    name: string;
+    type: 'email' | 'password' | 'text';
+    placeholder: string;
+  };
 
 export default function FormInput({
   iconName,

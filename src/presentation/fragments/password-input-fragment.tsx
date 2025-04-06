@@ -1,17 +1,13 @@
 import { FiLock } from 'react-icons/fi';
 
-import { Form } from '@/molecules/form';
-import { Ref } from 'react';
+import { PasswordInputPropsType } from '@/presentation/types/password-input-props-type';
 
-type PasswordInputFragmentType = {
-  passwordErrored: boolean;
-  passwordRef: Ref<HTMLInputElement>;
-};
+import { Form } from '@/molecules/form';
 
 export default function PasswordInputFragment({
   passwordErrored,
   passwordRef,
-}: PasswordInputFragmentType) {
+}: PasswordInputPropsType) {
   return (
     <>
       <Form.Input

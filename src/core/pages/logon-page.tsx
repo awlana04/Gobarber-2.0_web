@@ -1,14 +1,19 @@
-import { Ref, useLayoutEffect } from 'react';
+import { useLayoutEffect } from 'react';
+
+import { PasswordInputPropsType } from '@/presentation/types/password-input-props-type';
+import { EmailInputPropsType } from '@/presentation/types/email-input-props-type';
 
 import { useHandleErroredContext } from '@/contexts/use-handle-errored-context';
 
 import LogonScreen from '@/screens/logon-screen';
 
-type LogonPageType = {
-  emailRef: Ref<HTMLInputElement>;
-  passwordRef: Ref<HTMLInputElement>;
-  submitHandler: (data: any) => void;
-};
+type EmailInputRef = Pick<EmailInputPropsType, 'emailRef'>;
+type PasswordInputRef = Pick<PasswordInputPropsType, 'passwordRef'>;
+
+type LogonPageType = EmailInputRef &
+  PasswordInputRef & {
+    submitHandler: (data: any) => void;
+  };
 
 export default function LogonPage({
   emailRef,
@@ -30,7 +35,6 @@ export default function LogonPage({
       submitHandler={submitHandler}
       emailValue={state.emailValue}
       emailErrored={state.isEmailErrored}
-      isButtonDisabled={false}
       passwordErrored={state.isPasswordErrored}
     />
   );

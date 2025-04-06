@@ -1,30 +1,23 @@
 import { FiMail } from 'react-icons/fi';
 
-import { Form } from '@/molecules/form';
-import { Ref } from 'react';
+import { EmailInputPropsType } from '@/presentation/types/email-input-props-type';
 
-type EmailInputFragmentType = {
-  emailErrored: boolean;
-  emailRef: Ref<HTMLInputElement>;
-  value: string;
-};
+import { Form } from '@/molecules/form';
 
 export default function EmailInputFragment({
   emailErrored,
   emailRef,
-  value,
-}: EmailInputFragmentType) {
+  emailValue,
+}: EmailInputPropsType) {
   return (
-    <>
-      <Form.Input
-        value={value}
-        iconName={FiMail}
-        type='email'
-        ref={emailRef}
-        placeholder='E-mail'
-        name='email'
-        errored={emailErrored}
-      />
-    </>
+    <Form.Input
+      value={emailValue}
+      iconName={FiMail}
+      type='email'
+      ref={emailRef}
+      placeholder='E-mail'
+      name='email'
+      errored={emailErrored}
+    />
   );
 }
