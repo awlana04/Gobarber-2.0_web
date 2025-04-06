@@ -1,10 +1,11 @@
 import Form from 'next/form';
 
-type FormRootProps = {
+import { SubmitHandlerType } from '@/presentation/types/submit-handler-type';
+
+type FormRootProps = SubmitHandlerType & {
   children: React.ReactNode;
-  submitHandler: (data: FormData) => void;
 };
 
-export default function FormRoot({ children, submitHandler }: FormRootProps) {
-  return <Form action={submitHandler}>{children}</Form>;
+export default function FormRoot({ children, ...props }: FormRootProps) {
+  return <Form action={props.submitHandler}>{children}</Form>;
 }

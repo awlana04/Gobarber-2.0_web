@@ -1,47 +1,35 @@
-import { ElementType, InputHTMLAttributes } from 'react';
-
-import useHandleFilledHook from '@/hooks/use-handle-filled-hook';
+import { BaseInputPropsType } from '@/presentation/types/input-props-mapped-type';
 
 import Icon from '@/atoms/icon';
 
-import { BaseInputPropsType } from '@/presentation/types/input-props-mapped-type';
-
-type FormInputProps = InputHTMLAttributes<HTMLInputElement> &
+type FormInputProps = React.InputHTMLAttributes<HTMLInputElement> &
   BaseInputPropsType & {
-    iconName: ElementType;
+    iconName: React.ElementType;
     name: string;
     type: 'email' | 'password' | 'text';
     placeholder: string;
   };
 
-export default function FormInput({
-  iconName,
-  type,
-  name,
-  value,
-  ref,
-  placeholder,
-  errored,
-  ...rest
-}: FormInputProps) {
-  const { isFilled, handleFilled } = useHandleFilledHook();
-
+export default function FormInput(props: FormInputProps) {
   return (
     <div
       className='group relative flex flex-col items-center py-2'
-      onChange={handleFilled}
+      onChange={props.handleFilled}
     >
-      <Icon icon={iconName} filled={isFilled} errored={errored} />
+      <Icon
+        icon={props.iconName}
+        filled={props.filled}
+        errored={props.errored}
+      />
 
       <input
-        type={type}
-        name={name}
-        {...rest}
-        ref={ref}
-        defaultValue={value}
-        placeholder={placeholder}
-        data-filled={isFilled}
-        data-errored={errored}
+        type={props.type}
+        name={props.name}
+        ref={props.ref}
+        defaultValue={props.value}
+        placeholder={props.placeholder}
+        data-filled={props.filled}
+        data-errored={props.errored}
         className='bg-input text-orange placeholder:text-input-text focus:ring-orange focus:placeholder:text-orange data-[errored=true]:text-red data-[errored=true]:ring-red data-[filled=true]:data-[errored=false]:ring-orange data-[errored=true]:placeholder:text-red h-14 w-96 flex-row rounded-2xl px-12 outline-hidden focus:ring-2 data-[errored=true]:ring-2 data-[filled=true]:ring-2 max-lg:w-80 max-sm:w-72 max-sm:px-10'
       />
     </div>

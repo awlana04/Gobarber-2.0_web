@@ -2,10 +2,10 @@ import Link from 'next/link';
 
 import ContentTemplate from '../templates/content-template';
 
-import Button from '@components/atoms/button';
-import CreateAccount from '@components/atoms/create-account';
+import Button from '@/components/atoms/button';
+import CreateAccount from '@/components/atoms/create-account';
 
-import image from '@public/gobarber_image001.svg';
+import image from '@/public/gobarber_image001.svg';
 
 export default function LandingScreen() {
   return (

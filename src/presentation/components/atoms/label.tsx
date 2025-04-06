@@ -1,15 +1,13 @@
-import { InputHTMLAttributes, ReactNode } from 'react';
-
-type LabelProps = InputHTMLAttributes<HTMLInputElement> & {
+type LabelProps = React.InputHTMLAttributes<HTMLInputElement> & {
   htmlFor: string;
-  children: ReactNode;
+  children: React.ReactNode;
 };
 
-export default function Label({ htmlFor, children }: LabelProps) {
+export default function Label({ children, ...props }: LabelProps) {
   return (
     <label
-      htmlFor={htmlFor}
-      className='cursor-pointer justify-center rounded-lg p-3 px-6 text-center hover:bg-input peer-checked:bg-orange peer-checked:text-buttonText'
+      htmlFor={props.htmlFor}
+      className='hover:bg-input peer-checked:bg-orange peer-checked:text-buttonText cursor-pointer justify-center rounded-lg p-3 px-6 text-center'
     >
       {children}
     </label>

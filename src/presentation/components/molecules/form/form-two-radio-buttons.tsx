@@ -1,21 +1,14 @@
-import { InputHTMLAttributes } from 'react';
-
 import Title from '@/atoms/title';
 import Label from '@/atoms/label';
 
-type FormTwoRadioButtonProps = InputHTMLAttributes<HTMLInputElement> & {
+type FormTwoRadioButtonProps = React.InputHTMLAttributes<HTMLInputElement> & {
   isOpenAtNight: boolean;
   setIsOpenAtNight(state: boolean): void;
   isOpenOnWeekends: boolean;
   setIsOpenOnWeekends(state: boolean): void;
 };
 
-export default function FormTwoRadioButton({
-  isOpenAtNight,
-  setIsOpenAtNight,
-  isOpenOnWeekends,
-  setIsOpenOnWeekends,
-}: FormTwoRadioButtonProps) {
+export default function FormTwoRadioButton(props: FormTwoRadioButtonProps) {
   return (
     <div className='flex- my-2 flex flex-col p-4'>
       <Title>Sua barbearia abre à noite?</Title>
@@ -25,8 +18,8 @@ export default function FormTwoRadioButton({
           <input
             type='radio'
             id='openAtNightYes'
-            checked={isOpenAtNight === true}
-            onChange={() => setIsOpenAtNight(true)}
+            checked={props.isOpenAtNight === true}
+            onChange={() => props.setIsOpenAtNight(true)}
             className='peer hidden'
           />
 
@@ -37,8 +30,8 @@ export default function FormTwoRadioButton({
           <input
             type='radio'
             id='openAtNightNo'
-            checked={isOpenAtNight === false}
-            onChange={() => setIsOpenAtNight(false)}
+            checked={props.isOpenAtNight === false}
+            onChange={() => props.setIsOpenAtNight(false)}
             className='peer hidden'
           />
 
@@ -53,8 +46,8 @@ export default function FormTwoRadioButton({
           <input
             type='radio'
             id='openOnWeekendsYes'
-            checked={isOpenOnWeekends === true}
-            onChange={() => setIsOpenOnWeekends(true)}
+            checked={props.isOpenOnWeekends === true}
+            onChange={() => props.setIsOpenOnWeekends(true)}
             className='peer hidden'
           />
 
@@ -65,8 +58,8 @@ export default function FormTwoRadioButton({
           <input
             type='radio'
             id='openOnWeekendsNo'
-            checked={isOpenOnWeekends === false}
-            onChange={() => setIsOpenOnWeekends(false)}
+            checked={props.isOpenOnWeekends === false}
+            onChange={() => props.setIsOpenOnWeekends(false)}
             className='peer hidden'
           />
 

@@ -1,25 +1,20 @@
 import { FiMapPin } from 'react-icons/fi';
 
-import { Form } from '@components/molecules/form';
+import { TextareaInputPropsType } from '../types/textarea-input-props-type';
 
-type LocationInputFragmentType = {
-  errored: boolean;
-  value: string;
-};
+import { Form } from '@/components/molecules/form';
 
-export default function LocationInputFragment({
-  errored,
-  value,
-}: LocationInputFragmentType) {
+export default function LocationInputFragment(props: TextareaInputPropsType) {
   return (
-    <>
-      <Form.Textarea
-        value={value}
-        placeholder='Selecione o lugar no mapa'
-        name='location'
-        iconName={FiMapPin}
-        errored={errored}
-      />
-    </>
+    <Form.Textarea
+      textareaValue={props.textareaValue}
+      placeholder='Selecione o lugar no mapa'
+      name='location'
+      iconName={FiMapPin}
+      textareaErrored={props.textareaErrored}
+      textareaFilled={props.textareaFilled}
+      textareaRef={props.textareaRef}
+      handleTextareaFilled={props.handleTextareaFilled}
+    />
   );
 }

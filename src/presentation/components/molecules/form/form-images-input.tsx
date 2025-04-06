@@ -1,24 +1,17 @@
-import { ChangeEvent, InputHTMLAttributes } from 'react';
 import Image from 'next/image';
 import { FiX, FiPlus } from 'react-icons/fi';
 
+import { ImagePropsType } from '@/presentation/types/image-props-type';
+
 import Title from '@/atoms/title';
 
-type FormImagesInputProps = InputHTMLAttributes<HTMLImageElement> & {
-  file: string | any;
-  fileUrl: string | any;
-  setFile: (file: any) => void;
-  setFileUrl: (file: any) => void;
-  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
-};
+type FormImagesInputProps = React.InputHTMLAttributes<HTMLImageElement> &
+  ImagePropsType & {
+    setFile: (file: any) => void;
+    setFileUrl: (file: any) => void;
+  };
 
-export default function FormImagesInput({
-  file,
-  setFile,
-  fileUrl,
-  setFileUrl,
-  handleChange,
-}: FormImagesInputProps) {
+export default function FormImagesInput(props: FormImagesInputProps) {
   return (
     <div className='h-fit w-fit items-center justify-center'>
       <Title>Fotos</Title>
@@ -27,14 +20,14 @@ export default function FormImagesInput({
         type='file'
         id='images[]'
         multiple
-        onChange={handleChange}
+        onChange={props.handleChange}
         className='file hidden'
         test-id='images'
       />
 
-      {file && fileUrl && (
+      {props.file && props.fileUrl && (
         <div className='flex h-fit w-96 flex-wrap gap-4'>
-          {fileUrl.map((image: any) => {
+          {props.fileUrl.map((image: any) => {
             return (
               <div
                 key={image}
@@ -42,19 +35,21 @@ export default function FormImagesInput({
               >
                 <div
                   onClick={() => {
-                    const imageFile = fileUrl.findIndex(
+                    const imageFile = props.fileUrl.findIndex(
                       (file: any) => file === image
                     );
 
-                    const fileIndex = file.at(imageFile);
+                    const fileIndex = props.file.at(imageFile);
 
-                    setFile(
-                      file.filter(
+                    props.setFile(
+                      props.file.filter(
                         (files: any) => files.name !== fileIndex!.name
                       )
                     );
 
-                    setFileUrl(fileUrl.filter((files: any) => files !== image));
+                    props.setFileUrl(
+                      props.fileUrl.filter((files: any) => files !== image)
+                    );
                   }}
                   className='bg-orange text-inputText hover:bg-red absolute grid cursor-pointer items-center justify-center rounded-se-lg rounded-bl-lg p-2 text-2xl hover:h-28 hover:w-28 hover:rounded-lg hover:text-4xl hover:opacity-60'
                 >

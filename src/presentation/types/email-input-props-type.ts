@@ -5,5 +5,7 @@ export type EmailInputPropsType = Required<
     ref: 'emailRef';
     value: 'emailValue';
     errored: 'emailErrored';
+    filled: 'emailFilled';
+    handleFilled: 'handleEmailFilled';
   }>
 >;

@@ -1,9 +1,9 @@
-import { Ref } from 'react';
-
 export type BaseInputPropsType = {
-  ref: Ref<HTMLInputElement>;
+  ref: React.Ref<HTMLInputElement>;
   value?: string;
   errored: boolean;
+  filled: boolean;
+  handleFilled(event: React.ChangeEvent<HTMLInputElement>): void;
 };
 
 export type InputPropsMappedType<Properties> = {

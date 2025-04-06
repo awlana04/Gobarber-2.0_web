@@ -1,28 +1,22 @@
-import { ChangeEvent, InputHTMLAttributes } from 'react';
 import Image from 'next/image';
 import { FiCamera } from 'react-icons/fi';
 
+import { ImagePropsType } from '@/presentation/types/image-props-type';
+
 import logo from '@/public/gobarber_logo.svg';
 
-type FormAvatarButtonProps = InputHTMLAttributes<HTMLImageElement> & {
-  file: string | any;
-  fileUrl: string | any;
-  handleChange(event: ChangeEvent<HTMLInputElement>): any;
-  handleRemove(): void;
-};
+type FormAvatarButtonProps = React.InputHTMLAttributes<HTMLImageElement> &
+  ImagePropsType & {
+    handleRemove(): void;
+  };
 
-export default function FormAvatarButton({
-  file,
-  fileUrl,
-  handleChange,
-  handleRemove,
-}: FormAvatarButtonProps) {
+export default function FormAvatarButton(props: FormAvatarButtonProps) {
   return (
     <div className='group hover:bg-input-text m-auto flex h-28 w-28 cursor-pointer rounded-full bg-white text-white'>
       <input
         type='file'
         id='avatar'
-        onChange={handleChange}
+        onChange={props.handleChange}
         className='file hidden cursor-pointer'
       />
 
@@ -38,14 +32,14 @@ export default function FormAvatarButton({
         </p>
       </label>
 
-      {file && fileUrl && (
+      {props.file && props.fileUrl && (
         <div
-          onClick={handleRemove}
+          onClick={props.handleRemove}
           className='group absolute m-auto cursor-pointer'
         >
           <Image
-            src={fileUrl}
-            alt={file.name}
+            src={props.fileUrl}
+            alt={props.file.name}
             className='h-28 w-28 rounded-full opacity-100'
             width={112}
             height={112}
