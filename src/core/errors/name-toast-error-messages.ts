@@ -1,9 +1,11 @@
-import { NAME_MESSAGES } from '../constants/name-messages';
+import { NAME_MESSAGES } from '@/constants/name-messages';
+
+import { ErrorsMessageType } from '@/core/types/errors-message-type';
 
 const type = 'error';
 const title = NAME_MESSAGES.NAME_TITLE;
 
-export const nameError = {
+export const nameError: ErrorsMessageType = {
   Required: {
     title,
     type,

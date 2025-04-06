@@ -1,7 +1,9 @@
+import { useToast } from '@/contexts/use-toast-context';
+import { useHandleErroredContext } from '@/contexts/use-handle-errored-context';
+
 import EmailErrorHandling from '@/domain/validations/email-error-handling';
-import { emailError } from '../errors/email-toast-error-messages';
-import { useToast } from '../contexts/use-toast-context';
-import { useHandleErroredContext } from '../contexts/use-handle-errored-context';
+
+import { emailError } from '@/core/errors/email-toast-error-messages';
 
 export default function useEmailUsecase() {
   const { addToast } = useToast();
@@ -21,17 +23,15 @@ export default function useEmailUsecase() {
     ) {
       case emailLength: {
         dispatch({ type: 'SET_EMAIL_ERROR', value: { emailValue: email } }),
-          addToast(emailError.Length as any);
+          addToast(emailError.Length);
         break;
       }
       case emailExists: {
-        dispatch({ type: 'SET_EMAIL_ERROR' }),
-          addToast(emailError.Required as any);
+        dispatch({ type: 'SET_EMAIL_ERROR' }), addToast(emailError.Required);
         break;
       }
       case emailIsValid: {
-        dispatch({ type: 'SET_EMAIL_ERROR' }),
-          addToast(emailError.Valid as any);
+        dispatch({ type: 'SET_EMAIL_ERROR' }), addToast(emailError.Valid!);
         break;
       }
       default:

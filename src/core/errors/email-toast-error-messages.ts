@@ -1,9 +1,11 @@
-import { EMAIL_MESSAGES } from '../constants/email-messages';
+import { EMAIL_MESSAGES } from '@/constants/email-messages';
+
+import { ErrorsMessageType } from '@/core/types/errors-message-type';
 
 const type = 'error';
 const title = EMAIL_MESSAGES.EMAIL_TITLE;
 
-export const emailError = {
+export const emailError: ErrorsMessageType = {
   Length: {
     type,
     title,
