@@ -1,67 +1,78 @@
 import ContentTemplate from '@/templates/content-template';
 
-import { AvatarType } from '@/presentation/interfaces/avatar-type';
-import { RadioType } from '@/presentation/interfaces/radio-type';
+import BackToLogon from '@/atoms/back-to-logon';
+import Button from '@/atoms/button';
+
+import { Form } from '@/molecules/form';
 
 import NameInputFragment from '@/fragments/name-input-fragment';
 import EmailInputFragment from '@/fragments/email-input-fragment';
 import PasswordInputFragment from '@/fragments/password-input-fragment';
 import ConfirmPasswordInputFragment from '@/fragments/confirm-password-input-fragment';
 
-import BackToLogon from '@/atoms/back-to-logon';
-import Button from '@/atoms/button';
-
-import { Form } from '@/molecules/form';
+import { AvatarInputPropsType } from '@/presentation/types/avatar-input-props-type';
+import { RadioButtonPropsType } from '@/presentation/types/radio-button-props-type';
+import { NameInputPropsType } from '@/presentation/types/name-input-props-type';
+import { EmailInputPropsType } from '@/presentation/types/email-input-props-type';
+import { PasswordInputPropsType } from '@/presentation/types/password-input-props-type';
+import { ConfirmPasswordInputPropsType } from '@/presentation/types/confirm-password-input-props-type';
+import { SubmitHandlerType } from '@/presentation/types/submit-handler-type';
 
 import image from '@/public/gobarber_image003.svg';
 
-type SigninProps = {
-  submitHandler: (data: any) => void;
-  avatar: AvatarType;
-  radio: RadioType;
-  confirmPasswordErrored: boolean;
-  nameErrored: boolean;
-  nameValue: string;
-  emailErrored: boolean;
-  emailValue: string;
-  passwordErrored: boolean;
-};
+type SigninPropsType = AvatarInputPropsType &
+  RadioButtonPropsType &
+  NameInputPropsType &
+  EmailInputPropsType &
+  PasswordInputPropsType &
+  ConfirmPasswordInputPropsType &
+  SubmitHandlerType;
 
-export default function SigninScreen({
-  submitHandler,
-  avatar,
-  radio,
-  confirmPasswordErrored,
-  nameValue,
-  emailValue,
-  nameErrored,
-  emailErrored,
-  passwordErrored,
-}: SigninProps) {
+export default function SigninScreen(props: SigninPropsType) {
   return (
     <ContentTemplate position='left' src={image} alt='Foto da barbearia'>
-      <Form.Root submitHandler={submitHandler}>
+      <Form.Root submitHandler={props.submitHandler}>
         <Form.Avatar
-          file={avatar.file}
-          fileUrl={avatar.fileUrl}
-          handleChange={avatar.handleChange}
-          handleRemove={avatar.handleRemove}
+          file={props.file}
+          fileUrl={props.fileUrl}
+          handleChange={props.handleChange}
+          handleRemove={props.handleRemove}
         />
 
         <Form.Radio
           isBarber={false}
-          isBarberSelected={radio.isBarberSelected}
-          setIsBarberSelected={radio.setIsBarberSelected}
+          isBarberSelected={props.isBarberSelected}
+          setIsBarberSelected={props.setIsBarberSelected}
         />
 
         <NameInputFragment
           icon='user'
-          nameErrored={nameErrored}
-          value={nameValue}
+          placeholder='Nome'
+          nameRef={props.nameRef}
+          nameValue={props.nameValue}
+          nameErrored={props.nameErrored}
+          nameFilled={props.nameFilled}
+          handleNameFilled={props.handleNameFilled}
         />
-        <EmailInputFragment emailErrored={emailErrored} value={emailValue} />
-        <PasswordInputFragment passwordErrored={passwordErrored} />
-        <ConfirmPasswordInputFragment errored={confirmPasswordErrored} />
+        <EmailInputFragment
+          emailRef={props.emailRef}
+          emailValue={props.emailValue}
+          emailErrored={props.emailErrored}
+          emailFilled={props.emailFilled}
+          handleEmailFilled={props.handleEmailFilled}
+        />
+        <PasswordInputFragment
+          passwordRef={props.passwordRef}
+          passwordErrored={props.passwordErrored}
+          passwordFilled={props.passwordFilled}
+          handlePasswordFilled={props.handlePasswordFilled}
+        />
+        <ConfirmPasswordInputFragment
+          confirmPasswordRef={props.confirmPasswordRef}
+          confirmPasswordErrored={props.confirmPasswordErrored}
+          confirmPasswordFilled={props.confirmPasswordFilled}
+          handleConfirmPasswordFilled={props.handleConfirmPasswordFilled}
+        />
 
         <Button type='submit' isDisabled={false}>
           Cadastrar

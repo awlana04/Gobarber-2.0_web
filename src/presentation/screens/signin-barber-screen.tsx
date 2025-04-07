@@ -1,83 +1,78 @@
-import { FiScissors } from 'react-icons/fi';
+import ContentTemplate from '@/templates/content-template';
 
-import ContentTemplate from '../templates/content-template';
+import BackToLogon from '@/atoms/back-to-logon';
+import Button from '@/atoms/button';
 
-import BackToLogon from '@components/atoms/back-to-logon';
-import Button from '@components/atoms/button';
+import { Form } from '@/molecules/form';
 
-import { Form } from '@components/molecules/form';
+import NameInputFragment from '../fragments/name-input-fragment';
+import LocationInputFragment from '@/fragments/location-input-fragment';
+import DescriptionInputFragment from '@/fragments/description-input-fragment';
 
-import LocationInputFragment from '../fragments/location-input-fragment';
-import DescriptionInputFragment from '../fragments/description-input-fragment';
-
-import { ImagesType } from '@interfaces/images-type';
-import { RadioType } from '@interfaces/radio-type';
+import { NameInputPropsType } from '@/presentation/types/name-input-props-type';
+import { DescriptionInputPropsType } from '@/presentation/types/description-input-props-type';
+import { LocationInputPropsType } from '@/presentation/types/location-input-props-type';
+import { FormImagesInputProps } from '../types/form-images-input-props-type';
+import { FormTwoRadioButtonProps } from '../types/two-radio-buttons-props-type';
+import { SubmitHandlerType } from '@/presentation/types/submit-handler-type';
 
 import image from '@public/gobarber_image004.svg';
 
-type SigninBarberScreenType = {
-  submitHandler(data: any): void;
-  images: ImagesType;
-  nameErrored: boolean;
-  nameValue: string;
-  locationErrored: boolean;
-  descriptionErrored: boolean;
-  openAtNight: RadioType;
-  locationValue: string;
-  descriptionValue: string;
-  openOnWeekends: RadioType;
-};
+type SigninBarberScreenType = NameInputPropsType &
+  DescriptionInputPropsType &
+  LocationInputPropsType &
+  FormImagesInputProps &
+  FormTwoRadioButtonProps &
+  SubmitHandlerType;
 
-export default function SigninBarberScreen({
-  submitHandler,
-  images,
-  nameErrored,
-  locationErrored,
-  descriptionErrored,
-  nameValue,
-  locationValue,
-  descriptionValue,
-  openAtNight,
-  openOnWeekends,
-}: SigninBarberScreenType) {
+export default function SigninBarberScreen(props: SigninBarberScreenType) {
   return (
     <ContentTemplate position='left' src={image} alt='Imagem da barbearia'>
-      <Form.Root submitHandler={submitHandler}>
+      <Form.Root submitHandler={props.submitHandler}>
         <LocationInputFragment
-          value={locationValue}
-          errored={locationErrored}
+          descriptionRef={props.descriptionRef}
+          descriptionValue={props.locationValue}
+          descriptionErrored={props.locationErrored}
+          descriptionFilled={props.descriptionFilled}
+          handleDescriptionFilled={props.handleDescriptionFilled}
         />
 
-        <Form.Input
-          iconName={FiScissors}
-          type='text'
-          name='barberName'
+        <NameInputFragment
+          icon='barber'
           placeholder='Nome da barbearia'
-          value={nameValue}
-          errored={nameErrored}
+          nameRef={props.nameRef}
+          nameValue={props.nameValue}
+          nameErrored={props.nameErrored}
+          nameFilled={props.nameFilled}
+          handleNameFilled={props.handleNameFilled}
         />
 
         <DescriptionInputFragment
-          value={descriptionValue}
-          errored={descriptionErrored}
+          descriptionRef={props.descriptionRef}
+          descriptionValue={props.descriptionValue}
+          descriptionErrored={props.descriptionErrored}
+          descriptionFilled={props.descriptionFilled}
+          handleDescriptionFilled={props.handleDescriptionFilled}
         />
 
         <Form.Images
-          file={images.file}
-          fileUrl={images.fileUrl}
-          setFile={images.setFile}
-          setFileUrl={images.setFileUrl}
-          handleChange={images.handleChange}
+          file={props.file}
+          fileUrl={props.fileUrl}
+          setFile={props.setFile}
+          setFileUrl={props.setFileUrl}
+          handleChange={props.handleChange}
         />
 
         <Form.TwoRadio
-          isOpenAtNight={openAtNight.isBarberSelected}
-          setIsOpenAtNight={openAtNight.setIsBarberSelected}
-          isOpenOnWeekends={openOnWeekends.isBarberSelected}
-          setIsOpenOnWeekends={openOnWeekends.setIsBarberSelected}
+          isOpenAtNight={props.isOpenAtNight}
+          setIsOpenAtNight={props.setIsOpenAtNight}
+          isOpenOnWeekends={props.isOpenOnWeekends}
+          setIsOpenOnWeekends={props.setIsOpenOnWeekends}
         />
 
-        <Button type='submit'>Cadastrar</Button>
+        <Button type='submit' isDisabled={false}>
+          Cadastrar
+        </Button>
       </Form.Root>
 
       <BackToLogon />

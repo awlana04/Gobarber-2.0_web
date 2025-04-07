@@ -1,15 +1,9 @@
 import Image from 'next/image';
 import { FiX, FiPlus } from 'react-icons/fi';
 
-import { ImagePropsType } from '@/presentation/types/image-props-type';
+import { FormImagesInputProps } from '@/presentation/types/form-images-input-props-type';
 
 import Title from '@/atoms/title';
-
-type FormImagesInputProps = React.InputHTMLAttributes<HTMLImageElement> &
-  ImagePropsType & {
-    setFile: (file: any) => void;
-    setFileUrl: (file: any) => void;
-  };
 
 export default function FormImagesInput(props: FormImagesInputProps) {
   return (

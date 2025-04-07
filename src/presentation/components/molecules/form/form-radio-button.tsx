@@ -1,12 +1,8 @@
 import Label from '@/atoms/label';
 
-type FormRadioButtonProps = React.InputHTMLAttributes<HTMLInputElement> & {
-  isBarberSelected: boolean;
-  isBarber: boolean;
-  setIsBarberSelected(state: boolean): void;
-};
+import { RadioButtonPropsType } from '@/presentation/types/radio-button-props-type';
 
-export default function FormRadioButton(props: FormRadioButtonProps) {
+export default function FormRadioButton(props: RadioButtonPropsType) {
   return (
     <div className='my-2 mt-6 flex items-center justify-center p-4'>
       <div className='mr-24'>

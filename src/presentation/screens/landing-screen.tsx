@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import ContentTemplate from '../templates/content-template';
+import ContentTemplate from '@/templates/content-template';
 
 import Button from '@/components/atoms/button';
 import CreateAccount from '@/components/atoms/create-account';
@@ -24,7 +24,9 @@ export default function LandingScreen() {
       </p>
 
       <Link href='./logon'>
-        <Button type='button'>Fazer logon</Button>
+        <Button type='button' isDisabled={false}>
+          Fazer logon
+        </Button>
       </Link>
 
       <CreateAccount />

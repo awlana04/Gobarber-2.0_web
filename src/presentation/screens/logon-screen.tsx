@@ -4,6 +4,8 @@ import { EmailInputPropsType } from '@/presentation/types/email-input-props-type
 import { PasswordInputPropsType } from '@/presentation/types/password-input-props-type';
 import { SubmitHandlerType } from '@/presentation/types/submit-handler-type';
 
+import ContentTemplate from '@/templates/content-template';
+
 import Button from '@/atoms/button';
 import CreateAccount from '@/atoms/create-account';
 
@@ -11,8 +13,6 @@ import { Form } from '@/molecules/form';
 
 import EmailInputFragment from '@/fragments/email-input-fragment';
 import PasswordInputFragment from '@/fragments/password-input-fragment';
-
-import ContentTemplate from '@/templates/content-template';
 
 import image from '@/public/gobarber_image002.svg';
 
@@ -29,13 +29,17 @@ export default function LogonScreen(props: LogonScreenProps) {
 
       <Form.Root submitHandler={props.submitHandler}>
         <EmailInputFragment
-          emailErrored={props.emailErrored}
           emailRef={props.emailRef}
           emailValue={props.emailValue}
+          emailErrored={props.emailErrored}
+          emailFilled={props.emailFilled}
+          handleEmailFilled={props.handleEmailFilled}
         />
         <PasswordInputFragment
-          passwordErrored={props.passwordErrored}
           passwordRef={props.passwordRef}
+          passwordErrored={props.passwordErrored}
+          passwordFilled={props.passwordFilled}
+          handlePasswordFilled={props.handlePasswordFilled}
         />
 
         <Button type='submit' isDisabled={false}>

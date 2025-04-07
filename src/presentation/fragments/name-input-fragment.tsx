@@ -6,6 +6,7 @@ import { Form } from '@/molecules/form';
 
 type NameInputFragmentType = NameInputPropsType & {
   icon: 'user' | 'barber';
+  placeholder: string;
 };
 
 export default function NameInputFragment(props: NameInputFragmentType) {
@@ -15,7 +16,7 @@ export default function NameInputFragment(props: NameInputFragmentType) {
       iconName={props.icon === 'user' ? FiUser : FiScissors}
       type='text'
       name='name'
-      placeholder='Nome'
+      placeholder={props.placeholder}
       errored={props.nameErrored}
       filled={props.nameFilled}
       ref={props.nameRef}

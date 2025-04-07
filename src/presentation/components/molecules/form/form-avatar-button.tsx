@@ -1,14 +1,9 @@
 import Image from 'next/image';
 import { FiCamera } from 'react-icons/fi';
 
-import { ImagePropsType } from '@/presentation/types/image-props-type';
+import { FormAvatarButtonProps } from '@/presentation/types/avatar-input-props-type';
 
 import logo from '@/public/gobarber_logo.svg';
-
-type FormAvatarButtonProps = React.InputHTMLAttributes<HTMLImageElement> &
-  ImagePropsType & {
-    handleRemove(): void;
-  };
 
 export default function FormAvatarButton(props: FormAvatarButtonProps) {
   return (
