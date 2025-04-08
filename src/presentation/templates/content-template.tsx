@@ -1,12 +1,11 @@
 import Image from 'next/image';
-import { ReactNode } from 'react';
 
 import AsideImage from './components/aside-image';
 
 import GoBarberLogo from '@/public/gobarber_logo001.svg';
 
 type ContentTemplateType = {
-  children: ReactNode;
+  children: React.ReactNode;
   position: 'left' | 'right';
   src: string;
   alt: string;
@@ -14,13 +13,13 @@ type ContentTemplateType = {
 
 export default function ContentTemplate({
   children,
-  position,
-  src,
-  alt,
+  ...props
 }: ContentTemplateType) {
   return (
     <main className='flex'>
-      {position === 'left' && <AsideImage src={src} alt={alt} />}
+      {props.position === 'left' && (
+        <AsideImage src={props.src} alt={props.alt} />
+      )}
 
       <section className='flex w-screen flex-col items-center justify-center'>
         <Image
@@ -34,7 +33,9 @@ export default function ContentTemplate({
         {children}
       </section>
 
-      {position === 'right' && <AsideImage src={src} alt={alt} />}
+      {props.position === 'right' && (
+        <AsideImage src={props.src} alt={props.alt} />
+      )}
     </main>
   );
 }

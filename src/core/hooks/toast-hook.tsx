@@ -8,9 +8,9 @@ import {
   useContext,
 } from 'react';
 
-import ToastContainer from '@/presentation/components/molecules/toast-container';
+import ToastContainer from '@/core/utils/toast-container';
 
-import { ToastMessageType } from '@/presentation/interfaces/toast-message-type';
+import { ToastMessageType } from '@/core/types/toast-message-type';
 
 import { ToastContext } from '@/contexts/use-toast-context';
 

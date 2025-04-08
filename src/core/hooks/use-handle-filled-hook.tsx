@@ -3,15 +3,15 @@
 import { useState } from 'react';
 
 export default function useHandleFilledHook() {
-  const [isFilled, setIsFilled] = useState(false);
+  const [fieldFilled, setFieldFilled] = useState(['']);
 
-  const handleFilled = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFieldFilled = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.value) {
-      setIsFilled(true);
+      setFieldFilled([...fieldFilled, event.target.name]);
     } else {
-      setIsFilled(false);
+      setFieldFilled([]);
     }
   };
 
-  return { isFilled, handleFilled };
+  return { fieldFilled, handleFieldFilled };
 }

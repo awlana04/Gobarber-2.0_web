@@ -4,20 +4,18 @@ import { EmailInputPropsType } from '@/presentation/types/email-input-props-type
 
 import { Form } from '@/molecules/form';
 
-export default function EmailInputFragment({
-  emailErrored,
-  emailRef,
-  emailValue,
-}: EmailInputPropsType) {
+export default function EmailInputFragment(props: EmailInputPropsType) {
   return (
     <Form.Input
-      value={emailValue}
+      value={props.emailValue}
       iconName={FiMail}
       type='email'
-      ref={emailRef}
+      ref={props.emailRef}
       placeholder='E-mail'
       name='email'
-      errored={emailErrored}
+      errored={props.emailErrored}
+      filled={props.emailFilled}
+      handleFilled={props.handleEmailFilled}
     />
   );
 }

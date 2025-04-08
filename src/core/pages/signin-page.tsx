@@ -22,7 +22,7 @@ import usePasswordUsecase from '@/usecases/use-password-usecase';
 
 import { useHandleErroredContext } from '@/contexts/use-handle-errored-context';
 
-import SigninPageMailFactory from '@/factories/signin-page-mail-factory';
+// import SigninPageMailFactory from '@/factories/signin-page-mail-factory';
 
 export default function SigninPage() {
   const { state, dispatch } = useHandleErroredContext();

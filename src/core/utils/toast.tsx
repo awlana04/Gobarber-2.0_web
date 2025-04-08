@@ -5,7 +5,11 @@ import { useToast } from '@/contexts/use-toast-context';
 
 import { ToastMessageType } from '@/core/types/toast-message-type';
 
-export default function Toast(message: ToastMessageType) {
+type ToastProps = {
+  message: ToastMessageType;
+};
+
+export default function Toast({ message }: ToastProps) {
   const { removeToast } = useToast();
 
   useEffect(() => {
