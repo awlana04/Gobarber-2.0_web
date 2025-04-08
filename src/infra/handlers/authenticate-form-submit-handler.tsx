@@ -4,7 +4,7 @@ import { useToast } from '@/contexts/use-toast-context';
 import useEmailUsecase from '@/usecases/use-email-usecase';
 import usePasswordUsecase from '@/usecases/use-password-usecase';
 
-import AuthenticateFormAPI from '@/api/authenticate-form-backend-api';
+import AuthenticateFormAPI from '@/api/authenticate-form-api';
 
 import FetchAPIData from '@/adapters/implementations/fetch-api-data';
 import ManageDataInBrowser from '@/adapters/implementations/manage-data-in-browser-model';
@@ -45,7 +45,13 @@ export default function useAuthenticateFormSubmitHandler() {
 
             return result.user;
           })
-        : await authenticateFormAPI.fake({ email, password });
+        : await authenticateFormAPI
+            .fake({ email, password })
+            .catch((error: Error) => {
+              if (error) {
+                authenticateErrorToast();
+              }
+            });
 
     // if (response.server.ok) {
     // if (response.user.barber) {

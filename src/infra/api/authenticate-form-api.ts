@@ -15,7 +15,18 @@ type AuthenticateData = {
     avatar: string;
     createdAt: string;
     updatedAt: string;
-    barber: object;
+    barber: {
+      id: string;
+      name: string;
+      location: string;
+      description: string;
+      images: [];
+      openAtNight: boolean;
+      openOnWeekends: boolean;
+      userId: string;
+      createdAt: string;
+      updatedAt: string;
+    };
   };
   token: string;
   refreshToken: {
@@ -25,7 +36,18 @@ type AuthenticateData = {
     createdAt: string;
     updatedAt: string;
   };
-  barber: object;
+  barber: {
+    id: string;
+    name: string;
+    location: string;
+    description: string;
+    images: [];
+    openAtNight: boolean;
+    openOnWeekends: boolean;
+    userId: string;
+    createdAt: string;
+    updatedAt: string;
+  };
 };
 
 export default class AuthenticateFormAPI {
@@ -82,7 +104,7 @@ export default class AuthenticateFormAPI {
           JSON.stringify(selectedUser)
         );
       } else {
-        alert('User not found');
+        throw new Error('User not found');
       }
     });
   }
