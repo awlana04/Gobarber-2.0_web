@@ -13,25 +13,6 @@
       "email": "jane@doe.com",
       "password": "12345678",
       "location": "Somewhere Over the Rainbow"
-    },
-    {
-      "id": "0736",
-      "name": "Awlana Costa",
-      "email": "cawlana040@gmail.com",
-      "password": "12345678",
-      "location": "Somewhere Over the Rainbow"
-    }
-  ],
-  "barbers": [
-    {
-      "barberName": "John Doe Barber",
-      "location": "Somewhere Over the Rainbow",
-      "description": "It's a really nice place!",
-      "images": [],
-      "openAtNight": true,
-      "openOnWeekends": true,
-      "userId": "78c3",
-      "id": "00db"
     }
   ]
 }

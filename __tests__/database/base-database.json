@@ -1,0 +1,18 @@
+{
+  "users": [
+    {
+      "id": "78c3",
+      "name": "John Doe",
+      "email": "john@doe.com",
+      "password": "12345678",
+      "location": "Somewhere Over the Rainbow"
+    },
+    {
+      "id": "b3ae",
+      "name": "Jane Doe",
+      "email": "jane@doe.com",
+      "password": "12345678",
+      "location": "Somewhere Over the Rainbow"
+    }
+  ]
+}
