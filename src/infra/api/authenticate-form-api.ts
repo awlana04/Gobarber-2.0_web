@@ -13,8 +13,8 @@ type AuthenticateData = {
     email: string;
     location: string;
     avatar: string;
-    createdAt: string;
-    updatedAt: string;
+    createdAt: Date;
+    updatedAt: Date;
     barber: {
       id: string;
       name: string;
@@ -24,8 +24,8 @@ type AuthenticateData = {
       openAtNight: boolean;
       openOnWeekends: boolean;
       userId: string;
-      createdAt: string;
-      updatedAt: string;
+      createdAt: Date;
+      updatedAt: Date;
     };
   };
   token: string;
@@ -33,8 +33,8 @@ type AuthenticateData = {
     id: string;
     expiresIn: number;
     userId: string;
-    createdAt: string;
-    updatedAt: string;
+    createdAt: Date;
+    updatedAt: Date;
   };
   barber: {
     id: string;
@@ -45,8 +45,8 @@ type AuthenticateData = {
     openAtNight: boolean;
     openOnWeekends: boolean;
     userId: string;
-    createdAt: string;
-    updatedAt: string;
+    createdAt: Date;
+    updatedAt: Date;
   };
 };
 
@@ -83,6 +83,7 @@ export default class AuthenticateFormAPI {
             );
           }
         }
+
         return { server: response, user };
       });
   }

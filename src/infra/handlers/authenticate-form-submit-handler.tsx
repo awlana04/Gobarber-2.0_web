@@ -31,6 +31,13 @@ export default function useAuthenticateFormSubmitHandler() {
         description: 'Email ou senha não encontrados!',
       });
 
+    const notFoundError = () =>
+      addToast({
+        type: 'error',
+        title: 'Usuário não encontrado',
+        description: 'Não identificamos nenhum usuário com o email informado!',
+      });
+
     const authenticateFormAPI = new AuthenticateFormAPI(
       new FetchAPIData(),
       new ManageDataInBrowser()
@@ -39,8 +46,22 @@ export default function useAuthenticateFormSubmitHandler() {
     const response =
       process.env.NEXT_PUBLIC_ENV === 'dev'
         ? await authenticateFormAPI.go({ email, password }).then((result) => {
-            if (!result.server.ok) {
-              authenticateErrorToast();
+            const status = result.server.status;
+            const serverAlright = result.server.ok;
+
+            switch (!serverAlright || status) {
+              case status === 406:
+                authenticateErrorToast();
+                break;
+              case status === 404:
+                notFoundError();
+                break;
+              case !serverAlright:
+                authenticateErrorToast();
+                break;
+              default:
+                authenticateErrorToast();
+                break;
             }
 
             return result.user;
