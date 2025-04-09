@@ -4,7 +4,6 @@ import { useHandleErroredContext } from '@/contexts/use-handle-errored-context';
 import EmailErrorHandling from '@/domain/validations/email-error-handling';
 
 import { emailError } from '@/core/errors/email-toast-error-messages';
-import useHandleErroredHook from '../hooks/errored-hook';
 
 export default function useEmailUsecase() {
   const { addToast } = useToast();

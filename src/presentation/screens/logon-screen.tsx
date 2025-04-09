@@ -18,7 +18,9 @@ import image from '@/public/gobarber_image002.svg';
 
 type LogonScreenProps = EmailInputPropsType &
   PasswordInputPropsType &
-  SubmitHandlerType;
+  SubmitHandlerType & {
+    buttonDisabled: boolean;
+  };
 
 export default function LogonScreen(props: LogonScreenProps) {
   return (
@@ -42,7 +44,7 @@ export default function LogonScreen(props: LogonScreenProps) {
           handlePasswordFilled={props.handlePasswordFilled}
         />
 
-        <Button type='submit' isDisabled={false}>
+        <Button type='submit' isDisabled={props.buttonDisabled}>
           Entrar
         </Button>
       </Form.Root>

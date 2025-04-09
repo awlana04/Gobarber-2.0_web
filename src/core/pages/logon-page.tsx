@@ -26,6 +26,8 @@ export default function LogonPage(props: LogonPageType) {
     }
   });
 
+  // console.log(!!(fieldFilled.length !== 2), fieldFilled.length, fieldFilled);
+
   return (
     <LogonScreen
       emailRef={props.emailRef}
@@ -38,6 +40,7 @@ export default function LogonPage(props: LogonPageType) {
       passwordFilled={!!fieldFilled.find((password) => password === 'password')}
       handlePasswordFilled={handleFieldFilled}
       submitHandler={props.submitHandler}
+      buttonDisabled={!!(fieldFilled.length !== 2)}
     />
   );
 }
