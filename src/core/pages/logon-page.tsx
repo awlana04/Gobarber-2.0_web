@@ -26,8 +26,6 @@ export default function LogonPage(props: LogonPageType) {
     }
   });
 
-  // console.log(!!(fieldFilled.length !== 2), fieldFilled.length, fieldFilled);
-
   return (
     <LogonScreen
       emailRef={props.emailRef}
