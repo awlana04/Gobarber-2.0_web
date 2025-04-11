@@ -79,7 +79,7 @@ export default function SigninScreen(props: SigninPropsType) {
         </Button>
       </Form.Root>
 
-      <BackToLogon language='pt-br' />
+      <BackToLogon />
     </ContentTemplate>
   );
 }

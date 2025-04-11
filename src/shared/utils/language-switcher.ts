@@ -1,16 +1,8 @@
-import { AvailableLanguagesType } from '@/presentation/types/available-languages-type';
-
-import AvailableLanguages from './available-languages';
-
-import EnUs from '@/presentation/languages/en-us.json';
-
-export const LanguageSwitcher = (
-  language: AvailableLanguagesType,
+const LanguageSwitcher = (
+  availableLanguages: (false | {})[],
   defaultLanguage: {},
   text: string
 ) => {
-  const { availableLanguages } = AvailableLanguages(language);
-
   // transform the default language into an Array
   const defaultLanguageIntoArray = Object.entries(defaultLanguage).map(
     ([key, value]) => ({
@@ -43,3 +35,5 @@ export const LanguageSwitcher = (
   // return the translated text to be used in TSX
   return findTextInChosenLanguage.value;
 };
+
+export default LanguageSwitcher;
