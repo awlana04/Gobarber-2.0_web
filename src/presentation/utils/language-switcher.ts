@@ -1,25 +1,23 @@
 import { AvailableLanguagesType } from '@/presentation/types/available-languages-type';
 
-import PtBr from '@/presentation/languages/pt-br.json';
+import AvailableLanguages from './available-languages';
+
 import EnUs from '@/presentation/languages/en-us.json';
 
 export const LanguageSwitcher = (
   language: AvailableLanguagesType,
+  defaultLanguage: {},
   text: string
 ) => {
-  // direct the languages' path
-  // if the language was not chosen by the prop passed upon, will save as False
-  const brazilianPortuguese = language === 'pt-br' && PtBr;
-  const americanEnglish = language === 'en-us' && EnUs;
-
-  // save all the available languages into an Array
-  const availableLanguages = [americanEnglish, brazilianPortuguese];
+  const { availableLanguages } = AvailableLanguages(language);
 
   // transform the default language into an Array
-  const defaultLanguageIntoArray = Object.entries(EnUs).map(([key, value]) => ({
-    key,
-    value,
-  }));
+  const defaultLanguageIntoArray = Object.entries(defaultLanguage).map(
+    ([key, value]) => ({
+      key,
+      value,
+    })
+  );
 
   // get the index of the text in en-us
   const getTextIndex = defaultLanguageIntoArray.findIndex(

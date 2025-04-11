@@ -5,6 +5,8 @@ import { AvailableLanguagesType } from '@/presentation/types/available-languages
 
 import { LanguageSwitcher } from '@/presentation/utils/language-switcher';
 
+import EnUs from '@/presentation/languages/en-us.json';
+
 type BackToLogonProps = {
   language: AvailableLanguagesType;
 };
@@ -14,7 +16,7 @@ export default function BackToLogon(props: BackToLogonProps) {
     <Link href='/logon' className='m-auto my-6 flex hover:underline'>
       <FiChevronLeft className='mx-4' size={20} />
 
-      {LanguageSwitcher(props.language, 'Back to Logon')}
+      {LanguageSwitcher(props.language, EnUs, 'Back to Logon')}
     </Link>
   );
 }
