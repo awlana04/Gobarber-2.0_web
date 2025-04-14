@@ -1,10 +1,18 @@
+import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
 import PasswordInputFragment from './password-input-fragment';
 
 describe('Password Input Fragment', () => {
   beforeEach(() => {
-    render(<PasswordInputFragment />);
+    render(
+      <PasswordInputFragment
+        handlePasswordFilled={() => {}}
+        passwordErrored={false}
+        passwordFilled={true}
+        passwordRef={() => {}}
+      />
+    );
   });
 
   it('should be able to render the password input fragment', () => {

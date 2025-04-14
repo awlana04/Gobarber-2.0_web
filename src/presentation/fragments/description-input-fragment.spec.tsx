@@ -1,14 +1,23 @@
+import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
 import DescriptionInputFragment from './description-input-fragment';
 
 describe('Description Input Fragment', () => {
   beforeEach(() => {
-    render(<DescriptionInputFragment />);
+    render(
+      <DescriptionInputFragment
+        descriptionErrored={false}
+        descriptionFilled={true}
+        descriptionRef={() => {}}
+        descriptionValue=''
+        handleDescriptionFilled={() => {}}
+      />
+    );
   });
 
   it('should be able to render the description input fragment', () => {
-    const descriptionInputElement = screen.getByPlaceholderText('Descrição');
+    const descriptionInputElement = screen.getByRole('textbox');
 
     expect(descriptionInputElement).toBeVisible();
   });

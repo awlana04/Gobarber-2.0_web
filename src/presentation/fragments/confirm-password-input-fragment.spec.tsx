@@ -1,10 +1,19 @@
+import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
 import ConfirmPasswordInputFragment from './confirm-password-input-fragment';
 
 describe('Confirm Password Fragment', () => {
   beforeEach(() => {
-    render(<ConfirmPasswordInputFragment />);
+    render(
+      <ConfirmPasswordInputFragment
+        confirmPasswordErrored={false}
+        confirmPasswordFilled={true}
+        confirmPasswordRef={() => {}}
+        handleConfirmPasswordFilled={() => {}}
+        confirmPasswordValue=''
+      />
+    );
   });
 
   it('should be able to render the confirm password input', () => {

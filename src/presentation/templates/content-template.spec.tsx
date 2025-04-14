@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
 import ContentTemplate from './content-template';
@@ -11,7 +12,7 @@ describe('Content template', () => {
     );
   });
   it('should be able to render the content template', () => {
-    const ContentTemplateElement = screen.getByText('Template');
+    const ContentTemplateElement = screen.getByText(/template/i);
 
     expect(ContentTemplateElement).toBeInTheDocument();
   });

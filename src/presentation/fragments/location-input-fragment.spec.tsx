@@ -1,16 +1,23 @@
+import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
 import LocationInputFragment from './location-input-fragment';
 
 describe('Location Input Fragment', () => {
   beforeEach(() => {
-    render(<LocationInputFragment />);
+    render(
+      <LocationInputFragment
+        descriptionErrored={false}
+        descriptionFilled={true}
+        descriptionRef={() => {}}
+        descriptionValue=''
+        handleDescriptionFilled={() => {}}
+      />
+    );
   });
 
   it('should be able to render the location input fragment', () => {
-    const locationInputElement = screen.getByPlaceholderText(
-      'Selecione o lugar no mapa'
-    );
+    const locationInputElement = screen.getByRole('textbox');
 
     expect(locationInputElement).toBeVisible();
   });

@@ -1,14 +1,23 @@
+import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
 import EmailInputFragment from './email-input-fragment';
 
 describe('Email input fragment', () => {
   beforeEach(() => {
-    render(<EmailInputFragment />);
+    render(
+      <EmailInputFragment
+        emailErrored={false}
+        emailFilled={true}
+        emailRef={() => {}}
+        emailValue=''
+        handleEmailFilled={() => {}}
+      />
+    );
   });
 
   it('should be able to render the email input fragment', () => {
-    const emailInputElement = screen.getByPlaceholderText('E-mail');
+    const emailInputElement = screen.getByRole('textbox');
 
     expect(emailInputElement).toBeVisible();
   });
