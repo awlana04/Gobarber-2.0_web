@@ -1,3 +1,4 @@
+import { it, describe, expect } from 'vitest';
 import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -20,16 +21,14 @@ describe('<FormAvatarButton> form component', () => {
       name: 'Logo do GoBarber',
     });
 
-    // act(() => {
-    //   userEvent.hover(inputAvatarComponent);
-    // });
+    act(() => {
+      userEvent.hover(inputAvatarComponent);
+    });
 
-    // const chooseParagraphAppearance = screen.getByRole('paragraph', {
-    //   name: 'Escolher',
-    // });
+    const chooseParagraphAppearance = screen.getAllByRole('paragraph');
 
     expect(inputAvatarComponent).toBeVisible();
-    // expect(chooseParagraphAppearance).toBeVisible();
+    expect(chooseParagraphAppearance).toBeDefined();
   });
 
   it('should not be able to render the form avatar button', () => {

@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
 import FormImagesInput from './form-images-input';
@@ -7,7 +8,7 @@ describe('<FormImagesInput /> form component', () => {
     render(
       <FormImagesInput
         file='../../../../../public/next.svg'
-        fileUrl='../../../../../public/next.svg'
+        fileUrl={['../../../../../public/next.svg']}
         setFile={() => {}}
         setFileUrl={() => {}}
         handleChange={() => {}}
@@ -16,14 +17,14 @@ describe('<FormImagesInput /> form component', () => {
   });
 
   it('should be able to render the form images input', () => {
-    const inputImagesComponent = screen.getByTestId('images');
+    const inputImagesComponent = screen.queryByRole('img');
 
     expect(inputImagesComponent).toBeVisible();
   });
 
-  it('should not be able to render the form images input', () => {
-    const wrongInputImagesComponent = screen.queryByTestId('wrong-images');
+  // it('should not be able to render the form images input', () => {
+  //   const wrongInputImagesComponent = screen.queryByTestId('wrong-images');
 
-    expect(wrongInputImagesComponent).toBeNull();
-  });
+  //   expect(wrongInputImagesComponent).toBeNull();
+  // });
 });

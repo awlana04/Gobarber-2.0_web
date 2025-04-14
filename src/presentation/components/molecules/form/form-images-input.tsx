@@ -16,7 +16,6 @@ export default function FormImagesInput(props: FormImagesInputProps) {
         multiple
         onChange={props.handleChange}
         className='file hidden'
-        test-id='images'
       />
 
       {props.file && props.fileUrl && (

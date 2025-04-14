@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
 import BackToLogon from './back-to-logon';
@@ -8,7 +9,9 @@ describe('<BackToLogon> component', () => {
   });
 
   it('should be able to render the back to logon component', () => {
-    const backToLogonElement = screen.getByText('Voltar para o logon');
+    const backToLogonElement = screen.getByRole('link', {
+      name: /voltar para o logon/i,
+    });
 
     expect(backToLogonElement).toBeInTheDocument();
   });

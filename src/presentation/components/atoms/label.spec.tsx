@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
 import Label from './label';
@@ -8,7 +9,7 @@ describe('<Label> component', () => {
   });
 
   it('should be able to render the label component', () => {
-    const labelComponent = screen.getByText('Label');
+    const labelComponent = screen.getByText(/label/i);
 
     expect(labelComponent).toBeInTheDocument();
   });

@@ -1,11 +1,11 @@
 import Image from 'next/image';
 import { FiCamera } from 'react-icons/fi';
 
-import { FormAvatarButtonProps } from '@/presentation/types/avatar-input-props-type';
+import { AvatarInputPropsType } from '@/presentation/types/avatar-input-props-type';
 
 import logo from '@/public/gobarber_logo.svg';
 
-export default function FormAvatarButton(props: FormAvatarButtonProps) {
+export default function FormAvatarButton(props: AvatarInputPropsType) {
   return (
     <div className='group hover:bg-input-text m-auto flex h-28 w-28 cursor-pointer rounded-full bg-white text-white'>
       <input
@@ -18,6 +18,8 @@ export default function FormAvatarButton(props: FormAvatarButtonProps) {
       <label htmlFor='avatar' className='m-auto'>
         <Image
           src={logo}
+          width={0}
+          height={0}
           alt='Logo do GoBarber'
           className='absolute -mt-10 ml-3 cursor-pointer'
         />

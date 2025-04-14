@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import FormTextarea from './form-textarea';
 import { FiLock } from 'react-icons/fi';
@@ -9,11 +10,15 @@ describe('<FormTextarea> component', () => {
         iconName={FiLock}
         placeholder='textarea'
         name='textarea'
-        // errored={false}
+        handleTextareaFilled={() => {}}
+        textareaErrored={false}
+        textareaFilled={true}
+        textareaRef={() => {}}
+        textareaValue=''
       />
     );
 
-    const formTextareaElement = screen.getByPlaceholderText('textarea');
+    const formTextareaElement = screen.getByRole('textbox');
 
     expect(formTextareaElement).toBeInTheDocument();
   });
@@ -24,7 +29,11 @@ describe('<FormTextarea> component', () => {
         iconName={FiLock}
         placeholder='textarea'
         name='textarea'
-        // errored={false}
+        handleTextareaFilled={() => {}}
+        textareaErrored={false}
+        textareaFilled={true}
+        textareaRef={() => {}}
+        textareaValue=''
       />
     );
 

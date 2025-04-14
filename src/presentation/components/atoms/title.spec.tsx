@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
 import Title from './title';
@@ -8,7 +9,7 @@ describe('<Title> component', () => {
   });
 
   it('should be able to render the title component', () => {
-    const titleComponent = screen.getByText('Title');
+    const titleComponent = screen.getByRole('heading', { name: /title/i });
 
     expect(titleComponent).toBeInTheDocument();
   });

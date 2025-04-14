@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { FiLock } from 'react-icons/fi';
 
@@ -5,13 +6,7 @@ import Icon from './icon';
 
 describe('<Icon> component', () => {
   beforeEach(() => {
-    render(
-      <Icon
-        icon={FiLock}
-        filled={false}
-        // errored={false}
-      />
-    );
+    render(<Icon icon={FiLock} filled={false} errored={false} />);
   });
 
   it('should be able to render the icon component', () => {

@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
 import CreateAccount from './create-account';
@@ -8,7 +9,9 @@ describe('<CreateAccount> component', () => {
   });
 
   it('should be able to render the create account component', () => {
-    const createAccountElement = screen.getByText('Criar conta');
+    const createAccountElement = screen.getByRole('link', {
+      name: /criar conta/i,
+    });
 
     expect(createAccountElement).toBeInTheDocument();
   });
