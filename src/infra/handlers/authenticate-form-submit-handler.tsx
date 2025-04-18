@@ -10,17 +10,17 @@ import FetchAPIData from '@/adapters/implementations/fetch-api-data';
 import ManageDataInBrowser from '@/adapters/implementations/manage-data-in-browser-model';
 
 export default function useAuthenticateFormSubmitHandler() {
-  const { dispatch } = useHandleErroredContext();
+  // const { dispatch } = useHandleErroredContext();
   const { addToast } = useToast();
 
   const { handleEmailUsecase } = useEmailUsecase();
-  const { handlePasswordUsecase } = usePasswordUsecase();
+  // const { handlePasswordUsecase } = usePasswordUsecase();
 
   const submitHandler = async (email: string, password: string) => {
-    dispatch({ type: 'CHECK_PAGE_NAME', pageName: 'logon-page' });
+    // dispatch({ type: 'CHECK_PAGE_NAME', pageName: 'logon-page' });
 
     await handleEmailUsecase(email);
-    await handlePasswordUsecase(password);
+    // await handlePasswordUsecase(password);
 
     // setIsButtonDisabled(false);
 

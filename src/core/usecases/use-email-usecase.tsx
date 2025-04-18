@@ -7,7 +7,7 @@ import { emailError } from '@/core/errors/email-toast-error-messages';
 
 export default function useEmailUsecase() {
   const { addToast } = useToast();
-  const { dispatch } = useHandleErroredContext();
+  const { handleFieldErrored } = useHandleErroredContext();
 
   const handleEmailUsecase = (email: string) => {
     const checkEmail = new EmailErrorHandling();
@@ -16,26 +16,30 @@ export default function useEmailUsecase() {
     const emailExists = checkEmail.exists(email);
     const emailIsValid = checkEmail.isValid(email);
 
+    const setEmailErrored = () => handleFieldErrored('email');
+
     switch (
       emailLength === false ||
       emailExists === false ||
       emailIsValid === false
     ) {
       case emailLength: {
-        dispatch({ type: 'SET_EMAIL_ERROR', value: { emailValue: email } }),
-          addToast(emailError.Length);
+        setEmailErrored();
+        addToast(emailError.Length);
         break;
       }
       case emailExists: {
-        dispatch({ type: 'SET_EMAIL_ERROR' }), addToast(emailError.Required);
+        setEmailErrored();
+        addToast(emailError.Required);
         break;
       }
       case emailIsValid: {
-        dispatch({ type: 'SET_EMAIL_ERROR' }), addToast(emailError.Valid!);
+        setEmailErrored();
+        addToast(emailError.Valid!);
         break;
       }
       default:
-        dispatch({ type: 'SET_EMAIL_SUCCESS' });
+        break;
     }
   };
 

@@ -3,20 +3,20 @@ import { render, screen } from '@testing-library/react';
 
 import Title from './title';
 
-describe('<Title> component', () => {
+describe('<Title /> atom component', () => {
   beforeEach(() => {
     render(<Title>Title</Title>);
   });
 
-  it('should be able to render the title component', () => {
-    const titleComponent = screen.getByRole('heading', { name: /title/i });
+  it('should be able to render the title atom component', () => {
+    const titleAtomComponent = screen.getByRole('heading', { name: /title/i });
 
-    expect(titleComponent).toBeInTheDocument();
+    expect(titleAtomComponent).toBeInTheDocument();
   });
 
-  it('should be able to render the title component', () => {
-    const titleComponent = screen.queryByText('Wrong title');
+  it('should NOT be able to render the title atom component', () => {
+    const wrongTitleAtomComponent = screen.queryByText('Wrong title');
 
-    expect(titleComponent).not.toBeInTheDocument();
+    expect(wrongTitleAtomComponent).not.toBeInTheDocument();
   });
 });

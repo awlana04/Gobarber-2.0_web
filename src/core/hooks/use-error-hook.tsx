@@ -1,23 +1,35 @@
+'use client';
+
 import { useState } from 'react';
+import { HandleErroredContext } from '../contexts/use-handle-errored-context';
 
-export default function useErrorHook() {
-  const [isErrored, setIsErrored] = useState(false);
-  const [isNameErrored, setIsNameErrored] = useState(false);
-  const [isEmailErrored, setIsEmailErrored] = useState(false);
-  const [isPasswordErrored, setIsPasswordErrored] = useState(false);
-  const [isConfirmPasswordErrored, setIsConfirmPasswordErrored] =
-    useState(false);
+type HandleErroredHookProps = {
+  children?: React.ReactNode;
+};
 
-  return {
-    isErrored,
-    setIsErrored,
-    isEmailErrored,
-    setIsEmailErrored,
-    isNameErrored,
-    setIsNameErrored,
-    isPasswordErrored,
-    setIsPasswordErrored,
-    isConfirmPasswordErrored,
-    setIsConfirmPasswordErrored,
-  };
+export default function useHandleErroredHook({
+  children,
+}: HandleErroredHookProps) {
+  const [fieldErrored, setFieldErrored] = useState(['']);
+
+  function handleFieldErrored(fieldName: string) {
+    const fieldNameNow = fieldErrored
+      .filter((field) => field === fieldName)
+      .toLocaleString();
+
+    if (fieldName !== fieldNameNow) {
+      setFieldErrored([
+        ...fieldErrored.filter((blank) => blank !== ''),
+        fieldName,
+      ]);
+    } else {
+      setFieldErrored([]);
+    }
+  }
+
+  return (
+    <HandleErroredContext.Provider value={{ fieldErrored, handleFieldErrored }}>
+      {children}
+    </HandleErroredContext.Provider>
+  );
 }

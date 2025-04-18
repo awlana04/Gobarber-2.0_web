@@ -3,20 +3,23 @@ import { render, screen } from '@testing-library/react';
 
 import Label from './label';
 
-describe('<Label> component', () => {
+describe('<Label /> atom component', () => {
   beforeEach(() => {
     render(<Label htmlFor='#'>Label</Label>);
   });
 
-  it('should be able to render the label component', () => {
-    const labelComponent = screen.getByText(/label/i);
+  it('should be able to render the label atom component', () => {
+    const labelAtomComponent = screen.getByText(/label/i);
 
-    expect(labelComponent).toBeInTheDocument();
+    expect(labelAtomComponent).toHaveClass(
+      'hover:bg-input peer-checked:bg-orange peer-checked:text-buttonText cursor-pointer'
+    );
+    expect(labelAtomComponent).toBeInTheDocument();
   });
 
-  it('should not be able to render the label component', () => {
-    const labelComponent = screen.queryByText('Wrong label');
+  it('should NOT be able to render the label atom component', () => {
+    const wrongLabelAtomComponent = screen.queryByText('Wrong label');
 
-    expect(labelComponent).not.toBeInTheDocument();
+    expect(wrongLabelAtomComponent).not.toBeInTheDocument();
   });
 });

@@ -1,10 +1,9 @@
 import { it, describe, expect } from 'vitest';
-import { act, render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen } from '@testing-library/react';
 
 import FormAvatarButton from './form-avatar-button';
 
-describe('<FormAvatarButton> form component', () => {
+describe('<FormAvatarButton /> molecule form component', () => {
   beforeEach(() => {
     render(
       <FormAvatarButton
@@ -16,25 +15,21 @@ describe('<FormAvatarButton> form component', () => {
     );
   });
 
-  it('should be able to render the form avatar button', () => {
-    const inputAvatarComponent = screen.getByRole('img', {
+  it('should be able to render the form avatar molecule button component', () => {
+    const inputAvatarFormMoleculeComponent = screen.getByRole('img', {
       name: 'Logo do GoBarber',
-    });
-
-    act(() => {
-      userEvent.hover(inputAvatarComponent);
     });
 
     const chooseParagraphAppearance = screen.getAllByRole('paragraph');
 
-    expect(inputAvatarComponent).toBeVisible();
+    expect(inputAvatarFormMoleculeComponent).toBeVisible();
     expect(chooseParagraphAppearance).toBeDefined();
   });
 
-  it('should not be able to render the form avatar button', () => {
-    const wrongInputAvatarComponent =
+  it('should NOT be able to render the form avatar molecule button component', () => {
+    const wrongInputAvatarFormMoleculeComponent =
       screen.queryByTestId('wrong-input-avatar');
 
-    expect(wrongInputAvatarComponent).toBeNull();
+    expect(wrongInputAvatarFormMoleculeComponent).toBeNull();
   });
 });

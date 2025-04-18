@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
 import Toast from './toast';
@@ -17,7 +18,7 @@ describe('<Toast /> Component', () => {
   });
 
   it('should be able to render the toast component', () => {
-    const titleToastElement = screen.getByText('Hello World!');
+    const titleToastElement = screen.getByRole('paragraph');
     const descriptionToastElement = screen.getByText('Everything alright!');
 
     expect(titleToastElement).toBeVisible();

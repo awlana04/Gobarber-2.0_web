@@ -24,9 +24,7 @@ describe('LogonScreen', () => {
   });
 
   it('should be able to render the logon screen', () => {
-    // render(<LogonScreen />);
-
-    // const emailInput = screen.getByRole('textbox', { name: /email/i });
+    // const emailInput = screen.queryByRole('textbox', { name: /e-mail/i });
     // const passwordInput = screen.getByRole('textbox', { name: /senha/i });
     const submitButton = screen.getByRole('button');
 

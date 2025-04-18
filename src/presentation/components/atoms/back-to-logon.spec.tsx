@@ -3,22 +3,23 @@ import { render, screen } from '@testing-library/react';
 
 import BackToLogon from './back-to-logon';
 
-describe('<BackToLogon> component', () => {
+describe('<BackToLogon /> atom component', () => {
   beforeEach(() => {
     render(<BackToLogon />);
   });
 
-  it('should be able to render the back to logon component', () => {
-    const backToLogonElement = screen.getByRole('link', {
+  it('should be able to render the back to logon atom component', () => {
+    const backToLogonAtomComponent = screen.getByRole('link', {
       name: /voltar para o logon/i,
     });
 
-    expect(backToLogonElement).toBeInTheDocument();
+    expect(backToLogonAtomComponent).toHaveClass('hover:underline');
+    expect(backToLogonAtomComponent).toBeInTheDocument();
   });
 
-  it('should not be able to render the back to logon component', () => {
-    const backToLogonElement = screen.queryByText('Não voltar para o logon');
+  it('should NOT be able to render the back to logon atom component', () => {
+    const wrongBackToLogonAtomComponent = screen.queryByText(/wrong text/i);
 
-    expect(backToLogonElement).not.toBeInTheDocument();
+    expect(wrongBackToLogonAtomComponent).not.toBeInTheDocument();
   });
 });

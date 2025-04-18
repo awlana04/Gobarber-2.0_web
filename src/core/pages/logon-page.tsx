@@ -16,29 +16,35 @@ type PasswordInputRef = Pick<PasswordInputPropsType, 'passwordRef'>;
 type LogonPageType = EmailInputRef & PasswordInputRef & SubmitHandlerType;
 
 export default function LogonPage(props: LogonPageType) {
-  const { state, dispatch } = useHandleErroredContext();
+  const { fieldErrored, handleFieldErrored } = useHandleErroredContext();
 
   const { fieldFilled, handleFieldFilled } = useHandleFilledHook();
 
-  useLayoutEffect(() => {
-    if (state.pageName !== 'logon-page') {
-      dispatch({ type: 'RESET_INITIAL_STATE', pageName: 'logon-page' });
-    }
-  });
+  // useLayoutEffect(() => {
+  //   if (state.pageName !== 'logon-page') {
+  //     dispatch({ type: 'RESET_INITIAL_STATE', pageName: 'logon-page' });
+  //   }
+  // });
+
+  console.log(fieldErrored);
 
   return (
     <LogonScreen
       emailRef={props.emailRef}
-      emailValue={state.emailValue}
-      emailErrored={state.isEmailErrored}
+      emailValue={''}
+      emailErrored={
+        fieldErrored !== undefined &&
+        !!fieldErrored.find((email) => email === 'email')
+      }
       emailFilled={!!fieldFilled.find((email) => email === 'email')}
       handleEmailFilled={handleFieldFilled}
       passwordRef={props.passwordRef}
-      passwordErrored={state.isPasswordErrored}
+      passwordErrored={false}
       passwordFilled={!!fieldFilled.find((password) => password === 'password')}
       handlePasswordFilled={handleFieldFilled}
       submitHandler={props.submitHandler}
-      buttonDisabled={!!(fieldFilled.length !== 2)}
+      // buttonDisabled={!!(fieldFilled.length !== 2)}
+      buttonDisabled={false}
     />
   );
 }

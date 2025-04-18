@@ -2,11 +2,13 @@
 
 import { createContext, useContext } from 'react';
 
-import { formState } from '../types/handle-errored-context-data-type';
+// import { formState } from '../types/handle-errored-context-data-type';
 
 type ErroredContextType = {
-  state: formState;
-  dispatch: any;
+  fieldErrored: string[];
+  handleFieldErrored(fieldName: string): void;
+  // state: formState;
+  // dispatch: any;
 };
 
 export const HandleErroredContext = createContext({} as ErroredContextType);

@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 
 import Button from './button';
 
-describe('<Button> component', () => {
+describe('<Button /> atom component', () => {
   beforeEach(() => {
     render(
       <Button type='button' isDisabled={false}>
@@ -12,23 +12,18 @@ describe('<Button> component', () => {
     );
   });
 
-  it('should be able to render the button component', () => {
-    const buttonElement = screen.getByRole('button');
-    // const buttonTextElement = screen.getByText('Button');
+  it('should be able to render the button atom component', () => {
+    const buttonAtomComponent = screen.getByRole('button', { name: /button/i });
 
-    expect(buttonElement).toBeInTheDocument();
-    // expect(buttonTextElement).toBeInTheDocument();
+    expect(buttonAtomComponent).toHaveClass('bg-orange text-button-text');
+    expect(buttonAtomComponent).toBeInTheDocument();
   });
 
-  // it('should render the button with the background color orange', () => {
-  //   const buttonElement = screen.getByRole('button');
+  it('should NOT be able to render the button atom component', () => {
+    const wrongButtonAtomComponent = screen.queryByRole('button', {
+      name: /wrong button/i,
+    });
 
-  //   expect(buttonElement).toHaveClass('bg-orange');
-  // });
-
-  // it('should not be able to render the button', () => {
-  //   const buttonElement = screen.queryByText('Wrong button');
-
-  //   expect(buttonElement).not.toBeInTheDocument();
-  // });
+    expect(wrongButtonAtomComponent).not.toBeInTheDocument();
+  });
 });

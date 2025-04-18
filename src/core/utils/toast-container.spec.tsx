@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
 import ToastContainer from './toast-container';
@@ -19,7 +20,7 @@ describe('<ToastContainer> component', () => {
   });
 
   it('should be able to render the toast container component', () => {
-    const titleToastContainerElement = screen.getByText('Hello World!');
+    const titleToastContainerElement = screen.getByRole('paragraph');
     const descriptionToastContainerElement = screen.getByText(
       'Everything alright!'
     );

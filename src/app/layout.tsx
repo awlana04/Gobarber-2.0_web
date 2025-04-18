@@ -4,7 +4,8 @@ import './globals.css';
 
 import ToastHook from '@/hooks/toast-hook';
 
-import UseHandleErroredHook from '@/core/hooks/use-handle-errored-hook';
+// import UseHandleErroredHook from '@/core/hooks/use-handle-errored-hook';
+import UseHandleErroredHook from '@/core/hooks/use-error-hook';
 
 const robotoSlab = Roboto_Slab({ subsets: ['latin'] });
 
