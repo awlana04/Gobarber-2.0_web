@@ -4,8 +4,7 @@ import './globals.css';
 
 import ToastHook from '@/hooks/toast-hook';
 
-// import UseHandleErroredHook from '@/core/hooks/use-handle-errored-hook';
-import UseHandleErroredHook from '@/core/hooks/use-error-hook';
+import UseHandleErroredContextFactory from '@/infra/factories/contexts/use-handle-errored-context-factory';
 
 const robotoSlab = Roboto_Slab({ subsets: ['latin'] });
 
@@ -22,9 +21,9 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={robotoSlab.className}>
-        <UseHandleErroredHook>
+        <UseHandleErroredContextFactory>
           <ToastHook>{children}</ToastHook>
-        </UseHandleErroredHook>
+        </UseHandleErroredContextFactory>
       </body>
     </html>
   );

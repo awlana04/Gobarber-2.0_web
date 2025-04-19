@@ -1,15 +1,6 @@
-'use client';
-
 import { useState } from 'react';
-import { HandleErroredContext } from '../contexts/use-handle-errored-context';
 
-type HandleErroredHookProps = {
-  children?: React.ReactNode;
-};
-
-export default function useHandleErroredHook({
-  children,
-}: HandleErroredHookProps) {
+const useHandleErroredHook = () => {
   const [fieldErrored, setFieldErrored] = useState(['']);
 
   function handleFieldErrored(fieldName: string) {
@@ -27,9 +18,7 @@ export default function useHandleErroredHook({
     }
   }
 
-  return (
-    <HandleErroredContext.Provider value={{ fieldErrored, handleFieldErrored }}>
-      {children}
-    </HandleErroredContext.Provider>
-  );
-}
+  return { fieldErrored, handleFieldErrored };
+};
+
+export default useHandleErroredHook;

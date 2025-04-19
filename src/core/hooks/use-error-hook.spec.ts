@@ -10,11 +10,8 @@ describe('<useHandleErroredHook /> hook in core layer', () => {
     const inputName = 'input';
 
     act(() => {
-      result.current.handleFieldErrored({
-        target: { name: inputName },
-      } as React.ChangeEvent<HTMLInputElement>);
+      result.current.handleFieldErrored('input');
     });
-
     expect(result.current.fieldErrored).toEqual([inputName]);
   });
 });
