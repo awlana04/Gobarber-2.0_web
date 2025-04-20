@@ -5,10 +5,12 @@ import { FormImagesInputProps } from '@/presentation/types/form-images-input-pro
 
 import Title from '@/atoms/title';
 
+import translate from '@/presentation/utils/translate';
+
 export default function FormImagesInput(props: FormImagesInputProps) {
   return (
     <div className='h-fit w-fit items-center justify-center'>
-      <Title>Fotos</Title>
+      <Title>{translate('Photos')}</Title>
 
       <input
         type='file'

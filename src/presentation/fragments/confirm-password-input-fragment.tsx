@@ -4,6 +4,8 @@ import { ConfirmPasswordInputPropsType } from '@/presentation/types/confirm-pass
 
 import { Form } from '@/molecules/form';
 
+import translate from '@/presentation/utils/translate';
+
 export default function ConfirmPasswordInputFragment(
   props: ConfirmPasswordInputPropsType
 ) {
@@ -12,7 +14,7 @@ export default function ConfirmPasswordInputFragment(
       iconName={FiLock}
       type='password'
       name='confirmPassword'
-      placeholder='Confirmar senha'
+      placeholder={translate('Confirm password')}
       errored={props.confirmPasswordErrored}
       filled={props.confirmPasswordFilled}
       ref={props.confirmPasswordRef}

@@ -17,8 +17,11 @@ import { EmailInputPropsType } from '@/presentation/types/email-input-props-type
 import { PasswordInputPropsType } from '@/presentation/types/password-input-props-type';
 import { ConfirmPasswordInputPropsType } from '@/presentation/types/confirm-password-input-props-type';
 import { SubmitHandlerType } from '@/presentation/types/submit-handler-type';
+import ButtonDisabledType from '@/presentation/types/button-disabled-type';
 
 import image from '@/public/gobarber_image003.svg';
+
+import translate from '../utils/translate';
 
 type SigninPropsType = AvatarInputPropsType &
   RadioButtonPropsType &
@@ -26,11 +29,16 @@ type SigninPropsType = AvatarInputPropsType &
   EmailInputPropsType &
   PasswordInputPropsType &
   ConfirmPasswordInputPropsType &
+  ButtonDisabledType &
   SubmitHandlerType;
 
 export default function SigninScreen(props: SigninPropsType) {
   return (
-    <ContentTemplate position='left' src={image} alt='Foto da barbearia'>
+    <ContentTemplate
+      position='left'
+      src={image}
+      alt={translate('Barber image')}
+    >
       <Form.Root submitHandler={props.submitHandler}>
         <Form.Avatar
           file={props.file}
@@ -47,7 +55,7 @@ export default function SigninScreen(props: SigninPropsType) {
 
         <NameInputFragment
           icon='user'
-          placeholder='Nome'
+          placeholder={translate('Name')}
           nameRef={props.nameRef}
           nameValue={props.nameValue}
           nameErrored={props.nameErrored}
@@ -74,8 +82,8 @@ export default function SigninScreen(props: SigninPropsType) {
           handleConfirmPasswordFilled={props.handleConfirmPasswordFilled}
         />
 
-        <Button type='submit' isDisabled={false}>
-          Cadastrar
+        <Button type='submit' isDisabled={props.isDisabled}>
+          {translate('Register')}
         </Button>
       </Form.Root>
 

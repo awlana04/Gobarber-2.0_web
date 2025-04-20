@@ -5,29 +5,37 @@ import Button from '@/atoms/button';
 
 import { Form } from '@/molecules/form';
 
-import NameInputFragment from '../fragments/name-input-fragment';
+import NameInputFragment from '@/fragments/name-input-fragment';
 import LocationInputFragment from '@/fragments/location-input-fragment';
 import DescriptionInputFragment from '@/fragments/description-input-fragment';
 
 import { NameInputPropsType } from '@/presentation/types/name-input-props-type';
 import { DescriptionInputPropsType } from '@/presentation/types/description-input-props-type';
 import { LocationInputPropsType } from '@/presentation/types/location-input-props-type';
-import { FormImagesInputProps } from '../types/form-images-input-props-type';
-import { FormTwoRadioButtonProps } from '../types/two-radio-buttons-props-type';
+import { FormImagesInputProps } from '@/presentation/types/form-images-input-props-type';
+import { FormTwoRadioButtonProps } from '@/presentation/types/two-radio-buttons-props-type';
 import { SubmitHandlerType } from '@/presentation/types/submit-handler-type';
+import ButtonDisabledType from '@/presentation/types/button-disabled-type';
 
 import image from '@public/gobarber_image004.svg';
+
+import translate from '../utils/translate';
 
 type SigninBarberScreenType = NameInputPropsType &
   DescriptionInputPropsType &
   LocationInputPropsType &
   FormImagesInputProps &
   FormTwoRadioButtonProps &
+  ButtonDisabledType &
   SubmitHandlerType;
 
 export default function SigninBarberScreen(props: SigninBarberScreenType) {
   return (
-    <ContentTemplate position='left' src={image} alt='Imagem da barbearia'>
+    <ContentTemplate
+      position='left'
+      src={image}
+      alt={translate('Barber image')}
+    >
       <Form.Root submitHandler={props.submitHandler}>
         <LocationInputFragment
           descriptionRef={props.descriptionRef}
@@ -39,7 +47,7 @@ export default function SigninBarberScreen(props: SigninBarberScreenType) {
 
         <NameInputFragment
           icon='barber'
-          placeholder='Nome da barbearia'
+          placeholder={translate('Barber name')}
           nameRef={props.nameRef}
           nameValue={props.nameValue}
           nameErrored={props.nameErrored}
@@ -70,8 +78,8 @@ export default function SigninBarberScreen(props: SigninBarberScreenType) {
           setIsOpenOnWeekends={props.setIsOpenOnWeekends}
         />
 
-        <Button type='submit' isDisabled={false}>
-          Cadastrar
+        <Button type='submit' isDisabled={props.isDisabled}>
+          {translate('Register')}
         </Button>
       </Form.Root>
 

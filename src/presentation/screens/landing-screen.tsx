@@ -7,6 +7,8 @@ import CreateAccount from '@/components/atoms/create-account';
 
 import image from '@/public/gobarber_image001.svg';
 
+import translate from '@/presentation/utils/translate';
+
 export default function LandingScreen() {
   return (
     <ContentTemplate position='left' src={image} alt='Imagem da barbearia'>
@@ -25,7 +27,7 @@ export default function LandingScreen() {
 
       <Link href='./logon'>
         <Button type='button' isDisabled={false}>
-          Fazer logon
+          {translate('Logon')}
         </Button>
       </Link>
 

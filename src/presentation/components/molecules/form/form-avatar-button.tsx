@@ -5,6 +5,8 @@ import { AvatarInputPropsType } from '@/presentation/types/avatar-input-props-ty
 
 import logo from '@/public/gobarber_logo.svg';
 
+import translate from '@/presentation/utils/translate';
+
 export default function FormAvatarButton(props: AvatarInputPropsType) {
   return (
     <div className='group hover:bg-input-text m-auto flex h-28 w-28 cursor-pointer rounded-full bg-white text-white'>
@@ -20,12 +22,12 @@ export default function FormAvatarButton(props: AvatarInputPropsType) {
           src={logo}
           width={0}
           height={0}
-          alt='Logo do GoBarber'
+          alt={translate('Choose an avatar for your profile')}
           className='absolute -mt-10 ml-3 cursor-pointer'
         />
 
         <p className='absolute -mt-2 ml-6 cursor-pointer opacity-0 group-hover:opacity-100'>
-          Escolher
+          {translate('Choose')}
         </p>
       </label>
 
@@ -36,14 +38,14 @@ export default function FormAvatarButton(props: AvatarInputPropsType) {
         >
           <Image
             src={props.fileUrl}
-            alt={props.file.name}
+            alt={translate('You already chosen an avatar')}
             className='h-28 w-28 rounded-full opacity-100'
             width={112}
             height={112}
           />
 
           <p className='absolute -mt-14 ml-6 cursor-pointer opacity-0 group-hover:opacity-100'>
-            Remover
+            {translate('Remove')}
           </p>
         </div>
       )}

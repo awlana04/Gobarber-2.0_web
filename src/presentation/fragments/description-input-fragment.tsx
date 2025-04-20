@@ -4,14 +4,16 @@ import { DescriptionInputPropsType } from '../types/description-input-props-type
 
 import { Form } from '@/components/molecules/form';
 
+import translate from '@/presentation/utils/translate';
+
 export default function DescriptionInputFragment(
   props: DescriptionInputPropsType
 ) {
   return (
     <Form.Textarea
       textareaValue={props.descriptionValue}
-      placeholder='Descrição'
       name='description'
+      placeholder={translate('Description')}
       iconName={FiMessageSquare}
       textareaErrored={props.descriptionErrored}
       textareaFilled={props.descriptionFilled}

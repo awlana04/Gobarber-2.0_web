@@ -1,13 +1,11 @@
-import AvailableLanguages from './available-languages';
+import translateBase from '@/shared/bases/translate-base';
 
-import EnUs from '@/presentation/languages/en-us.json';
+import DefaultLanguage from '@/presentation/languages/default/en-us.json';
 
-import LanguageSwitcher from '@/shared/utils/language-switcher';
+import PtBr from '@/presentation/languages/pt-br.json';
 
 const translate = (text: string) => {
-  const { availableLanguages } = AvailableLanguages('pt-br');
-
-  return LanguageSwitcher(availableLanguages, EnUs, text);
+  return translateBase(text, { DefaultLanguage, PtBr }, DefaultLanguage);
 };
 
 export default translate;

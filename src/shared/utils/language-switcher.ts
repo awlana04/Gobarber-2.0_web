@@ -16,24 +16,28 @@ const LanguageSwitcher = (
     (defaultIndex) => defaultIndex.value === text
   );
 
-  // remove all the falsy indexes in the Array to return only the chosen language
-  const chosenLanguage = availableLanguages.find(
-    (falseIndexes) => falseIndexes !== false
-  )!;
+  if (getTextIndex === -1) {
+    throw new Error(`English text translating incorrectly: ${text}`);
+  } else {
+    // remove all the falsy indexes in the Array to return only the chosen language
+    const chosenLanguage = availableLanguages.find(
+      (falseIndexes) => falseIndexes !== false
+    )!;
 
-  // transform the chosen language into an Array
-  const chosenLanguageIntoArray = Object.entries(chosenLanguage).map(
-    ([key, value]) => ({
-      key,
-      value,
-    })
-  );
+    // transform the chosen language into an Array
+    const chosenLanguageIntoArray = Object.entries(chosenLanguage).map(
+      ([key, value]) => ({
+        key,
+        value,
+      })
+    );
 
-  // get the text in the chosen language according to the index of the default language
-  const findTextInChosenLanguage = chosenLanguageIntoArray[getTextIndex];
+    // get the text in the chosen language according to the index of the default language
+    const findTextInChosenLanguage = chosenLanguageIntoArray[getTextIndex];
 
-  // return the translated text to be used in TSX
-  return findTextInChosenLanguage.value;
+    // return the translated text to be used in TSX
+    return findTextInChosenLanguage.value;
+  }
 };
 
 export default LanguageSwitcher;

@@ -3,10 +3,12 @@ import { FormTwoRadioButtonProps } from '@/presentation/types/two-radio-buttons-
 import Title from '@/atoms/title';
 import Label from '@/atoms/label';
 
+import translate from '@/presentation/utils/translate';
+
 export default function FormTwoRadioButton(props: FormTwoRadioButtonProps) {
   return (
     <div className='flex- my-2 flex flex-col p-4'>
-      <Title>Sua barbearia abre à noite?</Title>
+      <Title>{translate('Does your barber shop open at night?')}</Title>
 
       <div className='m-4 mb-8 flex flex-row items-center justify-center'>
         <div className='mr-24'>
@@ -18,7 +20,7 @@ export default function FormTwoRadioButton(props: FormTwoRadioButtonProps) {
             className='peer hidden'
           />
 
-          <Label htmlFor='openAtNightYes'>Sim</Label>
+          <Label htmlFor='openAtNightYes'>{translate('Yes')}</Label>
         </div>
 
         <div>
@@ -30,11 +32,11 @@ export default function FormTwoRadioButton(props: FormTwoRadioButtonProps) {
             className='peer hidden'
           />
 
-          <Label htmlFor='openAtNightNo'>Não</Label>
+          <Label htmlFor='openAtNightNo'>{translate('No')}</Label>
         </div>
       </div>
 
-      <Title>Sua barbearia abre aos finais de semana?</Title>
+      <Title>{translate('Does your barber shop open on weekends?')}</Title>
 
       <div className='m-4 mb-8 flex flex-row items-center justify-center'>
         <div className='mr-24'>
@@ -46,7 +48,7 @@ export default function FormTwoRadioButton(props: FormTwoRadioButtonProps) {
             className='peer hidden'
           />
 
-          <Label htmlFor='openOnWeekendsYes'>Sim</Label>
+          <Label htmlFor='openOnWeekendsYes'>{translate('Yes')}</Label>
         </div>
 
         <div>
@@ -58,7 +60,7 @@ export default function FormTwoRadioButton(props: FormTwoRadioButtonProps) {
             className='peer hidden'
           />
 
-          <Label htmlFor='openOnWeekendsNo'>Não</Label>
+          <Label htmlFor='openOnWeekendsNo'>{translate('No')}</Label>
         </div>
       </div>
     </div>

@@ -1,8 +1,10 @@
-type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  type: 'submit' | 'button';
-  isDisabled: boolean;
-  children: React.ReactNode;
-};
+import ButtonDisabledType from '@/presentation/types/button-disabled-type';
+
+type ButtonProps = ButtonDisabledType &
+  React.ButtonHTMLAttributes<HTMLButtonElement> & {
+    type: 'submit' | 'button';
+    children: React.ReactNode;
+  };
 
 export default function Button({ children, ...props }: ButtonProps) {
   return (

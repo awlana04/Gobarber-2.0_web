@@ -4,13 +4,15 @@ import { DescriptionInputPropsType } from '@/presentation/types/description-inpu
 
 import { Form } from '@/components/molecules/form';
 
+import translate from '@/presentation/utils/translate';
+
 export default function LocationInputFragment(
   props: DescriptionInputPropsType
 ) {
   return (
     <Form.Textarea
       textareaValue={props.descriptionValue}
-      placeholder='Selecione o lugar no mapa'
+      placeholder={translate('Select the location on the map')}
       name='location'
       iconName={FiMapPin}
       textareaErrored={props.descriptionErrored}

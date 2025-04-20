@@ -2,6 +2,8 @@ import Label from '@/atoms/label';
 
 import { RadioButtonPropsType } from '@/presentation/types/radio-button-props-type';
 
+import translate from '@/presentation/utils/translate';
+
 export default function FormRadioButton(props: RadioButtonPropsType) {
   return (
     <div className='my-2 mt-6 flex items-center justify-center p-4'>
@@ -15,9 +17,9 @@ export default function FormRadioButton(props: RadioButtonPropsType) {
         />
 
         {props.isBarber ? (
-          <Label htmlFor='radioButtonYes'>Sim</Label>
+          <Label htmlFor='radioButtonYes'>{translate('Yes')}</Label>
         ) : (
-          <Label htmlFor='radioButtonYes'>Sou Cliente</Label>
+          <Label htmlFor='radioButtonYes'>{translate('Client')}</Label>
         )}
       </div>
 
@@ -31,9 +33,9 @@ export default function FormRadioButton(props: RadioButtonPropsType) {
         />
 
         {props.isBarber ? (
-          <Label htmlFor='radioButtonNo'>Não</Label>
+          <Label htmlFor='radioButtonNo'>{translate('No')}</Label>
         ) : (
-          <Label htmlFor='radioButtonNo'>Sou Barbeiro</Label>
+          <Label htmlFor='radioButtonNo'>{translate('Barber')}</Label>
         )}
       </div>
     </div>

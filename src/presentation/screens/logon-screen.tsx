@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { EmailInputPropsType } from '@/presentation/types/email-input-props-type';
 import { PasswordInputPropsType } from '@/presentation/types/password-input-props-type';
 import { SubmitHandlerType } from '@/presentation/types/submit-handler-type';
+import ButtonDisabledType from '@/presentation/types/button-disabled-type';
 
 import ContentTemplate from '@/templates/content-template';
 
@@ -16,17 +17,22 @@ import PasswordInputFragment from '@/fragments/password-input-fragment';
 
 import image from '@/public/gobarber_image002.svg';
 
+import translate from '../utils/translate';
+
 type LogonScreenProps = EmailInputPropsType &
   PasswordInputPropsType &
-  SubmitHandlerType & {
-    buttonDisabled: boolean;
-  };
+  SubmitHandlerType &
+  ButtonDisabledType;
 
 export default function LogonScreen(props: LogonScreenProps) {
   return (
-    <ContentTemplate position='right' src={image} alt='Imagem da barbearia'>
+    <ContentTemplate
+      position='right'
+      src={image}
+      alt={translate('Barber image')}
+    >
       <h1 className='my-6 mt-10 text-2xl font-medium max-sm:mt-4'>
-        Faça seu Logon
+        {translate('Your Logon')}
       </h1>
 
       <Form.Root submitHandler={props.submitHandler}>
@@ -44,13 +50,13 @@ export default function LogonScreen(props: LogonScreenProps) {
           handlePasswordFilled={props.handlePasswordFilled}
         />
 
-        <Button type='submit' isDisabled={props.buttonDisabled}>
-          Entrar
+        <Button type='submit' isDisabled={props.isDisabled}>
+          {translate('Enter')}
         </Button>
       </Form.Root>
 
       <Link href='./forgot-password' className='my-4 mb-4 hover:underline'>
-        Esqueci minha senha
+        {translate('Forgot my password')}
       </Link>
 
       <CreateAccount />

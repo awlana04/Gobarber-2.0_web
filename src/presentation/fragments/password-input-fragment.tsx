@@ -4,6 +4,8 @@ import { PasswordInputPropsType } from '@/presentation/types/password-input-prop
 
 import { Form } from '@/molecules/form';
 
+import translate from '@/presentation/utils/translate';
+
 export default function PasswordInputFragment(props: PasswordInputPropsType) {
   return (
     <Form.Input
@@ -11,7 +13,7 @@ export default function PasswordInputFragment(props: PasswordInputPropsType) {
       type='password'
       name='password'
       ref={props.passwordRef}
-      placeholder='Senha'
+      placeholder={translate('Password')}
       errored={props.passwordErrored}
       filled={props.passwordFilled}
       handleFilled={props.handlePasswordFilled}
