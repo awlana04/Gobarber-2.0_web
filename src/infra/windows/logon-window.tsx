@@ -18,6 +18,7 @@ export default function LogonWindow() {
   return (
     <LogonPage
       emailRef={emailRef}
+      emailValue={emailRef.current!.value}
       passwordRef={passwordRef}
       submitHandler={submit}
     />

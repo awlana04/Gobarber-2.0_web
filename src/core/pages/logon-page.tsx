@@ -1,37 +1,28 @@
-import { useLayoutEffect } from 'react';
-
-import { PasswordInputPropsType } from '@/presentation/types/password-input-props-type';
-import { EmailInputPropsType } from '@/presentation/types/email-input-props-type';
+import {
+  EmailInputRefAndValueType,
+  PasswordInputRefType,
+} from '@/core/types/values-and-refs-input-type';
 import { SubmitHandlerType } from '@/presentation/types/submit-handler-type';
-
-import { useHandleErroredContext } from '@/contexts/use-handle-errored-context';
 
 import useHandleFilledHook from '@/hooks/use-handle-filled-hook';
 
+import { useHandleErroredContext } from '@/contexts/use-handle-errored-context';
+
 import LogonScreen from '@/screens/logon-screen';
 
-type EmailInputRef = Pick<EmailInputPropsType, 'emailRef'>;
-type PasswordInputRef = Pick<PasswordInputPropsType, 'passwordRef'>;
+type LogonPagePropsType = EmailInputRefAndValueType &
+  PasswordInputRefType &
+  SubmitHandlerType;
 
-type LogonPageType = EmailInputRef & PasswordInputRef & SubmitHandlerType;
-
-export default function LogonPage(props: LogonPageType) {
-  const { fieldErrored, handleFieldErrored } = useHandleErroredContext();
-
+export default function LogonPage(props: LogonPagePropsType) {
   const { fieldFilled, handleFieldFilled } = useHandleFilledHook();
 
-  // useLayoutEffect(() => {
-  //   if (state.pageName !== 'logon-page') {
-  //     dispatch({ type: 'RESET_INITIAL_STATE', pageName: 'logon-page' });
-  //   }
-  // });
-
-  console.log(fieldErrored);
+  const { fieldErrored } = useHandleErroredContext();
 
   return (
     <LogonScreen
       emailRef={props.emailRef}
-      emailValue={''}
+      emailValue={props.emailValue}
       emailErrored={
         fieldErrored !== undefined &&
         !!fieldErrored.find((email) => email === 'email')
@@ -39,12 +30,16 @@ export default function LogonPage(props: LogonPageType) {
       emailFilled={!!fieldFilled.find((email) => email === 'email')}
       handleEmailFilled={handleFieldFilled}
       passwordRef={props.passwordRef}
-      passwordErrored={false}
+      passwordErrored={
+        fieldErrored !== undefined &&
+        !!fieldErrored.find((password) => password === 'password')
+      }
       passwordFilled={!!fieldFilled.find((password) => password === 'password')}
       handlePasswordFilled={handleFieldFilled}
       submitHandler={props.submitHandler}
-      // buttonDisabled={!!(fieldFilled.length !== 2)}
-      buttonDisabled={false}
+      isButtonDisabled={
+        !!(fieldFilled.length !== 2 && fieldErrored !== undefined)
+      }
     />
   );
 }

@@ -1,13 +1,13 @@
-import { useHandleErroredContext } from '../contexts/use-handle-errored-context';
-import { useToast } from '../contexts/use-toast-context';
+import { useHandleErroredContext } from '@/contexts/use-handle-errored-context';
+import { useToastContext } from '@/contexts/use-toast-context';
 
-import DescriptionErrorHandling from '@/domain/validations/description-error-handling';
+import DescriptionErrorHandling from '@/validations/description-error-handling';
 
-import { descriptionError } from '../errors/description-toast-error-messages';
+import { descriptionError } from '@/messages/errors/description-toast-error-messages';
 
 export default function useDescriptionUsecase() {
-  const { dispatch } = useHandleErroredContext();
-  const { addToast } = useToast();
+  const { handleFieldErrored } = useHandleErroredContext();
+  const { addToast } = useToastContext();
 
   const handleDescriptionUsecase = async (description: string) => {
     const checkDescription = new DescriptionErrorHandling();
@@ -15,25 +15,21 @@ export default function useDescriptionUsecase() {
     const descriptionLength = await checkDescription.length(description);
     const descriptionExists = await checkDescription.exists(description);
 
+    const setDescriptionErrored = () => handleFieldErrored('description');
+
     switch (descriptionExists === false || descriptionLength === false) {
       case descriptionExists: {
-        dispatch({
-          type: 'SET_DESCRIPTION_ERROR',
-          value: { descriptionValue: description },
-        }),
-          addToast(descriptionError.Length as any);
+        setDescriptionErrored();
+        addToast(descriptionError.Length);
         break;
       }
       case descriptionLength: {
-        dispatch({
-          type: 'SET_DESCRIPTION_ERROR',
-          value: { descriptionValue: description },
-        }),
-          addToast(descriptionError.Required as any);
+        setDescriptionErrored();
+        addToast(descriptionError.Required);
         break;
       }
       default:
-        dispatch({ type: 'SET_DESCRIPTION_SUCCESS' });
+        break;
     }
   };
 

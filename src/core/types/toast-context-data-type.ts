@@ -1,6 +1,8 @@
-import { ToastMessageType } from '@/presentation/interfaces/toast-message-type';
+import ToastMessageType from '@/core/types/toast-message-type';
 
-export type ToastContextData = {
+type ToastContextData = {
   addToast(message: Omit<ToastMessageType, 'id'>): void;
   removeToast(id: string): void;
 };
+
+export default ToastContextData;

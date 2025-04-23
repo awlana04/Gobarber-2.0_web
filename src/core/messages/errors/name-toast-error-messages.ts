@@ -1,19 +1,19 @@
-import { NAME_MESSAGES } from '@/constants/name-messages';
+import translate from '@/core/utils/translate';
 
 import { ErrorsMessageType } from '@/core/types/errors-message-type';
 
 const type = 'error';
-const title = NAME_MESSAGES.NAME_TITLE;
+const title = translate('Error on Name');
 
 export const nameError: ErrorsMessageType = {
   Required: {
     title,
     type,
-    description: NAME_MESSAGES.NAME_REQUIRED,
+    description: translate('Name is a required field!'),
   },
   Length: {
     title,
     type,
-    description: NAME_MESSAGES.NAME_LENGTH,
+    description: translate('Name must have at least 3 characters.'),
   },
 };

@@ -1,0 +1,17 @@
+{
+  "DescriptionErrorTitle": "Error on Description",
+  "DescriptionErrorRequired": "Description is a required field!",
+  "DescriptionErrorLength": "Description must have at least 32 characters.",
+  "EmailErrorTitle": "Error on Email",
+  "EmailErrorRequired": "Email is a required field!",
+  "EmailErrorLength": "Email must have at least 6 characters.",
+  "EmailErrorValid": "Must be a valid email!",
+  "NameErrorTitle": "Error on Name",
+  "NameErrorRequired": "Name is a required field!",
+  "NameErrorLength": "Name must have at least 3 characters.",
+  "PasswordErrorTitle": "Error on Password",
+  "PasswordErrorRequired": "Password is a required field!",
+  "PasswordErrorLength": "Password must have at least 8 characters.",
+  "ConfirmPasswordErrorTitle": "Incompatible passwords",
+  "ConfirmPasswordError": "Passwords must match!"
+}

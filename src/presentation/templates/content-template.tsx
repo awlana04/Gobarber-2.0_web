@@ -26,6 +26,8 @@ export default function ContentTemplate({
         <Image
           src={GoBarberLogo}
           alt={translate('Barber shop image')}
+          width={0}
+          height={0}
           className='mx-auto max-sm:my-4 max-sm:w-48'
         />
 

@@ -1,6 +1,6 @@
 import Toast from './toast';
 
-import { ToastMessageType } from '@/core/types/toast-message-type';
+import ToastMessageType from '@/core/types/toast-message-type';
 
 type ToastContainerProps = {
   messages: ToastMessageType[];

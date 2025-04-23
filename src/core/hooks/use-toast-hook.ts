@@ -1,23 +1,8 @@
-'use client';
-
-import {
-  useState,
-  createContext,
-  useCallback,
-  ReactNode,
-  useContext,
-} from 'react';
-
-import ToastContainer from '@/core/utils/toast-container';
+import { useState, useCallback } from 'react';
 
 import { ToastMessageType } from '@/core/types/toast-message-type';
 
-import { ToastContext } from '@/contexts/use-toast-context';
-
-type ToastHookProps = {
-  children?: ReactNode;
-};
-export default function ToastHook({ children }: ToastHookProps) {
+const useToastHook = () => {
   const [messages, setMessages] = useState<ToastMessageType[]>([]);
 
   const addToast = useCallback(
@@ -40,10 +25,7 @@ export default function ToastHook({ children }: ToastHookProps) {
     setMessages((state) => state.filter((message) => message.id !== id));
   }, []);
 
-  return (
-    <ToastContext.Provider value={{ addToast, removeToast }}>
-      {children}
-      <ToastContainer messages={messages} />
-    </ToastContext.Provider>
-  );
-}
+  return { messages, addToast, removeToast };
+};
+
+export default useToastHook;

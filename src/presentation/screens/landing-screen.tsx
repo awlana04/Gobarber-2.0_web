@@ -26,9 +26,7 @@ export default function LandingScreen() {
       </p>
 
       <Link href='./logon'>
-        <Button type='button' isDisabled={false}>
-          {translate('Logon')}
-        </Button>
+        <Button type='button'>{translate('Logon')}</Button>
       </Link>
 
       <CreateAccount />

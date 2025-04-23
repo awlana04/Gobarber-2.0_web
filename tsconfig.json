@@ -31,7 +31,6 @@
       "@/handlers/*": ["src/infra/handlers/*"],
       "@/libs/*": ["src/core/libs/*"],
       "@/services/*": ["src/domain/services/*"],
-      "@/constants/*": ["src/core/constants/*"],
       "@/core/*": ["src/core/*"],
       "@/pages/*": ["src/core/pages/*"],
       "@/screens/*": ["src/presentation/screens/*"],
@@ -46,7 +45,9 @@
       "@/backend/*": ["src/infra/api/backend/*"],
       "@/mails/*": ["src/core/mails/*"],
       "@/adapters/*": ["src/infra/adapters/*"],
-      "@/factories/*": ["src/core/factories/*"]
+      "@/factories/*": ["src/core/factories/*"],
+      "@/messages/*": ["src/core/messages/*"],
+      "@/validations/*": ["src/domain/validations/*"]
     }
   },
   "include": [

@@ -12,6 +12,7 @@ describe('<useHandleErroredHook /> hook in core layer', () => {
     act(() => {
       result.current.handleFieldErrored('input');
     });
+
     expect(result.current.fieldErrored).toEqual([inputName]);
   });
 });

@@ -1,6 +1,8 @@
-export type ToastMessageType = {
+type ToastMessageType = {
   id: string;
   type: 'error' | 'success' | 'info';
   title: string;
   description?: string;
 };
+
+export default ToastMessageType;

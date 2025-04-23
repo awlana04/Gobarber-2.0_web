@@ -1,13 +1,11 @@
-'use client';
-
 import { useState } from 'react';
 
-export default function useHandleAvatarHook() {
+const useHandleAvatarHook = () => {
   const [file, setFile] = useState<File | undefined>(undefined);
   const [fileUrl, setFileUrl] = useState<string | undefined>(undefined);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
 
     setFile(file);
 
@@ -30,4 +28,6 @@ export default function useHandleAvatarHook() {
   };
 
   return { file, fileUrl, handleChange, handleRemove };
-}
+};
+
+export default useHandleAvatarHook;

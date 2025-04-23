@@ -29,7 +29,7 @@ export default function LogonScreen(props: LogonScreenProps) {
     <ContentTemplate
       position='right'
       src={image}
-      alt={translate('Barber image')}
+      alt={translate('Barber shop image')}
     >
       <h1 className='my-6 mt-10 text-2xl font-medium max-sm:mt-4'>
         {translate('Your Logon')}
@@ -50,7 +50,7 @@ export default function LogonScreen(props: LogonScreenProps) {
           handlePasswordFilled={props.handlePasswordFilled}
         />
 
-        <Button type='submit' isDisabled={props.isDisabled}>
+        <Button type='submit' isButtonDisabled={props.isButtonDisabled}>
           {translate('Enter')}
         </Button>
       </Form.Root>

@@ -2,9 +2,8 @@ import type { Metadata } from 'next';
 import { Roboto_Slab } from 'next/font/google';
 import './globals.css';
 
-import ToastHook from '@/hooks/toast-hook';
-
 import UseHandleErroredContextFactory from '@/infra/factories/contexts/use-handle-errored-context-factory';
+import UseToastContextFactory from '@/infra/factories/contexts/use-toast-context-factory';
 
 const robotoSlab = Roboto_Slab({ subsets: ['latin'] });
 
@@ -22,7 +21,7 @@ export default function RootLayout({
     <html lang='en'>
       <body className={robotoSlab.className}>
         <UseHandleErroredContextFactory>
-          <ToastHook>{children}</ToastHook>
+          <UseToastContextFactory>{children}</UseToastContextFactory>
         </UseHandleErroredContextFactory>
       </body>
     </html>

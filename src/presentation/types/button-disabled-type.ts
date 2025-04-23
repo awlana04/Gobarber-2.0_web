@@ -1,5 +1,5 @@
 type ButtonDisabledType = {
-  isDisabled: boolean;
+  isButtonDisabled?: boolean;
 };
 
 export default ButtonDisabledType;

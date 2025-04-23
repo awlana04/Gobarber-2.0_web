@@ -1,12 +1,12 @@
 import { createContext, useContext } from 'react';
 
-import { ToastContextData } from '../types/toast-context-data-type';
+import ToastContextData from '@/core/types/toast-context-data-type';
 
 export const ToastContext = createContext<ToastContextData>(
   {} as ToastContextData
 );
 
-export function useToast(): ToastContextData {
+export function useToastContext(): ToastContextData {
   const context = useContext(ToastContext);
 
   if (!context) {

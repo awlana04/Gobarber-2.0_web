@@ -1,0 +1,17 @@
+{
+  "DescriptionErrorTitle": "Erro na Descrição",
+  "DescriptionErrorRequired": "A descrição é obrigatória!",
+  "DescriptionErrorLength": "A descrição necessita er no mínimo 32 caracteres.",
+  "EmailErrorTitle": "Erro no Email",
+  "EmailErrorRequired": "O email é obrigatório!",
+  "EmailErrorLength": "O email necessita ter no mínimo 6 caracteres.",
+  "EmailErrorValid": "Necessita ser um email válido!",
+  "NameErrorTitle": "Erro no Nome",
+  "NameErrorRequired": "O nome é obrigatório!",
+  "NameErrorLength": "O nome necessita ter no mínimo 3 caracteres.",
+  "PasswordErrorTitle": "Erro na Senha",
+  "PasswordErrorRequired": "A senha é um campo obrigatório!",
+  "PasswordErrorLength": "A senha necessita ter no mínimo 8 caracteres.",
+  "ConfirmPasswordErrorTitle": "Senhas incompatíveis",
+  "ConfirmPasswordError": "As senhas necessitam serem as mesmas!"
+}

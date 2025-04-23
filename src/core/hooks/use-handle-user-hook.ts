@@ -1,8 +1,6 @@
-'use client';
-
 import { useState } from 'react';
 
-export default function useHandleUserHook() {
+const useHandleUserHook = () => {
   const [isClientSelected, setIsClientSelected] = useState(true);
   const [isOpenAtNight, setIsOpenAtNight] = useState(false);
   const [isOpenOnWeekends, setIsOpenOnWeekends] = useState(false);
@@ -15,4 +13,6 @@ export default function useHandleUserHook() {
     isOpenOnWeekends,
     setIsOpenOnWeekends,
   };
-}
+};
+
+export default useHandleUserHook;

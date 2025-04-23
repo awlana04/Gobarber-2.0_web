@@ -1,22 +1,31 @@
-import PasswordErrorHandling from '@/domain/validations/password-error-handling';
-import { passwordError } from '../errors/password-toast-error-messages';
+import { useHandleErroredContext } from '@/contexts/use-handle-errored-context';
+import { useToastContext } from '@/contexts/use-toast-context';
 
-import { useToast } from '../contexts/use-toast-context';
-import { useHandleErroredContext } from '../contexts/use-handle-errored-context';
+import PasswordErrorHandling from '@/validations/password-error-handling';
+
+import { passwordError } from '@/messages/errors/password-toast-error-messages';
 
 export default function usePasswordUsecase() {
-  const { dispatch } = useHandleErroredContext();
+  const { handleFieldErrored } = useHandleErroredContext();
+  const { addToast } = useToastContext();
 
-  const { addToast } = useToast();
-
-  const handlePasswordUsecase = async (
+  const handlePasswordUsecase = (
     password: string,
     confirmPassword?: string
   ) => {
     const checkPassword = new PasswordErrorHandling();
 
-    const passwordLength = await checkPassword.length(password);
-    const passwordExists = await checkPassword.exists(password);
+    const passwordLength = checkPassword.length(password);
+    const passwordExists = checkPassword.exists(password);
+
+    const setPasswordErrored = () => handleFieldErrored('password');
+    const setConfirmPasswordErrored = () =>
+      handleFieldErrored('confirmPassword');
+
+    if (confirmPassword && confirmPassword !== password) {
+      setConfirmPasswordErrored();
+      addToast(passwordError.Confirm!);
+    }
 
     switch (
       confirmPassword
@@ -25,17 +34,17 @@ export default function usePasswordUsecase() {
         : passwordLength === false || passwordExists === false
     ) {
       case passwordLength: {
-        dispatch({ type: 'SET_PASSWORD_ERROR' }),
-          addToast(passwordError.Length as any);
+        setPasswordErrored();
+        addToast(passwordError.Length);
         break;
       }
       case passwordExists: {
-        dispatch({ type: 'SET_PASSWORD_ERROR' }),
-          addToast(passwordError.Required as any);
+        setPasswordErrored();
+        addToast(passwordError.Required);
         break;
       }
       default:
-        dispatch({ type: 'SET_PASSWORD_SUCCESS' });
+        break;
     }
   };
 

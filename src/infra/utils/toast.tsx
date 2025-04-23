@@ -1,16 +1,16 @@
 import { useEffect } from 'react';
 import { FiAlertCircle, FiCheckCircle, FiInfo, FiX } from 'react-icons/fi';
 
-import { useToast } from '@/contexts/use-toast-context';
+import { useToastContext } from '@/contexts/use-toast-context';
 
-import { ToastMessageType } from '@/core/types/toast-message-type';
+import ToastMessageType from '@/core/types/toast-message-type';
 
 type ToastProps = {
   message: ToastMessageType;
 };
 
 export default function Toast({ message }: ToastProps) {
-  const { removeToast } = useToast();
+  const { removeToast } = useToastContext();
 
   useEffect(() => {
     const timer = setTimeout(() => {

@@ -1,17 +1,17 @@
-'use client';
-
 import { useState } from 'react';
 
-export default function useHandleImagesHook() {
+const useHandleImagesHook = () => {
   const [file, setFile] = useState<File[]>([]);
   const [fileUrl, setFileUrl] = useState<string[]>([]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const images = event.target.files;
+
+    if (!images) {
       return;
     }
 
-    const selectedImages = Array.from(e.target.files);
+    const selectedImages = Array.from(images);
 
     setFile(selectedImages);
 
@@ -23,4 +23,6 @@ export default function useHandleImagesHook() {
   };
 
   return { file, setFile, setFileUrl, fileUrl, handleChange };
-}
+};
+
+export default useHandleImagesHook;

@@ -78,7 +78,7 @@ export default function SigninBarberScreen(props: SigninBarberScreenType) {
           setIsOpenOnWeekends={props.setIsOpenOnWeekends}
         />
 
-        <Button type='submit' isDisabled={props.isDisabled}>
+        <Button type='submit' isButtonDisabled={props.isButtonDisabled}>
           {translate('Register')}
         </Button>
       </Form.Root>

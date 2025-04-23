@@ -21,7 +21,7 @@ import ButtonDisabledType from '@/presentation/types/button-disabled-type';
 
 import image from '@/public/gobarber_image003.svg';
 
-import translate from '../utils/translate';
+import translate from '@/presentation/utils/translate';
 
 type SigninPropsType = AvatarInputPropsType &
   RadioButtonPropsType &
@@ -82,7 +82,7 @@ export default function SigninScreen(props: SigninPropsType) {
           handleConfirmPasswordFilled={props.handleConfirmPasswordFilled}
         />
 
-        <Button type='submit' isDisabled={props.isDisabled}>
+        <Button type='submit' isButtonDisabled={props.isButtonDisabled}>
           {translate('Register')}
         </Button>
       </Form.Root>

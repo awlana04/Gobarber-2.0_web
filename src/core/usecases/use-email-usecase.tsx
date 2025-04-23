@@ -1,13 +1,13 @@
-import { useToast } from '@/contexts/use-toast-context';
 import { useHandleErroredContext } from '@/contexts/use-handle-errored-context';
+import { useToastContext } from '@/contexts/use-toast-context';
 
-import EmailErrorHandling from '@/domain/validations/email-error-handling';
+import EmailErrorHandling from '@/validations/email-error-handling';
 
-import { emailError } from '@/core/errors/email-toast-error-messages';
+import { emailError } from '@/messages/errors/email-toast-error-messages';
 
 export default function useEmailUsecase() {
-  const { addToast } = useToast();
   const { handleFieldErrored } = useHandleErroredContext();
+  const { addToast } = useToastContext();
 
   const handleEmailUsecase = (email: string) => {
     const checkEmail = new EmailErrorHandling();

@@ -2,7 +2,7 @@
 
 import { HandleErroredContext } from '@/contexts/use-handle-errored-context';
 
-import useHandleErroredHook from '@/core/hooks/use-error-hook';
+import useHandleErroredHook from '@/core/hooks/use-handle-errored-hook';
 
 type HandleErroredHookProps = {
   children?: React.ReactNode;
