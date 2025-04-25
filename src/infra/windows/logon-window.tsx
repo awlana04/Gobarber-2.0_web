@@ -12,13 +12,18 @@ export default function LogonWindow() {
 
   const { submitHandler } = useAuthenticateFormSubmitHandler();
 
+  const emailValue =
+    emailRef.current! &&
+    emailRef.current!.value !== null &&
+    emailRef.current!.value;
+
   const submit = () =>
     submitHandler(emailRef.current!.value, passwordRef.current!.value);
 
   return (
     <LogonPage
       emailRef={emailRef}
-      emailValue={emailRef.current!.value}
+      emailValue={emailValue as string}
       passwordRef={passwordRef}
       submitHandler={submit}
     />

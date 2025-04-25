@@ -1,6 +1,6 @@
 import { render } from '@react-email/render';
 
-import TransformMailAdapterModel from '../models/transform-mail-adapter-model';
+import TransformMailAdapterModel from '@/adapters/models/transform-mail-adapter-model';
 
 export default class TransformMailAdapter implements TransformMailAdapterModel {
   public async transformMailToHtml(

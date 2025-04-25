@@ -4,17 +4,18 @@ const useHandleErroredHook = () => {
   const [fieldErrored, setFieldErrored] = useState(['']);
 
   function handleFieldErrored(fieldName: string) {
-    const fieldNameNow = fieldErrored
-      .filter((field) => field === fieldName)
-      .toLocaleString();
+    // identify and save if the error already exists
+    const errorAlreadyExists = fieldErrored.filter(
+      (error) => error === fieldName
+    );
 
-    if (fieldName !== fieldNameNow) {
-      setFieldErrored([
-        ...fieldErrored.filter((blank) => blank !== ''),
-        fieldName,
-      ]);
-    } else {
-      setFieldErrored([]);
+    // check if the error already exists to not save it in the Array again
+    if (errorAlreadyExists.length === 0) {
+      // push the new error into the Array
+      fieldErrored.push(fieldName);
+
+      // Remove the Array's blank string
+      setFieldErrored([...fieldErrored.filter((blank) => blank !== '')]);
     }
   }
 

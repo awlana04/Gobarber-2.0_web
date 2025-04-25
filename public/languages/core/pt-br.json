@@ -13,5 +13,8 @@
   "PasswordErrorRequired": "A senha é um campo obrigatório!",
   "PasswordErrorLength": "A senha necessita ter no mínimo 8 caracteres.",
   "ConfirmPasswordErrorTitle": "Senhas incompatíveis",
-  "ConfirmPasswordError": "As senhas necessitam serem as mesmas!"
+  "ConfirmPasswordError": "As senhas necessitam serem as mesmas!",
+  "AuthenticateErrorTitle": "Usuário não encontrado",
+  "AuthenticateInvalidCredentialsError": "Email ou senha não encontradas!",
+  "AuthenticateNotFoundError": "Não identificados nenhum usuário com o email informado!"
 }

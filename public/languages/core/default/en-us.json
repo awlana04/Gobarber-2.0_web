@@ -13,5 +13,8 @@
   "PasswordErrorRequired": "Password is a required field!",
   "PasswordErrorLength": "Password must have at least 8 characters.",
   "ConfirmPasswordErrorTitle": "Incompatible passwords",
-  "ConfirmPasswordError": "Passwords must match!"
+  "ConfirmPasswordError": "Passwords must match!",
+  "AuthenticateErrorTitle": "User not found",
+  "AuthenticateInvalidCredentialsError": "Email or password not found!",
+  "AuthenticateNotFoundError": "We haven't found any user with the email provided!"
 }

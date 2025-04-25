@@ -1,3 +1,5 @@
+'use client';
+
 import { ToastContext } from '@/contexts/use-toast-context';
 
 import useToastHook from '@/core/hooks/use-toast-hook';

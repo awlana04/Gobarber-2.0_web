@@ -1,53 +1,12 @@
 import FetchAPIDataModel from '@/adapters/models/fetch-api-data-model';
 import ManageDataInBrowserModel from '@/adapters/models/manage-data-in-browser-model';
 
-type AuthenticateFormType = {
+import HttpResponse from '@/infra/types/http-response';
+import { DataType } from '@/infra/types/data-type';
+
+type AuthenticateFormDataType = {
   email: string;
   password: string;
-};
-
-type AuthenticateData = {
-  user: {
-    id: string;
-    name: string;
-    email: string;
-    location: string;
-    avatar: string;
-    createdAt: Date;
-    updatedAt: Date;
-    barber: {
-      id: string;
-      name: string;
-      location: string;
-      description: string;
-      images: [];
-      openAtNight: boolean;
-      openOnWeekends: boolean;
-      userId: string;
-      createdAt: Date;
-      updatedAt: Date;
-    };
-  };
-  token: string;
-  refreshToken: {
-    id: string;
-    expiresIn: number;
-    userId: string;
-    createdAt: Date;
-    updatedAt: Date;
-  };
-  barber: {
-    id: string;
-    name: string;
-    location: string;
-    description: string;
-    images: [];
-    openAtNight: boolean;
-    openOnWeekends: boolean;
-    userId: string;
-    createdAt: Date;
-    updatedAt: Date;
-  };
 };
 
 export default class AuthenticateFormAPI {
@@ -57,8 +16,8 @@ export default class AuthenticateFormAPI {
   ) {}
 
   public async go(
-    data: AuthenticateFormType
-  ): Promise<{ server: Response; user: AuthenticateData }> {
+    data: AuthenticateFormDataType
+  ): Promise<{ server: HttpResponse; user: DataType }> {
     return await this.fetchAPIData
       .fetch('/users/session/', {
         method: 'POST',
@@ -68,7 +27,7 @@ export default class AuthenticateFormAPI {
         data,
       })
       .then(async (response) => {
-        const user = (await response.json()) as AuthenticateData;
+        const user: DataType = await response.json();
 
         await this.manageDataInBrowser.clearAllData();
 
@@ -88,9 +47,9 @@ export default class AuthenticateFormAPI {
       });
   }
 
-  public async fake(data: AuthenticateFormType) {
+  public async fake(data: AuthenticateFormDataType) {
     return await this.fetchAPIData.fetch('/users').then(async (response) => {
-      const user = (await response.json()) as Array<AuthenticateFormType>;
+      const user: AuthenticateFormDataType[] = await response.json();
 
       const selectedUser = user.find(
         (user) => user.email === data.email && user.password === data.password

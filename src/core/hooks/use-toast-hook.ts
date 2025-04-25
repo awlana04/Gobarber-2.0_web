@@ -1,6 +1,8 @@
+'use client';
+
 import { useState, useCallback } from 'react';
 
-import { ToastMessageType } from '@/core/types/toast-message-type';
+import { ToastMessageType } from '@/core/types/toast-message-context-data-type';
 
 const useToastHook = () => {
   const [messages, setMessages] = useState<ToastMessageType[]>([]);

@@ -1,12 +1,12 @@
-import ToastMessageType from './toast-message-type';
+import { ToastMessageType } from './toast-message-context-data-type';
 
-type RequiredAndWithoutIdToastMessageType = Required<
+export type RequiredAndWithoutIDToastMessageType = Required<
   Omit<ToastMessageType, 'id'>
 >;
 
 export type ErrorsMessageType = {
-  Required: RequiredAndWithoutIdToastMessageType;
-  Length: RequiredAndWithoutIdToastMessageType;
-  Valid?: RequiredAndWithoutIdToastMessageType;
-  Confirm?: RequiredAndWithoutIdToastMessageType;
+  Required: RequiredAndWithoutIDToastMessageType;
+  Length: RequiredAndWithoutIDToastMessageType;
+  Valid?: RequiredAndWithoutIDToastMessageType;
+  Confirm?: RequiredAndWithoutIDToastMessageType;
 };

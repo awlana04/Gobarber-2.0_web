@@ -1,5 +1,4 @@
-import { useHandleErroredContext } from '@/contexts/use-handle-errored-context';
-import { useToast } from '@/contexts/use-toast-context';
+import { useToastContext } from '@/contexts/use-toast-context';
 
 import useEmailUsecase from '@/usecases/use-email-usecase';
 import usePasswordUsecase from '@/usecases/use-password-usecase';
@@ -9,34 +8,23 @@ import AuthenticateFormAPI from '@/api/authenticate-form-api';
 import FetchAPIData from '@/adapters/implementations/fetch-api-data';
 import ManageDataInBrowser from '@/adapters/implementations/manage-data-in-browser-model';
 
+import AuthenticateToastErrorMessages from '@/messages/errors/authenticate-toast-error-messages';
+
 export default function useAuthenticateFormSubmitHandler() {
-  // const { dispatch } = useHandleErroredContext();
-  const { addToast } = useToast();
+  const { addToast } = useToastContext();
 
   const { handleEmailUsecase } = useEmailUsecase();
-  // const { handlePasswordUsecase } = usePasswordUsecase();
+  const { handlePasswordUsecase } = usePasswordUsecase();
 
   const submitHandler = async (email: string, password: string) => {
-    // dispatch({ type: 'CHECK_PAGE_NAME', pageName: 'logon-page' });
-
-    await handleEmailUsecase(email);
-    // await handlePasswordUsecase(password);
-
-    // setIsButtonDisabled(false);
+    handleEmailUsecase(email);
+    handlePasswordUsecase(password);
 
     const authenticateErrorToast = () =>
-      addToast({
-        type: 'error',
-        title: 'Usuário não encontrado',
-        description: 'Email ou senha não encontrados!',
-      });
+      addToast(AuthenticateToastErrorMessages.InvalidCredentials);
 
     const notFoundError = () =>
-      addToast({
-        type: 'error',
-        title: 'Usuário não encontrado',
-        description: 'Não identificamos nenhum usuário com o email informado!',
-      });
+      addToast(AuthenticateToastErrorMessages.NotFound);
 
     const authenticateFormAPI = new AuthenticateFormAPI(
       new FetchAPIData(),

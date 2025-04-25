@@ -1,8 +1,8 @@
 import translateBase from '@/shared/bases/translate-base';
 
-import DefaultLanguage from '@/presentation/languages/default/en-us.json';
+import DefaultLanguage from '@/public/languages/presentation/default/en-us.json';
 
-import PtBr from '@/presentation/languages/pt-br.json';
+import PtBr from '@/public/languages/presentation/pt-br.json';
 
 const translate = (text: string) => {
   return translateBase(text, { DefaultLanguage, PtBr }, DefaultLanguage);

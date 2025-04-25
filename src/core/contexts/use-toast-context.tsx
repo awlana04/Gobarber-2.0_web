@@ -1,6 +1,8 @@
+'use client';
+
 import { createContext, useContext } from 'react';
 
-import ToastContextData from '@/core/types/toast-context-data-type';
+import { ToastContextData } from '@/core/types/toast-message-context-data-type';
 
 export const ToastContext = createContext<ToastContextData>(
   {} as ToastContextData

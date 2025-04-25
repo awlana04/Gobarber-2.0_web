@@ -7,13 +7,14 @@ const title = translate('Error on Name');
 
 export const nameError: ErrorsMessageType = {
   Required: {
-    title,
     type,
+
+    title,
     description: translate('Name is a required field!'),
   },
   Length: {
-    title,
     type,
+    title,
     description: translate('Name must have at least 3 characters.'),
   },
 };

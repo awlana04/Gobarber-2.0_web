@@ -1,9 +1,11 @@
+'use client';
+
 import { useEffect } from 'react';
 import { FiAlertCircle, FiCheckCircle, FiInfo, FiX } from 'react-icons/fi';
 
 import { useToastContext } from '@/contexts/use-toast-context';
 
-import ToastMessageType from '@/core/types/toast-message-type';
+import { ToastMessageType } from '@/core/types/toast-message-context-data-type';
 
 type ToastProps = {
   message: ToastMessageType;

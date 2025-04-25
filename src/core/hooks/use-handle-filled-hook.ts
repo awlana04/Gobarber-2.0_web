@@ -8,11 +8,12 @@ const useHandleFilledHook = () => {
       .filter((field) => field === event.target.name)
       .toLocaleString();
 
-    if (event.target.value && event.target.name !== fieldName) {
-      setFieldFilled([
-        ...fieldFilled.filter((blank) => blank !== ''),
-        event.target.name,
-      ]);
+    if (event.target.value) {
+      if (event.target.name !== fieldName)
+        setFieldFilled([
+          ...fieldFilled.filter((blank) => blank !== ''),
+          event.target.name,
+        ]);
     } else {
       setFieldFilled([]);
     }
