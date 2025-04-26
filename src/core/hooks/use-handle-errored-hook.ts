@@ -1,8 +1,13 @@
+// this is a hook that is being consumed by the useHandleErroredContext in Contexts Core Layer and is being called in the useHandleErroredContextFactory in Factories Infra Layer
+// the state of this hook is used in the Pages Core Layer as request for errored by some Screen Props
+// but the functions are used in the Usecases Core Layer to Save a new errored field with the validation identify an error or it removes a field which is not errored anymore
+
 import { useState } from 'react';
 
 const useHandleErroredHook = () => {
   const [fieldErrored, setFieldErrored] = useState(['']);
 
+  // saves a new errored field which is called in Usecases Core Layer by passing the fieldName
   function handleFieldErrored(fieldName: string) {
     // identify and save if the error already exists
     const errorAlreadyExists = fieldErrored.filter(
@@ -19,6 +24,7 @@ const useHandleErroredHook = () => {
     }
   }
 
+  // removes an errored field which is called by default in the Usecases Core Layer switch statement by passing the fieldName to remove
   function clearFieldErrored(fieldName: string) {
     // find the error's index in fieldErrored state
     const errorIndexInArray = fieldErrored.findIndex(

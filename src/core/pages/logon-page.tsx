@@ -18,7 +18,6 @@ export default function LogonPage(props: LogonPagePropsType) {
   const { fieldFilled, handleFieldFilled } = useHandleFilledHook();
 
   const { fieldErrored } = useHandleErroredContext();
-  console.log(fieldErrored);
 
   return (
     <LogonScreen
