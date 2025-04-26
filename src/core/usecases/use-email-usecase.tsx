@@ -6,7 +6,7 @@ import EmailErrorHandling from '@/validations/email-error-handling';
 import { emailError } from '@/messages/errors/email-toast-error-messages';
 
 export default function useEmailUsecase() {
-  const { fieldErrored, handleFieldErrored } = useHandleErroredContext();
+  const { handleFieldErrored, clearFieldErrored } = useHandleErroredContext();
   const { addToast } = useToastContext();
 
   const handleEmailUsecase = (email: string) => {
@@ -39,6 +39,7 @@ export default function useEmailUsecase() {
         break;
       }
       default:
+        clearFieldErrored('email');
         break;
     }
   };

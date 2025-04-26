@@ -19,7 +19,20 @@ const useHandleErroredHook = () => {
     }
   }
 
-  return { fieldErrored, handleFieldErrored };
+  function clearFieldErrored(fieldName: string) {
+    // find the error's index in fieldErrored state
+    const errorIndexInArray = fieldErrored.findIndex(
+      (error) => error === fieldName
+    );
+
+    // if there's an index in errorIndexInArray, executes the splice
+    if (errorIndexInArray > -1) {
+      // the function executes every time is called in a usecase, so it'll delete on by one
+      fieldErrored.splice(errorIndexInArray, 1);
+    }
+  }
+
+  return { fieldErrored, handleFieldErrored, clearFieldErrored };
 };
 
 export default useHandleErroredHook;

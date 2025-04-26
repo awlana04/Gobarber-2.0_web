@@ -3,6 +3,7 @@ import { createContext, useContext } from 'react';
 type ErroredContextType = {
   fieldErrored: string[];
   handleFieldErrored(fieldName: string): void;
+  clearFieldErrored(fieldName: string): void;
 };
 
 export const HandleErroredContext = createContext({} as ErroredContextType);

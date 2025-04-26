@@ -6,7 +6,7 @@ import PasswordErrorHandling from '@/validations/password-error-handling';
 import { passwordError } from '@/messages/errors/password-toast-error-messages';
 
 export default function usePasswordUsecase() {
-  const { fieldErrored, handleFieldErrored } = useHandleErroredContext();
+  const { handleFieldErrored, clearFieldErrored } = useHandleErroredContext();
   const { addToast } = useToastContext();
 
   const handlePasswordUsecase = (
@@ -44,6 +44,7 @@ export default function usePasswordUsecase() {
         break;
       }
       default:
+        clearFieldErrored('password');
         break;
     }
   };

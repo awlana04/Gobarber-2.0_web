@@ -11,10 +11,13 @@ type HandleErroredHookProps = {
 export default function UseHandleErroredContextFactory({
   children,
 }: HandleErroredHookProps) {
-  const { fieldErrored, handleFieldErrored } = useHandleErroredHook();
+  const { fieldErrored, handleFieldErrored, clearFieldErrored } =
+    useHandleErroredHook();
 
   return (
-    <HandleErroredContext.Provider value={{ fieldErrored, handleFieldErrored }}>
+    <HandleErroredContext.Provider
+      value={{ fieldErrored, handleFieldErrored, clearFieldErrored }}
+    >
       {children}
     </HandleErroredContext.Provider>
   );

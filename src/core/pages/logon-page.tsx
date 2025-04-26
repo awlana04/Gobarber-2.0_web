@@ -19,19 +19,20 @@ export default function LogonPage(props: LogonPagePropsType) {
 
   const { fieldErrored } = useHandleErroredContext();
   console.log(fieldErrored);
+
   return (
     <LogonScreen
       emailRef={props.emailRef}
       emailValue={props.emailValue}
       emailErrored={
-        !!fieldErrored !== undefined &&
+        fieldErrored !== undefined &&
         !!fieldErrored.find((email) => email === 'email')
       }
       emailFilled={!!fieldFilled.find((email) => email === 'email')}
       handleEmailFilled={handleFieldFilled}
       passwordRef={props.passwordRef}
       passwordErrored={
-        !!fieldErrored !== undefined &&
+        fieldErrored !== undefined &&
         !!fieldErrored.find((password) => password === 'password')
       }
       passwordFilled={!!fieldFilled.find((password) => password === 'password')}
