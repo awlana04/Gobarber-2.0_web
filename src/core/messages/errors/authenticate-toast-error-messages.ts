@@ -1,4 +1,4 @@
-import translate from '@/core/utils/translate';
+import translate from '@/shared/utils/translate';
 
 import { RequiredAndWithoutIDToastMessageType } from '@/core/types/errors-message-type';
 

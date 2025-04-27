@@ -1,16 +1,16 @@
 'use client';
 
+import useHandleErroredHook from '@/hooks/use-handle-errored-hook';
+
 import { HandleErroredContext } from '@/contexts/use-handle-errored-context';
 
-import useHandleErroredHook from '@/core/hooks/use-handle-errored-hook';
-
-type HandleErroredHookProps = {
+type HandleErroredHookPropsType = {
   children?: React.ReactNode;
 };
 
 export default function UseHandleErroredContextFactory({
   children,
-}: HandleErroredHookProps) {
+}: HandleErroredHookPropsType) {
   const { fieldErrored, handleFieldErrored, clearFieldErrored } =
     useHandleErroredHook();
 

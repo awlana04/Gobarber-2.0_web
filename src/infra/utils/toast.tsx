@@ -1,5 +1,3 @@
-'use client';
-
 import { useEffect } from 'react';
 import { FiAlertCircle, FiCheckCircle, FiInfo, FiX } from 'react-icons/fi';
 
@@ -7,11 +5,11 @@ import { useToastContext } from '@/contexts/use-toast-context';
 
 import { ToastMessageType } from '@/core/types/toast-message-context-data-type';
 
-type ToastProps = {
+type ToastPropsType = {
   message: ToastMessageType;
 };
 
-export default function Toast({ message }: ToastProps) {
+export default function Toast({ message }: ToastPropsType) {
   const { removeToast } = useToastContext();
 
   useEffect(() => {

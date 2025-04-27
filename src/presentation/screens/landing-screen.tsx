@@ -7,7 +7,7 @@ import CreateAccount from '@/components/atoms/create-account';
 
 import image from '@/public/gobarber_image001.svg';
 
-import translate from '@/presentation/utils/translate';
+import translate from '@/shared/utils/translate';
 
 export default function LandingScreen() {
   return (

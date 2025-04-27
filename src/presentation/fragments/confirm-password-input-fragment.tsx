@@ -4,7 +4,7 @@ import { ConfirmPasswordInputPropsType } from '@/presentation/types/confirm-pass
 
 import { Form } from '@/molecules/form';
 
-import translate from '@/presentation/utils/translate';
+import translate from '@/shared/utils/translate';
 
 export default function ConfirmPasswordInputFragment(
   props: ConfirmPasswordInputPropsType

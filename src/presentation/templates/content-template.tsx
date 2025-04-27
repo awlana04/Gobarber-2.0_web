@@ -3,7 +3,8 @@ import Image from 'next/image';
 import AsideImage from './components/aside-image';
 
 import GoBarberLogo from '@/public/gobarber_logo001.svg';
-import translate from '../utils/translate';
+
+import translate from '@/shared/utils/translate';
 
 type ContentTemplateType = {
   children: React.ReactNode;

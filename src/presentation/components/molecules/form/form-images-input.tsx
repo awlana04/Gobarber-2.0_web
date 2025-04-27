@@ -5,7 +5,7 @@ import { FormImagesInputProps } from '@/presentation/types/form-images-input-pro
 
 import Title from '@/atoms/title';
 
-import translate from '@/presentation/utils/translate';
+import translate from '@/shared/utils/translate';
 
 export default function FormImagesInput(props: FormImagesInputProps) {
   return (

@@ -21,7 +21,7 @@ import ButtonDisabledType from '@/presentation/types/button-disabled-type';
 
 import image from '@/public/gobarber_image003.svg';
 
-import translate from '@/presentation/utils/translate';
+import translate from '@/shared/utils/translate';
 
 type SigninPropsType = AvatarInputPropsType &
   RadioButtonPropsType &

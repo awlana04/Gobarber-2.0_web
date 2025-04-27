@@ -1,3 +1,7 @@
+// ManageDataInBrowser's implementation adapter provides the ability to save data in the browser
+// nowadays we're using localStorage to store the data, but if we need to change it tomorrow to Cookies strategy, we'd just need to play around here
+// We're providing a pre-established application name to be used as an identification of our storage method and a Key Name Type to set out the storages' type
+
 import ManageDataInBrowserModel from '@/adapters/models/manage-data-in-browser-model';
 
 type KeyNameType = 'token' | 'user' | 'barber';

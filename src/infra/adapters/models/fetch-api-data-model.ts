@@ -1,3 +1,5 @@
+import HttpResponse from '@/infra/types/http-response';
+
 export default interface FetchAPIDataModel {
   fetch(
     path: string,
@@ -6,5 +8,5 @@ export default interface FetchAPIDataModel {
       headers: any;
       data: any;
     }
-  ): Promise<Response>;
+  ): Promise<HttpResponse>;
 }

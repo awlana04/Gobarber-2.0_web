@@ -1,3 +1,5 @@
+import APIBase from '@/infra/bases/api-base';
+
 import FetchAPIDataModel from '@/adapters/models/fetch-api-data-model';
 import ManageDataInBrowserModel from '@/adapters/models/manage-data-in-browser-model';
 
@@ -9,11 +11,13 @@ type AuthenticateFormDataType = {
   password: string;
 };
 
-export default class AuthenticateFormAPI {
+export default class AuthenticateFormAPI extends APIBase {
   constructor(
-    private readonly fetchAPIData: FetchAPIDataModel,
+    protected readonly fetchAPIData: FetchAPIDataModel,
     private readonly manageDataInBrowser: ManageDataInBrowserModel
-  ) {}
+  ) {
+    super(fetchAPIData);
+  }
 
   public async go(
     data: AuthenticateFormDataType
@@ -29,12 +33,14 @@ export default class AuthenticateFormAPI {
       .then(async (response) => {
         const user: DataType = await response.json();
 
+        // if the user is making the Sign in again, we must ensure there's no other stored data in browser
         await this.manageDataInBrowser.clearAllData();
 
         if (response.ok) {
           await this.manageDataInBrowser.saveData('user', user.token);
           await this.manageDataInBrowser.saveData('user', JSON.stringify(user));
 
+          // verify if the user is a Barber to save its data into a new different storage data
           if (user.barber !== null) {
             await this.manageDataInBrowser.saveData(
               'barber',
@@ -51,10 +57,12 @@ export default class AuthenticateFormAPI {
     return await this.fetchAPIData.fetch('/users').then(async (response) => {
       const user: AuthenticateFormDataType[] = await response.json();
 
+      // search in the fake database for the proved email and return it if exists
       const selectedUser = user.find(
         (user) => user.email === data.email && user.password === data.password
       );
 
+      // if there's the selected user, then save the data into the browser and create a fake Token
       if (selectedUser) {
         const token = `gobarber_fake_server_token-${Math.random().toExponential(12).toString()}`;
 
@@ -63,7 +71,12 @@ export default class AuthenticateFormAPI {
           'user',
           JSON.stringify(selectedUser)
         );
+
+        // ** FUTURE IMPLEMENTATION **
+        // ** By now is has not been implemented the check analysis for a Barber **
+        // ** FUTURE IMPLEMENTATION **
       } else {
+        // if there's no user in fake database, throw an Error to be catch in the handler and send it back properly to the user by a toast
         throw new Error('User not found');
       }
     });

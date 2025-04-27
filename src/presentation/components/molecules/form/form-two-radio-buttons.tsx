@@ -3,7 +3,7 @@ import { FormTwoRadioButtonProps } from '@/presentation/types/two-radio-buttons-
 import Title from '@/atoms/title';
 import Label from '@/atoms/label';
 
-import translate from '@/presentation/utils/translate';
+import translate from '@/shared/utils/translate';
 
 export default function FormTwoRadioButton(props: FormTwoRadioButtonProps) {
   return (

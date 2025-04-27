@@ -4,7 +4,7 @@ import { DescriptionInputPropsType } from '../types/description-input-props-type
 
 import { Form } from '@/components/molecules/form';
 
-import translate from '@/presentation/utils/translate';
+import translate from '@/shared/utils/translate';
 
 export default function DescriptionInputFragment(
   props: DescriptionInputPropsType

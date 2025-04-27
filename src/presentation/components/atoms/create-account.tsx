@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { FiLogIn } from 'react-icons/fi';
 
-import translate from '@/presentation/utils/translate';
+import translate from '@/shared/utils/translate';
 
 export default function CreateAccount() {
   return (

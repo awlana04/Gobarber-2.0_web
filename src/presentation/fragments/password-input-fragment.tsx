@@ -4,7 +4,7 @@ import { PasswordInputPropsType } from '@/presentation/types/password-input-prop
 
 import { Form } from '@/molecules/form';
 
-import translate from '@/presentation/utils/translate';
+import translate from '@/shared/utils/translate';
 
 export default function PasswordInputFragment(props: PasswordInputPropsType) {
   return (

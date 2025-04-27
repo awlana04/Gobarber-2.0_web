@@ -17,7 +17,7 @@ import PasswordInputFragment from '@/fragments/password-input-fragment';
 
 import image from '@/public/gobarber_image002.svg';
 
-import translate from '../utils/translate';
+import translate from '@/shared/utils/translate';
 
 type LogonScreenProps = EmailInputPropsType &
   PasswordInputPropsType &

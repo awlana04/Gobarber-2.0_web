@@ -3,12 +3,12 @@ import { useToastContext } from '@/contexts/use-toast-context';
 import useEmailUsecase from '@/usecases/use-email-usecase';
 import usePasswordUsecase from '@/usecases/use-password-usecase';
 
+import AuthenticateToastErrorMessages from '@/messages/errors/authenticate-toast-error-messages';
+
 import AuthenticateFormAPI from '@/api/authenticate-form-api';
 
 import FetchAPIData from '@/adapters/implementations/fetch-api-data';
-import ManageDataInBrowser from '@/adapters/implementations/manage-data-in-browser-model';
-
-import AuthenticateToastErrorMessages from '@/messages/errors/authenticate-toast-error-messages';
+import ManageDataInBrowser from '@/adapters/implementations/manage-data-in-browser';
 
 export default function useAuthenticateFormSubmitHandler() {
   const { addToast } = useToastContext();
@@ -16,15 +16,15 @@ export default function useAuthenticateFormSubmitHandler() {
   const { handleEmailUsecase } = useEmailUsecase();
   const { handlePasswordUsecase } = usePasswordUsecase();
 
+  // save the toast messages to be used as many times the errors' type requires it
+  const authenticateErrorToast = () =>
+    addToast(AuthenticateToastErrorMessages.InvalidCredentials);
+  const notFoundError = () => addToast(AuthenticateToastErrorMessages.NotFound);
+
   const submitHandler = async (email: string, password: string) => {
+    // check for incorrectly formatted information
     handleEmailUsecase(email);
     handlePasswordUsecase(password);
-
-    const authenticateErrorToast = () =>
-      addToast(AuthenticateToastErrorMessages.InvalidCredentials);
-
-    const notFoundError = () =>
-      addToast(AuthenticateToastErrorMessages.NotFound);
 
     const authenticateFormAPI = new AuthenticateFormAPI(
       new FetchAPIData(),
@@ -61,6 +61,8 @@ export default function useAuthenticateFormSubmitHandler() {
                 authenticateErrorToast();
               }
             });
+
+    // Redirect the user to the dashboard according to its account type
 
     // if (response.server.ok) {
     // if (response.user.barber) {

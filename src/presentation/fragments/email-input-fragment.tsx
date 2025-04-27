@@ -4,7 +4,7 @@ import { EmailInputPropsType } from '@/presentation/types/email-input-props-type
 
 import { Form } from '@/molecules/form';
 
-import translate from '@/presentation/utils/translate';
+import translate from '@/shared/utils/translate';
 
 export default function EmailInputFragment(props: EmailInputPropsType) {
   return (

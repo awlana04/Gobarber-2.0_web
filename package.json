@@ -13,7 +13,7 @@
     "test:domain": "jest ./src/domain",
     "test:core": "vitest ./src/core",
     "test:presentation": "vitest ./src/presentation",
-    "test:infra": "vitest ./src/infra",
+    "test:infra": "jest ./src/infra",
     "test:shared": "vitest ./src/shared",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"

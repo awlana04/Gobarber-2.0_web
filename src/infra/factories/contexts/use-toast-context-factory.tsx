@@ -1,8 +1,8 @@
 'use client';
 
-import { ToastContext } from '@/contexts/use-toast-context';
+import useToastHook from '@/hooks/use-toast-hook';
 
-import useToastHook from '@/core/hooks/use-toast-hook';
+import { ToastContext } from '@/contexts/use-toast-context';
 
 import ToastContainer from '@/infra/utils/toast-container';
 

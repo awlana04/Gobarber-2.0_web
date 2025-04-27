@@ -19,7 +19,7 @@ import ButtonDisabledType from '@/presentation/types/button-disabled-type';
 
 import image from '@public/gobarber_image004.svg';
 
-import translate from '../utils/translate';
+import translate from '@/shared/utils/translate';
 
 type SigninBarberScreenType = NameInputPropsType &
   DescriptionInputPropsType &

@@ -2,7 +2,7 @@ import Label from '@/atoms/label';
 
 import { RadioButtonPropsType } from '@/presentation/types/radio-button-props-type';
 
-import translate from '@/presentation/utils/translate';
+import translate from '@/shared/utils/translate';
 
 export default function FormRadioButton(props: RadioButtonPropsType) {
   return (

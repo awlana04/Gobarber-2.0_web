@@ -5,7 +5,7 @@ import { AvatarInputPropsType } from '@/presentation/types/avatar-input-props-ty
 
 import logo from '@/public/gobarber_logo.svg';
 
-import translate from '@/presentation/utils/translate';
+import translate from '@/shared/utils/translate';
 
 export default function FormAvatarButton(props: AvatarInputPropsType) {
   return (
