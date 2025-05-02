@@ -1,11 +1,3 @@
-type SigninFormType = {
-  name: string;
-  email: string;
-  password: string | any;
-  // location: string | any;
-  avatar: File | any;
-};
-
 type SigninFormData = {
   user: {
     id: string;

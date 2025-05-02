@@ -3,7 +3,7 @@ import APIBase from '@/infra/bases/api-base';
 import FetchAPIDataModel from '@/adapters/models/fetch-api-data-model';
 import ManageDataInBrowserModel from '@/adapters/models/manage-data-in-browser-model';
 
-import HttpResponse from '@/infra/types/http-response';
+import HTTPResponse from '@/infra/types/http-response';
 import { DataType } from '@/infra/types/data-type';
 
 type AuthenticateFormDataType = {
@@ -21,7 +21,7 @@ export default class AuthenticateFormAPI extends APIBase {
 
   public async go(
     data: AuthenticateFormDataType
-  ): Promise<{ server: HttpResponse; user: DataType }> {
+  ): Promise<{ server: HTTPResponse; user: DataType }> {
     return await this.fetchAPIData
       .fetch('/users/session/', {
         method: 'POST',
@@ -57,7 +57,7 @@ export default class AuthenticateFormAPI extends APIBase {
     return await this.fetchAPIData.fetch('/users').then(async (response) => {
       const user: AuthenticateFormDataType[] = await response.json();
 
-      // search in the fake database for the proved email and return it if exists
+      // search in the fake database for the provided email and return it if exists
       const selectedUser = user.find(
         (user) => user.email === data.email && user.password === data.password
       );

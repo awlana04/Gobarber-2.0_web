@@ -1,7 +1,7 @@
-type HttpResponse = {
+type HTTPResponse = {
   ok: boolean;
   status: number;
   json: any;
 };
 
-export default HttpResponse;
+export default HTTPResponse;

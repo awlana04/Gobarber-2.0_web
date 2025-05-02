@@ -11,8 +11,8 @@ export default class FetchAPIData implements FetchAPIDataModel {
   public async fetch(
     path: string,
     fetchOptions?: {
-      method: string;
-      headers: any;
+      method?: string;
+      headers?: any;
       data: any;
     }
   ): Promise<HTTPResponse> {
