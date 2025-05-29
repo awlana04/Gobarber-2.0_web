@@ -1,5 +1,5 @@
-import SigninBarberPage from '@pages/signin-barber-page';
+import SigninBarberWindow from '@/infra/windows/signin-barber-window';
 
 export default function Signin() {
-  return <SigninBarberPage />;
+  return <SigninBarberWindow />;
 }

@@ -1,70 +1,54 @@
-type SigninBarberFormType = {
-  name: string | any;
-  location: string | any;
-  description: string | any;
-  file: File[];
-  openAtNight: boolean;
-  openOnWeekends: boolean;
-};
+import useDescriptionUsecase from '@/usecases/use-description-usecase';
+import useNameUsecase from '@/usecases/use-name-usecase';
 
-type SigninBarberType = {
-  value: {
-    id: string;
-    name: string | any;
-    location: string | any;
-    description: string | any;
-    images: [];
-    openAtNight: boolean;
-    openOnWeekends: boolean;
-    createdAt: string;
-    updatedAt: string;
-    userId: string;
+import SigninBarberFormAPI from '@/api/signin-barber-form-api';
+
+import FetchAPIData from '@/adapters/implementations/fetch-api-data';
+import ManageDataInBrowser from '@/adapters/implementations/manage-data-in-browser';
+
+export default function SigninBarberFormHandler() {
+  const { handleNameUsecase } = useNameUsecase();
+  const { handleDescriptionUsecase } = useDescriptionUsecase();
+
+  const submitHandler = async (
+    barberName: string,
+    location: string,
+    description: string,
+    file: File[],
+    openAtNight: boolean,
+    openOnWeekends: boolean
+  ) => {
+    handleNameUsecase(barberName);
+    handleDescriptionUsecase(description);
+
+    const signinBarberFormAPI = new SigninBarberFormAPI(
+      new FetchAPIData(),
+      new ManageDataInBrowser()
+    );
+
+    const response =
+      process.env.NEXT_PUBLIC_ENV === 'dev'
+        ? await signinBarberFormAPI
+            .go({
+              name: barberName,
+              description,
+              location,
+              file,
+              openAtNight,
+              openOnWeekends,
+            })
+            .then(async (result) => {
+              console.log(result);
+            })
+        : await signinBarberFormAPI.fake({
+            name: barberName,
+            description,
+            location,
+            file,
+            openAtNight,
+            openOnWeekends,
+          });
   };
-};
 
-export const SigninBarberFormHandler = async (data: SigninBarberFormType) => {
-  const token = localStorage.getItem('@GoBarber:token');
-  const user = JSON.parse(localStorage.getItem('@GoBarber:user')!);
-
-  const response = await fetch(
-    `http://localhost:3333/barbers/${user.user.id}`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(data),
-    }
-  ).then(async (response) => {
-    if (response.ok) {
-      const barber = (await response.json()) as SigninBarberType;
-
-      const formData = new FormData();
-
-      data.file.forEach((image) => {
-        formData.append('images', image);
-      });
-
-      if (barber.value.id) {
-        await fetch(`http://localhost:3333/barbers/${barber.value.id}`, {
-          method: 'PATCH',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: formData,
-        });
-      }
-
-      if (response.ok) {
-        localStorage.setItem('@GoBarber:barber', JSON.stringify(barber));
-      }
-
-      return { server: response, barber };
-    } else {
-      return response.status;
-    }
-  });
-
-  return { response };
-};
+  return { submitHandler };
+}

@@ -37,19 +37,14 @@ export default function useAuthenticateFormSubmitHandler() {
             const status = result.server.status;
             const serverAlright = result.server.ok;
 
-            switch (!serverAlright || status) {
-              case status === 406:
-                authenticateErrorToast();
-                break;
-              case status === 404:
-                notFoundError();
-                break;
-              case !serverAlright:
-                authenticateErrorToast();
-                break;
-              default:
-                authenticateErrorToast();
-                break;
+            console.log(status, serverAlright);
+
+            if (status === 406 || serverAlright === false) {
+              authenticateErrorToast();
+            }
+
+            if (status === 404) {
+              notFoundError();
             }
 
             return result.user;

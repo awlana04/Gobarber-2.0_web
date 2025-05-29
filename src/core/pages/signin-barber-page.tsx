@@ -1,33 +1,32 @@
 import {
   NameInputRefAndValueType,
   DescriptionInputRefAndValueType,
+  LocationInputRefAndValueType,
 } from '@/core/types/values-and-refs-input-type';
 import { SubmitHandlerType } from '@/presentation/types/submit-handler-type';
 
 import useHandleFilledHook from '@/hooks/use-handle-filled-hook';
-import useHandleImagesHook from '@/hooks/use-handle-images-hook';
-import useHandleUserHook from '@/hooks/use-handle-user-hook';
-
 import { useHandleErroredContext } from '@/contexts/use-handle-errored-context';
 
 import SigninBarberScreen from '@/presentation/screens/signin-barber-screen';
 
 type SigninBarberPagePropsType = NameInputRefAndValueType &
   DescriptionInputRefAndValueType &
-  SubmitHandlerType;
+  LocationInputRefAndValueType &
+  SubmitHandlerType & {
+    isOpenAtNight: boolean;
+    setIsOpenAtNight(state: boolean): void;
+    isOpenOnWeekends: boolean;
+    setIsOpenOnWeekends(state: boolean): void;
+    file: File[];
+    setFile(state: File[]): void;
+    fileUrl: string[];
+    setFileUrl(state: string[]): void;
+    handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  };
 
 export default function SigninBarberPage(props: SigninBarberPagePropsType) {
   const { fieldFilled, handleFieldFilled } = useHandleFilledHook();
-
-  const {
-    isOpenAtNight,
-    setIsOpenAtNight,
-    isOpenOnWeekends,
-    setIsOpenOnWeekends,
-  } = useHandleUserHook();
-
-  const { file, setFile, fileUrl, setFileUrl, handleChange } =
-    useHandleImagesHook();
 
   const { fieldErrored } = useHandleErroredContext();
 
@@ -51,23 +50,23 @@ export default function SigninBarberPage(props: SigninBarberPagePropsType) {
         !!fieldFilled.find((description) => description === 'description')
       }
       handleDescriptionFilled={handleFieldFilled}
-      locationRef={props.descriptionRef}
-      locationValue={props.descriptionValue}
+      locationRef={props.locationRef}
+      locationValue={props.locationValue}
       locationErrored={
         fieldErrored !== undefined &&
         !!fieldErrored.find((location) => location === 'location')
       }
       locationFilled={!!fieldFilled.find((location) => location === 'location')}
       handleLocationFilled={handleFieldFilled}
-      file={file}
-      fileUrl={fileUrl}
-      setFile={setFile}
-      setFileUrl={setFileUrl}
-      handleChange={handleChange}
-      isOpenAtNight={isOpenAtNight}
-      setIsOpenAtNight={setIsOpenAtNight}
-      isOpenOnWeekends={isOpenOnWeekends}
-      setIsOpenOnWeekends={setIsOpenOnWeekends}
+      file={props.file}
+      fileUrl={props.fileUrl}
+      setFile={props.setFile}
+      setFileUrl={props.setFileUrl}
+      handleChange={props.handleChange}
+      isOpenAtNight={props.isOpenAtNight}
+      setIsOpenAtNight={props.setIsOpenAtNight}
+      isOpenOnWeekends={props.isOpenOnWeekends}
+      setIsOpenOnWeekends={props.setIsOpenOnWeekends}
       submitHandler={props.submitHandler}
       isButtonDisabled={
         !!(fieldFilled.length !== 3 && fieldErrored !== undefined)

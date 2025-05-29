@@ -4,7 +4,7 @@ export default interface FetchAPIDataModel {
   fetch(
     path: string,
     fetchOptions?: {
-      method?: 'POST' | 'GET' | 'DELETE' | 'UPDATE' | 'PATCH';
+      method?: string;
       headers?: any;
       data: any;
     }

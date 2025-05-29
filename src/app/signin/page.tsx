@@ -1,5 +1,5 @@
-import SigninPage from '@/pages/signin-page';
+import SigninWindow from '@/infra/windows/signin-window';
 
 export default function Signin() {
-  return <SigninPage />;
+  return <SigninWindow />;
 }

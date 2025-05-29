@@ -25,7 +25,9 @@ export default function LogonWindow() {
       emailRef={emailRef}
       emailValue={emailValue as string}
       passwordRef={passwordRef}
-      submitHandler={submit}
+      submitHandler={() =>
+        submitHandler(emailRef.current!.value, passwordRef.current!.value)
+      }
     />
   );
 }

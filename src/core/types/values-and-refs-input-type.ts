@@ -3,6 +3,7 @@ import { EmailInputPropsType } from '@/presentation/types/email-input-props-type
 import { PasswordInputPropsType } from '@/presentation/types/password-input-props-type';
 import { ConfirmPasswordInputPropsType } from '@/presentation/types/confirm-password-input-props-type';
 import { DescriptionInputPropsType } from '@/presentation/types/description-input-props-type';
+import { LocationInputPropsType } from '@/presentation/types/location-input-props-type';
 
 export type NameInputRefAndValueType = Pick<
   NameInputPropsType,
@@ -24,4 +25,9 @@ export type ConfirmPasswordInputRefType = Pick<
 export type DescriptionInputRefAndValueType = Pick<
   DescriptionInputPropsType,
   'descriptionRef' | 'descriptionValue'
+>;
+
+export type LocationInputRefAndValueType = Pick<
+  LocationInputPropsType,
+  'locationRef' | 'locationValue'
 >;

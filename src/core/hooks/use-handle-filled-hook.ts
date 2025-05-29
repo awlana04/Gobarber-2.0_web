@@ -1,3 +1,5 @@
+'use client';
+
 // this hook is used in the Pages Core Layer as request for filled and handle filled by some Screens Props
 // saves the fieldFilled Array state according to the inputs name provided by the ChangeEvent in React
 // deletes the fields that are not filled anymore by checking if the event.target.value is empty now by checking the current field name and associating with the existence of the same field name in the State Array

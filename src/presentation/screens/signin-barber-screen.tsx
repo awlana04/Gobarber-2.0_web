@@ -17,7 +17,7 @@ import { FormTwoRadioButtonProps } from '@/presentation/types/two-radio-buttons-
 import { SubmitHandlerType } from '@/presentation/types/submit-handler-type';
 import ButtonDisabledType from '@/presentation/types/button-disabled-type';
 
-import image from '@public/gobarber_image004.svg';
+import image from '@/public/gobarber_image004.svg';
 
 import translate from '@/shared/utils/translate';
 
@@ -34,20 +34,20 @@ export default function SigninBarberScreen(props: SigninBarberScreenType) {
     <ContentTemplate
       position='left'
       src={image}
-      alt={translate('Barber image')}
+      alt={translate('Barber shop image')}
     >
       <Form.Root submitHandler={props.submitHandler}>
         <LocationInputFragment
-          descriptionRef={props.descriptionRef}
-          descriptionValue={props.locationValue}
-          descriptionErrored={props.locationErrored}
-          descriptionFilled={props.descriptionFilled}
-          handleDescriptionFilled={props.handleDescriptionFilled}
+          locationRef={props.locationRef}
+          locationValue={props.locationValue}
+          locationErrored={props.locationErrored}
+          locationFilled={props.locationFilled}
+          handleLocationFilled={props.handleLocationFilled}
         />
 
         <NameInputFragment
           icon='barber'
-          placeholder={translate('Barber name')}
+          placeholder={translate('Barber shop name')}
           nameRef={props.nameRef}
           nameValue={props.nameValue}
           nameErrored={props.nameErrored}

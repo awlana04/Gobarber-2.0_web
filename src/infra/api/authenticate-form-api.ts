@@ -37,7 +37,7 @@ export default class AuthenticateFormAPI extends APIBase {
         await this.manageDataInBrowser.clearAllData();
 
         if (response.ok) {
-          await this.manageDataInBrowser.saveData('user', user.token);
+          await this.manageDataInBrowser.saveData('token', user.token);
           await this.manageDataInBrowser.saveData('user', JSON.stringify(user));
 
           // verify if the user is a Barber to save its data into a new different storage data

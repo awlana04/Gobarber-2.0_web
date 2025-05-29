@@ -37,7 +37,7 @@ export default function SigninScreen(props: SigninPropsType) {
     <ContentTemplate
       position='left'
       src={image}
-      alt={translate('Barber image')}
+      alt={translate('Barber shop image')}
     >
       <Form.Root submitHandler={props.submitHandler}>
         <Form.Avatar

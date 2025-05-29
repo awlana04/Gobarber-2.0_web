@@ -11,22 +11,15 @@ export default class FetchAPIData implements FetchAPIDataModel {
   public async fetch(
     path: string,
     fetchOptions?: {
-      method?: string;
+      method?: string | undefined;
       headers?: any;
       data: any;
     }
   ): Promise<HTTPResponse> {
-    return await fetch(
-      `${
-        process.env.NEXT_PUBLIC_ENV === 'test'
-          ? process.env.NEXT_PUBLIC_FRONTEND_URI
-          : process.env.NEXT_PUBLIC_BACKEND_URI
-      }${path}`,
-      {
-        method: fetchOptions?.method,
-        headers: fetchOptions?.headers,
-        body: JSON.stringify(fetchOptions?.data),
-      }
-    );
+    return await fetch(`http://localhost:3333${path}`, {
+      method: fetchOptions?.method,
+      headers: fetchOptions?.headers,
+      body: JSON.stringify(fetchOptions?.data),
+    });
   }
 }

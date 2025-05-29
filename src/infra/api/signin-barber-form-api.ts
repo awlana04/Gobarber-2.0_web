@@ -27,22 +27,29 @@ export default class SigninBarberFormAPI extends APIBase {
     data: SigninBarberFormType
   ): Promise<{ server: HTTPResponse; barber?: DataType }> {
     const token = await this.manageDataInBrowser.getData('token');
-    const user: DataType = JSON.parse(
+    const user: DataType = await JSON.parse(
       await this.manageDataInBrowser.getData('user')
     );
 
     return await this.fetchAPIData
-      .fetch(`/barber/${user.user.id}`, {
+      .fetch(`/barbers/${user.user.id}`, {
         method: 'POST',
         headers: {
           'Content-type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        data,
+        data: {
+          name: data.name,
+          location: data.location,
+          description: data.description,
+          openAtNight: data.openAtNight,
+          openOnWeekends: data.openOnWeekends,
+          userId: user.user.id,
+        },
       })
       .then(async (response) => {
         if (response.ok) {
-          const barber: DataType = await response.json();
+          const barber = await response.json();
 
           const formData = new FormData();
 
@@ -50,13 +57,13 @@ export default class SigninBarberFormAPI extends APIBase {
             formData.append('images', image);
           });
 
-          if (barber.barber.id) {
-            await this.fetchAPIData.fetch(`/barber/${barber.barber.id}`, {
+          if (barber.value.id !== undefined) {
+            await fetch(`http://localhost:3333/barbers/${barber.value.id}`, {
               method: 'PATCH',
               headers: {
                 Authorization: `Bearer ${token}`,
               },
-              data: formData,
+              body: formData,
             });
           }
 

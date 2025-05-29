@@ -21,6 +21,7 @@ export default function FormTextarea(props: FormTextareaProps) {
       />
 
       <textarea
+        ref={props.textareaRef}
         placeholder={props.placeholder}
         name={props.name}
         defaultValue={props.textareaValue}

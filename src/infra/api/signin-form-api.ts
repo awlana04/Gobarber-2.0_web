@@ -25,23 +25,49 @@ export default class SigninFormAPI extends APIBase {
   public async go(
     data: SigninFormDataType
   ): Promise<{ server: HTTPResponse; user: DataType }> {
-    return await this.fetchAPIData
-      .fetch('/users/', {
-        method: 'POST',
-        data,
-      })
-      .then(async (response) => {
-        const user: DataType = await response.json();
+    const formData = new FormData();
 
-        await this.manageDataInBrowser.clearAllData();
+    formData.append('name', data.name);
+    formData.append('email', data.email);
+    formData.append('password', data.password);
+    formData.append('location', 'Somewhere Over the Rainbow');
+    formData.append('avatar', data.avatar);
 
-        if (response.ok) {
-          await this.manageDataInBrowser.saveData('token', user.token);
-          await this.manageDataInBrowser.saveData('user', JSON.stringify(user));
-        }
+    // return await this.fetchAPIData
+    //   .fetch('/users/', {
+    //     method: 'POST',
+    //     body: formData,
+    //   })
+    //   .then(async (response) => {
+    //     const user: DataType = await response.json();
 
-        return { server: response, user };
-      });
+    //     console.log(user);
+
+    //     await this.manageDataInBrowser.clearAllData();
+
+    //     if (response.ok) {
+    //       await this.manageDataInBrowser.saveData('token', user.token);
+    //       await this.manageDataInBrowser.saveData('user', JSON.stringify(user));
+    //     }
+
+    //     return { server: response, user };
+    //   });
+
+    return await fetch('http://localhost:3333/users/', {
+      method: 'POST',
+      body: formData,
+    }).then(async (response) => {
+      const user = await response.json();
+
+      await this.manageDataInBrowser.clearAllData();
+
+      if (response.ok) {
+        await this.manageDataInBrowser.saveData('token', user.value.token);
+        await this.manageDataInBrowser.saveData('user', JSON.stringify(user));
+      }
+
+      return { server: response, user };
+    });
   }
 
   public async fake(data: SigninFormDataType) {

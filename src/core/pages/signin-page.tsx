@@ -18,11 +18,16 @@ type SigninPagePropsType = NameInputRefAndValueType &
   EmailInputRefAndValueType &
   PasswordInputRefType &
   ConfirmPasswordInputRefType &
-  SubmitHandlerType;
+  SubmitHandlerType & {
+    file: File | undefined;
+    fileUrl: string | undefined;
+    handleChange(event: React.ChangeEvent<HTMLInputElement>): void;
+    handleRemove(): void;
+  };
 
 export default function SigninPage(props: SigninPagePropsType) {
   const { fieldFilled, handleFieldFilled } = useHandleFilledHook();
-  const { file, fileUrl, handleChange, handleRemove } = useHandleAvatarHook();
+
   const { isClientSelected, setIsClientSelected } = useHandleUserHook();
 
   const { fieldErrored } = useHandleErroredContext();
@@ -65,10 +70,10 @@ export default function SigninPage(props: SigninPagePropsType) {
         )
       }
       handleConfirmPasswordFilled={handleFieldFilled}
-      file={file}
-      fileUrl={fileUrl}
-      handleChange={handleChange}
-      handleRemove={handleRemove}
+      file={props.file}
+      fileUrl={props.fileUrl}
+      handleChange={props.handleChange}
+      handleRemove={props.handleRemove}
       isBarber={false}
       isBarberSelected={isClientSelected}
       setIsBarberSelected={setIsClientSelected}
