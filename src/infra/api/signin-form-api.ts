@@ -33,41 +33,24 @@ export default class SigninFormAPI extends APIBase {
     formData.append('location', 'Somewhere Over the Rainbow');
     formData.append('avatar', data.avatar);
 
-    // return await this.fetchAPIData
-    //   .fetch('/users/', {
-    //     method: 'POST',
-    //     body: formData,
-    //   })
-    //   .then(async (response) => {
-    //     const user: DataType = await response.json();
+    return await this.fetchAPIData
+      .fetch('/users/', {
+        jsonContent: false,
+        method: 'POST',
+        data: formData,
+      })
+      .then(async (response) => {
+        const user = await response.json();
 
-    //     console.log(user);
+        await this.manageDataInBrowser.clearAllData();
 
-    //     await this.manageDataInBrowser.clearAllData();
+        if (response.ok) {
+          await this.manageDataInBrowser.saveData('token', user.value.token);
+          await this.manageDataInBrowser.saveData('user', user);
+        }
 
-    //     if (response.ok) {
-    //       await this.manageDataInBrowser.saveData('token', user.token);
-    //       await this.manageDataInBrowser.saveData('user', JSON.stringify(user));
-    //     }
-
-    //     return { server: response, user };
-    //   });
-
-    return await fetch('http://localhost:3333/users/', {
-      method: 'POST',
-      body: formData,
-    }).then(async (response) => {
-      const user = await response.json();
-
-      await this.manageDataInBrowser.clearAllData();
-
-      if (response.ok) {
-        await this.manageDataInBrowser.saveData('token', user.value.token);
-        await this.manageDataInBrowser.saveData('user', JSON.stringify(user));
-      }
-
-      return { server: response, user };
-    });
+        return { server: response, user };
+      });
   }
 
   public async fake(data: SigninFormDataType) {
@@ -78,8 +61,8 @@ export default class SigninFormAPI extends APIBase {
         throw new Error('User already exists');
       } else {
         const user = await this.fetchAPIData.fetch('/users/', {
+          jsonContent: true,
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
           data,
         });
 

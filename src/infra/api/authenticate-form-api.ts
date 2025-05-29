@@ -24,10 +24,8 @@ export default class AuthenticateFormAPI extends APIBase {
   ): Promise<{ server: HTTPResponse; user: DataType }> {
     return await this.fetchAPIData
       .fetch('/users/session/', {
+        jsonContent: true,
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         data,
       })
       .then(async (response) => {
@@ -38,7 +36,7 @@ export default class AuthenticateFormAPI extends APIBase {
 
         if (response.ok) {
           await this.manageDataInBrowser.saveData('token', user.token);
-          await this.manageDataInBrowser.saveData('user', JSON.stringify(user));
+          await this.manageDataInBrowser.saveData('user', user);
 
           // verify if the user is a Barber to save its data into a new different storage data
           if (user.barber !== null) {
@@ -67,10 +65,7 @@ export default class AuthenticateFormAPI extends APIBase {
         const token = `gobarber_fake_server_token-${Math.random().toExponential(12).toString()}`;
 
         await this.manageDataInBrowser.saveData('token', token);
-        await this.manageDataInBrowser.saveData(
-          'user',
-          JSON.stringify(selectedUser)
-        );
+        await this.manageDataInBrowser.saveData('user', selectedUser);
 
         // ** FUTURE IMPLEMENTATION **
         // ** By now is has not been implemented the check analysis for a Barber **

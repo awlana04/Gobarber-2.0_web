@@ -14,7 +14,12 @@ export default class ManageDataInBrowser implements ManageDataInBrowserModel {
   }
 
   async saveData(keyName: KeyNameType, data: any): Promise<void> {
-    localStorage.setItem(`${applicationName}:${keyName}`, data);
+    keyName !== 'token'
+      ? localStorage.setItem(
+          `${applicationName}:${keyName}`,
+          JSON.stringify(data)
+        )
+      : localStorage.setItem(`${applicationName}:${keyName}`, data);
   }
 
   async updateData(keyName: KeyNameType, data: any): Promise<any> {
