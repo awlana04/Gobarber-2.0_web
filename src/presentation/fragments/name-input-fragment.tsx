@@ -1,10 +1,10 @@
 import { FiUser, FiScissors } from 'react-icons/fi';
 
-import { NameInputPropsType } from '../types/name-input-props-type';
+import { NameInputPropsMappedType } from '@/presentation/types/input-props-mapped-type';
 
 import { Form } from '@/molecules/form';
 
-type NameInputFragmentType = NameInputPropsType & {
+type NameInputFragmentType = NameInputPropsMappedType & {
   icon: 'user' | 'barber';
   placeholder: string;
 };

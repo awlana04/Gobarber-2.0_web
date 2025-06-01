@@ -1,13 +1,13 @@
 import { FiMessageSquare } from 'react-icons/fi';
 
-import { DescriptionInputPropsType } from '../types/description-input-props-type';
+import { DescriptionInputPropsMappedType } from '@/presentation/types/input-props-mapped-type';
 
 import { Form } from '@/components/molecules/form';
 
 import translate from '@/shared/utils/translate';
 
 export default function DescriptionInputFragment(
-  props: DescriptionInputPropsType
+  props: DescriptionInputPropsMappedType
 ) {
   return (
     <Form.Textarea

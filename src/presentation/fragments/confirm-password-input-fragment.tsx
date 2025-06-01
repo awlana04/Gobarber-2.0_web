@@ -1,23 +1,23 @@
 import { FiLock } from 'react-icons/fi';
 
-import { ConfirmPasswordInputPropsType } from '@/presentation/types/confirm-password-input-props-type';
+import { ConfirmPasswordInputPropsMappedType } from '@/presentation/types/input-props-mapped-type';
 
 import { Form } from '@/molecules/form';
 
 import translate from '@/shared/utils/translate';
 
 export default function ConfirmPasswordInputFragment(
-  props: ConfirmPasswordInputPropsType
+  props: ConfirmPasswordInputPropsMappedType
 ) {
   return (
     <Form.Input
+      ref={props.confirmPasswordRef}
       iconName={FiLock}
       type='password'
       name='confirmPassword'
       placeholder={translate('Confirm password')}
       errored={props.confirmPasswordErrored}
       filled={props.confirmPasswordFilled}
-      ref={props.confirmPasswordRef}
       handleFilled={props.handleConfirmPasswordFilled}
     />
   );

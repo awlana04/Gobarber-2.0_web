@@ -1,12 +1,12 @@
 import { FiMail } from 'react-icons/fi';
 
-import { EmailInputPropsType } from '@/presentation/types/email-input-props-type';
+import { EmailInputPropsMappedType } from '@/presentation/types/input-props-mapped-type';
 
 import { Form } from '@/molecules/form';
 
 import translate from '@/shared/utils/translate';
 
-export default function EmailInputFragment(props: EmailInputPropsType) {
+export default function EmailInputFragment(props: EmailInputPropsMappedType) {
   return (
     <Form.Input
       value={props.emailValue}

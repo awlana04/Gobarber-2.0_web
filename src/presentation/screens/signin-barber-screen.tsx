@@ -1,3 +1,13 @@
+import {
+  NameInputPropsMappedType,
+  DescriptionInputPropsMappedType,
+  LocationInputPropsMappedType,
+} from '@/presentation/types/input-props-mapped-type';
+import { FormImagesInputProps } from '@/presentation/types/form-images-input-props-type';
+import { FormTwoRadioButtonProps } from '@/presentation/types/two-radio-buttons-props-type';
+import { SubmitHandlerType } from '@/presentation/types/submit-handler-type';
+import ButtonDisabledType from '@/presentation/types/button-disabled-type';
+
 import ContentTemplate from '@/templates/content-template';
 
 import BackToLogon from '@/atoms/back-to-logon';
@@ -9,21 +19,13 @@ import NameInputFragment from '@/fragments/name-input-fragment';
 import LocationInputFragment from '@/fragments/location-input-fragment';
 import DescriptionInputFragment from '@/fragments/description-input-fragment';
 
-import { NameInputPropsType } from '@/presentation/types/name-input-props-type';
-import { DescriptionInputPropsType } from '@/presentation/types/description-input-props-type';
-import { LocationInputPropsType } from '@/presentation/types/location-input-props-type';
-import { FormImagesInputProps } from '@/presentation/types/form-images-input-props-type';
-import { FormTwoRadioButtonProps } from '@/presentation/types/two-radio-buttons-props-type';
-import { SubmitHandlerType } from '@/presentation/types/submit-handler-type';
-import ButtonDisabledType from '@/presentation/types/button-disabled-type';
-
 import image from '@/public/gobarber_image004.svg';
 
 import translate from '@/shared/utils/translate';
 
-type SigninBarberScreenType = NameInputPropsType &
-  DescriptionInputPropsType &
-  LocationInputPropsType &
+type SigninBarberScreenType = NameInputPropsMappedType &
+  DescriptionInputPropsMappedType &
+  LocationInputPropsMappedType &
   FormImagesInputProps &
   FormTwoRadioButtonProps &
   ButtonDisabledType &

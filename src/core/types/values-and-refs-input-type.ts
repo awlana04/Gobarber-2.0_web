@@ -1,33 +1,38 @@
-import { NameInputPropsType } from '@/presentation/types/name-input-props-type';
-import { EmailInputPropsType } from '@/presentation/types/email-input-props-type';
-import { PasswordInputPropsType } from '@/presentation/types/password-input-props-type';
-import { ConfirmPasswordInputPropsType } from '@/presentation/types/confirm-password-input-props-type';
-import { DescriptionInputPropsType } from '@/presentation/types/description-input-props-type';
-import { LocationInputPropsType } from '@/presentation/types/location-input-props-type';
+import {
+  NameInputPropsMappedType,
+  EmailInputPropsMappedType,
+  PasswordInputPropsMappedType,
+  ConfirmPasswordInputPropsMappedType,
+  DescriptionInputPropsMappedType,
+  LocationInputPropsMappedType,
+} from '@/presentation/types/input-props-mapped-type';
 
 export type NameInputRefAndValueType = Pick<
-  NameInputPropsType,
+  NameInputPropsMappedType,
   'nameRef' | 'nameValue'
 >;
 
 export type EmailInputRefAndValueType = Pick<
-  EmailInputPropsType,
+  EmailInputPropsMappedType,
   'emailRef' | 'emailValue'
 >;
 
-export type PasswordInputRefType = Pick<PasswordInputPropsType, 'passwordRef'>;
+export type PasswordInputRefType = Pick<
+  PasswordInputPropsMappedType,
+  'passwordRef'
+>;
 
 export type ConfirmPasswordInputRefType = Pick<
-  ConfirmPasswordInputPropsType,
+  ConfirmPasswordInputPropsMappedType,
   'confirmPasswordRef'
 >;
 
 export type DescriptionInputRefAndValueType = Pick<
-  DescriptionInputPropsType,
+  DescriptionInputPropsMappedType,
   'descriptionRef' | 'descriptionValue'
 >;
 
 export type LocationInputRefAndValueType = Pick<
-  LocationInputPropsType,
+  LocationInputPropsMappedType,
   'locationRef' | 'locationValue'
 >;

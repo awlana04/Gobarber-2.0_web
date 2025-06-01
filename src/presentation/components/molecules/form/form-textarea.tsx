@@ -1,8 +1,8 @@
 import Icon from '@/atoms/icon';
 
-import { TextareaInputPropsType } from '@/presentation/types/textarea-input-props-type';
+import { TextareaInputPropsMappedType } from '@/presentation/types/input-props-mapped-type';
 
-type FormTextareaProps = TextareaInputPropsType & {
+type FormTextareaProps = TextareaInputPropsMappedType & {
   placeholder: string;
   name: string;
   iconName: React.ElementType;

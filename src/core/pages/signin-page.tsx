@@ -7,7 +7,6 @@ import {
 import { SubmitHandlerType } from '@/presentation/types/submit-handler-type';
 
 import useHandleFilledHook from '../hooks/use-handle-filled-hook';
-import useHandleAvatarHook from '@/hooks/use-handle-avatar-hook';
 import useHandleUserHook from '@/hooks/use-handle-user-hook';
 
 import { useHandleErroredContext } from '@/contexts/use-handle-errored-context';

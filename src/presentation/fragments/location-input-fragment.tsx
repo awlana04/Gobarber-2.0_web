@@ -1,11 +1,14 @@
 import { FiMapPin } from 'react-icons/fi';
 
+import { LocationInputPropsMappedType } from '@/presentation/types/input-props-mapped-type';
+
 import { Form } from '@/components/molecules/form';
 
 import translate from '@/shared/utils/translate';
-import { LocationInputPropsType } from '../types/location-input-props-type';
 
-export default function LocationInputFragment(props: LocationInputPropsType) {
+export default function LocationInputFragment(
+  props: LocationInputPropsMappedType
+) {
   return (
     <Form.Textarea
       textareaValue={props.locationValue}

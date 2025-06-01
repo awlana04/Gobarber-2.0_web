@@ -1,12 +1,14 @@
 import { FiLock } from 'react-icons/fi';
 
-import { PasswordInputPropsType } from '@/presentation/types/password-input-props-type';
+import { PasswordInputPropsMappedType } from '@/presentation/types/input-props-mapped-type';
 
 import { Form } from '@/molecules/form';
 
 import translate from '@/shared/utils/translate';
 
-export default function PasswordInputFragment(props: PasswordInputPropsType) {
+export default function PasswordInputFragment(
+  props: PasswordInputPropsMappedType
+) {
   return (
     <Form.Input
       iconName={FiLock}

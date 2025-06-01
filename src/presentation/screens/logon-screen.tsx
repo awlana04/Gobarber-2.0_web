@@ -1,7 +1,9 @@
 import Link from 'next/link';
 
-import { EmailInputPropsType } from '@/presentation/types/email-input-props-type';
-import { PasswordInputPropsType } from '@/presentation/types/password-input-props-type';
+import {
+  EmailInputPropsMappedType,
+  PasswordInputPropsMappedType,
+} from '@/presentation/types/input-props-mapped-type';
 import { SubmitHandlerType } from '@/presentation/types/submit-handler-type';
 import ButtonDisabledType from '@/presentation/types/button-disabled-type';
 
@@ -19,8 +21,8 @@ import image from '@/public/gobarber_image002.svg';
 
 import translate from '@/shared/utils/translate';
 
-type LogonScreenProps = EmailInputPropsType &
-  PasswordInputPropsType &
+type LogonScreenProps = EmailInputPropsMappedType &
+  PasswordInputPropsMappedType &
   SubmitHandlerType &
   ButtonDisabledType;
 

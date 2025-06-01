@@ -1,3 +1,14 @@
+import {
+  NameInputPropsMappedType,
+  EmailInputPropsMappedType,
+  PasswordInputPropsMappedType,
+  ConfirmPasswordInputPropsMappedType,
+} from '@/presentation/types/input-props-mapped-type';
+import { AvatarInputPropsType } from '@/presentation/types/avatar-input-props-type';
+import { RadioButtonPropsType } from '@/presentation/types/radio-button-props-type';
+import { SubmitHandlerType } from '@/presentation/types/submit-handler-type';
+import ButtonDisabledType from '@/presentation/types/button-disabled-type';
+
 import ContentTemplate from '@/templates/content-template';
 
 import BackToLogon from '@/atoms/back-to-logon';
@@ -10,25 +21,16 @@ import EmailInputFragment from '@/fragments/email-input-fragment';
 import PasswordInputFragment from '@/fragments/password-input-fragment';
 import ConfirmPasswordInputFragment from '@/fragments/confirm-password-input-fragment';
 
-import { AvatarInputPropsType } from '@/presentation/types/avatar-input-props-type';
-import { RadioButtonPropsType } from '@/presentation/types/radio-button-props-type';
-import { NameInputPropsType } from '@/presentation/types/name-input-props-type';
-import { EmailInputPropsType } from '@/presentation/types/email-input-props-type';
-import { PasswordInputPropsType } from '@/presentation/types/password-input-props-type';
-import { ConfirmPasswordInputPropsType } from '@/presentation/types/confirm-password-input-props-type';
-import { SubmitHandlerType } from '@/presentation/types/submit-handler-type';
-import ButtonDisabledType from '@/presentation/types/button-disabled-type';
-
 import image from '@/public/gobarber_image003.svg';
 
 import translate from '@/shared/utils/translate';
 
 type SigninPropsType = AvatarInputPropsType &
   RadioButtonPropsType &
-  NameInputPropsType &
-  EmailInputPropsType &
-  PasswordInputPropsType &
-  ConfirmPasswordInputPropsType &
+  NameInputPropsMappedType &
+  EmailInputPropsMappedType &
+  PasswordInputPropsMappedType &
+  ConfirmPasswordInputPropsMappedType &
   ButtonDisabledType &
   SubmitHandlerType;
 

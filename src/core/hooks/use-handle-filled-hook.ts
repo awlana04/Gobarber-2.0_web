@@ -10,7 +10,11 @@ const useHandleFilledHook = () => {
   const [fieldFilled, setFieldFilled] = useState(['']);
 
   // by a React's ChangeEvent, it constantly verify if the input was changed to Save or Remove an item from the Array
-  const handleFieldFilled = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFieldFilled = (
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     // check if the fieldname already exists in Array
     const fieldNameAlreadyExists = fieldFilled
       .filter((field) => field === event.target.name)
