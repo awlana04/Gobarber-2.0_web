@@ -1,30 +1,27 @@
 'use server';
 
-import { promisify } from 'util';
-import fs from 'fs';
+import TransformMailProvider from '@/infra/providers/implementations/transform-mail-provider';
 
 import SendMailAdapter from '@/adapters/implementations/send-mail-adapter';
 
-export default async function SigninPageMailFactory(
-  email: string,
-  isClient: boolean
-) {
+export default async function SigninPageMailFactory(email: string) {
+  const transformMailProvider = new TransformMailProvider();
+
   const sendMailAdapter = new SendMailAdapter();
 
-  const readFileAsync = promisify(fs.readFile);
-
-  const htmlTemplate = await readFileAsync(
-    'src/infra/mails/welcome-to-application-client-mail.html',
-    'utf-8'
+  const htmlTemplate = await transformMailProvider.transformHTMLTemplate(
+    'src/infra/mails/welcome-to-application-client-mail.html'
   );
-  const imageAttachment = await readFileAsync(
+  const imageAttachment = await transformMailProvider.transformImageAttachment(
     'src/infra/mails/static/gobarber_logo.png'
   );
+  const htmlPlainText = transformMailProvider.transformMailToText(htmlTemplate);
 
   await sendMailAdapter.sendMail({
     email: 'gobarber-2.0@test.support.com',
     sendTo: email,
     subject: 'Você criou uma conta no GoBarber-2.0!',
+    text: htmlPlainText,
     html: htmlTemplate,
     attachments: [
       {

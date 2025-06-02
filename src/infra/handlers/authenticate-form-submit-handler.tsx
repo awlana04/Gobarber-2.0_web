@@ -48,7 +48,7 @@ export default function useAuthenticateFormSubmitHandler() {
                 notFoundError();
               }
 
-              await SigninPageMailFactory(email, true);
+              await SigninPageMailFactory(email);
 
               return result.user;
             })

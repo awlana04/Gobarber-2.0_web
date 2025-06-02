@@ -9,6 +9,7 @@ export default class SendMailAdapter implements SendMailAdapterModel {
     email,
     subject,
     sendTo,
+    text,
     html,
     attachments,
   }: SendMainType): Promise<any> {
@@ -22,6 +23,7 @@ export default class SendMailAdapter implements SendMailAdapterModel {
       from: email,
       to: sendTo,
       subject: subject,
+      text,
       html,
       attachments,
     });
