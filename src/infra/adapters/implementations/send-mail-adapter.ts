@@ -9,8 +9,8 @@ export default class SendMailAdapter implements SendMailAdapterModel {
     email,
     subject,
     sendTo,
-    text,
     html,
+    attachments,
   }: SendMainType): Promise<any> {
     try {
       await transporter.verify();
@@ -18,14 +18,12 @@ export default class SendMailAdapter implements SendMailAdapterModel {
       return;
     }
 
-    const info = await transporter.sendMail({
+    return await transporter.sendMail({
       from: email,
       to: sendTo,
       subject: subject,
-      text: text,
-      html: html,
+      html,
+      attachments,
     });
-
-    return info;
   }
 }

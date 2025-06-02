@@ -43,7 +43,7 @@
       "@/api/*": ["src/infra/api/*"],
       "@/frontend/*": ["src/infra/api/fronted/*"],
       "@/backend/*": ["src/infra/api/backend/*"],
-      "@/mails/*": ["src/core/mails/*"],
+      "@/mails/*": ["src/infra/mails/*"],
       "@/adapters/*": ["src/infra/adapters/*"],
       "@/factories/*": ["src/core/factories/*"],
       "@/messages/*": ["src/core/messages/*"],

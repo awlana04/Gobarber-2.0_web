@@ -1,38 +1,38 @@
 'use server';
 
-import SendMailAdapter from '../adapters/implementations/send-mail-adapter';
-import TransformMailAdapter from '../adapters/implementations/transform-mail-adapter';
+import { promisify } from 'util';
+import fs from 'fs';
 
-import WelcomeToApplicationClientMail from '../mails/welcome-to-application-mail';
+import SendMailAdapter from '@/adapters/implementations/send-mail-adapter';
 
 export default async function SigninPageMailFactory(
   email: string,
   isClient: boolean
 ) {
   const sendMailAdapter = new SendMailAdapter();
-  const transformMailAdapter = new TransformMailAdapter();
 
-  isClient
-    ? await sendMailAdapter.sendMail({
-        email: 'gobarber-2.0@test.support.com',
-        sendTo: email,
-        subject: 'Você criou uma conta no GoBarber-2.0!',
-        text: await transformMailAdapter.transformMailToText(
-          <WelcomeToApplicationClientMail />
-        ),
-        html: await transformMailAdapter.transformMailToHtml(
-          <WelcomeToApplicationClientMail />
-        ),
-      })
-    : await sendMailAdapter.sendMail({
-        email: 'gobarber-2.0@test.support.com',
-        sendTo: email,
-        subject: 'Você criou uma conta no GoBarber-2.0!',
-        text: await transformMailAdapter.transformMailToText(
-          <WelcomeToApplicationClientMail />
-        ),
-        html: await transformMailAdapter.transformMailToHtml(
-          <WelcomeToApplicationClientMail />
-        ),
-      });
+  const readFileAsync = promisify(fs.readFile);
+
+  const htmlTemplate = await readFileAsync(
+    'src/infra/mails/welcome-to-application-client-mail.html',
+    'utf-8'
+  );
+  const imageAttachment = await readFileAsync(
+    'src/infra/mails/static/gobarber_logo.png'
+  );
+
+  await sendMailAdapter.sendMail({
+    email: 'gobarber-2.0@test.support.com',
+    sendTo: email,
+    subject: 'Você criou uma conta no GoBarber-2.0!',
+    html: htmlTemplate,
+    attachments: [
+      {
+        filename: 'gobarber_logo.png',
+        content: imageAttachment,
+        encoding: 'base64',
+        cid: 'gobarber_logo',
+      },
+    ],
+  });
 }

@@ -9,6 +9,7 @@ import AuthenticateFormAPI from '@/api/authenticate-form-api';
 
 import FetchAPIData from '@/adapters/implementations/fetch-api-data';
 import ManageDataInBrowser from '@/adapters/implementations/manage-data-in-browser';
+import SigninPageMailFactory from '../factories/mails/signin-page-mail-factory';
 
 export default function useAuthenticateFormSubmitHandler() {
   const { addToast } = useToastContext();
@@ -33,22 +34,24 @@ export default function useAuthenticateFormSubmitHandler() {
 
     const response =
       process.env.NEXT_PUBLIC_ENV === 'dev'
-        ? await authenticateFormAPI.go({ email, password }).then((result) => {
-            const status = result.server.status;
-            const serverAlright = result.server.ok;
+        ? await authenticateFormAPI
+            .go({ email, password })
+            .then(async (result) => {
+              const status = result.server.status;
+              const serverAlright = result.server.ok;
 
-            console.log(status, serverAlright);
+              if (status === 406 || serverAlright === false) {
+                authenticateErrorToast();
+              }
 
-            if (status === 406 || serverAlright === false) {
-              authenticateErrorToast();
-            }
+              if (status === 404) {
+                notFoundError();
+              }
 
-            if (status === 404) {
-              notFoundError();
-            }
+              await SigninPageMailFactory(email, true);
 
-            return result.user;
-          })
+              return result.user;
+            })
         : await authenticateFormAPI
             .fake({ email, password })
             .catch((error: Error) => {
