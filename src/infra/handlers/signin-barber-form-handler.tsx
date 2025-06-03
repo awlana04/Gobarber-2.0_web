@@ -1,14 +1,28 @@
+import { useToastContext } from '@/contexts/use-toast-context';
+
 import useDescriptionUsecase from '@/usecases/use-description-usecase';
 import useNameUsecase from '@/usecases/use-name-usecase';
+
+import ServerUnhandledErrorMessage from '@/messages/errors/server-unhandled-toast-error-message';
+import SigninBarberToastErrorMessages from '@/messages/errors/signin-barber-toast-error-messages';
 
 import SigninBarberFormAPI from '@/api/signin-barber-form-api';
 
 import FetchAPIData from '@/adapters/implementations/fetch-api-data';
 import ManageDataInBrowser from '@/adapters/implementations/manage-data-in-browser';
 
+import SigninClientMailFactory from '@/factories/mails/signin-client-mail-factory';
+
 export default function SigninBarberFormHandler() {
+  const { addToast } = useToastContext();
+
   const { handleNameUsecase } = useNameUsecase();
   const { handleDescriptionUsecase } = useDescriptionUsecase();
+
+  const signinBarberErrorToast = () =>
+    addToast(SigninBarberToastErrorMessages.BarberShopExists);
+  const serverUnhandledError = () =>
+    addToast(ServerUnhandledErrorMessage.ServerUnhandledError);
 
   const submitHandler = async (
     barberName: string,
@@ -38,7 +52,20 @@ export default function SigninBarberFormHandler() {
               openOnWeekends,
             })
             .then(async (result) => {
-              console.log(result);
+              const status = result.server.status;
+              const serverAlright = result.server.ok;
+
+              if (status === 406) {
+                signinBarberErrorToast();
+              }
+
+              if (serverAlright === false) {
+                serverUnhandledError();
+              }
+
+              await SigninClientMailFactory(result!.barber!.user.email);
+
+              return result.barber;
             })
         : await signinBarberFormAPI.fake({
             name: barberName,

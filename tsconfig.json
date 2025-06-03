@@ -45,9 +45,10 @@
       "@/backend/*": ["src/infra/api/backend/*"],
       "@/mails/*": ["src/infra/mails/*"],
       "@/adapters/*": ["src/infra/adapters/*"],
-      "@/factories/*": ["src/core/factories/*"],
+      "@/factories/*": ["src/infra/factories/*"],
       "@/messages/*": ["src/core/messages/*"],
-      "@/validations/*": ["src/domain/validations/*"]
+      "@/validations/*": ["src/domain/validations/*"],
+      "@/providers/*": ["src/infra/providers/*"]
     }
   },
   "include": [

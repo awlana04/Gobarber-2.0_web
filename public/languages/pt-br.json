@@ -43,5 +43,11 @@
   "ConfirmPasswordError": "As senhas necessitam serem as mesmas!",
   "AuthenticateErrorTitle": "Usuário não encontrado",
   "AuthenticateInvalidCredentialsError": "Email ou senha não encontradas!",
-  "AuthenticateNotFoundError": "Não identificados nenhum usuário com o email informado!"
+  "AuthenticateNotFoundError": "Não identificados nenhum usuário com o email informado!",
+  "UserAlreadyExists": "Usuário já existe",
+  "EmailAlreadyTaken": "O Email é utilizado por outro usuário!",
+  "ServerUnhandledError": "Error não tratado do servidor",
+  "ServerSideError": "Erro detectado no lado do servidor não é tratado pelo client.",
+  "InvalidBarberShop": "Nome de barbearia inválido",
+  "BarberShopExists": "O nome é utilizado por outro usuário!"
 }

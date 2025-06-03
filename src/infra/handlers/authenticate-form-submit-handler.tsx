@@ -4,12 +4,12 @@ import useEmailUsecase from '@/usecases/use-email-usecase';
 import usePasswordUsecase from '@/usecases/use-password-usecase';
 
 import AuthenticateToastErrorMessages from '@/messages/errors/authenticate-toast-error-messages';
+import ServerUnhandledErrorMessage from '@/messages/errors/server-unhandled-toast-error-message';
 
 import AuthenticateFormAPI from '@/api/authenticate-form-api';
 
 import FetchAPIData from '@/adapters/implementations/fetch-api-data';
 import ManageDataInBrowser from '@/adapters/implementations/manage-data-in-browser';
-import SigninPageMailFactory from '../factories/mails/signin-page-mail-factory';
 
 export default function useAuthenticateFormSubmitHandler() {
   const { addToast } = useToastContext();
@@ -21,6 +21,8 @@ export default function useAuthenticateFormSubmitHandler() {
   const authenticateErrorToast = () =>
     addToast(AuthenticateToastErrorMessages.InvalidCredentials);
   const notFoundError = () => addToast(AuthenticateToastErrorMessages.NotFound);
+  const serverUnhandledError = () =>
+    addToast(ServerUnhandledErrorMessage.ServerUnhandledError);
 
   const submitHandler = async (email: string, password: string) => {
     // check for incorrectly formatted information
@@ -40,7 +42,7 @@ export default function useAuthenticateFormSubmitHandler() {
               const status = result.server.status;
               const serverAlright = result.server.ok;
 
-              if (status === 406 || serverAlright === false) {
+              if (status === 406) {
                 authenticateErrorToast();
               }
 
@@ -48,7 +50,9 @@ export default function useAuthenticateFormSubmitHandler() {
                 notFoundError();
               }
 
-              await SigninPageMailFactory(email);
+              if (serverAlright === false) {
+                serverUnhandledError();
+              }
 
               return result.user;
             })
