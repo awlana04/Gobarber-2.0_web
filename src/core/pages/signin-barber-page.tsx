@@ -12,7 +12,7 @@ import SigninBarberScreen from '@/presentation/screens/signin-barber-screen';
 
 type SigninBarberPagePropsType = NameInputRefAndValueType &
   DescriptionInputRefAndValueType &
-  LocationInputRefAndValueType &
+  // LocationInputRefAndValueType &
   SubmitHandlerType & {
     isOpenAtNight: boolean;
     setIsOpenAtNight(state: boolean): void;
@@ -50,14 +50,14 @@ export default function SigninBarberPage(props: SigninBarberPagePropsType) {
         !!fieldFilled.find((description) => description === 'description')
       }
       handleDescriptionFilled={handleFieldFilled}
-      locationRef={props.locationRef}
-      locationValue={props.locationValue}
-      locationErrored={
-        fieldErrored !== undefined &&
-        !!fieldErrored.find((location) => location === 'location')
-      }
-      locationFilled={!!fieldFilled.find((location) => location === 'location')}
-      handleLocationFilled={handleFieldFilled}
+      // locationRef={props.locationRef}
+      // locationValue={props.locationValue}
+      // locationErrored={
+      //   fieldErrored !== undefined &&
+      //   !!fieldErrored.find((location) => location === 'location')
+      // }
+      // locationFilled={!!fieldFilled.find((location) => location === 'location')}
+      // handleLocationFilled={handleFieldFilled}
       file={props.file}
       fileUrl={props.fileUrl}
       setFile={props.setFile}

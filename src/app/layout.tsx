@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en'>
+    <html lang='en' manifest='geolocation'>
       <body className={robotoSlab.className}>
         <UseHandleErroredContextFactory>
           <UseToastContextFactory>{children}</UseToastContextFactory>

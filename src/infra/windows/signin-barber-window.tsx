@@ -12,7 +12,7 @@ import SigninBarberPage from '@/pages/signin-barber-page';
 export default function SigninBarberWindow() {
   const barberNameRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
-  const locationRef = useRef<HTMLTextAreaElement>(null);
+  // const locationRef = useRef<HTMLTextAreaElement>(null);
 
   const { file, fileUrl, setFile, setFileUrl, handleChange } =
     useHandleImagesHook();
@@ -34,21 +34,21 @@ export default function SigninBarberWindow() {
     descriptionRef.current! &&
     descriptionRef.current!.value !== null &&
     descriptionRef.current!.value;
-  const locationValue =
-    locationRef.current! &&
-    locationRef.current!.value !== null &&
-    locationRef.current!.value;
+  // const locationValue =
+  //   locationRef.current! &&
+  //   locationRef.current!.value !== null &&
+  //   locationRef.current!.value;
 
-  const submit = () => {
-    submitHandler(
-      barberNameRef.current!.value,
-      locationRef.current!.value,
-      descriptionRef.current!.value,
-      file,
-      isOpenAtNight,
-      isOpenOnWeekends
-    );
-  };
+  // const submit = () => {
+  //   submitHandler(
+  //     barberNameRef.current!.value,
+  //     locationRef.current!.value,
+  //     descriptionRef.current!.value,
+  //     file,
+  //     isOpenAtNight,
+  //     isOpenOnWeekends
+  //   );
+  // };
 
   return (
     <SigninBarberPage
@@ -56,8 +56,8 @@ export default function SigninBarberWindow() {
       nameRef={barberNameRef}
       descriptionValue={descriptionValue as string}
       descriptionRef={descriptionRef}
-      locationRef={locationRef}
-      locationValue={locationValue as string}
+      // locationRef={locationRef}
+      // locationValue={locationValue as string}
       file={file}
       setFile={setFile}
       fileUrl={fileUrl}
@@ -67,7 +67,7 @@ export default function SigninBarberWindow() {
       setIsOpenAtNight={setIsOpenAtNight}
       isOpenOnWeekends={isOpenOnWeekends}
       setIsOpenOnWeekends={setIsOpenOnWeekends}
-      submitHandler={submit}
+      submitHandler={() => {}}
     />
   );
 }
