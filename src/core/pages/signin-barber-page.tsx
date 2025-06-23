@@ -23,6 +23,8 @@ type SigninBarberPagePropsType = NameInputRefAndValueType &
     fileUrl: string[];
     setFileUrl(state: string[]): void;
     handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  } & {
+    locationRef: React.Ref<HTMLDivElement>;
   };
 
 export default function SigninBarberPage(props: SigninBarberPagePropsType) {
@@ -50,7 +52,7 @@ export default function SigninBarberPage(props: SigninBarberPagePropsType) {
         !!fieldFilled.find((description) => description === 'description')
       }
       handleDescriptionFilled={handleFieldFilled}
-      // locationRef={props.locationRef}
+      locationRef={props.locationRef}
       // locationValue={props.locationValue}
       // locationErrored={
       //   fieldErrored !== undefined &&

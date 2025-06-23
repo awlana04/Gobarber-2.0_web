@@ -3,7 +3,7 @@
 import { Feature, View } from 'ol';
 import TileLayer from 'ol/layer/Tile';
 import { OSM, Vector as SourceVector } from 'ol/source';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { RefAttributes, useEffect, useRef, useState } from 'react';
 import Vector from 'ol/layer/Vector';
 import { Map as OlMap } from 'ol';
 import 'ol/ol.css';
@@ -43,63 +43,11 @@ type SigninBarberScreenType = NameInputPropsMappedType &
   FormImagesInputProps &
   FormTwoRadioButtonProps &
   ButtonDisabledType &
-  SubmitHandlerType;
+  SubmitHandlerType & {
+    locationRef: React.Ref<HTMLDivElement>;
+  };
 
 export default function SigninBarberScreen(props: SigninBarberScreenType) {
-  const [location, setLocation] = useState<number[]>([]);
-
-  const mapRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    // Retrieve latitude & longitude coordinates from `navigator.geolocation` Web API
-    navigator.geolocation.getCurrentPosition(({ coords }) => {
-      const { longitude, latitude } = coords;
-
-      if (location.length === 0) {
-        setLocation([longitude, latitude]);
-      }
-    });
-  }, [location]);
-
-  useEffect(() => {
-    const osmLayer = new TileLayer({
-      source: new OSM(),
-    });
-
-    const centeredMap = fromLonLat(location);
-
-    const map = new OlMap({
-      target: mapRef.current!,
-      layers: [osmLayer],
-      view: new View({
-        center: centeredMap,
-        zoom: 16,
-      }),
-    });
-
-    map.on('singleclick', (event) => {
-      const layer = new Vector({
-        source: new SourceVector({
-          features: [
-            new Feature({
-              geometry: new Point(event.coordinate),
-            }),
-          ],
-        }),
-
-        style: new Style({
-          image: new Icon({
-            src: 'https://openlayers.org/en/v4.6.5/examples/data/icon.png',
-          }),
-        }),
-      });
-
-      map.addLayer(layer);
-    });
-
-    return () => map.setTarget(null!);
-  });
-
   return (
     <ContentTemplate
       position='left'
@@ -107,11 +55,7 @@ export default function SigninBarberScreen(props: SigninBarberScreenType) {
       alt={translate('Barber shop image')}
     >
       <Form.Root submitHandler={props.submitHandler}>
-        <div
-          className='h-60 w-96 rounded-2xl'
-          id='map-container'
-          ref={mapRef}
-        ></div>
+        <div className='h-60 w-96 rounded-2xl' ref={props.locationRef}></div>
 
         {/* <LocationInputFragment
           locationRef={props.locationRef}
