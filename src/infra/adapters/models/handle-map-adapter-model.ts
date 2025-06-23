@@ -8,4 +8,5 @@ export default interface HandleMapAdapterModel {
   ): void;
   addMapPinMarker(mapListener: any): void;
   transformLocation(coordinate: Coordinate): Coordinate;
+  getActualUserLocation(setLocation: any, location: any): void;
 }

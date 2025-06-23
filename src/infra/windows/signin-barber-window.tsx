@@ -1,16 +1,6 @@
 'use client';
 
-import { Feature, View } from 'ol';
-import TileLayer from 'ol/layer/Tile';
-import { OSM, Vector as SourceVector } from 'ol/source';
-import React, { RefAttributes, useEffect, useRef, useState } from 'react';
-import Vector from 'ol/layer/Vector';
-import { Map as OlMap } from 'ol';
-import 'ol/ol.css';
-import { fromLonLat } from 'ol/proj';
-import { Point } from 'ol/geom';
-import Style from 'ol/style/Style';
-import Icon from 'ol/style/Icon';
+import React, { useEffect, useRef, useState } from 'react';
 
 import useHandleImagesHook from '@/hooks/use-handle-images-hook';
 import useHandleUserHook from '@/hooks/use-handle-user-hook';
@@ -66,14 +56,9 @@ export default function SigninBarberWindow() {
   const mapRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    const handleMapAdapter = new HandleMapAdapter();
     // Retrieve latitude & longitude coordinates from `navigator.geolocation` Web API
-    navigator.geolocation.getCurrentPosition(({ coords }) => {
-      const { longitude, latitude } = coords;
-
-      if (location.length === 0) {
-        setLocation([longitude, latitude]);
-      }
-    });
+    handleMapAdapter.getActualUserLocation(setLocation, location);
   }, [location]);
 
   useEffect(() => {
@@ -85,44 +70,6 @@ export default function SigninBarberWindow() {
     handleMapAdapter.addMapPinMarker(map);
 
     return () => map.setTarget(null!);
-
-    // handleMapAdapter.addMapPinMarker(map);
-    // const osmLayer = new TileLayer({
-    //   source: new OSM(),
-    // });
-
-    // const centeredMap = fromLonLat(location);
-
-    // const map = new OlMap({
-    //   target: mapRef.current!,
-    //   layers: [osmLayer],
-    //   view: new View({
-    //     center: centeredMap,
-    //     zoom: 16,
-    //   }),
-    // });
-
-    // map.on('singleclick', (event) => {
-    //   const layer = new Vector({
-    //     source: new SourceVector({
-    //       features: [
-    //         new Feature({
-    //           geometry: new Point(event.coordinate),
-    //         }),
-    //       ],
-    //     }),
-
-    //     style: new Style({
-    //       image: new Icon({
-    //         src: 'https://openlayers.org/en/v4.6.5/examples/data/icon.png',
-    //       }),
-    //     }),
-    //   });
-
-    //   map.addLayer(layer);
-    // });
-
-    // return () => map.setTarget(null!);
   });
 
   return (

@@ -61,4 +61,14 @@ export default class HandleMapAdapter implements HandleMapAdapterModel {
   transformLocation(coordinate: any): any {
     return fromLonLat(coordinate);
   }
+
+  getActualUserLocation(setLocation: any, location: any): void {
+    navigator.geolocation.getCurrentPosition(({ coords }) => {
+      const { longitude, latitude } = coords;
+
+      if (location.length === 0) {
+        setLocation([longitude, latitude]);
+      }
+    });
+  }
 }
