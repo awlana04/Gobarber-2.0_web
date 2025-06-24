@@ -32,7 +32,7 @@ export default class HandleMapAdapter implements HandleMapAdapterModel {
     });
   }
 
-  addMapPinMarker(mapListener: Map): void {
+  addMapPinMarker(mapListener: Map, setPinLocation: any): void {
     const layer = new Vector({
       source: new SourceVector(),
       style: new Style({
@@ -46,6 +46,8 @@ export default class HandleMapAdapter implements HandleMapAdapterModel {
 
     mapListener.on('click', (event) => {
       const marker = new Feature(new Point(event.coordinate));
+
+      setPinLocation(event.coordinate);
 
       layer.getSource()?.clear();
       layer.getSource()?.addFeature(marker);

@@ -14,6 +14,7 @@ import ManageDataInBrowser from '@/adapters/implementations/manage-data-in-brows
 import SigninClientMailFactory from '@/factories/mails/signin-client-mail-factory';
 import { useState, useEffect } from 'react';
 import HandleMapAdapter from '../adapters/implementations/handle-map-adapter';
+import transformLocationLonLatForm from '../utils/transform-location-lon-lat-form';
 
 export default function SigninBarberFormHandler(
   mapRef: React.RefObject<HTMLDivElement | null>
@@ -29,6 +30,7 @@ export default function SigninBarberFormHandler(
     addToast(ServerUnhandledErrorMessage.ServerUnhandledError);
 
   const [location, setLocation] = useState<number[]>([]);
+  const [pinLocation, setPinLocation] = useState<number[]>([]);
 
   useEffect(() => {
     const handleMapAdapter = new HandleMapAdapter();
@@ -42,14 +44,16 @@ export default function SigninBarberFormHandler(
     const centeredMap = handleMapAdapter.transformLocation(location);
 
     const map = handleMapAdapter.createMap(mapRef, centeredMap);
-    handleMapAdapter.addMapPinMarker(map);
+    handleMapAdapter.addMapPinMarker(map, setPinLocation);
 
     return () => map.setTarget(null!);
-  });
+  }, [location, mapRef]);
+
+  const locationLonLatForm = transformLocationLonLatForm(pinLocation);
+  console.log(locationLonLatForm);
 
   const submitHandler = async (
     barberName: string,
-    location: string,
     description: string,
     file: File[],
     openAtNight: boolean,
@@ -69,7 +73,7 @@ export default function SigninBarberFormHandler(
             .go({
               name: barberName,
               description,
-              location,
+              location: locationLonLatForm,
               file,
               openAtNight,
               openOnWeekends,
@@ -93,7 +97,7 @@ export default function SigninBarberFormHandler(
         : await signinBarberFormAPI.fake({
             name: barberName,
             description,
-            location,
+            location: locationLonLatForm,
             file,
             openAtNight,
             openOnWeekends,
