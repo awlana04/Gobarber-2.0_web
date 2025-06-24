@@ -8,8 +8,9 @@ import { fromLonLat } from 'ol/proj';
 import { Point } from 'ol/geom';
 import Style from 'ol/style/Style';
 import Icon from 'ol/style/Icon';
+import Draw from 'ol/interaction/Draw';
 
-import { Coordinate } from 'openlayers';
+import { coordinate, Coordinate } from 'openlayers';
 import HandleMapAdapterModel from '../models/handle-map-adapter-model';
 
 export default class HandleMapAdapter implements HandleMapAdapterModel {
@@ -29,33 +30,26 @@ export default class HandleMapAdapter implements HandleMapAdapterModel {
         zoom: 16,
       }),
     });
-
-    // return async () => await map.setTarget(null!);
   }
 
   addMapPinMarker(mapListener: Map): void {
-    mapListener.on(
-      'singleclick',
-      (event: MapBrowserEvent<KeyboardEvent | WheelEvent | PointerEvent>) => {
-        const layer = new Vector({
-          source: new SourceVector({
-            features: [
-              new Feature({
-                geometry: new Point(event.coordinate),
-              }),
-            ],
-          }),
+    const layer = new Vector({
+      source: new SourceVector(),
+      style: new Style({
+        image: new Icon({
+          src: 'https://openlayers.org/en/v4.6.5/examples/data/icon.png',
+        }),
+      }),
+    });
 
-          style: new Style({
-            image: new Icon({
-              src: 'https://openlayers.org/en/v4.6.5/examples/data/icon.png',
-            }),
-          }),
-        });
+    mapListener.addLayer(layer);
 
-        mapListener.addLayer(layer);
-      }
-    );
+    mapListener.on('click', (event) => {
+      const marker = new Feature(new Point(event.coordinate));
+
+      layer.getSource()?.clear();
+      layer.getSource()?.addFeature(marker);
+    });
   }
 
   transformLocation(coordinate: any): any {

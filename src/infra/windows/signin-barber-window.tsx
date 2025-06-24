@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 
 import useHandleImagesHook from '@/hooks/use-handle-images-hook';
 import useHandleUserHook from '@/hooks/use-handle-user-hook';
@@ -8,12 +8,12 @@ import useHandleUserHook from '@/hooks/use-handle-user-hook';
 import useSigninBarberFormHandler from '@/handlers/signin-barber-form-handler';
 
 import SigninBarberPage from '@/pages/signin-barber-page';
-import HandleMapAdapter from '../adapters/implementations/handle-map-adapter';
 
 export default function SigninBarberWindow() {
   const barberNameRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
   // const locationRef = useRef<HTMLTextAreaElement>(null);
+  const mapRef = useRef<HTMLDivElement | null>(null);
 
   const { file, fileUrl, setFile, setFileUrl, handleChange } =
     useHandleImagesHook();
@@ -25,7 +25,7 @@ export default function SigninBarberWindow() {
     setIsOpenOnWeekends,
   } = useHandleUserHook();
 
-  const { submitHandler } = useSigninBarberFormHandler();
+  const { submitHandler } = useSigninBarberFormHandler(mapRef);
 
   const barberNameValue =
     barberNameRef.current! &&
@@ -50,27 +50,6 @@ export default function SigninBarberWindow() {
   //     isOpenOnWeekends
   //   );
   // };
-
-  const [location, setLocation] = useState<number[]>([]);
-
-  const mapRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const handleMapAdapter = new HandleMapAdapter();
-    // Retrieve latitude & longitude coordinates from `navigator.geolocation` Web API
-    handleMapAdapter.getActualUserLocation(setLocation, location);
-  }, [location]);
-
-  useEffect(() => {
-    const handleMapAdapter = new HandleMapAdapter();
-
-    const centeredMap = handleMapAdapter.transformLocation(location);
-
-    const map = handleMapAdapter.createMap(mapRef, centeredMap);
-    handleMapAdapter.addMapPinMarker(map);
-
-    return () => map.setTarget(null!);
-  });
 
   return (
     <SigninBarberPage

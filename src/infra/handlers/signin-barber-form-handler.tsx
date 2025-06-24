@@ -12,8 +12,12 @@ import FetchAPIData from '@/adapters/implementations/fetch-api-data';
 import ManageDataInBrowser from '@/adapters/implementations/manage-data-in-browser';
 
 import SigninClientMailFactory from '@/factories/mails/signin-client-mail-factory';
+import { useState, useEffect } from 'react';
+import HandleMapAdapter from '../adapters/implementations/handle-map-adapter';
 
-export default function SigninBarberFormHandler() {
+export default function SigninBarberFormHandler(
+  mapRef: React.RefObject<HTMLDivElement | null>
+) {
   const { addToast } = useToastContext();
 
   const { handleNameUsecase } = useNameUsecase();
@@ -23,6 +27,25 @@ export default function SigninBarberFormHandler() {
     addToast(SigninBarberToastErrorMessages.BarberShopExists);
   const serverUnhandledError = () =>
     addToast(ServerUnhandledErrorMessage.ServerUnhandledError);
+
+  const [location, setLocation] = useState<number[]>([]);
+
+  useEffect(() => {
+    const handleMapAdapter = new HandleMapAdapter();
+    // Retrieve latitude & longitude coordinates from `navigator.geolocation` Web API
+    handleMapAdapter.getActualUserLocation(setLocation, location);
+  }, [location]);
+
+  useEffect(() => {
+    const handleMapAdapter = new HandleMapAdapter();
+
+    const centeredMap = handleMapAdapter.transformLocation(location);
+
+    const map = handleMapAdapter.createMap(mapRef, centeredMap);
+    handleMapAdapter.addMapPinMarker(map);
+
+    return () => map.setTarget(null!);
+  });
 
   const submitHandler = async (
     barberName: string,
