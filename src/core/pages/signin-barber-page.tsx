@@ -1,9 +1,10 @@
 import {
   NameInputRefAndValueType,
   DescriptionInputRefAndValueType,
-  LocationInputRefAndValueType,
 } from '@/core/types/values-and-refs-input-type';
 import { SubmitHandlerType } from '@/presentation/types/submit-handler-type';
+
+import { LocationPropsMappedType } from '@/presentation/types/input-props-mapped-types';
 
 import useHandleFilledHook from '@/hooks/use-handle-filled-hook';
 import { useHandleErroredContext } from '@/contexts/use-handle-errored-context';
@@ -12,7 +13,7 @@ import SigninBarberScreen from '@/presentation/screens/signin-barber-screen';
 
 type SigninBarberPagePropsType = NameInputRefAndValueType &
   DescriptionInputRefAndValueType &
-  // LocationInputRefAndValueType &
+  LocationPropsMappedType &
   SubmitHandlerType & {
     isOpenAtNight: boolean;
     setIsOpenAtNight(state: boolean): void;
@@ -23,8 +24,6 @@ type SigninBarberPagePropsType = NameInputRefAndValueType &
     fileUrl: string[];
     setFileUrl(state: string[]): void;
     handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  } & {
-    locationRef: React.Ref<HTMLDivElement>;
   };
 
 export default function SigninBarberPage(props: SigninBarberPagePropsType) {
@@ -53,6 +52,8 @@ export default function SigninBarberPage(props: SigninBarberPagePropsType) {
       }
       handleDescriptionFilled={handleFieldFilled}
       locationRef={props.locationRef}
+      locationErrored={props.locationErrored}
+      locationFilled={props.locationFilled}
       // locationValue={props.locationValue}
       // locationErrored={
       //   fieldErrored !== undefined &&
@@ -71,7 +72,7 @@ export default function SigninBarberPage(props: SigninBarberPagePropsType) {
       setIsOpenOnWeekends={props.setIsOpenOnWeekends}
       submitHandler={props.submitHandler}
       isButtonDisabled={
-        !!(fieldFilled.length !== 3 && fieldErrored !== undefined)
+        !!(fieldFilled.length !== 2 && fieldErrored !== undefined)
       }
     />
   );

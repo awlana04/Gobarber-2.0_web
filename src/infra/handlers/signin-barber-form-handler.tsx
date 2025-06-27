@@ -17,7 +17,9 @@ import HandleMapAdapter from '../adapters/implementations/handle-map-adapter';
 import transformLocationLonLatForm from '../utils/transform-location-lon-lat-form';
 
 export default function SigninBarberFormHandler(
-  mapRef: React.RefObject<HTMLDivElement | null>
+  mapRef: React.RefObject<HTMLDivElement | null>,
+  pinLocation: number[],
+  setPinLocation: any
 ) {
   const { addToast } = useToastContext();
 
@@ -30,7 +32,6 @@ export default function SigninBarberFormHandler(
     addToast(ServerUnhandledErrorMessage.ServerUnhandledError);
 
   const [location, setLocation] = useState<number[]>([]);
-  const [pinLocation, setPinLocation] = useState<number[]>([]);
 
   useEffect(() => {
     const handleMapAdapter = new HandleMapAdapter();
@@ -47,7 +48,7 @@ export default function SigninBarberFormHandler(
     handleMapAdapter.addMapPinMarker(map, setPinLocation);
 
     return () => map.setTarget(null!);
-  }, [location, mapRef]);
+  }, [location, mapRef, setPinLocation]);
 
   const locationLonLatForm = transformLocationLonLatForm(pinLocation);
 

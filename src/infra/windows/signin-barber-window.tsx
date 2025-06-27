@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 import useHandleImagesHook from '@/hooks/use-handle-images-hook';
 import useHandleUserHook from '@/hooks/use-handle-user-hook';
@@ -10,9 +10,10 @@ import useSigninBarberFormHandler from '@/handlers/signin-barber-form-handler';
 import SigninBarberPage from '@/pages/signin-barber-page';
 
 export default function SigninBarberWindow() {
+  const [pinLocation, setPinLocation] = useState<number[]>([]);
+
   const barberNameRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
-  // const locationRef = useRef<HTMLTextAreaElement>(null);
   const mapRef = useRef<HTMLDivElement | null>(null);
 
   const { file, fileUrl, setFile, setFileUrl, handleChange } =
@@ -25,7 +26,11 @@ export default function SigninBarberWindow() {
     setIsOpenOnWeekends,
   } = useHandleUserHook();
 
-  const { submitHandler } = useSigninBarberFormHandler(mapRef);
+  const { submitHandler } = useSigninBarberFormHandler(
+    mapRef,
+    pinLocation,
+    setPinLocation
+  );
 
   const barberNameValue =
     barberNameRef.current! &&
@@ -35,21 +40,16 @@ export default function SigninBarberWindow() {
     descriptionRef.current! &&
     descriptionRef.current!.value !== null &&
     descriptionRef.current!.value;
-  // const locationValue =
-  //   locationRef.current! &&
-  //   locationRef.current!.value !== null &&
-  //   locationRef.current!.value;
 
-  // const submit = () => {
-  //   submitHandler(
-  //     barberNameRef.current!.value,
-  //     locationRef.current!.value,
-  //     descriptionRef.current!.value,
-  //     file,
-  //     isOpenAtNight,
-  //     isOpenOnWeekends
-  //   );
-  // };
+  const submit = () => {
+    submitHandler(
+      barberNameRef.current!.value,
+      descriptionRef.current!.value,
+      file,
+      isOpenAtNight,
+      isOpenOnWeekends
+    );
+  };
 
   return (
     <SigninBarberPage
@@ -58,7 +58,8 @@ export default function SigninBarberWindow() {
       descriptionValue={descriptionValue as string}
       descriptionRef={descriptionRef}
       locationRef={mapRef}
-      // locationValue={locationValue as string}
+      locationFilled={pinLocation.length > 1}
+      locationErrored={pinLocation.length < 1}
       file={file}
       setFile={setFile}
       fileUrl={fileUrl}
@@ -68,7 +69,7 @@ export default function SigninBarberWindow() {
       setIsOpenAtNight={setIsOpenAtNight}
       isOpenOnWeekends={isOpenOnWeekends}
       setIsOpenOnWeekends={setIsOpenOnWeekends}
-      submitHandler={() => {}}
+      submitHandler={submit}
     />
   );
 }

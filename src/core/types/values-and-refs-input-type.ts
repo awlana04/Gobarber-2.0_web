@@ -5,7 +5,7 @@ import {
   ConfirmPasswordInputPropsMappedType,
   DescriptionInputPropsMappedType,
   LocationInputPropsMappedType,
-} from '@/presentation/types/input-props-mapped-type';
+} from '@/presentation/types/input-props-mapped-types';
 
 export type NameInputRefAndValueType = Pick<
   NameInputPropsMappedType,
@@ -30,9 +30,4 @@ export type ConfirmPasswordInputRefType = Pick<
 export type DescriptionInputRefAndValueType = Pick<
   DescriptionInputPropsMappedType,
   'descriptionRef' | 'descriptionValue'
->;
-
-export type LocationInputRefAndValueType = Pick<
-  LocationInputPropsMappedType,
-  'locationRef' | 'locationValue'
 >;

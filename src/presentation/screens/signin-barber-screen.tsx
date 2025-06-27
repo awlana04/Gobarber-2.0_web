@@ -1,9 +1,7 @@
-'use client';
-// import 'ol/ol.css';
-
 import {
   NameInputPropsMappedType,
   DescriptionInputPropsMappedType,
+  LocationPropsMappedType,
 } from '@/presentation/types/input-props-mapped-types';
 import { FormImagesInputProps } from '@/presentation/types/form-images-input-props-type';
 import { FormTwoRadioButtonProps } from '@/presentation/types/two-radio-buttons-props-type';
@@ -12,10 +10,9 @@ import ButtonDisabledType from '@/presentation/types/button-disabled-type';
 
 import { FiMapPin } from 'react-icons/fi';
 
-import Icon from '../components/atoms/icon';
-
 import ContentTemplate from '@/templates/content-template';
 
+import Icon from '@/atoms/icon';
 import BackToLogon from '@/atoms/back-to-logon';
 import Button from '@/atoms/button';
 
@@ -30,13 +27,11 @@ import translate from '@/shared/utils/translate';
 
 type SigninBarberScreenType = NameInputPropsMappedType &
   DescriptionInputPropsMappedType &
-  // LocationInputPropsMappedType &
   FormImagesInputProps &
   FormTwoRadioButtonProps &
   ButtonDisabledType &
-  SubmitHandlerType & {
-    locationRef: React.Ref<HTMLDivElement>;
-  };
+  SubmitHandlerType &
+  LocationPropsMappedType;
 
 export default function SigninBarberScreen(props: SigninBarberScreenType) {
   return (
@@ -47,17 +42,23 @@ export default function SigninBarberScreen(props: SigninBarberScreenType) {
     >
       <Form.Root submitHandler={props.submitHandler}>
         <div
-          data-filled={false}
-          className='data-[filled=true]:ring-button-hover h-60 w-96 overflow-hidden rounded-t-2xl data-[filled=true]:ring-2'
+          data-filled={props.locationFilled}
+          data-errored={props.locationErrored}
+          className='data-[filled=true]:ring-button-hover data-[errored=true]:ring-red h-60 w-96 overflow-hidden rounded-t-2xl data-[errored]:ring-2 data-[filled=true]:ring-2'
           ref={props.locationRef}
         />
 
         <div className='group relative flex flex-col items-center pb-2'>
-          <Icon errored={false} filled={false} icon={FiMapPin} />
+          <Icon
+            errored={props.locationErrored}
+            filled={props.locationFilled}
+            icon={FiMapPin}
+          />
 
           <input
-            data-filled={false}
-            className='bg-input data-[filled=true]:placeholder-button-hover data-[filled=true]:ring-button-hover text-input-text placeholder:text-input-text h-14 w-96 rounded-b-2xl px-12 outline-hidden data-[filled=true]:ring-2 max-lg:w-80 max-sm:w-72 max-sm:px-10'
+            data-filled={props.locationFilled}
+            data-errored={props.locationErrored}
+            className='bg-input data-[errored=true]:ring-red data-[errored=true]:placeholder-red data-[filled=true]:placeholder-button-hover data-[filled=true]:ring-button-hover text-input-text placeholder:text-input-text h-14 w-96 rounded-b-2xl px-12 outline-hidden data-[errored]:ring-2 data-[filled=true]:ring-2 max-lg:w-80 max-sm:w-72 max-sm:px-10'
             placeholder='Selecione no mapa a sua barbearia'
             disabled
           />
