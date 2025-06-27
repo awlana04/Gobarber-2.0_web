@@ -1,4 +1,4 @@
-import { Feature, MapBrowserEvent, View } from 'ol';
+import { Feature, View } from 'ol';
 import TileLayer from 'ol/layer/Tile';
 import { OSM, Vector as SourceVector } from 'ol/source';
 import Vector from 'ol/layer/Vector';
@@ -8,9 +8,8 @@ import { fromLonLat } from 'ol/proj';
 import { Point } from 'ol/geom';
 import Style from 'ol/style/Style';
 import Icon from 'ol/style/Icon';
-import Draw from 'ol/interaction/Draw';
 
-import { coordinate, Coordinate } from 'openlayers';
+import { Coordinate } from 'openlayers';
 import HandleMapAdapterModel from '../models/handle-map-adapter-model';
 
 export default class HandleMapAdapter implements HandleMapAdapterModel {
@@ -37,7 +36,11 @@ export default class HandleMapAdapter implements HandleMapAdapterModel {
       source: new SourceVector(),
       style: new Style({
         image: new Icon({
-          src: 'https://openlayers.org/en/v4.6.5/examples/data/icon.png',
+          src: `${process.env.NEXT_PUBLIC_FRONTEND_URI}/gobarber_map_pin.svg`,
+          anchor: [0.5, 0.95],
+          anchorXUnits: 'fraction',
+          anchorYUnits: 'fraction',
+          width: 56,
         }),
       }),
     });

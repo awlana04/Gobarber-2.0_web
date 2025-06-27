@@ -1,4 +1,4 @@
-import { BaseInputPropsType } from '@/presentation/types/input-props-mapped-type';
+import { BaseInputPropsType } from '@/presentation/types/input-props-mapped-types';
 
 import Icon from '@/atoms/icon';
 
@@ -13,7 +13,7 @@ type FormInputProps = React.InputHTMLAttributes<HTMLInputElement> &
 export default function FormInput(props: FormInputProps) {
   return (
     <div
-      className='group relative flex flex-col items-center py-2'
+      className='relative flex flex-col items-center py-2'
       onChange={props.handleFilled}
     >
       <Icon

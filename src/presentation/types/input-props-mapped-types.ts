@@ -19,7 +19,7 @@ type TextareaPropsMappedType<Type extends string> = {
   [Property in keyof BaseTextareaInputPropsWithoutRefAndMethodType as `${Type}${Capitalize<string & Property>}`]: BaseTextareaInputPropsWithoutRefAndMethodType[Property];
 } & {
   [Property in keyof BaseInputPropsWithMethodType as `handle${Capitalize<string & Type>}Filled`]: (
-    event: React.ChangeEvent<HTMLTextAreaElement>
+    event: React.ChangeEvent<HTMLDivElement>
   ) => void;
 };
 

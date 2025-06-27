@@ -50,7 +50,6 @@ export default function SigninBarberFormHandler(
   }, [location, mapRef]);
 
   const locationLonLatForm = transformLocationLonLatForm(pinLocation);
-  console.log(locationLonLatForm);
 
   const submitHandler = async (
     barberName: string,

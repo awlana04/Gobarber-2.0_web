@@ -1,6 +1,6 @@
 import Icon from '@/atoms/icon';
 
-import { TextareaInputPropsMappedType } from '@/presentation/types/input-props-mapped-type';
+import { TextareaInputPropsMappedType } from '@/presentation/types/input-props-mapped-types';
 
 type FormTextareaProps = TextareaInputPropsMappedType & {
   placeholder: string;
