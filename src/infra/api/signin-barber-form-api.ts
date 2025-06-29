@@ -36,7 +36,7 @@ export default class SigninBarberFormAPI extends APIBase {
     );
 
     return await this.fetchAPIData
-      .fetch(`/barbers/${user.value.user.id}`, {
+      .fetch(`/barbers/${user.user.id}`, {
         jsonContent: true,
         method: 'POST',
         headers: {
@@ -48,12 +48,13 @@ export default class SigninBarberFormAPI extends APIBase {
           description: data.description,
           openAtNight: data.openAtNight,
           openOnWeekends: data.openOnWeekends,
-          userId: user.value.user.id,
+          userId: user.user.id,
         },
       })
       .then(async (response) => {
         if (response.ok) {
           const barber = await response.json();
+          console.log(barber.value, barber);
 
           const formData = new FormData();
 

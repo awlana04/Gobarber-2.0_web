@@ -11,8 +11,8 @@ type FormTextareaProps = TextareaInputPropsMappedType & {
 export default function FormTextarea(props: FormTextareaProps) {
   return (
     <div
-      onChange={props.handleTextareaFilled}
       className='group relative flex flex-col items-center py-2'
+      onChange={props.handleTextareaFilled}
     >
       <Icon
         icon={props.iconName}

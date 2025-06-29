@@ -82,6 +82,8 @@ export default function SigninBarberFormHandler(
               const status = result.server.status;
               const serverAlright = result.server.ok;
 
+              console.log(result, result.barber);
+
               if (status === 406) {
                 signinBarberErrorToast();
               }
@@ -90,7 +92,7 @@ export default function SigninBarberFormHandler(
                 serverUnhandledError();
               }
 
-              await SigninClientMailFactory(result!.barber!.user.email);
+              // await SigninClientMailFactory(result!.barber!.user.email);
 
               return result.barber;
             })
