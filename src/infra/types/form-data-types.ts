@@ -23,3 +23,27 @@ export type SigninBarberFormDataType = Required<
 > & {
   pinLocation: number[];
 };
+
+export type AuthenticateFormDataType = Required<
+  Omit<
+    FormFunctionsSubmitHandlerType<{
+      email: string;
+      password: string;
+    }>,
+    'handleNameUsecase' | 'handleDescriptionUsecase'
+  >
+>;
+
+export type SigninFormDataType = Required<
+  Omit<
+    FormFunctionsSubmitHandlerType<{
+      name: string;
+      email: string;
+      password: string;
+      avatar: any;
+    }>,
+    'handleDescriptionUsecase'
+  >
+> & {
+  location: number[];
+};

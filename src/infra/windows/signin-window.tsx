@@ -4,7 +4,8 @@ import { useRef } from 'react';
 
 import useHandleAvatarHook from '@/core/hooks/use-handle-avatar-hook';
 
-import useSigninFormSubmitHandler from '@/handlers/signin-form-handler';
+// import useSigninFormSubmitHandler from '@/handlers/signin-form-handler';
+import SigninFormSubmitHandlerFactory from '@/factories/handlers/signin-form-submit-handler-factory';
 
 import SigninPage from '@/pages/signin-page';
 
@@ -16,7 +17,8 @@ export default function SigninWindow() {
 
   const { file, fileUrl, handleChange, handleRemove } = useHandleAvatarHook();
 
-  const { submitHandler } = useSigninFormSubmitHandler();
+  // const { submitHandler } = useSigninFormSubmitHandler();
+  const { submitHandler } = SigninFormSubmitHandlerFactory();
 
   const nameValue =
     nameRef.current! &&
@@ -28,12 +30,22 @@ export default function SigninWindow() {
     emailRef.current!.value;
 
   const submit = async () =>
-    await submitHandler(
-      nameRef.current!.value,
-      emailRef.current!.value,
-      passwordRef.current!.value,
-      file
-    );
+    await submitHandler({
+      data: {
+        name: nameRef.current!.value,
+        email: emailRef.current!.value,
+        password: passwordRef.current!.value,
+        avatar: file,
+      },
+    });
+
+  // const submit = async () =>
+  //   await submitHandler(
+  //     nameRef.current!.value,
+  //     emailRef.current!.value,
+  //     passwordRef.current!.value,
+  //     file
+  //   );
 
   return (
     <SigninPage
