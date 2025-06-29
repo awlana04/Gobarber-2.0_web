@@ -1,6 +1,8 @@
-import { ToastMessageType } from '@/core/types/toast-message-context-data-type';
+import FormSubmitHandlerBase from '@/infra/bases/form-submit-handler-base';
 
 import APIBaseInterface from '@/infra/interfaces/api-base-interface';
+
+import { SigninBarberFormDataType } from '@/infra/types/form-data-types';
 
 import ServerUnhandledErrorMessage from '@/messages/errors/server-unhandled-toast-error-message';
 import SigninBarberToastErrorMessages from '@/messages/errors/signin-barber-toast-error-messages';
@@ -9,22 +11,10 @@ import SigninClientMailFactory from '@/factories/mails/signin-client-mail-factor
 
 import transformLocationLonLatForm from '@/infra/utils/transform-location-lon-lat-form';
 
-type SigninBarberFormSubmitHandlerType = {
-  data: {
-    barberName: string;
-    description: string;
-    file: File[];
-    openAtNight: boolean;
-    openOnWeekends: boolean;
-  };
-  addToast: (message: Omit<ToastMessageType, 'id'>) => void;
-  handleNameUsecase(name: string): void;
-  handleDescriptionUsecase(description: string): void;
-  pinLocation: [number, number];
-};
-
-export default class SigninBarberFormSubmitHandler {
-  constructor(private readonly signinBarberFormAPI: APIBaseInterface) {}
+export default class SigninBarberFormSubmitHandler extends FormSubmitHandlerBase {
+  constructor(private readonly signinBarberFormAPI: APIBaseInterface) {
+    super(signinBarberFormAPI);
+  }
 
   public async submitHandler({
     data,
@@ -32,7 +22,7 @@ export default class SigninBarberFormSubmitHandler {
     handleNameUsecase,
     handleDescriptionUsecase,
     pinLocation,
-  }: SigninBarberFormSubmitHandlerType): Promise<void> {
+  }: SigninBarberFormDataType): Promise<void> {
     const signinBarberErrorToast = () =>
       addToast(SigninBarberToastErrorMessages.BarberShopExists);
     const serverUnhandledError = () =>
@@ -43,32 +33,39 @@ export default class SigninBarberFormSubmitHandler {
 
     const locationLonLatForm = transformLocationLonLatForm(pinLocation);
 
-    await this.signinBarberFormAPI
-      .go({
-        name: data.barberName,
-        description: data.description,
-        location: locationLonLatForm,
-        file: data.file,
-        openAtNight: data.openAtNight,
-        openOnWeekends: data.openOnWeekends,
-      })
-      .then(async (result) => {
-        const status = result.server.status;
-        const serverAlright = result.server.ok;
+    process.env.NEXT_PUBLIC_ENV === 'dev'
+      ? await this.signinBarberFormAPI
+          .go({
+            name: data.barberName,
+            description: data.description,
+            location: locationLonLatForm,
+            file: data.file,
+            openAtNight: data.openAtNight,
+            openOnWeekends: data.openOnWeekends,
+          })
+          .then(async (result) => {
+            const status = result.server.status;
+            const serverAlright = result.server.ok;
 
-        if (status === 406) {
-          signinBarberErrorToast();
-        }
+            if (status === 406) {
+              signinBarberErrorToast();
+            } else if (serverAlright === false) {
+              serverUnhandledError();
+            }
 
-        if (serverAlright === false) {
-          serverUnhandledError();
-        }
+            if (serverAlright === true && status === 201) {
+              await SigninClientMailFactory(result!.barber!.user.email);
+            }
 
-        if (serverAlright === true && status === 201) {
-          await SigninClientMailFactory(result!.barber!.user.email);
-        }
-
-        return result.barber;
-      });
+            return result.barber;
+          })
+      : await this.signinBarberFormAPI.fake({
+          name: data.barberName,
+          description: data.description,
+          location: locationLonLatForm,
+          file: data.file,
+          openAtNight: data.openAtNight,
+          openOnWeekends: data.openOnWeekends,
+        });
   }
 }

@@ -5,13 +5,12 @@ import { useRef, useState } from 'react';
 import useHandleImagesHook from '@/hooks/use-handle-images-hook';
 import useHandleUserHook from '@/hooks/use-handle-user-hook';
 
-import useSigninBarberFormHandler from '@/handlers/signin-barber-form-handler';
 import SigninBarberFormSubmitHandlerFactory from '../factories/handlers/signin-barber-form-submit-handler-factory';
 
 import SigninBarberPage from '@/pages/signin-barber-page';
 
 export default function SigninBarberWindow() {
-  const [pinLocation, setPinLocation] = useState<[number, number]>([0, 0]);
+  const [pinLocation, setPinLocation] = useState<number[]>([]);
 
   const barberNameRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
@@ -27,16 +26,11 @@ export default function SigninBarberWindow() {
     setIsOpenOnWeekends,
   } = useHandleUserHook();
 
-  // const { submitHandler } = useSigninBarberFormHandler(
-  //   mapRef,
-  //   pinLocation,
-  //   setPinLocation
-  // );
-  const { submitHandler } = SigninBarberFormSubmitHandlerFactory(
+  const { submitHandler } = SigninBarberFormSubmitHandlerFactory({
     mapRef,
     pinLocation,
-    setPinLocation
-  );
+    setPinLocation,
+  });
 
   const barberNameValue =
     barberNameRef.current! &&
@@ -49,23 +43,15 @@ export default function SigninBarberWindow() {
 
   const submit = () => {
     submitHandler({
-      barberName: barberNameRef.current!.value,
-      description: descriptionRef.current!.value,
-      file,
-      openAtNight: isOpenAtNight,
-      openOnWeekends: isOpenOnWeekends,
+      data: {
+        barberName: barberNameRef.current!.value,
+        description: descriptionRef.current!.value,
+        file,
+        openAtNight: isOpenAtNight,
+        openOnWeekends: isOpenOnWeekends,
+      },
     });
   };
-
-  // const submit = async () => {
-  //   await submitHandler(
-  //     barberNameRef.current!.value,
-  //     descriptionRef.current!.value,
-  //     file,
-  //     isOpenAtNight,
-  //     isOpenOnWeekends
-  //   );
-  // };
 
   return (
     <SigninBarberPage
