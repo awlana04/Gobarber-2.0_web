@@ -11,7 +11,7 @@ import SigninBarberFormSubmitHandlerFactory from '../factories/handlers/signin-b
 import SigninBarberPage from '@/pages/signin-barber-page';
 
 export default function SigninBarberWindow() {
-  const [pinLocation, setPinLocation] = useState<number[]>([]);
+  const [pinLocation, setPinLocation] = useState<[number, number]>([0, 0]);
 
   const barberNameRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
@@ -32,7 +32,11 @@ export default function SigninBarberWindow() {
   //   pinLocation,
   //   setPinLocation
   // );
-  const { submitHandler } = SigninBarberFormSubmitHandlerFactory();
+  const { submitHandler } = SigninBarberFormSubmitHandlerFactory(
+    mapRef,
+    pinLocation,
+    setPinLocation
+  );
 
   const barberNameValue =
     barberNameRef.current! &&

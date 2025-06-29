@@ -1,8 +1,13 @@
 import { ToastMessageType } from '@/core/types/toast-message-context-data-type';
-import APIBaseInterface from '../interfaces/api-base-interface';
-import ServerUnhandledErrorMessage from '@/core/messages/errors/server-unhandled-toast-error-message';
-import SigninBarberToastErrorMessages from '@/core/messages/errors/signin-barber-toast-error-messages';
-import SigninClientMailFactory from '../factories/mails/signin-client-mail-factory';
+
+import APIBaseInterface from '@/infra/interfaces/api-base-interface';
+
+import ServerUnhandledErrorMessage from '@/messages/errors/server-unhandled-toast-error-message';
+import SigninBarberToastErrorMessages from '@/messages/errors/signin-barber-toast-error-messages';
+
+import SigninClientMailFactory from '@/factories/mails/signin-client-mail-factory';
+
+import transformLocationLonLatForm from '@/infra/utils/transform-location-lon-lat-form';
 
 type SigninBarberFormSubmitHandlerType = {
   data: {
@@ -13,6 +18,9 @@ type SigninBarberFormSubmitHandlerType = {
     openOnWeekends: boolean;
   };
   addToast: (message: Omit<ToastMessageType, 'id'>) => void;
+  handleNameUsecase(name: string): void;
+  handleDescriptionUsecase(description: string): void;
+  pinLocation: [number, number];
 };
 
 export default class SigninBarberFormSubmitHandler {
@@ -21,17 +29,25 @@ export default class SigninBarberFormSubmitHandler {
   public async submitHandler({
     data,
     addToast,
+    handleNameUsecase,
+    handleDescriptionUsecase,
+    pinLocation,
   }: SigninBarberFormSubmitHandlerType): Promise<void> {
     const signinBarberErrorToast = () =>
       addToast(SigninBarberToastErrorMessages.BarberShopExists);
     const serverUnhandledError = () =>
       addToast(ServerUnhandledErrorMessage.ServerUnhandledError);
 
+    handleNameUsecase(data.barberName);
+    handleDescriptionUsecase(data.description);
+
+    const locationLonLatForm = transformLocationLonLatForm(pinLocation);
+
     await this.signinBarberFormAPI
       .go({
         name: data.barberName,
         description: data.description,
-        location: 'GoBarber-2.0. A really nice place to be.',
+        location: locationLonLatForm,
         file: data.file,
         openAtNight: data.openAtNight,
         openOnWeekends: data.openOnWeekends,
@@ -48,7 +64,9 @@ export default class SigninBarberFormSubmitHandler {
           serverUnhandledError();
         }
 
-        // await SigninClientMailFactory(result!.barber!.user.email);
+        if (serverAlright === true && status === 201) {
+          await SigninClientMailFactory(result!.barber!.user.email);
+        }
 
         return result.barber;
       });
