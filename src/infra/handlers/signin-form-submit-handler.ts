@@ -34,6 +34,7 @@ export default class SigninFormSubmitHandler extends FormSubmitHandlerBase {
     handlePasswordUsecase(data.password);
 
     const locationLonLatForm = transformLocationLonLatForm(location);
+    console.log(location, locationLonLatForm);
 
     const response =
       process.env.NEXT_PUBLIC_ENV === 'dev'
@@ -49,15 +50,17 @@ export default class SigninFormSubmitHandler extends FormSubmitHandlerBase {
               const status = result.server.status;
               const serverAlright = result.server.ok;
 
+              console.log(locationLonLatForm, result.user);
+
               if (status === 406) {
                 signinErrorToast();
               } else if (serverAlright === false) {
                 serverUnhandledError();
               }
 
-              if (serverAlright === true && status === 201) {
-                await SigninClientMailFactory(data.email);
-              }
+              // if (serverAlright === true && status === 201) {
+              //   await SigninClientMailFactory(data.email);
+              // }
 
               return result.user;
             })

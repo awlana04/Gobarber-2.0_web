@@ -25,6 +25,7 @@ export default function AuthenticateFormSubmitHandlerFactory() {
   );
 
   const submitHandler = async (props: AuthenticateFormSubmitDataType) => {
+    console.log(props.data);
     await authenticateHandler.submitHandler({
       data: props.data,
       addToast,

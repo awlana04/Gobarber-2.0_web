@@ -12,7 +12,7 @@ const config: Config = {
       orange: '#FF9000',
       buttonHover: '#c97200',
       white: '#F4EDE8',
-      buttonText: '#312E38',
+      buttonText: '#3E3B47',
       input: '#232129',
       inputText: '#666360',
       background: '#312E38',
@@ -25,6 +25,7 @@ const config: Config = {
       successBackground: '#2e656a',
       errorText: '#fddede',
       errorBackground: '#c53030',
+      grey: '#999591',
     },
     // extend: {
     //   backgroundImage: {

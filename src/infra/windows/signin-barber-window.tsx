@@ -5,7 +5,7 @@ import { useRef, useState } from 'react';
 import useHandleImagesHook from '@/hooks/use-handle-images-hook';
 import useHandleUserHook from '@/hooks/use-handle-user-hook';
 
-import SigninBarberFormSubmitHandlerFactory from '../factories/handlers/signin-barber-form-submit-handler-factory';
+import SigninBarberFormSubmitHandlerFactory from '@/factories/handlers/signin-barber-form-submit-handler-factory';
 
 import SigninBarberPage from '@/pages/signin-barber-page';
 

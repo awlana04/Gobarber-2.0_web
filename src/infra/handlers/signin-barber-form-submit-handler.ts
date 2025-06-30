@@ -7,9 +7,9 @@ import { SigninBarberFormDataType } from '@/infra/types/form-data-types';
 import ServerUnhandledErrorMessage from '@/messages/errors/server-unhandled-toast-error-message';
 import SigninBarberToastErrorMessages from '@/messages/errors/signin-barber-toast-error-messages';
 
-import SigninClientMailFactory from '@/factories/mails/signin-client-mail-factory';
-
 import transformLocationLonLatForm from '@/infra/utils/transform-location-lon-lat-form';
+
+import SigninBarberMailFactory from '@/factories/mails/signin-barber-mail-factory';
 
 export default class SigninBarberFormSubmitHandler extends FormSubmitHandlerBase {
   constructor(private readonly signinBarberFormAPI: APIBaseInterface) {
@@ -53,9 +53,9 @@ export default class SigninBarberFormSubmitHandler extends FormSubmitHandlerBase
               serverUnhandledError();
             }
 
-            if (serverAlright === true && status === 201) {
-              await SigninClientMailFactory(result!.barber!.user.email);
-            }
+            // if (serverAlright === true && status === 201) {
+            //   await SigninBarberMailFactory(result!.barber!.value.email);
+            // }
 
             return result.barber;
           })

@@ -15,9 +15,9 @@ type SigninBarberFormType = {
   openOnWeekends: boolean;
 };
 
-// type DataStoredInBrowser = {
-//   value: DataType;
-// };
+type DataStoredInBrowser = {
+  value: DataType;
+};
 
 export default class SigninBarberFormAPI extends APIBase {
   constructor(
@@ -31,12 +31,12 @@ export default class SigninBarberFormAPI extends APIBase {
     data: SigninBarberFormType
   ): Promise<{ server: HTTPResponse; barber?: DataType }> {
     const token = await this.manageDataInBrowser.getData('token');
-    const value: DataType = await JSON.parse(
+    const user: DataStoredInBrowser = await JSON.parse(
       await this.manageDataInBrowser.getData('user')
     );
 
     return await this.fetchAPIData
-      .fetch(`/barbers/${value.user.id}`, {
+      .fetch(`/barbers/${user.value.user.id}`, {
         jsonContent: true,
         method: 'POST',
         headers: {
@@ -48,13 +48,12 @@ export default class SigninBarberFormAPI extends APIBase {
           description: data.description,
           openAtNight: data.openAtNight,
           openOnWeekends: data.openOnWeekends,
-          userId: value.user.id,
+          userId: user.value.user.id,
         },
       })
       .then(async (response) => {
         if (response.ok) {
           const barber = await response.json();
-          console.log(barber.value, barber);
 
           const formData = new FormData();
 

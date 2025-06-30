@@ -10,7 +10,7 @@ type SigninFormDataType = {
   name: string;
   email: string;
   password: string | any;
-  location: 'Somewhere Over the Rainbow';
+  location: string;
   avatar: File | any;
 };
 
@@ -30,7 +30,7 @@ export default class SigninFormAPI extends APIBase {
     formData.append('name', data.name);
     formData.append('email', data.email);
     formData.append('password', data.password);
-    formData.append('location', 'Somewhere Over the Rainbow');
+    formData.append('location', data.location);
     formData.append('avatar', data.avatar);
 
     return await this.fetchAPIData
