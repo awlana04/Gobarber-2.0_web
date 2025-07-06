@@ -3,6 +3,8 @@ import APIBase from '@/infra/bases/api-base';
 import FetchAPIDataModel from '@/adapters/models/fetch-api-data-model';
 import ManageDataInBrowserModel from '@/adapters/models/manage-data-in-browser-model';
 
+import RefreshTokenAPI from './refresh-token-api';
+
 import HTTPResponse from '@/infra/types/http-response';
 import { DataType } from '@/infra/types/data-type';
 
@@ -14,7 +16,8 @@ type AuthenticateFormDataType = {
 export default class AuthenticateFormAPI extends APIBase {
   constructor(
     protected readonly fetchAPIData: FetchAPIDataModel,
-    private readonly manageDataInBrowser: ManageDataInBrowserModel
+    private readonly manageDataInBrowser: ManageDataInBrowserModel,
+    private readonly refreshTokenAPI: RefreshTokenAPI
   ) {
     super(fetchAPIData);
   }
@@ -35,15 +38,16 @@ export default class AuthenticateFormAPI extends APIBase {
         await this.manageDataInBrowser.clearAllData();
 
         if (response.ok) {
-          await this.manageDataInBrowser.saveData('token', user.token);
+          // generate a refresh token to get authenticated in the application
+          await this.refreshTokenAPI.go({
+            refresh_token: user.refreshToken.id,
+          });
+
           await this.manageDataInBrowser.saveData('user', user);
 
           // verify if the user is a Barber to save its data into a new different storage data
           if (user.barber !== null) {
-            await this.manageDataInBrowser.saveData(
-              'barber',
-              JSON.stringify(user.barber)
-            );
+            await this.manageDataInBrowser.saveData('barber', user.barber);
           }
         }
 

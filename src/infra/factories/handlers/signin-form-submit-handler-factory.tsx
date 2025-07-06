@@ -10,6 +10,7 @@ import usePasswordUsecase from '@/usecases/use-password-usecase';
 
 import SigninFormSubmitHandler from '@/handlers/signin-form-submit-handler';
 
+import RefreshTokenAPI from '@/api/refresh-token-api';
 import SigninFormAPI from '@/api/signin-form-api';
 
 import FetchAPIData from '@/adapters/implementations/fetch-api-data';
@@ -30,10 +31,15 @@ export default function SigninFormSubmitHandlerFactory() {
 
   TrackUserActualLocation(location, setLocation);
 
-  console.log(location);
+  const fetchAPIData = new FetchAPIData();
+  const manageDataInBrowser = new ManageDataInBrowser();
+  const refreshTokenAPI = new RefreshTokenAPI(
+    fetchAPIData,
+    manageDataInBrowser
+  );
 
   const signinHandler = new SigninFormSubmitHandler(
-    new SigninFormAPI(new FetchAPIData(), new ManageDataInBrowser())
+    new SigninFormAPI(fetchAPIData, manageDataInBrowser, refreshTokenAPI)
   );
 
   const submitHandler = async (props: SigninFormSubmitDataType) => {

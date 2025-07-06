@@ -26,8 +26,6 @@ export default class AuthenticateFormSubmitHandler extends FormSubmitHandlerBase
     const serverUnhandledError = () =>
       addToast(ServerUnhandledErrorMessage.ServerUnhandledError);
 
-    console.log(data.password);
-
     // check for incorrectly formatted information
     handleEmailUsecase(data.email);
     handlePasswordUsecase(data.password);
@@ -37,8 +35,6 @@ export default class AuthenticateFormSubmitHandler extends FormSubmitHandlerBase
         ? await this.authenticateFormAPI
             .go({ email: data.email, password: data.password })
             .then(async (result) => {
-              console.log(data.password);
-              console.log(result.user);
               const status = result.server.status;
               const serverAlright = result.server.ok;
 

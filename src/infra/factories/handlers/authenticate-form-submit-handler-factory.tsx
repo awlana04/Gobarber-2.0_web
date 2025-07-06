@@ -7,6 +7,7 @@ import usePasswordUsecase from '@/usecases/use-password-usecase';
 
 import AuthenticateFormSubmitHandler from '@/handlers/authenticate-form-submit-handler';
 
+import RefreshTokenAPI from '@/api/refresh-token-api';
 import AuthenticateFormAPI from '@/api/authenticate-form-api';
 
 import FetchAPIData from '@/adapters/implementations/fetch-api-data';
@@ -20,12 +21,18 @@ export default function AuthenticateFormSubmitHandlerFactory() {
   const { handleEmailUsecase } = useEmailUsecase();
   const { handlePasswordUsecase } = usePasswordUsecase();
 
+  const fetchAPIData = new FetchAPIData();
+  const manageDataInBrowser = new ManageDataInBrowser();
+  const refreshTokenAPI = new RefreshTokenAPI(
+    fetchAPIData,
+    manageDataInBrowser
+  );
+
   const authenticateHandler = new AuthenticateFormSubmitHandler(
-    new AuthenticateFormAPI(new FetchAPIData(), new ManageDataInBrowser())
+    new AuthenticateFormAPI(fetchAPIData, manageDataInBrowser, refreshTokenAPI)
   );
 
   const submitHandler = async (props: AuthenticateFormSubmitDataType) => {
-    console.log(props.data);
     await authenticateHandler.submitHandler({
       data: props.data,
       addToast,
