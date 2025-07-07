@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Roboto_Slab } from 'next/font/google';
 import './globals.css';
+// import middleware from './middleware';
 
 import UseHandleErroredContextFactory from '@/infra/factories/contexts/use-handle-errored-context-factory';
 import UseToastContextFactory from '@/infra/factories/contexts/use-toast-context-factory';

@@ -10,35 +10,50 @@ const applicationName = '@GoBarber-2.0';
 
 export default class ManageDataInBrowser implements ManageDataInBrowserModel {
   async getData(keyName: KeyNameType): Promise<any> {
-    return localStorage.getItem(`${applicationName}:${keyName}`);
+    // return localStorage.getItem(`${applicationName}:${keyName}`);
+    // const cookiesStore = await cookies();
+    // return cookiesStore.get(`${applicationName}:${keyName}`);
   }
 
   async saveData(keyName: KeyNameType, data: any): Promise<void> {
-    keyName !== 'token'
-      ? localStorage.setItem(
-          `${applicationName}:${keyName}`,
-          JSON.stringify(data)
-        )
-      : localStorage.setItem(`${applicationName}:${keyName}`, data);
+    // keyName !== 'token'
+    //   ? localStorage.setItem(
+    //       `${applicationName}:${keyName}`,
+    //       JSON.stringify(data)
+    //     )
+    //   : localStorage.setItem(`${applicationName}:${keyName}`, data);
+    // const cookiesStore = await cookies();
+    // cookiesStore.set(`${applicationName}:${keyName}`, data);
   }
 
   async updateData(keyName: KeyNameType, data: any): Promise<any> {
-    const storedData = await this.getData(keyName);
-
-    if (!storedData) {
-      throw new Error('No stored data in browser with this key name!');
-    } else {
-      localStorage.removeItem(`${applicationName}:${keyName}`);
-
-      return await this.saveData(keyName, data);
-    }
+    // const storedData = await this.getData(keyName);
+    // if (!storedData) {
+    //   throw new Error('No stored data in browser with this key name!');
+    // } else {
+    //   localStorage.removeItem(`${applicationName}:${keyName}`);
+    //   return await this.saveData(keyName, data);
+    // }
+    // if (!storedData) {
+    //   throw new Error('No stored data in browser with this key name!');
+    // } else {
+    //   const cookiesStore = await cookies();
+    //   cookiesStore.delete(`${applicationName}:${keyName}`);
+    //   return await this.saveData(keyName, data);
+    // }
   }
 
   async deleteData(keyName: KeyNameType): Promise<void> {
-    localStorage.removeItem(`${applicationName}:${keyName}`);
+    // localStorage.removeItem(`${applicationName}:${keyName}`);
+    // const cookiesStore = await cookies();
+    // cookiesStore.delete(`${applicationName}:${keyName}`);
   }
 
   async clearAllData(): Promise<void> {
-    localStorage.clear();
+    // localStorage.clear();
+    // const cookiesStore = await cookies();
+    // cookiesStore.delete(`${applicationName}:token`);
+    // cookiesStore.delete(`${applicationName}:user`);
+    // cookiesStore.delete(`${applicationName}:barber`);
   }
 }

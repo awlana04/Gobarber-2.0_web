@@ -7,6 +7,7 @@ import RefreshTokenAPI from './refresh-token-api';
 
 import HTTPResponse from '@/infra/types/http-response';
 import { DataType } from '@/infra/types/data-type';
+import SetCookies from '../libs/set-cookies';
 
 type AuthenticateFormDataType = {
   email: string;
@@ -35,19 +36,22 @@ export default class AuthenticateFormAPI extends APIBase {
         const user: DataType = await response.json();
 
         // if the user is making the Sign in again, we must ensure there's no other stored data in browser
-        await this.manageDataInBrowser.clearAllData();
+        // await this.manageDataInBrowser.clearAllData();
 
         if (response.ok) {
           // generate a refresh token to get authenticated in the application
-          await this.refreshTokenAPI.go({
-            refresh_token: user.refreshToken.id,
-          });
+          // await this.refreshTokenAPI.go({
+          //   refresh_token: user.refreshToken.id,
+          // });
+          await SetCookies('token', user.token);
 
-          await this.manageDataInBrowser.saveData('user', user);
+          // await this.manageDataInBrowser.saveData('user', user);
+          await SetCookies('user', JSON.stringify(user));
 
           // verify if the user is a Barber to save its data into a new different storage data
           if (user.barber !== null) {
-            await this.manageDataInBrowser.saveData('barber', user.barber);
+            // await this.manageDataInBrowser.saveData('barber', user.barber);
+            await SetCookies('barber', JSON.stringify(user.barber));
           }
         }
 
