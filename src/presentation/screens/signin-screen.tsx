@@ -3,7 +3,7 @@ import {
   EmailInputPropsMappedType,
   PasswordInputPropsMappedType,
   ConfirmPasswordInputPropsMappedType,
-} from '@/presentation/types/input-props-mapped-type';
+} from '@/presentation/types/input-props-mapped-types';
 import { AvatarInputPropsType } from '@/presentation/types/avatar-input-props-type';
 import { RadioButtonPropsType } from '@/presentation/types/radio-button-props-type';
 import { SubmitHandlerType } from '@/presentation/types/submit-handler-type';

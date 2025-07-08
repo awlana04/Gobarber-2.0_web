@@ -7,6 +7,7 @@ import useHandleAvatarHook from '@/core/hooks/use-handle-avatar-hook';
 import SigninFormSubmitHandlerFactory from '@/factories/handlers/signin-form-submit-handler-factory';
 
 import SigninPage from '@/pages/signin-page';
+import useHandleUserHook from '@/core/hooks/use-handle-user-hook';
 
 export default function SigninWindow() {
   const nameRef = useRef<HTMLInputElement>(null);
@@ -15,6 +16,8 @@ export default function SigninWindow() {
   const confirmPasswordRef = useRef<HTMLInputElement>(null);
 
   const { file, fileUrl, handleChange, handleRemove } = useHandleAvatarHook();
+
+  const { isClientSelected, setIsClientSelected } = useHandleUserHook();
 
   const { submitHandler } = SigninFormSubmitHandlerFactory();
 
@@ -28,14 +31,17 @@ export default function SigninWindow() {
     emailRef.current!.value;
 
   const submit = async () =>
-    await submitHandler({
-      data: {
-        name: nameRef.current!.value,
-        email: emailRef.current!.value,
-        password: passwordRef.current!.value,
-        avatar: file,
+    await submitHandler(
+      {
+        data: {
+          name: nameRef.current!.value,
+          email: emailRef.current!.value,
+          password: passwordRef.current!.value,
+          avatar: file,
+        },
       },
-    });
+      isClientSelected
+    );
 
   return (
     <SigninPage
@@ -49,6 +55,8 @@ export default function SigninWindow() {
       fileUrl={fileUrl}
       handleChange={handleChange}
       handleRemove={handleRemove}
+      isClientSelected={isClientSelected}
+      setIsClientSelected={setIsClientSelected}
       submitHandler={() => submit()}
     />
   );

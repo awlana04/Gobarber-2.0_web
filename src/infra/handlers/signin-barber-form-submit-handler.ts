@@ -8,6 +8,7 @@ import ServerUnhandledErrorMessage from '@/messages/errors/server-unhandled-toas
 import SigninBarberToastErrorMessages from '@/messages/errors/signin-barber-toast-error-messages';
 
 import transformLocationLonLatForm from '@/infra/utils/transform-location-lon-lat-form';
+import historyRedirect from '@/infra/utils/history-redirect';
 
 import SigninBarberMailFactory from '@/factories/mails/signin-barber-mail-factory';
 
@@ -51,6 +52,10 @@ export default class SigninBarberFormSubmitHandler extends FormSubmitHandlerBase
               signinBarberErrorToast();
             } else if (serverAlright === false) {
               serverUnhandledError();
+            }
+
+            if (status === 200 && serverAlright === true) {
+              historyRedirect('/dashboard/barber');
             }
 
             // if (serverAlright === true && status === 201) {

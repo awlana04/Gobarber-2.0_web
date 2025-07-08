@@ -2,20 +2,39 @@ import { NextRequest, NextResponse, type MiddlewareConfig } from 'next/server';
 
 const REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE = '/logon';
 
-const privateRoutes = ['/signin/barber', '/dashboard/user'];
+const routeSegments = [
+  { path: '/signin', isPrivate: false },
+  { path: '/logon', isPrivate: false },
+  { path: '/signin/barber', isPrivate: true },
+  { path: '/dashboard/user', isPrivate: true },
+  { path: '/dashboard/barber', isPrivate: true },
+];
 
 export default function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
-  const privateRoute = privateRoutes.find((route) => route === path);
+  const privateRoutes = routeSegments.find(
+    (route) => route.path === path
+  )?.isPrivate;
+
   const authToken = request.cookies.get('@GoBarber-2.0:token');
+  const barberCookie = request.cookies.get('@GoBarber-2.0:barber');
 
-  if (path.startsWith(privateRoute!) && !authToken) {
-    const redirectURL = request.nextUrl.clone();
+  const redirectURL = request.nextUrl.clone();
 
+  if (privateRoutes === true && !authToken) {
     redirectURL.pathname = REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE;
 
     return NextResponse.redirect(redirectURL);
   }
+
+  if (privateRoutes === false && authToken) {
+    redirectURL.pathname =
+      barberCookie !== null ? '/dashboard/barber' : '/dashboard/user';
+
+    return NextResponse.redirect(redirectURL);
+  }
+
+  return NextResponse.next();
 }
 
 export const middlewareConfig: MiddlewareConfig = {

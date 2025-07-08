@@ -31,9 +31,8 @@ export default class SigninBarberFormAPI extends APIBase {
     data: SigninBarberFormType
   ): Promise<{ server: HTTPResponse; barber?: DataType }> {
     const token = await this.manageDataInBrowser.getData('token');
-    const user: DataStoredInBrowser = await JSON.parse(
-      await this.manageDataInBrowser.getData('user')
-    );
+    const user: DataStoredInBrowser =
+      await this.manageDataInBrowser.getData('user');
 
     return await this.fetchAPIData
       .fetch(`/barbers/${user.value.user.id}`, {

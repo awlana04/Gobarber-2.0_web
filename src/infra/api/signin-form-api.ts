@@ -26,7 +26,9 @@ export default class SigninFormAPI extends APIBase {
   }
 
   public async go(
-    data: SigninFormDataType
+    data: SigninFormDataType & {
+      isBarberSelected: boolean;
+    }
   ): Promise<{ server: HTTPResponse; user: DataType }> {
     const formData = new FormData();
 
@@ -48,8 +50,9 @@ export default class SigninFormAPI extends APIBase {
         await this.manageDataInBrowser.clearAllData();
 
         if (response.ok) {
+          console.log(user.value.refreshToken.id, data.isBarberSelected);
           await this.refreshTokenAPI.go({
-            refresh_token: user.refreshToken.id,
+            refresh_token: user.value.refreshToken.id,
           });
 
           await this.manageDataInBrowser.saveData('user', user);

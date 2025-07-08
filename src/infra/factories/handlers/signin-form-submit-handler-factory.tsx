@@ -42,7 +42,10 @@ export default function SigninFormSubmitHandlerFactory() {
     new SigninFormAPI(fetchAPIData, manageDataInBrowser, refreshTokenAPI)
   );
 
-  const submitHandler = async (props: SigninFormSubmitDataType) => {
+  const submitHandler = async (
+    props: SigninFormSubmitDataType,
+    isBarberSelected: boolean
+  ) => {
     await signinHandler.submitHandler({
       data: props.data,
       addToast,
@@ -50,6 +53,7 @@ export default function SigninFormSubmitHandlerFactory() {
       handleEmailUsecase,
       handlePasswordUsecase,
       location,
+      isBarberSelected,
     });
   };
 

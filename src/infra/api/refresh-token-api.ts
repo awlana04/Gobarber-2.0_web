@@ -24,11 +24,12 @@ export default class RefreshTokenAPI extends APIBase {
       })
       .then(async (response) => {
         const token: string = await response.json();
-
-        console.log(data.refresh_token, token);
+        const expirationDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
 
         await this.manageDataInBrowser.deleteData('token');
-        await this.manageDataInBrowser.saveData('token', token);
+        await this.manageDataInBrowser.saveData('token', token, {
+          expires: expirationDate,
+        });
 
         return { server: response, token };
       });

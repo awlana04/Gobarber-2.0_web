@@ -22,12 +22,14 @@ type SigninPagePropsType = NameInputRefAndValueType &
     fileUrl: string | undefined;
     handleChange(event: React.ChangeEvent<HTMLInputElement>): void;
     handleRemove(): void;
+    isClientSelected: boolean;
+    setIsClientSelected(state: boolean): void;
   };
 
 export default function SigninPage(props: SigninPagePropsType) {
   const { fieldFilled, handleFieldFilled } = useHandleFilledHook();
 
-  const { isClientSelected, setIsClientSelected } = useHandleUserHook();
+  // const { isClientSelected, setIsClientSelected } = useHandleUserHook();
 
   const { fieldErrored } = useHandleErroredContext();
 
@@ -74,8 +76,8 @@ export default function SigninPage(props: SigninPagePropsType) {
       handleChange={props.handleChange}
       handleRemove={props.handleRemove}
       isBarber={false}
-      isBarberSelected={isClientSelected}
-      setIsBarberSelected={setIsClientSelected}
+      isBarberSelected={props.isClientSelected}
+      setIsBarberSelected={props.setIsClientSelected}
       submitHandler={props.submitHandler}
     />
   );

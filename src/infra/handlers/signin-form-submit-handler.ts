@@ -5,6 +5,7 @@ import APIBaseInterface from '@/infra/interfaces/api-base-interface';
 import { SigninFormDataType } from '@/infra/types/form-data-types';
 
 import transformLocationLonLatForm from '@/infra/utils/transform-location-lon-lat-form';
+import historyRedirect from '@/infra/utils/history-redirect';
 
 import ServerUnhandledErrorMessage from '@/messages/errors/server-unhandled-toast-error-message';
 import SigninToastErrorMessages from '@/messages/errors/signin-toast-error-messages';
@@ -23,7 +24,10 @@ export default class SigninFormSubmitHandler extends FormSubmitHandlerBase {
     handleEmailUsecase,
     handlePasswordUsecase,
     location,
-  }: SigninFormDataType): Promise<void> {
+    isBarberSelected,
+  }: SigninFormDataType & {
+    isBarberSelected: boolean;
+  }): Promise<void> {
     const signinErrorToast = () =>
       addToast(SigninToastErrorMessages.UserAlreadyExists);
     const serverUnhandledError = () =>
@@ -34,7 +38,6 @@ export default class SigninFormSubmitHandler extends FormSubmitHandlerBase {
     handlePasswordUsecase(data.password);
 
     const locationLonLatForm = transformLocationLonLatForm(location);
-    console.log(location, locationLonLatForm);
 
     const response =
       process.env.NEXT_PUBLIC_ENV === 'dev'
@@ -50,12 +53,18 @@ export default class SigninFormSubmitHandler extends FormSubmitHandlerBase {
               const status = result.server.status;
               const serverAlright = result.server.ok;
 
-              console.log(locationLonLatForm, result.user);
-
               if (status === 406) {
                 signinErrorToast();
               } else if (serverAlright === false) {
                 serverUnhandledError();
+              }
+
+              if (status === 200 && serverAlright === true) {
+                if (isBarberSelected === true) {
+                  historyRedirect('/signin/barber');
+                } else {
+                  historyRedirect('/logon');
+                }
               }
 
               // if (serverAlright === true && status === 201) {
