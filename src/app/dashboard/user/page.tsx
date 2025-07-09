@@ -1,18 +1,14 @@
-'use client';
-
-import { redirect } from 'next/navigation';
-
 import UserDashboardScreen from '@/presentation/screens/user-dashboard-screen';
 
-export default function Client() {
-  // if (typeof window !== 'undefined') {
-  //   const token = localStorage.getItem('@GoBarber-2.0:token');
-  //   const user = localStorage.getItem('@GoBarber-2.0:user');
+import { GetCookies } from '@/infra/libs/cookies-next-lib';
 
-  //   if (token === null || user === null) {
-  //     redirect('../../logon');
-  //   }
-  // }
+export default async function User() {
+  const user = await GetCookies('@GoBarber-2.0:user');
 
-  return <UserDashboardScreen />;
+  return (
+    <UserDashboardScreen
+      userName={user.name}
+      userPhoto={`http://localhost:3333/files/${user.avatar}`}
+    />
+  );
 }

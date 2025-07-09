@@ -5,7 +5,7 @@ import { cookies } from 'next/headers';
 export async function GetCookies(name: string) {
   const cookiesStore = await cookies();
 
-  JSON.parse(cookiesStore.get(name)!.value);
+  return JSON.parse(cookiesStore.get(name)!.value);
 }
 
 export async function SetCookies(

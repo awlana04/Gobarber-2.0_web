@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Roboto_Slab } from 'next/font/google';
 import './globals.css';
+import 'react-day-picker/style.css';
+
 // import middleware from './middleware';
 
 import UseHandleErroredContextFactory from '@/infra/factories/contexts/use-handle-errored-context-factory';

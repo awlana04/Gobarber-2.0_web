@@ -1,107 +1,24 @@
-import { ButtonHTMLAttributes, useState } from 'react';
-import Image from 'next/image';
-import { ptBR } from 'date-fns/locale';
-import {
-  DayPicker,
-  getDefaultClassNames,
-  useDayPicker,
-} from 'react-day-picker';
-import {
-  FiArrowLeft,
-  FiArrowRight,
-  FiCalendar,
-  FiClock,
-  FiGlobe,
-  FiLogOut,
-  FiSearch,
-  FiX,
-} from 'react-icons/fi';
-import 'react-day-picker/style.css';
+'use client';
 
-import GoBarberLogo from '@/public/gobarber_logo001.svg';
+import { useState } from 'react';
+import { FiCalendar, FiClock, FiSearch, FiX } from 'react-icons/fi';
 
 import translate from '@/shared/utils/translate';
 
-function NextMonthCalendarButton(
-  props: ButtonHTMLAttributes<HTMLButtonElement>
-) {
-  const changeToNextMonth = (month: Date) => {
-    if (props.onClick) {
-      const syntheticEvent = {
-        target: {
-          value: month,
-        },
-      } as unknown as React.MouseEvent<HTMLButtonElement>;
+import DashboardTemplate from '@/templates/dashboard-template';
 
-      props.onClick(syntheticEvent);
-    }
-  };
+import Calendar from '@/atoms/calendar';
 
-  return (
-    <button onClick={() => changeToNextMonth(new Date())}>
-      <FiArrowRight className='absolute top-3.5 right-8 text-lg hover:cursor-pointer hover:text-white' />
-    </button>
-  );
-}
+type UserDashboardScreenType = {
+  userPhoto: string;
+  userName: string;
+};
 
-function PreviousMonthCalendarButton(
-  props: ButtonHTMLAttributes<HTMLButtonElement>
-) {
-  const { previousMonth } = useDayPicker();
-
-  const changeToPreviousMonth = (month: Date) => {
-    if (props.onClick) {
-      const syntheticEvent = {
-        target: {
-          value: month,
-        },
-      } as unknown as React.MouseEvent<HTMLButtonElement>;
-
-      props.onClick(syntheticEvent);
-    }
-  };
-
-  return (
-    <button onClick={() => changeToPreviousMonth(new Date())}>
-      <FiArrowLeft
-        data-month={previousMonth === undefined}
-        className='absolute top-3.5 -left-80 text-lg data-[month=false]:hover:cursor-pointer data-[month=false]:hover:text-white data-[month=true]:opacity-0'
-      />
-    </button>
-  );
-}
-
-export default function UserDashboardScreen() {
-  const [selectedDate, setSelectedDate] = useState<Date>();
+export default function UserDashboardScreen(props: UserDashboardScreenType) {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  const defaultClassNames = getDefaultClassNames();
-
   return (
-    <main>
-      <header className='flex h-40 flex-row place-content-between justify-between bg-black px-20'>
-        <div className='flex flex-row space-x-14'>
-          <Image src={GoBarberLogo} alt={translate('Barber shop image')} />
-
-          <div className='flex flex-row items-center space-x-4'>
-            <div className='bg-grey h-24 w-24 rounded-full px-4' />
-
-            <div>
-              <p className='text-grey text-xl'>
-                Bem-vindo,
-                <br />
-              </p>
-              <span className='text-orange text-xl'>John Doe</span>
-            </div>
-          </div>
-        </div>
-
-        <div className='text-grey flex flex-row place-content-end items-center space-x-10 px-10 text-2xl'>
-          <FiGlobe className='hover:cursor-pointer' />
-          <FiLogOut className='hover:cursor-pointer' />
-        </div>
-      </header>
-
+    <DashboardTemplate src={props.userPhoto} name={props.userName}>
       <section
         data-modal={isModalOpen}
         className='place-self-center py-16 has-[+aside:hover]:opacity-30 data-[modal=true]:opacity-30'
@@ -118,42 +35,14 @@ export default function UserDashboardScreen() {
         </div>
 
         <p className='text-orange my-16 text-center text-3xl'>ou</p>
-
-        <DayPicker
-          components={{
-            NextMonthButton: NextMonthCalendarButton,
-            PreviousMonthButton: PreviousMonthCalendarButton,
-          }}
-          locale={ptBR}
-          startMonth={new Date()}
-          // modifiers={{
-          //   available: { dayOfWeek: [1, 2, 3, 4, 5] },
-          // }}
-          mode='single'
-          selected={selectedDate}
-          onSelect={setSelectedDate}
-          classNames={{
-            chevron: 'fill-grey',
-            today: 'text-white rounded-2xl hover:cursor-pointer',
-            root: `${defaultClassNames.root} text-input-text place-items-center bg-black flex justify-center rounded-2xl w-[350] items-center text-center place-self-center`,
-            month_caption:
-              'text-center -my-1 text-sm text-white bg-button-text w-[350] place-self-center items-center h-[50] self-center justify-center justify-self-center object-center place-content-center rounded-tl-2xl content-center rounded-tr-2xl',
-            month_grid: 'm-4 place-self-center',
-            selected: 'bg-orange rounded-2xl text-input',
-            // day_button: 'bg-orange',
-            weekdays: 'h-14',
-            week_number: 'text-orange',
-            day: `${defaultClassNames.day} hover:cursor-pointer`,
-            week_number_header: 'text-orange',
-          }}
-        />
+        <Calendar />
       </section>
 
-      <aside className='group'>
+      <aside>
         <div
           onClick={() => setIsModalOpen(true)}
           data-modal={isModalOpen}
-          className='bg-button-text absolute end-0 top-40 h-[464] w-80 cursor-pointer rounded-tl-2xl rounded-bl-2xl p-6 text-xl hover:w-[524] data-[modal=true]:opacity-0'
+          className='group bg-button-text absolute end-0 top-40 h-[464] w-80 cursor-pointer rounded-tl-2xl rounded-bl-2xl p-6 text-xl hover:w-[524] data-[modal=true]:opacity-0'
         >
           <h3 className='text-orange my-2'>Barbeiros mais próximos</h3>
 
@@ -423,6 +312,6 @@ export default function UserDashboardScreen() {
           </div>
         </div>
       )}
-    </main>
+    </DashboardTemplate>
   );
 }
