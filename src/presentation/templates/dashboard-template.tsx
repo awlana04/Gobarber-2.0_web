@@ -4,6 +4,7 @@ import { FiGlobe, FiLogOut } from 'react-icons/fi';
 import translate from '@/shared/utils/translate';
 
 import GoBarberLogo from '@/public/gobarber_logo001.svg';
+import AvatarImage from '../components/atoms/avatar-image';
 
 type DashboardTemplateType = {
   children: React.ReactNode;
@@ -24,6 +25,10 @@ export default function DashboardTemplate({
 
           <div className='flex flex-row items-center space-x-4'>
             <div className='px-4'>
+              <AvatarImage src={props.src} size='big' />
+            </div>
+
+            {/* <div className='px-4'>
               <Image
                 className='h-24 w-24 rounded-full'
                 src={props.src}
@@ -31,7 +36,7 @@ export default function DashboardTemplate({
                 width={24}
                 height={24}
               />
-            </div>
+            </div> */}
 
             <div>
               <p className='text-grey text-xl'>

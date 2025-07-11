@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FiCalendar, FiClock, FiSearch, FiX } from 'react-icons/fi';
 
 import translate from '@/shared/utils/translate';
@@ -9,14 +9,51 @@ import DashboardTemplate from '@/templates/dashboard-template';
 
 import Calendar from '@/atoms/calendar';
 
+import Aside from '../components/molecules/aside';
+
+type BarbersType = {
+  id: string;
+  name: string;
+  images: string[];
+  description: string;
+  location: string;
+  openOnWeekends: boolean;
+  openAtNight: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  userId: string;
+  user: {
+    avatar: string;
+  };
+};
+
 type UserDashboardScreenType = {
+  userId: string;
+  userToken: string;
   userPhoto: string;
   userName: string;
   logoutOnclick(): void;
+  // barbers: BarbersType;
 };
 
 export default function UserDashboardScreen(props: UserDashboardScreenType) {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [barbers, setBarbers] = useState<BarbersType[]>();
+
+  useEffect(() => {
+    fetch(`http://localhost:3333/barbers/all/${props.userId}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${props.userToken}`,
+      },
+    }).then(async (result) => {
+      const allBarbers = await result.json();
+
+      if (result.ok) {
+        setBarbers(allBarbers);
+      }
+    });
+  }, [props.userId, props.userToken]);
 
   return (
     <DashboardTemplate
@@ -40,88 +77,20 @@ export default function UserDashboardScreen(props: UserDashboardScreenType) {
         </div>
 
         <p className='text-orange my-16 text-center text-3xl'>ou</p>
+
         <Calendar />
       </section>
 
       <aside>
-        <div
-          onClick={() => setIsModalOpen(true)}
-          data-modal={isModalOpen}
-          className='group bg-button-text absolute end-0 top-40 h-[464] w-80 cursor-pointer rounded-tl-2xl rounded-bl-2xl p-6 text-xl hover:w-[524] data-[modal=true]:opacity-0'
-        >
-          <h3 className='text-orange my-2'>Barbeiros mais próximos</h3>
-
-          <div className='flex flex-row place-content-between items-center justify-between space-x-4 py-4'>
-            <div className='bg-grey h-16 w-16 rounded-full px-2' />
-
-            <h5 className='absolute left-28'>John Doe</h5>
-
-            <div className='hidden flex-col text-base group-hover:flex'>
-              <div className='text-input-text my-1.5 flex flex-row items-center'>
-                <FiCalendar className='text-orange mx-1.5' />
-                Segunda à Sábado
-              </div>
-
-              <div className='text-input-text flex flex-row items-center'>
-                <FiClock className='text-orange mx-1.5' />
-                8h às 18hrs
-              </div>
-            </div>
-          </div>
-
-          <div className='flex flex-row place-content-between items-center justify-between space-x-4 py-4'>
-            <div className='bg-grey h-16 w-16 rounded-full px-2' />
-
-            <h5 className='absolute left-28'>John Doe</h5>
-
-            <div className='hidden flex-col text-base group-hover:flex'>
-              <div className='text-input-text my-1.5 flex flex-row items-center'>
-                <FiCalendar className='text-orange mx-1.5' />
-                Segunda à Sábado
-              </div>
-
-              <div className='text-input-text flex flex-row items-center'>
-                <FiClock className='text-orange mx-1.5' />
-                8h às 18hrs
-              </div>
-            </div>
-          </div>
-
-          <div className='flex flex-row place-content-between items-center justify-between space-x-4 py-4'>
-            <div className='bg-grey h-16 w-16 rounded-full px-2' />
-
-            <h5 className='absolute left-28'>John Doe</h5>
-
-            <div className='hidden flex-col text-base group-hover:flex'>
-              <div className='text-input-text my-1.5 flex flex-row items-center'>
-                <FiCalendar className='text-orange mx-1.5' />
-                Segunda à Sábado
-              </div>
-
-              <div className='text-input-text flex flex-row items-center'>
-                <FiClock className='text-orange mx-1.5' />
-                8h às 18hrs
-              </div>
-            </div>
-          </div>
-
-          <div className='flex flex-row place-content-between items-center justify-between space-x-4 py-4'>
-            <div className='bg-grey h-16 w-16 rounded-full px-2' />
-
-            <h5 className='absolute left-28'>John Doe</h5>
-
-            <div className='hidden flex-col text-base group-hover:flex'>
-              <div className='text-input-text my-1.5 flex flex-row items-center'>
-                <FiCalendar className='text-orange mx-1.5' />
-                Segunda à Sábado
-              </div>
-
-              <div className='text-input-text flex flex-row items-center'>
-                <FiClock className='text-orange mx-1.5' />
-                8h às 18hrs
-              </div>
-            </div>
-          </div>
+        <div>
+          {barbers !== undefined && (
+            <Aside
+              title='Barbeiros mais próximos'
+              isModalOpen={isModalOpen}
+              setIsModalOpen={setIsModalOpen}
+              barbers={barbers!}
+            />
+          )}
         </div>
 
         <div
