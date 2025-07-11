@@ -9,6 +9,7 @@ type DashboardTemplateType = {
   children: React.ReactNode;
   src: string;
   name: string;
+  logoutOnclick(): void;
 };
 
 export default function DashboardTemplate({
@@ -44,7 +45,10 @@ export default function DashboardTemplate({
 
         <div className='text-grey flex flex-row place-content-end items-center space-x-10 px-10 text-2xl'>
           <FiGlobe className='hover:cursor-pointer' />
-          <FiLogOut className='hover:cursor-pointer' />
+          <FiLogOut
+            className='hover:cursor-pointer'
+            onClick={props.logoutOnclick}
+          />
         </div>
       </header>
 

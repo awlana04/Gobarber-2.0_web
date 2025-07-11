@@ -12,13 +12,18 @@ import Calendar from '@/atoms/calendar';
 type UserDashboardScreenType = {
   userPhoto: string;
   userName: string;
+  logoutOnclick(): void;
 };
 
 export default function UserDashboardScreen(props: UserDashboardScreenType) {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   return (
-    <DashboardTemplate src={props.userPhoto} name={props.userName}>
+    <DashboardTemplate
+      src={props.userPhoto}
+      name={props.userName}
+      logoutOnclick={props.logoutOnclick}
+    >
       <section
         data-modal={isModalOpen}
         className='place-self-center py-16 has-[+aside:hover]:opacity-30 data-[modal=true]:opacity-30'

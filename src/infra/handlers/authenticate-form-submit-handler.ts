@@ -8,6 +8,7 @@ import AuthenticateToastErrorMessages from '@/messages/errors/authenticate-toast
 import ServerUnhandledErrorMessage from '@/messages/errors/server-unhandled-toast-error-message';
 
 import historyRedirect from '@/infra/utils/history-redirect';
+// import { redirect } from 'next/navigation';
 
 export default class AuthenticateFormSubmitHandler extends FormSubmitHandlerBase {
   constructor(private readonly authenticateFormAPI: APIBaseInterface) {
@@ -54,6 +55,7 @@ export default class AuthenticateFormSubmitHandler extends FormSubmitHandlerBase
 
               if (status === 200 && serverAlright === true) {
                 historyRedirect('/dashboard/user');
+                // redirect('/dashboard/user');
               }
 
               return result.user;
