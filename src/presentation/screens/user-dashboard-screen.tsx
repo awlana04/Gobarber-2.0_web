@@ -1,7 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { FiCalendar, FiClock, FiSearch, FiX } from 'react-icons/fi';
+import { FiSearch, FiX } from 'react-icons/fi';
+
+import { BarberDataType, UserDataType } from '@/infra/types/data-type';
 
 import translate from '@/shared/utils/translate';
 
@@ -9,39 +11,22 @@ import DashboardTemplate from '@/templates/dashboard-template';
 
 import Calendar from '@/atoms/calendar';
 
-import Aside from '../components/molecules/aside';
-
-type BarbersType = {
-  id: string;
-  name: string;
-  images: string[];
-  description: string;
-  location: string;
-  openOnWeekends: boolean;
-  openAtNight: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-  userId: string;
-  user: {
-    avatar: string;
-  };
-};
+import Aside from '@/molecules/aside';
+import BarberRow from '../components/molecules/barber-row';
 
 type UserDashboardScreenType = {
-  userId: string;
+  user: UserDataType;
   userToken: string;
-  userPhoto: string;
-  userName: string;
-  logoutOnclick(): void;
   // barbers: BarbersType;
+  logoutOnclick(): void;
 };
 
 export default function UserDashboardScreen(props: UserDashboardScreenType) {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [barbers, setBarbers] = useState<BarbersType[]>();
+  const [barbers, setBarbers] = useState<BarberDataType[]>();
 
   useEffect(() => {
-    fetch(`http://localhost:3333/barbers/all/${props.userId}`, {
+    fetch(`http://localhost:3333/barbers/all/${props.user.id}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${props.userToken}`,
@@ -53,12 +38,12 @@ export default function UserDashboardScreen(props: UserDashboardScreenType) {
         setBarbers(allBarbers);
       }
     });
-  }, [props.userId, props.userToken]);
+  }, [props.user.id, props.userToken]);
 
   return (
     <DashboardTemplate
-      src={props.userPhoto}
-      name={props.userName}
+      src={props.user.avatar}
+      name={props.user.name}
       logoutOnclick={props.logoutOnclick}
     >
       <section
@@ -67,7 +52,7 @@ export default function UserDashboardScreen(props: UserDashboardScreenType) {
       >
         <div className='bg-button-text flex h-[68] w-[612] flex-row place-content-between items-center rounded-2xl pl-8'>
           <input
-            placeholder='Pesquisar barbeiro'
+            placeholder={translate('Search barber')}
             className='placeholder-grey text-xl outline-none'
           />
 
@@ -76,7 +61,9 @@ export default function UserDashboardScreen(props: UserDashboardScreenType) {
           </div>
         </div>
 
-        <p className='text-orange my-16 text-center text-3xl'>ou</p>
+        <p className='text-orange my-16 text-center text-3xl'>
+          {translate('or')}
+        </p>
 
         <Calendar />
       </section>
@@ -85,235 +72,29 @@ export default function UserDashboardScreen(props: UserDashboardScreenType) {
         <Aside
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
+          user={props.user}
           barbers={barbers!}
         />
       )}
 
       {isModalOpen && (
-        <div className='bg-button-text absolute top-64 left-[50%] z-100 w-[764] translate-x-[-50%] rounded-2xl p-8 px-12'>
-          <div className='flex flex-row place-content-between items-center'>
-            <h2 className='text-orange text-3xl'>Barbeiros mais próximos</h2>
+        <div className='bg-button-text fixed top-52 left-[50%] z-100 h-[748] max-h-screen w-4xl translate-x-[-50%] rounded-2xl'>
+          <div className='absolute top-0 left-0 h-full w-full overflow-auto p-8 px-12'>
+            <div className='mb-4 flex flex-row place-content-between items-center'>
+              <h2 className='text-orange text-3xl'>
+                {translate('Closest barbers to you')}
+              </h2>
 
-            <FiX
-              onClick={() => setIsModalOpen(false)}
-              className='text-input-text text-2xl hover:cursor-pointer hover:text-white'
-            />
-          </div>
-
-          <div className='flex flex-row place-content-between items-center justify-between space-x-4 py-6'>
-            <div className='bg-grey h-16 w-16 rounded-full px-2' />
-
-            <h5 className='absolute left-32'>John Doe</h5>
-
-            <div className='flex flex-col text-base'>
-              <div className='text-input-text my-1.5 flex flex-row items-center'>
-                <FiCalendar className='text-orange mx-1.5' />
-                Segunda à Sábado
-              </div>
-
-              <div className='text-input-text flex flex-row items-center'>
-                <FiClock className='text-orange mx-1.5' />
-                8h às 18hrs
-              </div>
+              <FiX
+                onClick={() => setIsModalOpen(false)}
+                className='text-input-text text-2xl hover:cursor-pointer hover:text-white'
+              />
             </div>
-          </div>
 
-          <div className='flex flex-row place-content-between items-center justify-between space-x-4 py-6'>
-            <div className='bg-grey h-16 w-16 rounded-full px-2' />
-
-            <h5 className='absolute left-32'>John Doe</h5>
-
-            <div className='flex flex-col text-base'>
-              <div className='text-input-text my-1.5 flex flex-row items-center'>
-                <FiCalendar className='text-orange mx-1.5' />
-                Segunda à Sábado
-              </div>
-
-              <div className='text-input-text flex flex-row items-center'>
-                <FiClock className='text-orange mx-1.5' />
-                8h às 18hrs
-              </div>
-            </div>
-          </div>
-
-          <div className='flex flex-row place-content-between items-center justify-between space-x-4 py-6'>
-            <div className='bg-grey h-16 w-16 rounded-full px-2' />
-
-            <h5 className='absolute left-32'>John Doe</h5>
-
-            <div className='flex flex-col text-base'>
-              <div className='text-input-text my-1.5 flex flex-row items-center'>
-                <FiCalendar className='text-orange mx-1.5' />
-                Segunda à Sábado
-              </div>
-
-              <div className='text-input-text flex flex-row items-center'>
-                <FiClock className='text-orange mx-1.5' />
-                8h às 18hrs
-              </div>
-            </div>
-          </div>
-
-          <div className='flex flex-row place-content-between items-center justify-between space-x-4 py-6'>
-            <div className='bg-grey h-16 w-16 rounded-full px-2' />
-
-            <h5 className='absolute left-32'>John Doe</h5>
-
-            <div className='flex flex-col text-base'>
-              <div className='text-input-text my-1.5 flex flex-row items-center'>
-                <FiCalendar className='text-orange mx-1.5' />
-                Segunda à Sábado
-              </div>
-
-              <div className='text-input-text flex flex-row items-center'>
-                <FiClock className='text-orange mx-1.5' />
-                8h às 18hrs
-              </div>
-            </div>
-          </div>
-
-          <div className='flex flex-row place-content-between items-center justify-between space-x-4 py-6'>
-            <div className='bg-grey h-16 w-16 rounded-full px-2' />
-
-            <h5 className='absolute left-32'>John Doe</h5>
-
-            <div className='flex flex-col text-base'>
-              <div className='text-input-text my-1.5 flex flex-row items-center'>
-                <FiCalendar className='text-orange mx-1.5' />
-                Segunda à Sábado
-              </div>
-
-              <div className='text-input-text flex flex-row items-center'>
-                <FiClock className='text-orange mx-1.5' />
-                8h às 18hrs
-              </div>
-            </div>
-          </div>
-
-          <div className='flex flex-row place-content-between items-center justify-between space-x-4 py-6'>
-            <div className='bg-grey h-16 w-16 rounded-full px-2' />
-
-            <h5 className='absolute left-32'>John Doe</h5>
-
-            <div className='flex flex-col text-base'>
-              <div className='text-input-text my-1.5 flex flex-row items-center'>
-                <FiCalendar className='text-orange mx-1.5' />
-                Segunda à Sábado
-              </div>
-
-              <div className='text-input-text flex flex-row items-center'>
-                <FiClock className='text-orange mx-1.5' />
-                8h às 18hrs
-              </div>
-            </div>
-          </div>
-
-          <div className='flex flex-row place-content-between items-center justify-between space-x-4 py-6'>
-            <div className='bg-grey h-16 w-16 rounded-full px-2' />
-
-            <h5 className='absolute left-32'>John Doe</h5>
-
-            <div className='flex flex-col text-base'>
-              <div className='text-input-text my-1.5 flex flex-row items-center'>
-                <FiCalendar className='text-orange mx-1.5' />
-                Segunda à Sábado
-              </div>
-
-              <div className='text-input-text flex flex-row items-center'>
-                <FiClock className='text-orange mx-1.5' />
-                8h às 18hrs
-              </div>
-            </div>
-          </div>
-
-          <div className='flex flex-row place-content-between items-center justify-between space-x-4 py-6'>
-            <div className='bg-grey h-16 w-16 rounded-full px-2' />
-
-            <h5 className='absolute left-32'>John Doe</h5>
-
-            <div className='flex flex-col text-base'>
-              <div className='text-input-text my-1.5 flex flex-row items-center'>
-                <FiCalendar className='text-orange mx-1.5' />
-                Segunda à Sábado
-              </div>
-
-              <div className='text-input-text flex flex-row items-center'>
-                <FiClock className='text-orange mx-1.5' />
-                8h às 18hrs
-              </div>
-            </div>
-          </div>
-
-          <div className='flex flex-row place-content-between items-center justify-between space-x-4 py-6'>
-            <div className='bg-grey h-16 w-16 rounded-full px-2' />
-
-            <h5 className='absolute left-32'>John Doe</h5>
-
-            <div className='flex flex-col text-base'>
-              <div className='text-input-text my-1.5 flex flex-row items-center'>
-                <FiCalendar className='text-orange mx-1.5' />
-                Segunda à Sábado
-              </div>
-
-              <div className='text-input-text flex flex-row items-center'>
-                <FiClock className='text-orange mx-1.5' />
-                8h às 18hrs
-              </div>
-            </div>
-          </div>
-
-          <div className='flex flex-row place-content-between items-center justify-between space-x-4 py-6'>
-            <div className='bg-grey h-16 w-16 rounded-full px-2' />
-
-            <h5 className='absolute left-32'>John Doe</h5>
-
-            <div className='flex flex-col text-base'>
-              <div className='text-input-text my-1.5 flex flex-row items-center'>
-                <FiCalendar className='text-orange mx-1.5' />
-                Segunda à Sábado
-              </div>
-
-              <div className='text-input-text flex flex-row items-center'>
-                <FiClock className='text-orange mx-1.5' />
-                8h às 18hrs
-              </div>
-            </div>
-          </div>
-
-          <div className='flex flex-row place-content-between items-center justify-between space-x-4 py-6'>
-            <div className='bg-grey h-16 w-16 rounded-full px-2' />
-
-            <h5 className='absolute left-32'>John Doe</h5>
-
-            <div className='flex flex-col text-base'>
-              <div className='text-input-text my-1.5 flex flex-row items-center'>
-                <FiCalendar className='text-orange mx-1.5' />
-                Segunda à Sábado
-              </div>
-
-              <div className='text-input-text flex flex-row items-center'>
-                <FiClock className='text-orange mx-1.5' />
-                8h às 18hrs
-              </div>
-            </div>
-          </div>
-
-          <div className='flex flex-row place-content-between items-center justify-between space-x-4 py-6'>
-            <div className='bg-grey h-16 w-16 rounded-full px-2' />
-
-            <h5 className='absolute left-32'>John Doe</h5>
-
-            <div className='flex flex-col text-base'>
-              <div className='text-input-text my-1.5 flex flex-row items-center'>
-                <FiCalendar className='text-orange mx-1.5' />
-                Segunda à Sábado
-              </div>
-
-              <div className='text-input-text flex flex-row items-center'>
-                <FiClock className='text-orange mx-1.5' />
-                8h às 18hrs
-              </div>
-            </div>
+            {barbers &&
+              barbers.map((barber) => (
+                <BarberRow barber={barber} isModal={true} key={barber.id} />
+              ))}
           </div>
         </div>
       )}

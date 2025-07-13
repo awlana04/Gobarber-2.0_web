@@ -49,5 +49,14 @@
   "ServerUnhandledError": "Server unhandled error",
   "ServerSideError": "Error caught in server side is unhandled by the client.",
   "InvalidBarberShop": "Invalid barber shop name",
-  "BarberShopExists": "Barber shop name already taken by an user!"
+  "BarberShopExists": "Barber shop name already taken by an user!",
+  "Or": "or",
+  "ClosestBarbers": "Barbers closest to you",
+  "LastAppointments": "Last appointments",
+  "SearchBarber": "Search barber",
+  "Welcome": "Welcome",
+  "MondayToSaturday": "Monday to Saturday",
+  "MondayToFriday": "Monday to Friday",
+  "8AMTo9PM": "8am to 9pm",
+  "8AMTo6PM": "8am to 6pm"
 }

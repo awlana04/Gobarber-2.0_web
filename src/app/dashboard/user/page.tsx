@@ -20,11 +20,9 @@ export default async function User() {
 
   return (
     <UserDashboardScreen
-      userName={user.name}
-      userPhoto={`http://localhost:3333/files/${user.avatar}`}
       logoutOnclick={logoutOnclick}
-      userId={`${user.id}`}
       userToken={`${token}`}
+      user={user}
     />
   );
 }

@@ -10,9 +10,14 @@ export type RefreshTokenDataType = EntityMappedType<{
   updateAt: Date;
 }>;
 
+export type UserDataType = EntityMappedType<EntityType<UserType>>;
+export type BarberDataType = EntityMappedType<EntityType<BarberType>> & {
+  user: UserDataType;
+};
+
 export type DataType = {
-  user: EntityMappedType<EntityType<UserType>>;
+  user: UserDataType;
   token: string;
   refreshToken: RefreshTokenDataType;
-  barber: EntityMappedType<EntityType<BarberType>>;
+  barber: BarberDataType;
 };

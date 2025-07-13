@@ -1,14 +1,15 @@
 import Image from 'next/image';
 import { FiGlobe, FiLogOut } from 'react-icons/fi';
 
+import AvatarImage from '@/atoms/avatar-image';
+
 import translate from '@/shared/utils/translate';
 
 import GoBarberLogo from '@/public/gobarber_logo001.svg';
-import AvatarImage from '../components/atoms/avatar-image';
 
 type DashboardTemplateType = {
   children: React.ReactNode;
-  src: string;
+  src: string | undefined;
   name: string;
   logoutOnclick(): void;
 };
@@ -26,11 +27,12 @@ export default function DashboardTemplate({
           <div className='flex flex-row items-center space-x-4'>
             <div className='px-4'>
               <AvatarImage src={props.src} size='big' />
+              <div />
             </div>
 
             <div>
               <p className='text-grey text-xl'>
-                Bem-vindo,
+                {translate('Welcome')},
                 <br />
               </p>
               <span className='text-orange text-xl'>{props.name}</span>

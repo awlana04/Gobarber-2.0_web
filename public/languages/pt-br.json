@@ -49,5 +49,14 @@
   "ServerUnhandledError": "Error não tratado do servidor",
   "ServerSideError": "Erro detectado no lado do servidor não é tratado pelo client.",
   "InvalidBarberShop": "Nome de barbearia inválido",
-  "BarberShopExists": "O nome é utilizado por outro usuário!"
+  "BarberShopExists": "O nome é utilizado por outro usuário!",
+  "Or": "ou",
+  "ClosestBarbers": "Barbeiros mais próximos",
+  "LastAppointments": "Últimos agendamentos",
+  "SearchBarber": "Pesquisar barbeiro",
+  "Welcome": "Bem-vindo",
+  "MondayToSaturday": "Segunda à Sábado",
+  "MondayToFriday": "Segunda à Sexta",
+  "8AMTo9PM": "8h às 21hrs",
+  "8AMTo6PM": "8h às 18hrs"
 }

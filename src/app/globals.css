@@ -60,7 +60,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  overflow-x: hidden;
+  overflow: hidden;
 
   transition-property:
     color, background-color, border-color, text-decoration-color, fill, stroke,
