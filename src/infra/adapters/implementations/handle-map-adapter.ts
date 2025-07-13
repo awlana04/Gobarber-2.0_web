@@ -4,7 +4,7 @@ import { OSM, Vector as SourceVector } from 'ol/source';
 import Vector from 'ol/layer/Vector';
 import { Map } from 'ol';
 import 'ol/ol.css';
-import { fromLonLat } from 'ol/proj';
+import { fromLonLat, transform, transformExtent } from 'ol/proj';
 import { Point } from 'ol/geom';
 import Style from 'ol/style/Style';
 import Icon from 'ol/style/Icon';
@@ -48,7 +48,9 @@ export default class HandleMapAdapter implements HandleMapAdapterModel {
     mapListener.addLayer(layer);
 
     mapListener.on('click', (event) => {
-      const marker = new Feature(new Point(event.coordinate));
+      const marker = new Feature(
+        new Point(transform(event.coordinate, 'EPSG:3857', 'EPSG:4326'))
+      );
 
       setPinLocation(event.coordinate);
 

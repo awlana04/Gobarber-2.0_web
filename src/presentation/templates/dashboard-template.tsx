@@ -28,16 +28,6 @@ export default function DashboardTemplate({
               <AvatarImage src={props.src} size='big' />
             </div>
 
-            {/* <div className='px-4'>
-              <Image
-                className='h-24 w-24 rounded-full'
-                src={props.src}
-                alt={'User avatar'}
-                width={24}
-                height={24}
-              />
-            </div> */}
-
             <div>
               <p className='text-grey text-xl'>
                 Bem-vindo,
