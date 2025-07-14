@@ -1,8 +1,8 @@
 import { redirect } from 'next/navigation';
 
-import UserDashboardScreen from '@/presentation/screens/user-dashboard-screen';
-
 import { DeleteCookies, GetCookies } from '@/infra/libs/cookies-next-lib';
+
+import UserDashboardWindow from '@/windows/user-dashboard-window';
 
 export default async function User() {
   const user = await GetCookies('@GoBarber-2.0:user');
@@ -19,7 +19,7 @@ export default async function User() {
   }
 
   return (
-    <UserDashboardScreen
+    <UserDashboardWindow
       logoutOnclick={logoutOnclick}
       userToken={`${token}`}
       user={user}

@@ -1,7 +1,10 @@
 import { ToastMessageType } from '@/core/types/toast-message-context-data-type';
 
+import { BarberDataType } from './data-type';
+
 export type FormFunctionsSubmitHandlerType<T = {}> = {
-  data: T;
+  data?: T;
+  storageMethod?: T;
   addToast: (message: Omit<ToastMessageType, 'id'>) => void;
   handleNameUsecase?(name: string): void;
   handleDescriptionUsecase?(description: string): void;
@@ -18,7 +21,7 @@ export type SigninBarberFormDataType = Required<
       openAtNight: boolean;
       openOnWeekends: boolean;
     }>,
-    'handleEmailUsecase' | 'handlePasswordUsecase'
+    'handleEmailUsecase' | 'handlePasswordUsecase' | 'storageMethod'
   >
 > & {
   pinLocation: number[];
@@ -30,7 +33,7 @@ export type AuthenticateFormDataType = Required<
       email: string;
       password: string;
     }>,
-    'handleNameUsecase' | 'handleDescriptionUsecase'
+    'handleNameUsecase' | 'handleDescriptionUsecase' | 'storageMethod'
   >
 >;
 
@@ -42,8 +45,19 @@ export type SigninFormDataType = Required<
       password: string;
       avatar: any;
     }>,
-    'handleDescriptionUsecase'
+    'handleDescriptionUsecase' | 'storageMethod'
   >
 > & {
   location: number[];
 };
+
+export type GetAllBarbersDataType = Required<
+  Pick<
+    FormFunctionsSubmitHandlerType<{
+      user: any;
+      userToken: string;
+      setBarbers(value: BarberDataType[]): void;
+    }>,
+    'storageMethod' | 'addToast'
+  >
+>;

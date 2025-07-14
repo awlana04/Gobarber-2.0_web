@@ -7,7 +7,7 @@ export default interface FetchAPIDataModel {
       jsonContent?: boolean;
       method?: string;
       headers?: any;
-      data: any;
+      data?: any;
     }
   ): Promise<HTTPResponse>;
 }

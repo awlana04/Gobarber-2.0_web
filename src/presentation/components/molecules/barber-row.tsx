@@ -18,8 +18,8 @@ export default function BarberRow({ barber, ...props }: BarberRowPropsType) {
 
       <h5
         data-modal={props.isModal}
-        data-textBlack={props.textblack}
-        className='data-[textBlack=true]:text-background absolute left-28 w-44 truncate data-[modal=true]:left-32 data-[modal=true]:w-96'
+        data-textblack={props.textblack}
+        className='data-[textblack=true]:text-background absolute left-28 w-44 truncate data-[modal=true]:left-32 data-[modal=true]:w-96'
       >
         {barber.name}
       </h5>

@@ -14,7 +14,7 @@ export default class FetchAPIData implements FetchAPIDataModel {
       jsonContent?: boolean;
       method?: string | undefined;
       headers?: any;
-      data: any;
+      data?: any;
     }
   ): Promise<HTTPResponse> {
     return await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URI + path}`, {
