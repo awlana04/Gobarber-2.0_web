@@ -9,6 +9,7 @@ import GetAllBarbersHandlerFactory from '@/factories/handlers/get-all-barbers-ha
 import UserDashboardPage from '@/pages/user-dashboard-page';
 
 import Logout from '@/infra/utils/logout';
+import setLanguage from '../utils/set-language';
 
 type UserDashboardWindowPropsType = {
   user: UserDataType;
@@ -34,6 +35,7 @@ export default function UserDashboardWindow(
       userToken={props.userToken}
       logoutOnclick={async () => await Logout()}
       barbers={barbers}
+      setLanguage={setLanguage}
     />
   );
 }

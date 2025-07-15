@@ -6,7 +6,7 @@ import { KeyNameType, ApplicationName } from '../types/key-name-type';
 
 const applicationName: ApplicationName = '@GoBarber-2.0';
 
-export async function GetCookies(keyName: KeyNameType) {
+export async function GetCookies(keyName: KeyNameType | any) {
   const cookiesStore = await cookies();
 
   return JSON.parse(cookiesStore.get(`${applicationName}:${keyName}`)!.value);

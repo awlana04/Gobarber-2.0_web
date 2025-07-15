@@ -4,12 +4,14 @@ import useHandleIsModalOpen from '@/hooks/use-handle-is-modal-open';
 import useHandleSortedBarbers from '@/hooks/use-handle-sorted-barbers';
 
 import UserDashboardScreen from '@/presentation/screens/user-dashboard-screen';
+import AvailableLanguagesType from '@/shared/types/available-languages-type';
 
 type UserDashboardPagePropsType = {
   user: UserDataType;
   userToken: string;
   barbers: BarberDataType[] | undefined;
   logoutOnclick(): void;
+  setLanguage(language: AvailableLanguagesType): any;
 };
 
 export default function UserDashboardPage(props: UserDashboardPagePropsType) {
@@ -30,6 +32,7 @@ export default function UserDashboardPage(props: UserDashboardPagePropsType) {
       setIsModalOpen={setIsModalOpen}
       sortedBarbers={sortedBarbers}
       sortedLastBarbers={sortedLastBarbers}
+      setLanguage={props.setLanguage}
     />
   );
 }

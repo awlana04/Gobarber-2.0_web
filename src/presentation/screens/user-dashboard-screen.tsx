@@ -11,6 +11,7 @@ import DashboardTemplate from '@/templates/dashboard-template';
 import Calendar from '@/atoms/calendar';
 
 import BarberRow from '@/molecules/barber-row';
+import AvailableLanguagesType from '@/shared/types/available-languages-type';
 
 type UserDashboardScreenType = {
   user: UserDataType;
@@ -21,6 +22,9 @@ type UserDashboardScreenType = {
   isModalOpen: boolean;
   setIsModalOpen(value: boolean): void;
   logoutOnclick(): void;
+  setLanguage(
+    language: AvailableLanguagesType
+  ): React.MouseEventHandler<HTMLUListElement> | undefined;
 };
 
 export default function UserDashboardScreen(props: UserDashboardScreenType) {
@@ -29,6 +33,7 @@ export default function UserDashboardScreen(props: UserDashboardScreenType) {
       src={props.user.avatar}
       name={props.user.name}
       logoutOnclick={props.logoutOnclick}
+      setLanguage={props.setLanguage}
     >
       <section
         data-modal={props.isModalOpen}
@@ -57,7 +62,7 @@ export default function UserDashboardScreen(props: UserDashboardScreenType) {
           <div
             onClick={() => props.setIsModalOpen(true)}
             data-modal={props.isModalOpen}
-            className='bg-button-text group absolute end-0 top-40 z-100 h-[464] w-80 cursor-pointer rounded-tl-2xl rounded-bl-2xl p-6 text-xl hover:w-[524] data-[modal=true]:opacity-0'
+            className='bg-button-text group absolute end-0 top-40 z-90 h-[464] w-80 cursor-pointer rounded-tl-2xl rounded-bl-2xl p-6 text-xl hover:w-[524] data-[modal=true]:opacity-0'
           >
             <h3 className='text-orange my-2'>Barbeiros mais próximos</h3>
 
