@@ -1,16 +1,11 @@
 import { useMemo } from 'react';
-import { FiCalendar, FiClock } from 'react-icons/fi';
 
 import { UserDataType, BarberDataType } from '@/infra/types/data-type';
 
-import AvatarImage from '@/atoms/avatar-image';
-import BarberRow from './barber-row';
-
-type AsidePropsType = {
+type UseHandleSortedBarbersPropsType = {
   user: UserDataType;
   barbers: BarberDataType[] | undefined;
   isModalOpen: boolean;
-  setIsModalOpen(value: boolean): void;
 };
 
 function toRadians(value: number) {
@@ -105,8 +100,8 @@ function sortDistance(user: UserDataType, barbers: BarberDataType[]) {
     });
 }
 
-export default function Aside(props: AsidePropsType) {
-  const barbers = useMemo(() => {
+const useHandleSortedBarbers = (props: UseHandleSortedBarbersPropsType) => {
+  const sortedBarbers = useMemo(() => {
     let barbers: BarberDataType[] = [];
 
     if (props.barbers !== undefined) {
@@ -124,7 +119,7 @@ export default function Aside(props: AsidePropsType) {
     return barbers;
   }, [props.user, props.barbers, props.isModalOpen]);
 
-  const lastBarbers = useMemo(() => {
+  const sortedLastBarbers = useMemo(() => {
     let barbers: BarberDataType[] = [];
 
     if (props.barbers !== undefined) {
@@ -138,35 +133,7 @@ export default function Aside(props: AsidePropsType) {
     return barbers;
   }, [props.barbers, props.isModalOpen]);
 
-  return (
-    <aside>
-      <div
-        onClick={() => props.setIsModalOpen(true)}
-        data-modal={props.isModalOpen}
-        className='bg-button-text group absolute end-0 top-40 z-100 h-[464] w-80 cursor-pointer rounded-tl-2xl rounded-bl-2xl p-6 text-xl hover:w-[524] data-[modal=true]:opacity-0'
-      >
-        <h3 className='text-orange my-2'>Barbeiros mais próximos</h3>
+  return { sortedBarbers, sortedLastBarbers };
+};
 
-        {barbers.map((barber) => (
-          <BarberRow barber={barber} isModal={false} key={barber.id} />
-        ))}
-      </div>
-
-      <div
-        data-modal={props.isModalOpen}
-        className='bg-orange absolute end-0 top-[624] h-[264] w-80 rounded-tl-2xl rounded-bl-2xl p-6 text-xl data-[modal=true]:opacity-30'
-      >
-        <h3 className='my-2 text-white'>Últimos agendamentos</h3>
-
-        {lastBarbers.map((barber) => (
-          <BarberRow
-            barber={barber}
-            isModal={false}
-            textblack={true}
-            key={barber.id}
-          />
-        ))}
-      </div>
-    </aside>
-  );
-}
+export default useHandleSortedBarbers;

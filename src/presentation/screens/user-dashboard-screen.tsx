@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { FiSearch, FiX } from 'react-icons/fi';
 
 import { BarberDataType, UserDataType } from '@/infra/types/data-type';
@@ -11,13 +10,14 @@ import DashboardTemplate from '@/templates/dashboard-template';
 
 import Calendar from '@/atoms/calendar';
 
-import Aside from '@/molecules/aside';
 import BarberRow from '@/molecules/barber-row';
 
 type UserDashboardScreenType = {
   user: UserDataType;
   userToken: string;
   barbers: BarberDataType[] | undefined;
+  sortedBarbers: BarberDataType[];
+  sortedLastBarbers: BarberDataType[];
   isModalOpen: boolean;
   setIsModalOpen(value: boolean): void;
   logoutOnclick(): void;
@@ -53,12 +53,35 @@ export default function UserDashboardScreen(props: UserDashboardScreenType) {
       </section>
 
       {props.barbers !== undefined && (
-        <Aside
-          isModalOpen={props.isModalOpen}
-          setIsModalOpen={props.setIsModalOpen}
-          user={props.user}
-          barbers={props.barbers!}
-        />
+        <aside>
+          <div
+            onClick={() => props.setIsModalOpen(true)}
+            data-modal={props.isModalOpen}
+            className='bg-button-text group absolute end-0 top-40 z-100 h-[464] w-80 cursor-pointer rounded-tl-2xl rounded-bl-2xl p-6 text-xl hover:w-[524] data-[modal=true]:opacity-0'
+          >
+            <h3 className='text-orange my-2'>Barbeiros mais próximos</h3>
+
+            {props.sortedBarbers.map((barber) => (
+              <BarberRow barber={barber} isModal={false} key={barber.id} />
+            ))}
+          </div>
+
+          <div
+            data-modal={props.isModalOpen}
+            className='bg-orange absolute end-0 top-[624] h-[264] w-80 rounded-tl-2xl rounded-bl-2xl p-6 text-xl data-[modal=true]:opacity-30'
+          >
+            <h3 className='my-2 text-white'>Últimos agendamentos</h3>
+
+            {props.sortedLastBarbers.map((barber) => (
+              <BarberRow
+                barber={barber}
+                isModal={false}
+                textblack={true}
+                key={barber.id}
+              />
+            ))}
+          </div>
+        </aside>
       )}
 
       {props.isModalOpen && (
@@ -75,8 +98,8 @@ export default function UserDashboardScreen(props: UserDashboardScreenType) {
               />
             </div>
 
-            {props.barbers &&
-              props.barbers.map((barber) => (
+            {props.barbers !== undefined &&
+              props.sortedBarbers.map((barber) => (
                 <BarberRow barber={barber} isModal={true} key={barber.id} />
               ))}
           </div>
