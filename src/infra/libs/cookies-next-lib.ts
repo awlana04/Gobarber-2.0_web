@@ -2,11 +2,14 @@
 
 import { cookies } from 'next/headers';
 
-export async function GetCookies(name: string) {
-  'use server';
+import { KeyNameType, ApplicationName } from '../types/key-name-type';
+
+const applicationName: ApplicationName = '@GoBarber-2.0';
+
+export async function GetCookies(keyName: KeyNameType) {
   const cookiesStore = await cookies();
 
-  return JSON.parse(cookiesStore.get(name)!.value);
+  return JSON.parse(cookiesStore.get(`${applicationName}:${keyName}`)!.value);
 }
 
 export async function SetCookies(
@@ -14,16 +17,12 @@ export async function SetCookies(
   data: any,
   options?: { expires: number }
 ) {
-  'use server';
-
   const cookiesStore = await cookies();
 
   cookiesStore.set(name, JSON.stringify(data), options);
 }
 
 export async function DeleteCookies(name: string) {
-  'use server';
-
   const cookiesStore = await cookies();
 
   cookiesStore.delete(name);

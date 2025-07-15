@@ -1,3 +1,5 @@
+// 'use server';
+
 import { AuthenticateFormDataType } from '@/infra/types/form-data-types';
 
 import { useToastContext } from '@/contexts/use-toast-context';

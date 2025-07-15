@@ -10,12 +10,14 @@ export default class GetAllBarbersHandler extends FormSubmitHandlerBase {
   }
 
   public async submitHandler({
-    storageMethod,
+    updateStatefulValue,
     addToast,
   }: GetAllBarbersDataType): Promise<void> {
     process.env.NEXT_PUBLIC_ENV === 'dev' &&
-      (await this.authenticateFormAPI.go(storageMethod).then(async (result) => {
-        return result.barbers;
-      }));
+      (await this.authenticateFormAPI
+        .go(updateStatefulValue)
+        .then(async (result) => {
+          return result.barbers;
+        }));
   }
 }

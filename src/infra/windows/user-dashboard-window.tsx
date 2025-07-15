@@ -8,10 +8,11 @@ import GetAllBarbersHandlerFactory from '@/factories/handlers/get-all-barbers-ha
 
 import UserDashboardPage from '@/pages/user-dashboard-page';
 
+import Logout from '@/infra/utils/logout';
+
 type UserDashboardWindowPropsType = {
   user: UserDataType;
   userToken: string;
-  logoutOnclick(): void;
 };
 
 export default function UserDashboardWindow(
@@ -20,8 +21,6 @@ export default function UserDashboardWindow(
   const [barbers, setBarbers] = useState<BarberDataType[]>();
 
   const { submitHandler } = GetAllBarbersHandlerFactory({
-    user: props.user,
-    userToken: props.userToken,
     setBarbers,
   });
 
@@ -33,7 +32,7 @@ export default function UserDashboardWindow(
     <UserDashboardPage
       user={props.user}
       userToken={props.userToken}
-      logoutOnclick={props.logoutOnclick}
+      logoutOnclick={async () => await Logout()}
       barbers={barbers}
     />
   );

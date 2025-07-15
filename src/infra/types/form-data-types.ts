@@ -1,10 +1,10 @@
 import { ToastMessageType } from '@/core/types/toast-message-context-data-type';
 
-import { BarberDataType } from './data-type';
+import { UpdateStatefulValueType } from './update-stateful-value-mapped-types';
 
 export type FormFunctionsSubmitHandlerType<T = {}> = {
   data?: T;
-  storageMethod?: T;
+  updateStatefulValue?: T;
   addToast: (message: Omit<ToastMessageType, 'id'>) => void;
   handleNameUsecase?(name: string): void;
   handleDescriptionUsecase?(description: string): void;
@@ -53,11 +53,7 @@ export type SigninFormDataType = Required<
 
 export type GetAllBarbersDataType = Required<
   Pick<
-    FormFunctionsSubmitHandlerType<{
-      user: any;
-      userToken: string;
-      setBarbers(value: BarberDataType[]): void;
-    }>,
-    'storageMethod' | 'addToast'
+    FormFunctionsSubmitHandlerType<UpdateStatefulValueType>,
+    'updateStatefulValue' | 'addToast'
   >
 >;

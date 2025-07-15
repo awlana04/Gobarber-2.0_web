@@ -2,43 +2,36 @@ import { BarberDataType } from '@/infra/types/data-type';
 
 import APIBase from '@/infra/bases/api-base';
 
+import { UpdateStatefulValueType } from '@/infra/types/update-stateful-value-mapped-types';
 import HTTPResponse from '@/infra/types/http-response';
 
 import FetchAPIDataModel from '@/adapters/models/fetch-api-data-model';
-import ManageDataInBrowserModel from '@/adapters/models/manage-data-in-browser-model';
 
-type GetAllBarbersStorageMethodType = {
-  user: any;
-  userToken: string;
-  setBarbers(value: BarberDataType[] | undefined): void;
-};
+import { GetCookies } from '@/infra/libs/cookies-next-lib';
 
 export default class GetAllBarbersAPI extends APIBase {
-  constructor(
-    protected readonly fetchAPIData: FetchAPIDataModel,
-    private readonly manageDataInBrowser: ManageDataInBrowserModel
-  ) {
+  constructor(protected readonly fetchAPIData: FetchAPIDataModel) {
     super(fetchAPIData);
   }
 
   public async go(
-    storageMethod: GetAllBarbersStorageMethodType
+    updateStatefulValue: UpdateStatefulValueType
   ): Promise<{ server: HTTPResponse; barbers: BarberDataType[] }> {
-    // const user = await this.manageDataInBrowser.getData('user');
-    // const token = await this.manageDataInBrowser.getData('token');
+    const user = await GetCookies('user');
+    const token = await GetCookies('token');
 
     return await this.fetchAPIData
-      .fetch(`/barbers/all/${storageMethod.user.id}`, {
+      .fetch(`/barbers/all/${user.id}`, {
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${storageMethod.userToken}`,
+          Authorization: `Bearer ${token}`,
         },
       })
       .then(async (response) => {
         const allBarbers = await response.json();
 
         if (response.ok) {
-          storageMethod.setBarbers(allBarbers);
+          updateStatefulValue.setBarbers(allBarbers);
         }
 
         return { server: response, barbers: allBarbers };
