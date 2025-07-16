@@ -68,8 +68,8 @@ export default class AuthenticateFormAPI extends APIBase {
       if (selectedUser) {
         const token = `gobarber_fake_server_token-${Math.random().toExponential(12).toString()}`;
 
-        await this.manageDataInBrowser.saveData('token', token);
         await this.manageDataInBrowser.saveData('user', selectedUser);
+        await this.manageDataInBrowser.saveData('token', token);
 
         // ** FUTURE IMPLEMENTATION **
         // ** By now is has not been implemented the check analysis for a Barber **

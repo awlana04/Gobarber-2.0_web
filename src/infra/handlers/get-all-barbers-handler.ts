@@ -13,11 +13,12 @@ export default class GetAllBarbersHandler extends FormSubmitHandlerBase {
     updateStatefulValue,
     addToast,
   }: GetAllBarbersDataType): Promise<void> {
-    process.env.NEXT_PUBLIC_ENV === 'dev' &&
-      (await this.authenticateFormAPI
-        .go(updateStatefulValue)
-        .then(async (result) => {
-          return result.barbers;
-        }));
+    process.env.NEXT_PUBLIC_ENV === 'dev'
+      ? await this.authenticateFormAPI
+          .go(updateStatefulValue)
+          .then(async (result) => {
+            return result.barbers;
+          })
+      : await this.authenticateFormAPI.fake(updateStatefulValue);
   }
 }

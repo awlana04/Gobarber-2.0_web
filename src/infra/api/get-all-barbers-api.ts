@@ -37,4 +37,18 @@ export default class GetAllBarbersAPI extends APIBase {
         return { server: response, barbers: allBarbers };
       });
   }
+
+  public async fake(updateStatefulValue: UpdateStatefulValueType) {
+    return await this.fetchAPIData
+      .fetch('/barbers/', {
+        method: 'GET',
+      })
+      .then(async (response) => {
+        const allBarbers = await response.json();
+
+        if (response.ok) {
+          updateStatefulValue.setBarbers(allBarbers);
+        }
+      });
+  }
 }

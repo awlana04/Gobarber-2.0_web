@@ -50,7 +50,6 @@ export default class SigninFormAPI extends APIBase {
         await this.manageDataInBrowser.clearAllData();
 
         if (response.ok) {
-          console.log(user.value.refreshToken.id, data.isBarberSelected);
           await this.refreshTokenAPI.go({
             refresh_token: user.value.refreshToken.id,
           });

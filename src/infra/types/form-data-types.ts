@@ -33,7 +33,7 @@ export type AuthenticateFormDataType = Required<
       email: string;
       password: string;
     }>,
-    'handleNameUsecase' | 'handleDescriptionUsecase' | 'storageMethod'
+    'handleNameUsecase' | 'handleDescriptionUsecase' | 'updateStatefulValue'
   >
 >;
 

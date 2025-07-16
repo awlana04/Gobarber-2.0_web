@@ -17,14 +17,17 @@ export default class FetchAPIData implements FetchAPIDataModel {
       data?: any;
     }
   ): Promise<HTTPResponse> {
-    return await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URI + path}`, {
-      method: fetchOptions?.method,
-      headers: fetchOptions?.jsonContent
-        ? { 'Content-Type': 'application/json', ...fetchOptions?.headers }
-        : fetchOptions?.headers,
-      body: fetchOptions?.jsonContent
-        ? JSON.stringify(fetchOptions?.data)
-        : fetchOptions?.data,
-    });
+    return await fetch(
+      `${process.env.NEXT_PUBLIC_ENV === 'dev' ? process.env.NEXT_PUBLIC_BACKEND_URI : process.env.NEXT_PUBLIC_FAKE_BACKEND_URI + path}`,
+      {
+        method: fetchOptions?.method,
+        headers: fetchOptions?.jsonContent
+          ? { 'Content-Type': 'application/json', ...fetchOptions?.headers }
+          : fetchOptions?.headers,
+        body: fetchOptions?.jsonContent
+          ? JSON.stringify(fetchOptions?.data)
+          : fetchOptions?.data,
+      }
+    );
   }
 }

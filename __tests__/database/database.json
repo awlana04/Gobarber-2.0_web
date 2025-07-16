@@ -5,14 +5,92 @@
       "name": "John Doe",
       "email": "john@doe.com",
       "password": "12345678",
-      "location": "Somewhere Over the Rainbow"
+      "location": "-48.420094, -1.368788",
+      "avatar": "1701655075798-65423909.png",
+      "createdAt": "2025-03-04T22:04:54.067Z",
+      "updatedAt": "2025-03-04T22:04:54.067Z"
     },
     {
       "id": "b3ae",
       "name": "Jane Doe",
       "email": "jane@doe.com",
       "password": "12345678",
-      "location": "Somewhere Over the Rainbow"
+      "location": "-48.420094, -1.368788",
+      "avatar": "1701655075798-65423909.png",
+      "createdAt": "2025-03-04T22:04:54.067Z",
+      "updatedAt": "2025-03-04T22:04:54.067Z"
+    },
+    {
+      "id": "a8ja",
+      "name": "John Barber Doe",
+      "email": "john@barber.com",
+      "password": "12345678",
+      "location": "-48.486750, -1.427823",
+      "avatar": "1701655413394-20210902_122753.jpg",
+      "createdAt": "2025-03-04T22:04:54.067Z",
+      "updatedAt": "2025-03-04T22:04:54.067Z"
+    },
+    {
+      "id": "i58a",
+      "name": "Jane Barber Doe",
+      "email": "jane@barber.com",
+      "password": "12345678",
+      "location": "-48.486750, -1.427823",
+      "avatar": "1701655413394-20210902_122753.jpg",
+      "createdAt": "2025-03-04T22:04:54.067Z",
+      "updatedAt": "2025-03-04T22:04:54.067Z"
+    }
+  ],
+  "barbers": [
+    {
+      "id": "98k1",
+      "name": "John Barber",
+      "location": "-48.486750, -1.427823",
+      "description": "A really good place!",
+      "images": [
+        "1701987241940-4de2a165543fd7144fadf33c8db285d1.jpg",
+        "1701987367970-1602886.jpg"
+      ],
+      "openAtNight": true,
+      "openOnWeekends": false,
+      "userId": "a8ja",
+      "createdAt": "2025-03-04T22:04:54.067Z",
+      "updatedAt": "2025-03-04T22:04:54.067Z",
+      "user": {
+        "id": "a8ja",
+        "name": "John Barber Doe",
+        "email": "john@barber.com",
+        "password": "12345678",
+        "location": "-48.486750, -1.427823",
+        "avatar": "1701655413394-20210902_122753.jpg",
+        "createdAt": "2025-03-04T22:04:54.067Z",
+        "updatedAt": "2025-03-04T22:04:54.067Z"
+      }
+    },
+    {
+      "id": "ai9a",
+      "name": "Jane Barber",
+      "location": "-48.486750, -1.427823",
+      "description": "A really good place!",
+      "images": [
+        "1701987241940-4de2a165543fd7144fadf33c8db285d1.jpg",
+        "1701987367970-1602886.jpg"
+      ],
+      "openAtNight": true,
+      "openOnWeekends": false,
+      "userId": "i58a",
+      "createdAt": "2025-03-04T22:04:54.067Z",
+      "updatedAt": "2025-03-04T22:04:54.067Z",
+      "user": {
+        "id": "i58a",
+        "name": "Jane Barber Doe",
+        "email": "jane@barber.com",
+        "password": "12345678",
+        "location": "-48.486750, -1.427823",
+        "avatar": "1701655413394-20210902_122753.jpg",
+        "createdAt": "2025-03-04T22:04:54.067Z",
+        "updatedAt": "2025-03-04T22:04:54.067Z"
+      }
     }
   ]
 }
