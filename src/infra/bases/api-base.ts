@@ -6,5 +6,5 @@ export default abstract class APIBase implements APIBaseInterface {
   constructor(protected readonly fetchAPIData: FetchAPIDataModel) {}
 
   public async go(data?: any): Promise<any> {}
-  public async fake(data?: any) {}
+  public async fake(data?: any): Promise<any> {}
 }

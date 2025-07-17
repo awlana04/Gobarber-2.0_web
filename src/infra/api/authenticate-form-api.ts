@@ -55,7 +55,9 @@ export default class AuthenticateFormAPI extends APIBase {
       });
   }
 
-  public async fake(data: AuthenticateFormDataType) {
+  public async fake(
+    data: AuthenticateFormDataType
+  ): Promise<{ server: HTTPResponse }> {
     return await this.fetchAPIData.fetch('/users').then(async (response) => {
       const user: AuthenticateFormDataType[] = await response.json();
 
@@ -78,6 +80,8 @@ export default class AuthenticateFormAPI extends APIBase {
         // if there's no user in fake database, throw an Error to be catch in the handler and send it back properly to the user by a toast
         throw new Error('User not found');
       }
+
+      return { server: response };
     });
   }
 }

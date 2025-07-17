@@ -92,5 +92,27 @@
         "updatedAt": "2025-03-04T22:04:54.067Z"
       }
     }
+  ],
+  "appointments": [
+    {
+      "date": "2025-07-24T20:00:00Z",
+      "userId": "78c3",
+      "barberId": "98k1"
+    },
+    {
+      "date": "2025-07-29T17:00:00Z",
+      "userId": "b3ae",
+      "barberId": "98k1"
+    },
+    {
+      "date": "2025-07-22T10:00:00Z",
+      "userId": "a8ja",
+      "barberId": "98k1"
+    },
+    {
+      "date": "2025-07-07T15:00:00Z",
+      "userId": "i58a",
+      "barberId": "98k1"
+    }
   ]
 }

@@ -53,26 +53,45 @@ export default class AuthenticateFormSubmitHandler extends FormSubmitHandlerBase
                 serverUnhandledError();
               }
 
-              if (status === 200 && serverAlright === true) {
-                historyRedirect('/dashboard/user');
-                // redirect('/dashboard/user');
-              }
+              // if (status === 200 && serverAlright === true) {
+              //   historyRedirect('/user/dashboard');
+              // redirect('/dashboard/user');
+              // }
 
               return result.user;
             })
-        : await this.authenticateFormAPI.fake(data).catch((error: Error) => {
-            if (error) {
-              authenticateErrorToast();
-            }
-          });
+        : await this.authenticateFormAPI
+            .fake(data)
+            .then(async (result) => {
+              const status = result.server.status;
+              const serverAlright = result.server.ok;
+
+              // if (status === 200 && serverAlright === true) {
+              //   historyRedirect('/user/dashboard');
+              // redirect('/dashboard/user');
+              // }
+
+              return result;
+            })
+            .catch((error: Error) => {
+              if (error) {
+                authenticateErrorToast();
+              }
+            });
 
     // Redirect the user to the dashboard according to its account type
 
     // if (response.server.ok) {
-    // if (response.user.barber) {
-    //   redirect('../dashboard/barber');
-    // } else {
-    //   redirect('../dashboard/client');
+    //   // console.log(response.user.barber, response);
+    //   if (response.user.barber) {
+    //     historyRedirect('/barber/dashboard');
+
+    //     // redirect('../dashboard/barber');
+    //   } else {
+    //     historyRedirect('/user/dashboard');
+
+    //     // redirect('../dashboard/client');
+    //   }
     // }
   }
 }

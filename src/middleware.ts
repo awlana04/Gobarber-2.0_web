@@ -6,8 +6,8 @@ const routeSegments = [
   { path: '/signin', isPrivate: false },
   { path: '/logon', isPrivate: false },
   { path: '/signin/barber', isPrivate: true },
-  { path: '/dashboard/user', isPrivate: true },
-  { path: '/dashboard/barber', isPrivate: true },
+  { path: '/user/dashboard', isPrivate: true },
+  { path: '/barber/dashboard', isPrivate: true },
 ];
 
 export default function middleware(request: NextRequest) {
@@ -29,7 +29,7 @@ export default function middleware(request: NextRequest) {
 
   if (privateRoutes === false && authToken) {
     redirectURL.pathname =
-      barberCookie !== null ? '/dashboard/barber' : '/dashboard/user';
+      barberCookie !== null ? '/barber/dashboard' : '/user/dashboard';
 
     return NextResponse.redirect(redirectURL);
   }

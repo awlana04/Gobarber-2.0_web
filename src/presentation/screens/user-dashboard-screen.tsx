@@ -12,6 +12,7 @@ import Calendar from '@/atoms/calendar';
 
 import BarberRow from '@/molecules/barber-row';
 import AvailableLanguagesType from '@/shared/types/available-languages-type';
+import { Row } from '../components/molecules/row';
 
 type UserDashboardScreenType = {
   user: UserDataType;
@@ -67,7 +68,19 @@ export default function UserDashboardScreen(props: UserDashboardScreenType) {
             <h3 className='text-orange my-2'>Barbeiros mais próximos</h3>
 
             {props.sortedBarbers.map((barber) => (
-              <BarberRow barber={barber} isModal={false} key={barber.id} />
+              // <BarberRow barber={barber} isModal={false} key={barber.id} />
+              <Row.RowRoot
+                key={barber.id}
+                data={barber}
+                size='small'
+                isModal={props.isModalOpen}
+              >
+                <Row.RowHourAndDate
+                  data={barber}
+                  dataType='barber'
+                  isModal={props.isModalOpen}
+                />
+              </Row.RowRoot>
             ))}
           </div>
 

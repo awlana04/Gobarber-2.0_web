@@ -1,0 +1,42 @@
+import { BarberDataType, UserDataType } from '@/infra/types/data-type';
+
+import AvatarImage from '@/atoms/avatar-image';
+
+type RowRootType = {
+  children: React.ReactNode;
+  isModal?: boolean;
+  textblack?: boolean;
+  size: 'small' | 'medium' | 'big';
+  data: BarberDataType & UserDataType;
+};
+
+export default function RowRoot({ children, ...props }: RowRootType) {
+  return (
+    <div className='bg-button-text group flex w-3xl flex-row rounded-2xl'>
+      <div
+        data-size={props.size}
+        className='bg-orange invisible h-16 w-1 self-center rounded-tr-2xl rounded-br-2xl data-[size=big]:visible data-[size=small]:group-hover:visible'
+      />
+
+      <div className='flex w-3xl flex-row place-content-between items-center justify-between'>
+        <div className='flex flex-row items-center space-x-4 p-4 px-6'>
+          <AvatarImage
+            src={props.data.user ? props.data.user.avatar : props.data.avatar}
+            size={props.size ? 'small' : 'big'}
+          />
+
+          <h5
+            data-modal={props.isModal}
+            data-textblack={props.textblack}
+            data-size={props.size}
+            className='data-[textblack=true]:text-background truncate data-[modal=true]:left-32 data-[modal=true]:w-96 data-[size=big]:text-xl data-[size=big]:font-semibold data-[size=small]:absolute data-[size=small]:left-28 data-[size=small]:w-44'
+          >
+            {props.data.user ? props.data.user.name : props.data.name}
+          </h5>
+        </div>
+
+        {children}
+      </div>
+    </div>
+  );
+}
