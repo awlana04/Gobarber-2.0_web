@@ -10,9 +10,9 @@ import DashboardTemplate from '@/templates/dashboard-template';
 
 import Calendar from '@/atoms/calendar';
 
-import BarberRow from '@/molecules/barber-row';
+import { Row } from '@/molecules/row';
+
 import AvailableLanguagesType from '@/shared/types/available-languages-type';
-import { Row } from '../components/molecules/row';
 
 type UserDashboardScreenType = {
   user: UserDataType;
@@ -86,11 +86,11 @@ export default function UserDashboardScreen(props: UserDashboardScreenType) {
             <h3 className='my-2 text-white'>Últimos agendamentos</h3>
 
             {props.sortedLastBarbers.map((barber) => (
-              <BarberRow
-                barber={barber}
-                isModal={false}
-                textblack={true}
+              <Row.RowRoot
                 key={barber.id}
+                size='small'
+                textblack={true}
+                data={barber}
               />
             ))}
           </div>
@@ -113,7 +113,14 @@ export default function UserDashboardScreen(props: UserDashboardScreenType) {
 
             {props.barbers !== undefined &&
               props.sortedBarbers.map((barber) => (
-                <BarberRow barber={barber} isModal={true} key={barber.id} />
+                <Row.RowRoot
+                  key={barber.id}
+                  isModal={true}
+                  data={barber}
+                  Render={Row.RowHourAndDate}
+                  dataType='barber'
+                  size='medium'
+                />
               ))}
           </div>
         </div>

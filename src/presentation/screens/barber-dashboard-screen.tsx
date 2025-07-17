@@ -1,10 +1,13 @@
 'use client';
 
+import Link from 'next/link';
+
 import { UserDataType } from '@/infra/types/data-type';
 import AvailableLanguagesType from '@/shared/types/available-languages-type';
-import DashboardTemplate from '../templates/dashboard-template';
-import { Row } from '../components/molecules/row';
-import Link from 'next/link';
+
+import DashboardTemplate from '@/templates/dashboard-template';
+
+import { Row } from '@/molecules/row';
 
 type BarberDashboardScreenType = {
   user: UserDataType;
@@ -32,19 +35,19 @@ export default function BarberDashboardScreen(
           <p className='text-orange mt-4 mb-2 text-xl'>
             Hoje | Dia {today.getDay()} | {today.getMonth()}
           </p>
-          <Link href='./calendar' className='text-orange text-base'>
+          <Link
+            href='./calendar'
+            className='text-orange text-base hover:underline'
+          >
             Ver calendário
           </Link>
         </section>
         <section>
           <h3 className='text-grey mt-14 mb-5 text-xl'>Atendimento a seguir</h3>
 
-          {/* <Row.RowRoot data={props.user} size='big'>
-            <Row.RowHourAndDate data={props.user} dataType='user' hour={20} />
-          </Row.RowRoot> */}
           <Row.RowRoot
             data={props.user}
-            size='big'
+            size='large'
             Render={Row.RowHourAndDate}
             dataType='user'
             hour={10}

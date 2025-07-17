@@ -1,11 +1,12 @@
 import { BarberDataType, UserDataType } from '@/infra/types/data-type';
 import translate from '@/shared/utils/translate';
 import { FiCalendar, FiClock } from 'react-icons/fi';
+import TextWithIcon from '../../atoms/text-with-icon';
 
 type RowHourAndDateType = {
   isModal?: boolean;
   textblack?: boolean;
-  size: 'small' | 'medium' | 'big';
+  size: 'small' | 'medium' | 'large';
   data: BarberDataType & UserDataType;
   dataType: 'user' | 'barber';
   date?: number;
@@ -17,25 +18,30 @@ export default function RowHourAndDate(props: RowHourAndDateType) {
     <div
       data-modal={props.isModal}
       data-size={props.size}
-      className='flex flex-col text-base data-[size=small]:invisible data-[size=small]:group-hover:visible'
+      className='flex w-52 flex-col place-content-start place-items-start items-start justify-start text-base data-[size=large]:w-36 data-[size=small]:invisible data-[size=small]:group-hover:visible'
     >
       <div
         data-date={!!props.date || !!props.hour || props.dataType === 'barber'}
         className='text-input-text flex flex-row items-center data-[date=false]:my-1.5'
       >
-        {props.dataType === 'barber' && (
-          <FiCalendar className='text-orange mx-2.5' />
-        )}
-        {props.date && <FiCalendar className='text-orange mx-2.5' />}
-
         {props.dataType === 'barber' ? (
           props.data.openOnWeekends ? (
-            <p className='mr-6'>{translate('Monday to Saturday')}</p>
+            <TextWithIcon
+              icon={FiCalendar}
+              color='grey'
+              text={translate('Monday to Saturday')}
+            />
           ) : (
-            <p className='mr-8'>{translate('Monday to Friday')}</p>
+            <TextWithIcon
+              icon={FiCalendar}
+              color='grey'
+              text={translate('Monday to Friday')}
+            />
           )
         ) : (
-          props.date && <p className='mr-4'>{props.date}</p>
+          props.date && (
+            <TextWithIcon icon={FiCalendar} color='grey' text={props.date!} />
+          )
         )}
       </div>
 

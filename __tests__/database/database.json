@@ -77,7 +77,7 @@
         "1701987367970-1602886.jpg"
       ],
       "openAtNight": true,
-      "openOnWeekends": false,
+      "openOnWeekends": true,
       "userId": "i58a",
       "createdAt": "2025-03-04T22:04:54.067Z",
       "updatedAt": "2025-03-04T22:04:54.067Z",

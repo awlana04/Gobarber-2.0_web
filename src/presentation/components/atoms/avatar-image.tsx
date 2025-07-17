@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 type AvatarImageType = React.ImgHTMLAttributes<HTMLImageElement> & {
   src: string | undefined;
-  size: 'small' | 'big';
+  size: 'small' | 'large';
 };
 
 export default function AvatarImage({ src, size }: AvatarImageType) {
