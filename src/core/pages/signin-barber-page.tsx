@@ -33,16 +33,12 @@ export default function SigninBarberPage(props: SigninBarberPagePropsType) {
 
   return (
     <SigninBarberScreen
-      nameRef={props.nameRef}
-      nameValue={props.nameValue}
       nameErrored={
         fieldErrored !== undefined &&
         !!fieldErrored.find((name) => name === 'name')
       }
       nameFilled={!!fieldFilled.find((name) => name === 'name')}
       handleNameFilled={handleFieldFilled}
-      descriptionRef={props.descriptionRef}
-      descriptionValue={props.descriptionValue}
       descriptionErrored={
         fieldErrored !== undefined &&
         !!fieldErrored.find((description) => description === 'description')
@@ -51,29 +47,10 @@ export default function SigninBarberPage(props: SigninBarberPagePropsType) {
         !!fieldFilled.find((description) => description === 'description')
       }
       handleDescriptionFilled={handleFieldFilled}
-      locationRef={props.locationRef}
-      locationErrored={props.locationErrored}
-      locationFilled={props.locationFilled}
-      // locationValue={props.locationValue}
-      // locationErrored={
-      //   fieldErrored !== undefined &&
-      //   !!fieldErrored.find((location) => location === 'location')
-      // }
-      // locationFilled={!!fieldFilled.find((location) => location === 'location')}
-      // handleLocationFilled={handleFieldFilled}
-      file={props.file}
-      fileUrl={props.fileUrl}
-      setFile={props.setFile}
-      setFileUrl={props.setFileUrl}
-      handleChange={props.handleChange}
-      isOpenAtNight={props.isOpenAtNight}
-      setIsOpenAtNight={props.setIsOpenAtNight}
-      isOpenOnWeekends={props.isOpenOnWeekends}
-      setIsOpenOnWeekends={props.setIsOpenOnWeekends}
-      submitHandler={props.submitHandler}
       isButtonDisabled={
         !!(fieldFilled.length !== 2 && fieldErrored !== undefined)
       }
+      {...props}
     />
   );
 }

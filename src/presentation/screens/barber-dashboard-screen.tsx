@@ -39,9 +39,16 @@ export default function BarberDashboardScreen(
         <section>
           <h3 className='text-grey mt-14 mb-5 text-xl'>Atendimento a seguir</h3>
 
-          <Row.RowRoot data={props.user} size='big'>
+          {/* <Row.RowRoot data={props.user} size='big'>
             <Row.RowHourAndDate data={props.user} dataType='user' hour={20} />
-          </Row.RowRoot>
+          </Row.RowRoot> */}
+          <Row.RowRoot
+            data={props.user}
+            size='big'
+            Render={Row.RowHourAndDate}
+            dataType='user'
+            hour={10}
+          />
         </section>
       </div>
     </DashboardTemplate>

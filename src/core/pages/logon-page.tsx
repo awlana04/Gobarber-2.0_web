@@ -21,25 +21,22 @@ export default function LogonPage(props: LogonPagePropsType) {
 
   return (
     <LogonScreen
-      emailRef={props.emailRef}
-      emailValue={props.emailValue}
       emailErrored={
         fieldErrored !== undefined &&
         !!fieldErrored.find((email) => email === 'email')
       }
       emailFilled={!!fieldFilled.find((email) => email === 'email')}
       handleEmailFilled={handleFieldFilled}
-      passwordRef={props.passwordRef}
       passwordErrored={
         fieldErrored !== undefined &&
         !!fieldErrored.find((password) => password === 'password')
       }
       passwordFilled={!!fieldFilled.find((password) => password === 'password')}
       handlePasswordFilled={handleFieldFilled}
-      submitHandler={props.submitHandler}
       isButtonDisabled={
         !!(fieldFilled.length !== 2 && fieldErrored !== undefined)
       }
+      {...props}
     />
   );
 }

@@ -29,8 +29,6 @@ type SigninPagePropsType = NameInputRefAndValueType &
 export default function SigninPage(props: SigninPagePropsType) {
   const { fieldFilled, handleFieldFilled } = useHandleFilledHook();
 
-  // const { isClientSelected, setIsClientSelected } = useHandleUserHook();
-
   const { fieldErrored } = useHandleErroredContext();
 
   return (

@@ -2,28 +2,49 @@ import { BarberDataType, UserDataType } from '@/infra/types/data-type';
 
 import AvatarImage from '@/atoms/avatar-image';
 
-type RowRootType = {
-  children: React.ReactNode;
+type RowType = {
   isModal?: boolean;
   textblack?: boolean;
   size: 'small' | 'medium' | 'big';
   data: BarberDataType & UserDataType;
+  dataType: 'user' | 'barber';
+  date?: number;
+  hour?: number;
 };
 
-export default function RowRoot({ children, ...props }: RowRootType) {
+type RowRootType<T extends RowType> = T & {
+  Render: React.ComponentType<RowType>;
+};
+
+export default function RowRoot({ Render, ...props }: RowRootType<RowType>) {
   return (
-    <div className='bg-button-text group flex w-3xl flex-row rounded-2xl'>
-      <div
-        data-size={props.size}
-        className='bg-orange invisible h-16 w-1 self-center rounded-tr-2xl rounded-br-2xl data-[size=big]:visible data-[size=small]:group-hover:visible'
-      />
+    <div
+      data-size={props.size}
+      className='bg-button-text flex flex-row rounded-2xl data-[size=big]:w-3xl data-[size=medium]:w-3xl'
+    >
+      {props.size !== 'small' && (
+        <div
+          data-size={props.size}
+          className='bg-orange visible h-16 w-1 self-center rounded-tr-2xl rounded-br-2xl data-[size=small]:invisible'
+        />
+      )}
 
       <div className='flex w-3xl flex-row place-content-between items-center justify-between'>
-        <div className='flex flex-row items-center space-x-4 p-4 px-6'>
+        <div
+          data-size={props.size}
+          className='flex flex-row items-center space-x-4 p-4 py-6 data-[size=small]:p-0 data-[size=small]:py-4'
+        >
+          {/* {props.isModal === true ? (
+            <AvatarImage
+              src={props.data.user ? props.data.user.avatar : props.data.avatar}
+              size='big'
+            />
+          ) : ( */}
           <AvatarImage
             src={props.data.user ? props.data.user.avatar : props.data.avatar}
             size={props.size ? 'small' : 'big'}
           />
+          {/* )} */}
 
           <h5
             data-modal={props.isModal}
@@ -35,7 +56,7 @@ export default function RowRoot({ children, ...props }: RowRootType) {
           </h5>
         </div>
 
-        {children}
+        <Render {...props} />
       </div>
     </div>
   );

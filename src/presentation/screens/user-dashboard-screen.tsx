@@ -68,19 +68,14 @@ export default function UserDashboardScreen(props: UserDashboardScreenType) {
             <h3 className='text-orange my-2'>Barbeiros mais próximos</h3>
 
             {props.sortedBarbers.map((barber) => (
-              // <BarberRow barber={barber} isModal={false} key={barber.id} />
               <Row.RowRoot
                 key={barber.id}
                 data={barber}
                 size='small'
+                dataType='barber'
                 isModal={props.isModalOpen}
-              >
-                <Row.RowHourAndDate
-                  data={barber}
-                  dataType='barber'
-                  isModal={props.isModalOpen}
-                />
-              </Row.RowRoot>
+                Render={Row.RowHourAndDate}
+              ></Row.RowRoot>
             ))}
           </div>
 

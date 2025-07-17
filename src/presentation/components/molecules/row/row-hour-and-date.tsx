@@ -4,6 +4,8 @@ import { FiCalendar, FiClock } from 'react-icons/fi';
 
 type RowHourAndDateType = {
   isModal?: boolean;
+  textblack?: boolean;
+  size: 'small' | 'medium' | 'big';
   data: BarberDataType & UserDataType;
   dataType: 'user' | 'barber';
   date?: number;
@@ -14,7 +16,8 @@ export default function RowHourAndDate(props: RowHourAndDateType) {
   return (
     <div
       data-modal={props.isModal}
-      className='flex-col text-base data-[modal=false]:hidden data-[modal=false]:group-hover:flex'
+      data-size={props.size}
+      className='flex flex-col text-base data-[size=small]:invisible data-[size=small]:group-hover:visible'
     >
       <div
         data-date={!!props.date || !!props.hour || props.dataType === 'barber'}
