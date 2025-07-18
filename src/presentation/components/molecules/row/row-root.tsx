@@ -5,7 +5,7 @@ import AvatarImage from '@/atoms/avatar-image';
 type RowType = {
   isModal?: boolean;
   textblack?: boolean;
-  size: 'small' | 'medium' | 'large';
+  size: 'small' | 'medium' | 'large' | 'extra-large';
   data: BarberDataType & UserDataType;
   dataType: 'user' | 'barber';
   date?: number;
@@ -21,12 +21,12 @@ export default function RowRoot({ Render, ...props }: RowRootType<RowType>) {
     <div
       data-size={props.size}
       data-textblack={props.textblack}
-      className='bg-button-text group data-[textblack=true]:bg-orange flex cursor-pointer flex-row rounded-2xl data-[size=large]:w-3xl data-[size=large]:hover:bg-black data-[size=medium]:h-24 data-[size=medium]:w-[612] data-[size=medium]:hover:bg-black'
+      className='bg-button-text group data-[textblack=true]:bg-orange flex cursor-pointer flex-row rounded-2xl data-[size=extra-large]:w-3xl data-[size=extra-large]:hover:bg-black data-[size=large]:w-3xl data-[size=large]:hover:bg-black data-[size=medium]:h-24 data-[size=medium]:w-[612] data-[size=medium]:hover:bg-black'
     >
       {props.size !== 'small' && (
         <div
           data-size={props.size}
-          className='bg-orange visible h-16 w-1 self-center rounded-tr-2xl rounded-br-2xl data-[size=medium]:invisible data-[size=medium]:h-14 data-[size=medium]:group-hover:visible data-[size=small]:invisible'
+          className='bg-orange visible h-16 w-1 self-center rounded-tr-2xl rounded-br-2xl data-[size=large]:invisible data-[size=large]:group-hover:visible data-[size=medium]:invisible data-[size=medium]:h-14 data-[size=medium]:group-hover:visible data-[size=small]:invisible'
         />
       )}
 
@@ -35,7 +35,9 @@ export default function RowRoot({ Render, ...props }: RowRootType<RowType>) {
           data-size={props.size}
           className='flex flex-row items-center space-x-4 p-4 py-6 data-[size=small]:p-0 data-[size=small]:py-4'
         >
-          {props.isModal === true || props.size === 'medium' ? (
+          {props.isModal === true ||
+          props.size === 'medium' ||
+          props.size === 'large' ? (
             <AvatarImage
               src={props.data.user ? props.data.user.avatar : props.data.avatar}
               size='small'
@@ -43,7 +45,10 @@ export default function RowRoot({ Render, ...props }: RowRootType<RowType>) {
           ) : (
             <AvatarImage
               src={props.data.user ? props.data.user.avatar : props.data.avatar}
-              size={props.size ? 'small' : 'large'}
+              size={
+                (props.size === 'small' && 'small') ||
+                (props.size === 'extra-large' && 'large')
+              }
             />
           )}
 
@@ -51,7 +56,7 @@ export default function RowRoot({ Render, ...props }: RowRootType<RowType>) {
             data-modal={props.isModal}
             data-textblack={props.textblack}
             data-size={props.size}
-            className='data-[textblack=true]:text-background truncate data-[modal=true]:left-32 data-[modal=true]:w-96 data-[size=big]:font-semibold data-[size=large]:text-xl data-[size=small]:absolute data-[size=small]:left-28 data-[size=small]:w-44'
+            className='data-[textblack=true]:text-background truncate data-[modal=true]:left-32 data-[modal=true]:w-96 data-[size=extra-large]:text-xl data-[size=extra-large]:font-semibold data-[size=small]:absolute data-[size=small]:left-28 data-[size=small]:w-44'
           >
             {props.data.user ? props.data.user.name : props.data.name}
           </h5>

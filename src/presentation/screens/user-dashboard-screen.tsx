@@ -98,9 +98,9 @@ export default function UserDashboardScreen(props: UserDashboardScreenType) {
       )}
 
       {props.isModalOpen && (
-        <div className='bg-button-text fixed top-52 left-[50%] z-100 h-[748] max-h-screen w-4xl translate-x-[-50%] rounded-2xl'>
+        <div className='bg-button-text fixed top-52 left-[50%] z-100 h-[748] max-h-screen w-[864] translate-x-[-50%] rounded-2xl'>
           <div className='absolute top-0 left-0 h-full w-full overflow-auto p-8 px-12'>
-            <div className='mb-4 flex flex-row place-content-between items-center'>
+            <div className='mb-6 flex flex-row place-content-between items-center'>
               <h2 className='text-orange text-3xl'>
                 {translate('Barbers closest to you')}
               </h2>
@@ -119,7 +119,7 @@ export default function UserDashboardScreen(props: UserDashboardScreenType) {
                   data={barber}
                   Render={Row.RowHourAndDate}
                   dataType='barber'
-                  size='medium'
+                  size='large'
                 />
               ))}
           </div>

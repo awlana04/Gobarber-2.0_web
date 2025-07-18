@@ -50,7 +50,7 @@ export default function BarberDashboardScreen(
 
           <Row.RowRoot
             data={props.user}
-            size='large'
+            size='extra-large'
             Render={Row.RowHourAndDate}
             dataType='user'
             hour={10}
