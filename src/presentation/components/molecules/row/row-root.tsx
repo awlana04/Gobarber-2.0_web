@@ -21,12 +21,12 @@ export default function RowRoot({ Render, ...props }: RowRootType<RowType>) {
     <div
       data-size={props.size}
       data-textblack={props.textblack}
-      className='bg-button-text group data-[textblack=true]:bg-orange flex cursor-pointer flex-row rounded-2xl data-[size=large]:w-3xl data-[size=large]:hover:bg-black data-[size=medium]:w-3xl data-[size=medium]:hover:bg-black'
+      className='bg-button-text group data-[textblack=true]:bg-orange flex cursor-pointer flex-row rounded-2xl data-[size=large]:w-3xl data-[size=large]:hover:bg-black data-[size=medium]:h-24 data-[size=medium]:w-[612] data-[size=medium]:hover:bg-black'
     >
       {props.size !== 'small' && (
         <div
           data-size={props.size}
-          className='bg-orange visible h-16 w-1 self-center rounded-tr-2xl rounded-br-2xl data-[size=medium]:invisible data-[size=medium]:group-hover:visible data-[size=small]:invisible'
+          className='bg-orange visible h-16 w-1 self-center rounded-tr-2xl rounded-br-2xl data-[size=medium]:invisible data-[size=medium]:h-14 data-[size=medium]:group-hover:visible data-[size=small]:invisible'
         />
       )}
 

@@ -8,6 +8,8 @@ import AvailableLanguagesType from '@/shared/types/available-languages-type';
 import DashboardTemplate from '@/templates/dashboard-template';
 
 import { Row } from '@/molecules/row';
+import TextWithIcon from '../components/atoms/text-with-icon';
+import { FiCalendar } from 'react-icons/fi';
 
 type BarberDashboardScreenType = {
   user: UserDataType;
@@ -42,6 +44,7 @@ export default function BarberDashboardScreen(
             Ver calendário
           </Link>
         </section>
+
         <section>
           <h3 className='text-grey mt-14 mb-5 text-xl'>Atendimento a seguir</h3>
 
@@ -52,6 +55,36 @@ export default function BarberDashboardScreen(
             dataType='user'
             hour={10}
           />
+        </section>
+
+        <section className='my-12'>
+          <h6 className='text-grey text-xl'>Manhã</h6>
+          <div className='bg-button-text my-4 h-0.5 w-3xl rounded-full' />
+
+          <div className='my-4 flex w-3xl flex-row place-content-between'>
+            <TextWithIcon icon={FiCalendar} color='orange-grey' text='08:30' />
+            <Row.RowRoot data={props.user} dataType='user' size='medium' />
+          </div>
+
+          <div className='flex w-3xl flex-row place-content-between'>
+            <TextWithIcon icon={FiCalendar} color='orange-grey' text='08:30' />
+            <Row.RowRoot data={props.user} dataType='user' size='medium' />
+          </div>
+        </section>
+
+        <section className='my-4'>
+          <h6 className='text-grey text-xl'>Tarde</h6>
+          <div className='bg-button-text my-4 h-0.5 w-3xl rounded-full' />
+
+          <div className='my-4 flex w-3xl flex-row place-content-between'>
+            <TextWithIcon icon={FiCalendar} color='orange-grey' text='08:30' />
+            <Row.RowRoot data={props.user} dataType='user' size='medium' />
+          </div>
+
+          <div className='mb-12 flex w-3xl flex-row place-content-between'>
+            <TextWithIcon icon={FiCalendar} color='orange-grey' text='08:30' />
+            <Row.RowRoot data={props.user} dataType='user' size='medium' />
+          </div>
         </section>
       </div>
     </DashboardTemplate>

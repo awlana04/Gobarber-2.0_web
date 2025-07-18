@@ -13,9 +13,9 @@ import { FiMapPin } from 'react-icons/fi';
 import ContentTemplate from '@/templates/content-template';
 
 import Icon from '@/atoms/icon';
-import BackToLogon from '@/atoms/back-to-logon';
 import Button from '@/atoms/button';
 
+import FooterPageLink from '@/molecules/footer-page-link';
 import { Form } from '@/molecules/form';
 
 import NameInputFragment from '@/fragments/name-input-fragment';
@@ -102,7 +102,7 @@ export default function SigninBarberScreen(props: SigninBarberScreenType) {
         </Button>
       </Form.Root>
 
-      <BackToLogon />
+      <FooterPageLink type='back-to-logon' />
     </ContentTemplate>
   );
 }

@@ -11,9 +11,9 @@ import ButtonDisabledType from '@/presentation/types/button-disabled-type';
 
 import ContentTemplate from '@/templates/content-template';
 
-import BackToLogon from '@/atoms/back-to-logon';
 import Button from '@/atoms/button';
 
+import FooterPageLink from '@/molecules/footer-page-link';
 import { Form } from '@/molecules/form';
 
 import NameInputFragment from '@/fragments/name-input-fragment';
@@ -89,7 +89,7 @@ export default function SigninScreen(props: SigninPropsType) {
         </Button>
       </Form.Root>
 
-      <BackToLogon />
+      <FooterPageLink type='back-to-logon' />
     </ContentTemplate>
   );
 }

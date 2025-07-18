@@ -3,15 +3,15 @@ import Link from 'next/link';
 import {
   EmailInputPropsMappedType,
   PasswordInputPropsMappedType,
-} from '@/presentation/types/input-props-mapped-type';
+} from '@/presentation/types/input-props-mapped-types';
 import { SubmitHandlerType } from '@/presentation/types/submit-handler-type';
 import ButtonDisabledType from '@/presentation/types/button-disabled-type';
 
 import ContentTemplate from '@/templates/content-template';
 
 import Button from '@/atoms/button';
-import CreateAccount from '@/atoms/create-account';
 
+import FooterPageLink from '@/molecules/footer-page-link';
 import { Form } from '@/molecules/form';
 
 import EmailInputFragment from '@/fragments/email-input-fragment';
@@ -57,11 +57,11 @@ export default function LogonScreen(props: LogonScreenProps) {
         </Button>
       </Form.Root>
 
-      <Link href='./forgot-password' className='my-4 mb-4 hover:underline'>
+      <Link href='./forgot-password' className='my-4 mb-6 hover:underline'>
         {translate('Forgot my password')}
       </Link>
 
-      <CreateAccount />
+      <FooterPageLink type='create-account' />
     </ContentTemplate>
   );
 }

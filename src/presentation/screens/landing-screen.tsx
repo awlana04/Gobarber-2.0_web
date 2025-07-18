@@ -2,8 +2,9 @@ import Link from 'next/link';
 
 import ContentTemplate from '@/templates/content-template';
 
-import Button from '@/components/atoms/button';
-import CreateAccount from '@/components/atoms/create-account';
+import Button from '@/atoms/button';
+
+import FooterPageLink from '@/molecules/footer-page-link';
 
 import image from '@/public/gobarber_image001.svg';
 
@@ -25,11 +26,11 @@ export default function LandingScreen() {
         <strong>barbeiro</strong> e ir acompanhando as demandas.
       </p>
 
-      <Link href='./logon'>
+      <Link href='./logon' className='mb-4'>
         <Button type='button'>{translate('Logon')}</Button>
       </Link>
 
-      <CreateAccount />
+      <FooterPageLink type='create-account' />
     </ContentTemplate>
   );
 }
