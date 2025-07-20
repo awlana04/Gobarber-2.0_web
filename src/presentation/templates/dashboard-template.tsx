@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { FiGlobe, FiLogOut } from 'react-icons/fi';
 
-import AvailableLanguagesType from '@/shared/types/available-languages-type';
+import { HeaderPropsType } from '@/presentation/types/header-props-type';
 
 import AvatarImage from '@/atoms/avatar-image';
 
@@ -9,12 +9,8 @@ import translate from '@/shared/utils/translate';
 
 import GoBarberLogo from '@/public/gobarber_logo001.svg';
 
-type DashboardTemplateType = {
+type DashboardTemplateType = HeaderPropsType & {
   children: React.ReactNode;
-  src: string | undefined;
-  name: string;
-  logoutOnclick(): void;
-  setLanguage(language: AvailableLanguagesType): Promise<any>;
 };
 
 export default function DashboardTemplate({
@@ -29,7 +25,7 @@ export default function DashboardTemplate({
 
           <div className='flex flex-row items-center space-x-4'>
             <div className='px-4'>
-              <AvatarImage src={props.src} size='big' />
+              <AvatarImage src={props.user.avatar} size='large' />
               <div />
             </div>
 
@@ -38,7 +34,7 @@ export default function DashboardTemplate({
                 {translate('Welcome')},
                 <br />
               </p>
-              <span className='text-orange text-xl'>{props.name}</span>
+              <span className='text-orange text-xl'>{props.user.name}</span>
             </div>
           </div>
         </div>

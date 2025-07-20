@@ -19,7 +19,7 @@ export default function RowRoot({
       {props.size !== 'small' && (
         <div
           data-size={props.size}
-          className='bg-orange visible h-16 w-1 self-center rounded-tr-2xl rounded-br-2xl data-[size=extra-large]:h-24 data-[size=large]:invisible data-[size=large]:group-hover:visible data-[size=medium]:invisible data-[size=medium]:h-14 data-[size=medium]:group-hover:visible data-[size=small]:invisible'
+          className='bg-orange visible h-16 w-1 self-center rounded-tr-2xl rounded-br-2xl data-[size=extra-large]:h-20 data-[size=large]:invisible data-[size=large]:group-hover:visible data-[size=medium]:invisible data-[size=medium]:h-14 data-[size=medium]:group-hover:visible data-[size=small]:invisible'
         />
       )}
 
@@ -41,7 +41,7 @@ export default function RowRoot({
               src={props.data.user ? props.data.user.avatar : props.data.avatar}
               size={
                 (props.size === 'small' && 'small') ||
-                (props.size === 'extra-large' && 'large')
+                (props.size === 'extra-large' && 'medium')
               }
             />
           )}
