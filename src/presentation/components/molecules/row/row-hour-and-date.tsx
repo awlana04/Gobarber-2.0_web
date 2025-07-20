@@ -1,19 +1,12 @@
-import { BarberDataType, UserDataType } from '@/infra/types/data-type';
-import translate from '@/shared/utils/translate';
 import { FiCalendar, FiClock } from 'react-icons/fi';
-import TextWithIcon from '../../atoms/text-with-icon';
 
-type RowHourAndDateType = {
-  isModal?: boolean;
-  textblack?: boolean;
-  size: 'small' | 'medium' | 'large' | 'extra-large';
-  data: BarberDataType & UserDataType;
-  dataType: 'user' | 'barber';
-  date?: number;
-  hour?: number;
-};
+import { RowPropsType } from '@/presentation/types/row-props-type';
 
-export default function RowHourAndDate(props: RowHourAndDateType) {
+import TextWithIcon from '@/atoms/text-with-icon';
+
+import translate from '@/shared/utils/translate';
+
+export default function RowHourAndDate(props: RowPropsType) {
   return (
     <div
       data-modal={props.isModal}
@@ -69,27 +62,6 @@ export default function RowHourAndDate(props: RowHourAndDateType) {
           )
         )}
       </div>
-
-      {/* 
-      <div
-        data-hour={!!props.hour || !!props.date || props.dataType === 'barber'}
-        className='text-input-text flex flex-row data-[hour=false]:my-1.5'
-      >
-        {props.dataType === 'barber' && (
-          <FiClock className='text-orange mx-2.5' />
-        )}
-        {props.hour && <FiClock className='text-orange mx-2.5 text-xl' />}
-
-        {props.dataType === 'barber' ? (
-          props.data.openAtNight ? (
-            <p>{translate('8am to 9pm')}</p>
-          ) : (
-            <p>{translate('8am to 6pm')}</p>
-          )
-        ) : (
-          props.hour && <p className='mr-10 text-xl'>{props.hour}</p>
-        )}
-      </div> */}
     </div>
   );
 }

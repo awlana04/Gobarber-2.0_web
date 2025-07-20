@@ -1,18 +1,20 @@
 'use client';
 
 import Link from 'next/link';
+import { FiCalendar } from 'react-icons/fi';
 
-import { UserDataType } from '@/infra/types/data-type';
+import { AppointmentDataType, UserDataType } from '@/infra/types/data-type';
 import AvailableLanguagesType from '@/shared/types/available-languages-type';
 
 import DashboardTemplate from '@/templates/dashboard-template';
 
+import TextWithIcon from '@/atoms/text-with-icon';
+
 import { Row } from '@/molecules/row';
-import TextWithIcon from '../components/atoms/text-with-icon';
-import { FiCalendar } from 'react-icons/fi';
 
 type BarberDashboardScreenType = {
   user: UserDataType;
+  appointments: AppointmentDataType[];
   logoutOnclick(): void;
   setLanguage(
     language: AvailableLanguagesType
@@ -31,7 +33,7 @@ export default function BarberDashboardScreen(
       logoutOnclick={props.logoutOnclick}
       setLanguage={props.setLanguage}
     >
-      <div className='my-24 flex w-3xl flex-col content-center justify-center place-self-center'>
+      <div className='my-20 flex w-3xl flex-col content-center justify-center place-self-center'>
         <section>
           <h1 className='text-4xl font-bold'>Horários agendados</h1>
           <p className='text-orange mt-4 mb-2 text-xl'>
@@ -46,7 +48,7 @@ export default function BarberDashboardScreen(
         </section>
 
         <section>
-          <h3 className='text-grey mt-14 mb-5 text-xl'>Atendimento a seguir</h3>
+          <h3 className='text-grey mt-12 mb-5 text-xl'>Atendimento a seguir</h3>
 
           <Row.RowRoot
             data={props.user}
@@ -61,7 +63,25 @@ export default function BarberDashboardScreen(
           <h6 className='text-grey text-xl'>Manhã</h6>
           <div className='bg-button-text my-4 h-0.5 w-3xl rounded-full' />
 
-          <div className='my-4 flex w-3xl flex-row place-content-between'>
+          {props.appointments.map((appointment) => (
+            <div
+              className='my-4 flex w-3xl flex-row place-content-between'
+              key={appointment.id}
+            >
+              <TextWithIcon
+                icon={FiCalendar}
+                color='orange-grey'
+                text={appointment.date}
+              />
+              <Row.RowRoot
+                data={appointment.user}
+                dataType='user'
+                size='medium'
+              />
+            </div>
+          ))}
+
+          {/* <div className='my-4 flex w-3xl flex-row place-content-between'>
             <TextWithIcon icon={FiCalendar} color='orange-grey' text='08:30' />
             <Row.RowRoot data={props.user} dataType='user' size='medium' />
           </div>
@@ -84,7 +104,7 @@ export default function BarberDashboardScreen(
           <div className='mb-12 flex w-3xl flex-row place-content-between'>
             <TextWithIcon icon={FiCalendar} color='orange-grey' text='08:30' />
             <Row.RowRoot data={props.user} dataType='user' size='medium' />
-          </div>
+          </div> */}
         </section>
       </div>
     </DashboardTemplate>

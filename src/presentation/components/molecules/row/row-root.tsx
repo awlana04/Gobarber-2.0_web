@@ -1,22 +1,15 @@
-import { BarberDataType, UserDataType } from '@/infra/types/data-type';
+import { RowPropsType } from '@/presentation/types/row-props-type';
 
 import AvatarImage from '@/atoms/avatar-image';
 
-type RowType = {
-  isModal?: boolean;
-  textblack?: boolean;
-  size: 'small' | 'medium' | 'large' | 'extra-large';
-  data: BarberDataType & UserDataType;
-  dataType: 'user' | 'barber';
-  date?: number;
-  hour?: number;
+type RowRootType<T extends RowPropsType> = T & {
+  Render?: React.ComponentType<RowPropsType>;
 };
 
-type RowRootType<T extends RowType> = T & {
-  Render?: React.ComponentType<RowType>;
-};
-
-export default function RowRoot({ Render, ...props }: RowRootType<RowType>) {
+export default function RowRoot({
+  Render,
+  ...props
+}: RowRootType<RowPropsType>) {
   return (
     <div
       data-size={props.size}
@@ -26,14 +19,15 @@ export default function RowRoot({ Render, ...props }: RowRootType<RowType>) {
       {props.size !== 'small' && (
         <div
           data-size={props.size}
-          className='bg-orange visible h-16 w-1 self-center rounded-tr-2xl rounded-br-2xl data-[size=large]:invisible data-[size=large]:group-hover:visible data-[size=medium]:invisible data-[size=medium]:h-14 data-[size=medium]:group-hover:visible data-[size=small]:invisible'
+          className='bg-orange visible h-16 w-1 self-center rounded-tr-2xl rounded-br-2xl data-[size=extra-large]:h-24 data-[size=large]:invisible data-[size=large]:group-hover:visible data-[size=medium]:invisible data-[size=medium]:h-14 data-[size=medium]:group-hover:visible data-[size=small]:invisible'
         />
       )}
 
       <div className='flex w-3xl flex-row place-content-between items-center justify-between'>
         <div
           data-size={props.size}
-          className='flex flex-row items-center space-x-4 p-4 py-6 data-[size=small]:p-0 data-[size=small]:py-4'
+          data-notLarge={props.size !== 'extra-large'}
+          className='flex flex-row items-center space-x-4 p-4 data-[notLarge=true]:py-6 data-[size=small]:p-0 data-[size=small]:py-4'
         >
           {props.isModal === true ||
           props.size === 'medium' ||

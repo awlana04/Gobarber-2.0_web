@@ -6,7 +6,11 @@ import ManageDataInBrowserModel from '@/adapters/models/manage-data-in-browser-m
 import RefreshTokenAPI from './refresh-token-api';
 
 import HTTPResponse from '@/infra/types/http-response';
-import { DataType } from '@/infra/types/data-type';
+import {
+  BarberDataType,
+  DataType,
+  UserDataType,
+} from '@/infra/types/data-type';
 
 type AuthenticateFormDataType = {
   email: string;
@@ -59,12 +63,12 @@ export default class AuthenticateFormAPI extends APIBase {
     data: AuthenticateFormDataType
   ): Promise<{ server: HTTPResponse }> {
     return await this.fetchAPIData.fetch('/users').then(async (response) => {
-      const user: AuthenticateFormDataType[] = await response.json();
+      const user: UserDataType[] = await response.json();
 
       // search in the fake database for the provided email and return it if exists
-      const selectedUser = user.find(
+      const selectedUser: UserDataType = user.find(
         (user) => user.email === data.email && user.password === data.password
-      );
+      )!;
 
       // if there's the selected user, then save the data into the browser and create a fake Token
       if (selectedUser) {
@@ -73,9 +77,19 @@ export default class AuthenticateFormAPI extends APIBase {
         await this.manageDataInBrowser.saveData('user', selectedUser);
         await this.manageDataInBrowser.saveData('token', token);
 
-        // ** FUTURE IMPLEMENTATION **
-        // ** By now is has not been implemented the check analysis for a Barber **
-        // ** FUTURE IMPLEMENTATION **
+        await this.fetchAPIData.fetch('/barbers').then(async (response) => {
+          const barber: BarberDataType[] = await response.json();
+
+          const userBarber = barber.find(
+            (barber) => barber.userId === selectedUser.id
+          );
+
+          if (userBarber !== undefined) {
+            await this.manageDataInBrowser.saveData('barber', userBarber);
+          }
+
+          return;
+        });
       } else {
         // if there's no user in fake database, throw an Error to be catch in the handler and send it back properly to the user by a toast
         throw new Error('User not found');

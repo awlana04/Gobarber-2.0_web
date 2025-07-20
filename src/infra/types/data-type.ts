@@ -14,10 +14,20 @@ export type UserDataType = EntityMappedType<EntityType<UserType>>;
 export type BarberDataType = EntityMappedType<EntityType<BarberType>> & {
   user: UserDataType;
 };
+export type AppointmentDataType = EntityMappedType<
+  EntityType<{
+    date: Date;
+    userId: string;
+    barberId: string;
+    user: UserDataType;
+    barber: BarberDataType;
+  }>
+>;
 
 export type DataType = {
   user: UserDataType;
   token: string;
   refreshToken: RefreshTokenDataType;
   barber: BarberDataType;
+  appointment: AppointmentDataType;
 };
