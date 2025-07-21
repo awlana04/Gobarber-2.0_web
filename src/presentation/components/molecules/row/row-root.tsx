@@ -3,7 +3,7 @@ import { RowPropsType } from '@/presentation/types/row-props-type';
 import AvatarImage from '@/atoms/avatar-image';
 
 type RowRootType<T extends RowPropsType> = T & {
-  Render?: React.ComponentType<RowPropsType>;
+  Render?: React.ComponentType<T>;
 };
 
 export default function RowRoot({
@@ -26,8 +26,8 @@ export default function RowRoot({
       <div className='flex w-3xl flex-row place-content-between items-center justify-between'>
         <div
           data-size={props.size}
-          data-notLarge={props.size !== 'extra-large'}
-          className='flex flex-row items-center space-x-4 p-4 data-[notLarge=true]:py-6 data-[size=small]:p-0 data-[size=small]:py-4'
+          data-notlarge={props.size !== 'extra-large'}
+          className='flex flex-row items-center space-x-4 p-4 data-[notlarge=true]:py-6 data-[size=small]:p-0 data-[size=small]:py-4'
         >
           {props.isModal === true ||
           props.size === 'medium' ||

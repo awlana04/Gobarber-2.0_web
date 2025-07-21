@@ -17,8 +17,7 @@ if (typeof document !== 'undefined') {
   }
 }
 
-const { availableLanguages, defaultLanguage } =
-  AvailableLanguagesBase(language);
+const { availableLanguages, defaultLanguage } = AvailableLanguagesBase('pt-br');
 
 const translate = (text: string) => {
   return LanguageSwitcher(availableLanguages, defaultLanguage, text);

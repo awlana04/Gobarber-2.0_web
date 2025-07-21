@@ -4,7 +4,7 @@ import AvailableLanguagesType from '@/shared/types/available-languages-type';
 export type HeaderPropsType = {
   user: UserDataType;
   logoutOnclick(): void;
-  setLanguage(
+  setLanguage?(
     language: AvailableLanguagesType
   ): React.MouseEventHandler<HTMLUListElement> | undefined;
 };

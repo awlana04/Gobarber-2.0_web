@@ -46,10 +46,14 @@ export default function DashboardTemplate({
             <div className='bg-input invisible absolute z-100 mt-30 flex w-60 flex-col place-content-center content-center justify-center place-self-center rounded-2xl text-center group-hover:visible'>
               <div className='bg-input absolute -top-2 -z-100 h-10 w-10 rotate-45 place-self-center' />
               <li className='[&>ul]:hover:text-orange z-100 my-4 list-none space-y-2 text-lg'>
-                <ul onClick={async () => await props.setLanguage('pt-br')}>
+                <ul
+                // onClick={async () => await props.setLanguage('pt-br')}
+                >
                   Português do Brasil
                 </ul>
-                <ul onClick={async () => await props.setLanguage('en-us')}>
+                <ul
+                //  onClick={async () => await props.setLanguage('en-us')}
+                >
                   American English
                 </ul>
               </li>

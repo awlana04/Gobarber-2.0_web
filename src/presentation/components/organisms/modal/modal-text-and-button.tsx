@@ -1,0 +1,19 @@
+import { ModalPropsType } from '@/presentation/types/modal-props-type';
+
+type ModalTextPropsType = Pick<ModalPropsType, 'setIsModalOpen'>;
+
+export default function ModalTextAndButton(props: ModalTextPropsType) {
+  return (
+    <div className='mt-36 flex flex-row justify-center space-x-6'>
+      <button className='hover:bg-red h-14 w-20 rounded-2xl text-lg hover:cursor-pointer'>
+        Sim
+      </button>
+      <button
+        className='h-14 w-20 rounded-2xl text-lg hover:cursor-pointer hover:bg-black'
+        onClick={() => props.setIsModalOpen(false)}
+      >
+        Não
+      </button>
+    </div>
+  );
+}

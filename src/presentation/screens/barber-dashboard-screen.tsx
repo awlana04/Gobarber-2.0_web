@@ -1,5 +1,6 @@
 'use client';
 
+import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { FiCalendar } from 'react-icons/fi';
 import { format, parseISO, isAfter, isPast } from 'date-fns';
@@ -13,35 +14,28 @@ import DashboardTemplate from '@/templates/dashboard-template';
 import TextWithIcon from '@/atoms/text-with-icon';
 
 import { Row } from '@/molecules/row';
-import { useMemo, useState } from 'react';
+import { Modal } from '@/components/organisms/modal';
 
 type BarberDashboardScreenType = HeaderPropsType & {
   appointments: AppointmentDataType[];
 };
 
-type MonthAvailabilityItem = {
-  day: number;
-  available: boolean;
-};
-
 export default function BarberDashboardScreen(
   props: BarberDashboardScreenType
 ) {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
   const availableAppointments = props.appointments.filter((appointment) => {
     return !isPast(appointment.date);
   });
 
-  const selectedDateAsText = useMemo(() => {
-    return format(new Date(), "'Dia' dd 'de' MMMM", {
-      locale: ptBR,
-    });
-  }, []);
+  const selectedDateAsText = format(new Date(), "'Dia' dd 'de' MMMM", {
+    locale: ptBR,
+  });
 
-  const selectedWeekDay = useMemo(() => {
-    return format(new Date(), 'cccc', {
-      locale: ptBR,
-    });
-  }, []);
+  const selectedWeekDay = format(new Date(), 'cccc', {
+    locale: ptBR,
+  });
 
   const nextAppointment = useMemo(() => {
     return availableAppointments.find((appointment) => {
@@ -115,19 +109,28 @@ export default function BarberDashboardScreen(
             <div className='bg-button-text my-4 h-0.5 w-3xl rounded-full' />
 
             {morningAppointments.map((appointment) => (
-              <div
-                className='my-4 flex w-3xl flex-row place-content-between'
-                key={appointment.id}
-              >
-                <TextWithIcon
-                  icon={FiCalendar}
-                  color='orange-grey'
-                  text={format(parseISO(String(appointment.date)), 'HH:mm')}
-                />
-                <Row.RowRoot
-                  data={appointment.user}
-                  dataType='user'
-                  size='medium'
+              <div key={appointment.id}>
+                <div
+                  className='my-4 flex w-3xl flex-row place-content-between'
+                  onClick={() => setIsModalOpen(true)}
+                >
+                  <TextWithIcon
+                    icon={FiCalendar}
+                    color='orange-grey'
+                    text={format(parseISO(String(appointment.date)), 'HH:mm')}
+                  />
+                  <Row.RowRoot
+                    data={appointment.user}
+                    dataType='user'
+                    size='medium'
+                  />
+                </div>
+
+                <Modal.ModalRoot
+                  headerText='Cancelar agendamento?'
+                  isModalOpen={isModalOpen}
+                  setIsModalOpen={setIsModalOpen}
+                  Render={Modal.ModalTextAndButton}
                 />
               </div>
             ))}
@@ -142,6 +145,7 @@ export default function BarberDashboardScreen(
             {afternoonAppointments.map((appointment) => (
               <div
                 className='my-4 flex w-3xl flex-row place-content-between'
+                onClick={() => setIsModalOpen(true)}
                 key={appointment.id}
               >
                 <TextWithIcon
@@ -166,6 +170,7 @@ export default function BarberDashboardScreen(
 
             {eveningAppointments.map((appointment) => (
               <div
+                onClick={() => setIsModalOpen(true)}
                 className='my-4 flex w-3xl flex-row place-content-between'
                 key={appointment.id}
               >
@@ -183,55 +188,15 @@ export default function BarberDashboardScreen(
             ))}
           </section>
         )}
-
-        {/* <section className='my-12'>
-          <h6 className='text-grey text-xl'>Manhã</h6>
-          <div className='bg-button-text my-4 h-0.5 w-3xl rounded-full' />
-
-          {props.appointments.map((appointment) => (
-            <div
-              className='my-4 flex w-3xl flex-row place-content-between'
-              key={appointment.id}
-            >
-              <TextWithIcon
-                icon={FiCalendar}
-                color='orange-grey'
-                text={appointment.date}
-              />
-              <Row.RowRoot
-                data={appointment.user}
-                dataType='user'
-                size='medium'
-              />
-            </div>
-          ))} */}
-
-        {/* <div className='my-4 flex w-3xl flex-row place-content-between'>
-            <TextWithIcon icon={FiCalendar} color='orange-grey' text='08:30' />
-            <Row.RowRoot data={props.user} dataType='user' size='medium' />
-          </div>
-
-          <div className='flex w-3xl flex-row place-content-between'>
-            <TextWithIcon icon={FiCalendar} color='orange-grey' text='08:30' />
-            <Row.RowRoot data={props.user} dataType='user' size='medium' />
-          </div>
-        </section>
-
-        <section className='my-4'>
-          <h6 className='text-grey text-xl'>Tarde</h6>
-          <div className='bg-button-text my-4 h-0.5 w-3xl rounded-full' />
-
-          <div className='my-4 flex w-3xl flex-row place-content-between'>
-            <TextWithIcon icon={FiCalendar} color='orange-grey' text='08:30' />
-            <Row.RowRoot data={props.user} dataType='user' size='medium' />
-          </div>
-
-          <div className='mb-12 flex w-3xl flex-row place-content-between'>
-            <TextWithIcon icon={FiCalendar} color='orange-grey' text='08:30' />
-            <Row.RowRoot data={props.user} dataType='user' size='medium' />
-          </div> */}
-        {/* </section> */}
       </div>
+
+      {/* <Modal
+        data={props.user}
+        dataType='user'
+        headerText='Agendamento'
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+      /> */}
     </DashboardTemplate>
   );
 }

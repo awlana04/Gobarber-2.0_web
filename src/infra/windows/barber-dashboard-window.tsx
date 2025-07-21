@@ -38,7 +38,7 @@ export default function BarberDashboardWindow(
   return (
     <BarberDashboardScreen
       user={props.user}
-      setLanguage={setLanguage}
+      // setLanguage={setLanguage}
       logoutOnclick={async () => await Logout()}
       appointments={barberAppointments}
     />
