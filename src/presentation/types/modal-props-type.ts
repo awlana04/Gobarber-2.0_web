@@ -1,7 +1,7 @@
 import { UserDataType, BarberDataType } from '@/infra/types/data-type';
 
 export type ModalPropsType = {
-  dataType?: 'user' | 'barber';
+  dataType: 'user' | 'barber';
   data?: UserDataType[] | BarberDataType[] | UserDataType | BarberDataType;
   headerText: string;
   isModalOpen: boolean;

@@ -4,7 +4,7 @@ type ModalTextPropsType = Pick<ModalPropsType, 'setIsModalOpen'>;
 
 export default function ModalTextAndButton(props: ModalTextPropsType) {
   return (
-    <div className='mt-36 flex flex-row justify-center space-x-6'>
+    <div className='mt-36 flex scale-100 flex-row justify-center space-x-6'>
       <button className='hover:bg-red h-14 w-20 rounded-2xl text-lg hover:cursor-pointer'>
         Sim
       </button>

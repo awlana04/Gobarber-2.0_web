@@ -73,7 +73,10 @@ export default function BarberDashboardScreen(
       logoutOnclick={props.logoutOnclick}
       setLanguage={props.setLanguage}
     >
-      <div className='my-20 flex w-3xl flex-col content-center justify-center place-self-center'>
+      <div
+        data-modal={isModalOpen}
+        className='my-20 flex w-3xl flex-col content-center justify-center place-self-center data-[modal=true]:opacity-30'
+      >
         <section>
           <h1 className='text-4xl font-bold'>Horários agendados</h1>
           <p className='text-orange mt-4 mb-2 text-xl'>
@@ -125,13 +128,6 @@ export default function BarberDashboardScreen(
                     size='medium'
                   />
                 </div>
-
-                <Modal.ModalRoot
-                  headerText='Cancelar agendamento?'
-                  isModalOpen={isModalOpen}
-                  setIsModalOpen={setIsModalOpen}
-                  Render={Modal.ModalTextAndButton}
-                />
               </div>
             ))}
           </section>
@@ -190,13 +186,14 @@ export default function BarberDashboardScreen(
         )}
       </div>
 
-      {/* <Modal
-        data={props.user}
+      <Modal.ModalRoot
+        data={props.appointments}
         dataType='user'
-        headerText='Agendamento'
+        headerText='Cancelar agendamento?'
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
-      /> */}
+        Render={Modal.ModalTextAndButton}
+      />
     </DashboardTemplate>
   );
 }

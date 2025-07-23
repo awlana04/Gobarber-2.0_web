@@ -4,7 +4,7 @@ import { Row } from '@/molecules/row';
 
 export default function ModalRow(props: ModalPropsType) {
   return (
-    <>
+    <div className='mt-24 flex scale-100 flex-col items-center justify-center'>
       {Array.isArray(props.data) ? (
         props.data.map((data) => (
           <Row.RowRoot
@@ -18,7 +18,7 @@ export default function ModalRow(props: ModalPropsType) {
         ))
       ) : (
         <Row.RowRoot
-          key={props.data.id}
+          key={props.data!.id}
           isModal={true}
           data={props.data}
           Render={Row.RowHourAndDate}
@@ -26,6 +26,6 @@ export default function ModalRow(props: ModalPropsType) {
           size='large'
         />
       )}
-    </>
+    </div>
   );
 }

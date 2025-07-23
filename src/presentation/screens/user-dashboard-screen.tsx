@@ -1,6 +1,6 @@
 'use client';
 
-import { FiSearch, FiX } from 'react-icons/fi';
+import { FiSearch } from 'react-icons/fi';
 
 import { BarberDataType, UserDataType } from '@/infra/types/data-type';
 
@@ -11,6 +11,7 @@ import DashboardTemplate from '@/templates/dashboard-template';
 import Calendar from '@/atoms/calendar';
 
 import { Row } from '@/molecules/row';
+import { Modal } from '@/components/organisms/modal';
 
 import AvailableLanguagesType from '@/shared/types/available-languages-type';
 
@@ -31,8 +32,7 @@ type UserDashboardScreenType = {
 export default function UserDashboardScreen(props: UserDashboardScreenType) {
   return (
     <DashboardTemplate
-      src={props.user.avatar}
-      name={props.user.name}
+      user={props.user}
       logoutOnclick={props.logoutOnclick}
       setLanguage={props.setLanguage}
     >
@@ -97,34 +97,13 @@ export default function UserDashboardScreen(props: UserDashboardScreenType) {
         </aside>
       )}
 
-      {props.isModalOpen && (
-        <div className='bg-button-text fixed top-52 left-[50%] z-100 h-[748] max-h-screen w-[864] translate-x-[-50%] rounded-2xl'>
-          <div className='absolute top-0 left-0 h-full w-full overflow-auto p-8 px-12'>
-            <div className='mb-6 flex flex-row place-content-between items-center'>
-              <h2 className='text-orange text-3xl'>
-                {translate('Barbers closest to you')}
-              </h2>
-
-              <FiX
-                onClick={() => props.setIsModalOpen(false)}
-                className='text-input-text text-2xl hover:cursor-pointer hover:text-white'
-              />
-            </div>
-
-            {props.barbers !== undefined &&
-              props.sortedBarbers.map((barber) => (
-                <Row.RowRoot
-                  key={barber.id}
-                  isModal={true}
-                  data={barber}
-                  Render={Row.RowHourAndDate}
-                  dataType='barber'
-                  size='large'
-                />
-              ))}
-          </div>
-        </div>
-      )}
+      <Modal.ModalRoot
+        data={props.sortedBarbers}
+        headerText='Barbeiros mais próximos'
+        isModalOpen={props.isModalOpen}
+        setIsModalOpen={props.setIsModalOpen}
+        Render={Modal.ModalRow}
+      />
     </DashboardTemplate>
   );
 }
