@@ -5,8 +5,8 @@ import APIBaseInterface from '@/infra/interfaces/api-base-interface';
 import { GetAllBarbersDataType } from '@/infra/types/form-data-types';
 
 export default class GetAllBarbersHandler extends FormSubmitHandlerBase {
-  constructor(private readonly authenticateFormAPI: APIBaseInterface) {
-    super(authenticateFormAPI);
+  constructor(private readonly getAllBarbersAPI: APIBaseInterface) {
+    super(getAllBarbersAPI);
   }
 
   public async submitHandler({
@@ -14,11 +14,11 @@ export default class GetAllBarbersHandler extends FormSubmitHandlerBase {
     addToast,
   }: GetAllBarbersDataType): Promise<void> {
     process.env.NEXT_PUBLIC_ENV === 'dev'
-      ? await this.authenticateFormAPI
+      ? await this.getAllBarbersAPI
           .go(updateStatefulValue)
           .then(async (result) => {
             return result.barbers;
           })
-      : await this.authenticateFormAPI.fake(updateStatefulValue);
+      : await this.getAllBarbersAPI.fake(updateStatefulValue);
   }
 }

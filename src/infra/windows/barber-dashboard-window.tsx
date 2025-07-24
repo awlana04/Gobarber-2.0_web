@@ -7,7 +7,7 @@ import { AppointmentDataType, UserDataType } from '../types/data-type';
 import GetAllAppointmentsAPI from '@/api/get-all-appointments-api';
 import FetchAPIData from '@/adapters/implementations/fetch-api-data';
 
-import BarberDashboardScreen from '@/screens/barber-dashboard-screen';
+import BarberDashboardPage from '@/pages/barber-dashboard-page';
 
 import Logout from '@/infra/utils/logout';
 import setLanguage from '@/infra/utils/set-language';
@@ -54,7 +54,7 @@ export default function BarberDashboardWindow(
   }, []);
 
   return (
-    <BarberDashboardScreen
+    <BarberDashboardPage
       user={props.user}
       // setLanguage={setLanguage}
       logoutOnclick={async () => await Logout()}

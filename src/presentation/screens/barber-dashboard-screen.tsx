@@ -1,74 +1,38 @@
 'use client';
 
-import { useMemo, useState } from 'react';
 import Link from 'next/link';
-import { FiCalendar } from 'react-icons/fi';
-import { format, parseISO, isAfter, isPast } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
 
 import { HeaderPropsType } from '@/presentation/types/header-props-type';
+import { ModalPropsType } from '@/presentation/types/modal-props-type';
 import { AppointmentDataType } from '@/infra/types/data-type';
 
 import DashboardTemplate from '@/templates/dashboard-template';
 
-import TextWithIcon from '@/atoms/text-with-icon';
+import TodayTitle from '@/atoms/today-title';
 
-import { Row } from '@/molecules/row';
+import NextActiveAppointmentRow from '@/components/organisms/next-active-appointment-row';
+import AppointmentsByPeriodOfDayRow from '@/components/organisms/appointments-by-period-of-day-row';
 import { Modal } from '@/components/organisms/modal';
 
-type BarberDashboardScreenType = HeaderPropsType & {
-  appointments: AppointmentDataType[];
-  setAppointmentIDToDelete(id: string): void;
-  deleteAppointment(): void;
-};
+type ModalCorePropsType = Pick<
+  ModalPropsType,
+  'isModalOpen' | 'setIsModalOpen'
+>;
+
+type BarberDashboardScreenType = HeaderPropsType &
+  ModalCorePropsType & {
+    appointments: AppointmentDataType[];
+    nextAppointment: AppointmentDataType | undefined;
+    morningAppointments: AppointmentDataType[];
+    afternoonAppointments: AppointmentDataType[];
+    eveningAppointments: AppointmentDataType[];
+    setAppointmentIDToDelete(id: string): void;
+    deleteAppointment(): void;
+  };
 
 export default function BarberDashboardScreen(
   props: BarberDashboardScreenType
 ) {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
-  const availableAppointments = props.appointments.filter((appointment) => {
-    return !isPast(appointment.date);
-  });
-
-  const selectedDateAsText = format(new Date(), "'Dia' dd 'de' MMMM", {
-    locale: ptBR,
-  });
-
-  const selectedWeekDay = format(new Date(), 'cccc', {
-    locale: ptBR,
-  });
-
-  const nextAppointment = useMemo(() => {
-    return availableAppointments.find((appointment) => {
-      return isAfter(parseISO(String(appointment.date)), new Date());
-    });
-  }, [availableAppointments]);
-
-  const morningAppointments = useMemo(() => {
-    return availableAppointments.filter((appointment) => {
-      return parseISO(String(appointment.date)).getHours() < 12;
-    });
-  }, [availableAppointments]);
-
-  const afternoonAppointments = useMemo(() => {
-    return availableAppointments.filter((appointment) => {
-      return (
-        parseISO(String(appointment.date)).getHours() >= 12 &&
-        parseISO(String(appointment.date)).getHours() < 18
-      );
-    });
-  }, [availableAppointments]);
-
-  const eveningAppointments = useMemo(() => {
-    return availableAppointments.filter((appointment) => {
-      return (
-        parseISO(String(appointment.date)).getHours() >= 18 &&
-        parseISO(String(appointment.date)).getHours() <= 20
-      );
-    });
-  }, [availableAppointments]);
-
   return (
     <DashboardTemplate
       user={props.user}
@@ -76,14 +40,12 @@ export default function BarberDashboardScreen(
       setLanguage={props.setLanguage}
     >
       <div
-        data-modal={isModalOpen}
+        data-modal={props.isModalOpen}
         className='my-20 flex w-3xl flex-col content-center justify-center place-self-center data-[modal=true]:opacity-30'
       >
         <section>
-          <h1 className='text-4xl font-bold'>Horários agendados</h1>
-          <p className='text-orange mt-4 mb-2 text-xl'>
-            Hoje | {selectedDateAsText} | {selectedWeekDay}
-          </p>
+          <TodayTitle title='Horários agendados' />
+
           <Link
             href='./calendar'
             className='text-orange text-base hover:underline'
@@ -92,116 +54,42 @@ export default function BarberDashboardScreen(
           </Link>
         </section>
 
-        {nextAppointment && (
-          <section>
-            <h3 className='text-grey mt-12 mb-5 text-xl'>
-              Atendimento a seguir
-            </h3>
+        <NextActiveAppointmentRow
+          appointment={props.nextAppointment}
+          isBarber={true}
+        />
 
-            <Row.RowRoot
-              data={nextAppointment}
-              size='extra-large'
-              Render={Row.RowHourAndDate}
-              dataType='user'
-              hour={format(parseISO(String(nextAppointment.date)), 'HH:mm')}
-            />
-          </section>
-        )}
+        <AppointmentsByPeriodOfDayRow
+          appointments={props.morningAppointments}
+          period='morning'
+          deleteAppointment={props.deleteAppointment}
+          setAppointmentIDToDelete={props.setAppointmentIDToDelete}
+          setIsModalOpen={props.setIsModalOpen}
+        />
 
-        {morningAppointments.length >= 1 && (
-          <section className='my-4 mt-12'>
-            <h6 className='text-grey text-xl'>Manhã</h6>
-            <div className='bg-button-text my-4 h-0.5 w-3xl rounded-full' />
+        <AppointmentsByPeriodOfDayRow
+          appointments={props.afternoonAppointments}
+          period='afternoon'
+          deleteAppointment={props.deleteAppointment}
+          setAppointmentIDToDelete={props.setAppointmentIDToDelete}
+          setIsModalOpen={props.setIsModalOpen}
+        />
 
-            {morningAppointments.map((appointment) => (
-              <div
-                key={appointment.id}
-                className='my-4 flex w-3xl flex-row place-content-between'
-                onClick={() => {
-                  props.setAppointmentIDToDelete(appointment.id);
-                  setIsModalOpen(true);
-                }}
-              >
-                <TextWithIcon
-                  icon={FiCalendar}
-                  color='orange-grey'
-                  text={format(parseISO(String(appointment.date)), 'HH:mm')}
-                />
-                <Row.RowRoot
-                  data={appointment.user}
-                  dataType='user'
-                  size='medium'
-                />
-              </div>
-            ))}
-          </section>
-        )}
-
-        {afternoonAppointments.length >= 1 && (
-          <section className='my-4'>
-            <h6 className='text-grey text-xl'>Tarde</h6>
-            <div className='bg-button-text my-4 h-0.5 w-3xl rounded-full' />
-
-            {afternoonAppointments.map((appointment) => (
-              <div
-                className='my-4 flex w-3xl flex-row place-content-between'
-                onClick={() => {
-                  props.setAppointmentIDToDelete(appointment.id);
-                  setIsModalOpen(true);
-                }}
-                key={appointment.id}
-              >
-                <TextWithIcon
-                  icon={FiCalendar}
-                  color='orange-grey'
-                  text={format(parseISO(String(appointment.date)), 'HH:mm')}
-                />
-                <Row.RowRoot
-                  data={appointment.user}
-                  dataType='user'
-                  size='medium'
-                />
-              </div>
-            ))}
-          </section>
-        )}
-
-        {eveningAppointments.length >= 1 && (
-          <section className='my-4'>
-            <h6 className='text-grey text-xl'>Noite</h6>
-            <div className='bg-button-text my-4 h-0.5 w-3xl rounded-full' />
-
-            {eveningAppointments.map((appointment) => (
-              <div
-                onClick={() => {
-                  props.setAppointmentIDToDelete(appointment.id);
-                  setIsModalOpen(true);
-                }}
-                className='my-4 flex w-3xl flex-row place-content-between'
-                key={appointment.id}
-              >
-                <TextWithIcon
-                  icon={FiCalendar}
-                  color='orange-grey'
-                  text={format(parseISO(String(appointment.date)), 'HH:mm')}
-                />
-                <Row.RowRoot
-                  data={appointment.user}
-                  dataType='user'
-                  size='medium'
-                />
-              </div>
-            ))}
-          </section>
-        )}
+        <AppointmentsByPeriodOfDayRow
+          appointments={props.eveningAppointments}
+          period='evening'
+          deleteAppointment={props.deleteAppointment}
+          setAppointmentIDToDelete={props.setAppointmentIDToDelete}
+          setIsModalOpen={props.setIsModalOpen}
+        />
       </div>
 
       <Modal.ModalRoot
         data={props.appointments}
         dataType='user'
         headerText='Cancelar agendamento?'
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
+        isModalOpen={props.isModalOpen}
+        setIsModalOpen={props.setIsModalOpen}
         Render={Modal.ModalTextAndButton}
         deleteAppointment={props.deleteAppointment}
       />
