@@ -18,6 +18,7 @@ import { Modal } from '@/components/organisms/modal';
 
 type BarberDashboardScreenType = HeaderPropsType & {
   appointments: AppointmentDataType[];
+  deleteAppointment(id: string): void;
 };
 
 export default function BarberDashboardScreen(
@@ -116,6 +117,7 @@ export default function BarberDashboardScreen(
                 <div
                   className='my-4 flex w-3xl flex-row place-content-between'
                   onClick={() => setIsModalOpen(true)}
+                  // onClick={() => props.deleteAppointment(appointment.id)}
                 >
                   <TextWithIcon
                     icon={FiCalendar}

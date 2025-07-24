@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { AppointmentDataType, UserDataType } from '../types/data-type';
 
@@ -11,6 +11,7 @@ import BarberDashboardScreen from '@/screens/barber-dashboard-screen';
 
 import Logout from '@/infra/utils/logout';
 import setLanguage from '@/infra/utils/set-language';
+import DeleteAppointmentAPI from '../api/delete-appointment-api';
 
 type BarberDashboardWindowType = {
   user: UserDataType;
@@ -22,6 +23,9 @@ export default function BarberDashboardWindow(
   const [barberAppointments, setBarberAppointments] = useState<
     AppointmentDataType[]
   >([]);
+  const [appointmentID, setAppointmentID] = useState<string | undefined>(
+    undefined
+  );
 
   const appointments = new GetAllAppointmentsAPI(new FetchAPIData());
 
@@ -31,9 +35,26 @@ export default function BarberDashboardWindow(
     });
   };
 
+  const deleteAppointment = new DeleteAppointmentAPI(new FetchAPIData());
+
+  const sortedAppointments = async () => {
+    if (appointmentID)
+      await deleteAppointment.fake(appointmentID).then(async (result) => {
+        setBarberAppointments(
+          barberAppointments.filter(
+            (appointment) => appointment.id !== appointmentID
+          )
+        );
+      });
+  };
+
   useEffect(() => {
     submitHandler();
   }, []);
+
+  useEffect(() => {
+    sortedAppointments();
+  }, [appointmentID, sortedAppointments]);
 
   return (
     <BarberDashboardScreen
@@ -41,6 +62,7 @@ export default function BarberDashboardWindow(
       // setLanguage={setLanguage}
       logoutOnclick={async () => await Logout()}
       appointments={barberAppointments}
+      deleteAppointment={setAppointmentID}
     />
   );
 }
