@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { AppointmentDataType, UserDataType } from '../types/data-type';
 
@@ -38,7 +38,7 @@ export default function BarberDashboardWindow(
   const deleteAppointment = new DeleteAppointmentAPI(new FetchAPIData());
 
   const sortedAppointments = async () => {
-    if (appointmentID)
+    if (appointmentID) {
       await deleteAppointment.fake(appointmentID).then(async (result) => {
         setBarberAppointments(
           barberAppointments.filter(
@@ -46,15 +46,12 @@ export default function BarberDashboardWindow(
           )
         );
       });
+    }
   };
 
   useEffect(() => {
     submitHandler();
   }, []);
-
-  useEffect(() => {
-    sortedAppointments();
-  }, [appointmentID, sortedAppointments]);
 
   return (
     <BarberDashboardScreen
@@ -62,7 +59,8 @@ export default function BarberDashboardWindow(
       // setLanguage={setLanguage}
       logoutOnclick={async () => await Logout()}
       appointments={barberAppointments}
-      deleteAppointment={setAppointmentID}
+      deleteAppointment={sortedAppointments}
+      setAppointmentIDToDelete={setAppointmentID}
     />
   );
 }

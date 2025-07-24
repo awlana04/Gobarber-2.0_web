@@ -18,7 +18,8 @@ import { Modal } from '@/components/organisms/modal';
 
 type BarberDashboardScreenType = HeaderPropsType & {
   appointments: AppointmentDataType[];
-  deleteAppointment(id: string): void;
+  setAppointmentIDToDelete(id: string): void;
+  deleteAppointment(): void;
 };
 
 export default function BarberDashboardScreen(
@@ -107,35 +108,36 @@ export default function BarberDashboardScreen(
           </section>
         )}
 
-        {morningAppointments && (
-          <section className='my-12'>
+        {morningAppointments.length >= 1 && (
+          <section className='my-4 mt-12'>
             <h6 className='text-grey text-xl'>Manhã</h6>
             <div className='bg-button-text my-4 h-0.5 w-3xl rounded-full' />
 
             {morningAppointments.map((appointment) => (
-              <div key={appointment.id}>
-                <div
-                  className='my-4 flex w-3xl flex-row place-content-between'
-                  onClick={() => setIsModalOpen(true)}
-                  // onClick={() => props.deleteAppointment(appointment.id)}
-                >
-                  <TextWithIcon
-                    icon={FiCalendar}
-                    color='orange-grey'
-                    text={format(parseISO(String(appointment.date)), 'HH:mm')}
-                  />
-                  <Row.RowRoot
-                    data={appointment.user}
-                    dataType='user'
-                    size='medium'
-                  />
-                </div>
+              <div
+                key={appointment.id}
+                className='my-4 flex w-3xl flex-row place-content-between'
+                onClick={() => {
+                  props.setAppointmentIDToDelete(appointment.id);
+                  setIsModalOpen(true);
+                }}
+              >
+                <TextWithIcon
+                  icon={FiCalendar}
+                  color='orange-grey'
+                  text={format(parseISO(String(appointment.date)), 'HH:mm')}
+                />
+                <Row.RowRoot
+                  data={appointment.user}
+                  dataType='user'
+                  size='medium'
+                />
               </div>
             ))}
           </section>
         )}
 
-        {afternoonAppointments && (
+        {afternoonAppointments.length >= 1 && (
           <section className='my-4'>
             <h6 className='text-grey text-xl'>Tarde</h6>
             <div className='bg-button-text my-4 h-0.5 w-3xl rounded-full' />
@@ -143,7 +145,10 @@ export default function BarberDashboardScreen(
             {afternoonAppointments.map((appointment) => (
               <div
                 className='my-4 flex w-3xl flex-row place-content-between'
-                onClick={() => setIsModalOpen(true)}
+                onClick={() => {
+                  props.setAppointmentIDToDelete(appointment.id);
+                  setIsModalOpen(true);
+                }}
                 key={appointment.id}
               >
                 <TextWithIcon
@@ -161,14 +166,17 @@ export default function BarberDashboardScreen(
           </section>
         )}
 
-        {eveningAppointments && (
+        {eveningAppointments.length >= 1 && (
           <section className='my-4'>
             <h6 className='text-grey text-xl'>Noite</h6>
             <div className='bg-button-text my-4 h-0.5 w-3xl rounded-full' />
 
             {eveningAppointments.map((appointment) => (
               <div
-                onClick={() => setIsModalOpen(true)}
+                onClick={() => {
+                  props.setAppointmentIDToDelete(appointment.id);
+                  setIsModalOpen(true);
+                }}
                 className='my-4 flex w-3xl flex-row place-content-between'
                 key={appointment.id}
               >
@@ -195,6 +203,7 @@ export default function BarberDashboardScreen(
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
         Render={Modal.ModalTextAndButton}
+        deleteAppointment={props.deleteAppointment}
       />
     </DashboardTemplate>
   );

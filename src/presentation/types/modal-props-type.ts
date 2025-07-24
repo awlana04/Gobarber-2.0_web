@@ -6,5 +6,5 @@ export type ModalPropsType = {
   headerText: string;
   isModalOpen: boolean;
   setIsModalOpen(value: boolean): void;
-  deleteAppointment?(id: string): void;
+  deleteAppointment?(): void;
 };
