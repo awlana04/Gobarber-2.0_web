@@ -19,6 +19,7 @@
     "test:coverage": "jest --coverage"
   },
   "dependencies": {
+    "@date-fns/utc": "^2.1.0",
     "@react-email/components": "^0.0.36",
     "@react-email/render": "1.0.5",
     "@vercel/functions": "^2.1.0",

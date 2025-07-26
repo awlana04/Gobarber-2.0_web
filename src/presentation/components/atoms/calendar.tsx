@@ -1,11 +1,18 @@
 import { ButtonHTMLAttributes, useState } from 'react';
 import { ptBR } from 'date-fns/locale';
+import { UTCDate } from '@date-fns/utc';
 import {
   useDayPicker,
   getDefaultClassNames,
   DayPicker,
 } from 'react-day-picker';
 import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
+import { format, isToday, transpose } from 'date-fns';
+import { AppointmentDataType } from '@/infra/types/data-type';
+
+type CalendarPropsType = {
+  appointments?: AppointmentDataType[];
+};
 
 function NextMonthCalendarButton(
   props: ButtonHTMLAttributes<HTMLButtonElement>
@@ -56,37 +63,62 @@ function PreviousMonthCalendarButton(
   );
 }
 
-export default function Calendar() {
+export default function Calendar(props: CalendarPropsType) {
   const [selectedDate, setSelectedDate] = useState<Date>();
+
+  const handleDayClick = (day: Date | undefined) => {
+    setSelectedDate(day);
+  };
 
   const defaultClassNames = getDefaultClassNames();
 
+  const today = new Date();
+
+  const daysAlreadyBooked = props.appointments!.map(
+    (appointment) => new UTCDate(appointment.date)
+  );
+
   return (
     <DayPicker
+      onSelect={handleDayClick}
+      selected={selectedDate}
       components={{
         NextMonthButton: NextMonthCalendarButton,
         PreviousMonthButton: PreviousMonthCalendarButton,
+        DayButton: (props) => {
+          const { day, ...buttonProps } = props;
+
+          return (
+            <button
+              {...buttonProps}
+              data-disabled={buttonProps.disabled}
+              data-today={isToday(selectedDate!)}
+              className='rounded-2xl data-[disabled]:h-11 data-[disabled]:w-11 data-[disabled=true]:bg-black data-[disabled=true]:opacity-100'
+            />
+          );
+        },
       }}
       locale={ptBR}
       startMonth={new Date()}
-      // modifiers={{
-      //   available: { dayOfWeek: [1, 2, 3, 4, 5] },
-      // }}
+      disabled={[{ dayOfWeek: [0, 6] }, { before: today }]}
+      modifiers={{
+        booked: [...daysAlreadyBooked],
+      }}
       mode='single'
-      selected={selectedDate}
-      onSelect={setSelectedDate}
+      modifiersClassNames={{
+        booked: 'bg-input rounded-2xl hover:cursor-pointer',
+      }}
       classNames={{
         chevron: 'fill-grey',
-        today: 'text-white rounded-2xl hover:cursor-pointer',
-        root: `${defaultClassNames.root} text-input-text place-items-center bg-black flex justify-center rounded-2xl w-[350] items-center text-center place-self-center`,
+        today: 'text-orange rounded-2xl hover:cursor-pointer bg-black',
+        root: `${defaultClassNames.root} text-input-text place-items-center bg-black flex justify-center rounded-2xl w-[412] items-center text-center place-self-center`,
         month_caption:
-          'text-center -my-1 text-sm text-white bg-button-text w-[350] place-self-center items-center h-[50] self-center justify-center justify-self-center object-center place-content-center rounded-tl-2xl content-center rounded-tr-2xl',
+          'text-center  text-sm text-white bg-button-text w-[412] items-center h-14 justify-center rounded-tl-2xl content-center rounded-tr-2xl',
         month_grid: 'm-4 place-self-center',
         selected: 'bg-orange rounded-2xl text-input',
-        // day_button: 'bg-orange',
         weekdays: 'h-14',
         week_number: 'text-orange',
-        day: `${defaultClassNames.day} hover:cursor-pointer`,
+        // day: `${defaultClassNames.day} hover:cursor-pointer `,
         week_number_header: 'text-orange',
       }}
     />

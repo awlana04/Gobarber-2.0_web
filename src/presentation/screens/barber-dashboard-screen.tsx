@@ -34,11 +34,7 @@ export default function BarberDashboardScreen(
   props: BarberDashboardScreenType
 ) {
   return (
-    <DashboardTemplate
-      user={props.user}
-      logoutOnclick={props.logoutOnclick}
-      setLanguage={props.setLanguage}
-    >
+    <DashboardTemplate {...props}>
       <div
         data-modal={props.isModalOpen}
         className='my-20 flex w-3xl flex-col content-center justify-center place-self-center data-[modal=true]:opacity-30'
