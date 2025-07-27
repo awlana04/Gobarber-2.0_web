@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, useState } from 'react';
+import { ButtonHTMLAttributes } from 'react';
 import { ptBR } from 'date-fns/locale';
 import { UTCDate } from '@date-fns/utc';
 import {
@@ -7,11 +7,14 @@ import {
   DayPicker,
 } from 'react-day-picker';
 import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
-import { format, isToday, transpose } from 'date-fns';
+import { isToday } from 'date-fns';
 import { AppointmentDataType } from '@/infra/types/data-type';
 
 type CalendarPropsType = {
   appointments?: AppointmentDataType[];
+  selectedDate?: Date;
+  setSelectedDate?(value?: Date): void;
+  handleDayClick?(day?: Date): void;
 };
 
 function NextMonthCalendarButton(
@@ -64,12 +67,6 @@ function PreviousMonthCalendarButton(
 }
 
 export default function Calendar(props: CalendarPropsType) {
-  const [selectedDate, setSelectedDate] = useState<Date>();
-
-  const handleDayClick = (day: Date | undefined) => {
-    setSelectedDate(day);
-  };
-
   const defaultClassNames = getDefaultClassNames();
 
   const today = new Date();
@@ -80,19 +77,19 @@ export default function Calendar(props: CalendarPropsType) {
 
   return (
     <DayPicker
-      onSelect={handleDayClick}
-      selected={selectedDate}
+      onSelect={props.handleDayClick}
+      selected={props.selectedDate}
       components={{
         NextMonthButton: NextMonthCalendarButton,
         PreviousMonthButton: PreviousMonthCalendarButton,
-        DayButton: (props) => {
-          const { day, ...buttonProps } = props;
+        DayButton: (dayButtonProps) => {
+          const { day, ...buttonProps } = dayButtonProps;
 
           return (
             <button
               {...buttonProps}
               data-disabled={buttonProps.disabled}
-              data-today={isToday(selectedDate!)}
+              data-today={isToday(props.selectedDate!)}
               className='rounded-2xl data-[disabled]:h-11 data-[disabled]:w-11 data-[disabled=true]:bg-black data-[disabled=true]:opacity-100'
             />
           );
@@ -102,7 +99,7 @@ export default function Calendar(props: CalendarPropsType) {
       startMonth={new Date()}
       disabled={[{ dayOfWeek: [0, 6] }, { before: today }]}
       modifiers={{
-        booked: [...daysAlreadyBooked],
+        booked: props.appointments && [...daysAlreadyBooked],
       }}
       mode='single'
       modifiersClassNames={{
