@@ -34,7 +34,7 @@ function NextMonthCalendarButton(
 
   return (
     <button onClick={() => changeToNextMonth(new Date())}>
-      <FiArrowRight className='absolute top-3.5 right-8 text-lg hover:cursor-pointer hover:text-white' />
+      <FiArrowRight className='absolute top-5 right-8 text-lg hover:cursor-pointer hover:text-white' />
     </button>
   );
 }
@@ -60,7 +60,7 @@ function PreviousMonthCalendarButton(
     <button onClick={() => changeToPreviousMonth(new Date())}>
       <FiArrowLeft
         data-month={previousMonth === undefined}
-        className='absolute top-3.5 -left-80 text-lg data-[month=false]:hover:cursor-pointer data-[month=false]:hover:text-white data-[month=true]:opacity-0'
+        className='absolute top-5 -left-80 text-lg data-[month=false]:hover:cursor-pointer data-[month=false]:hover:text-white data-[month=true]:opacity-0'
       />
     </button>
   );
@@ -108,15 +108,11 @@ export default function Calendar(props: CalendarPropsType) {
       classNames={{
         chevron: 'fill-grey',
         today: 'text-orange rounded-2xl hover:cursor-pointer bg-black',
-        root: `${defaultClassNames.root} text-input-text place-items-center bg-black flex justify-center rounded-2xl w-[412] items-center text-center place-self-center`,
+        root: `${defaultClassNames.root} text-input-text place-items-center bg-black flex justify-center rounded-2xl w-[350] items-center text-center place-self-center`,
         month_caption:
-          'text-center  text-sm text-white bg-button-text w-[412] items-center h-14 justify-center rounded-tl-2xl content-center rounded-tr-2xl',
+          'text-center  text-sm text-white bg-button-text w-[350] items-center h-14 justify-center rounded-tl-2xl content-center rounded-tr-2xl',
         month_grid: 'm-4 place-self-center',
         selected: 'bg-orange rounded-2xl text-input',
-        weekdays: 'h-14',
-        week_number: 'text-orange',
-        // day: `${defaultClassNames.day} hover:cursor-pointer `,
-        week_number_header: 'text-orange',
       }}
     />
   );

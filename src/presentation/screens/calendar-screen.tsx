@@ -14,6 +14,8 @@ import { format, isSameDay } from 'date-fns';
 
 type CalendarScreenPropsType = HeaderPropsType & {
   appointments: AppointmentDataType[];
+  selectedDate?: Date;
+  setSelectedDate?(value?: Date): void;
 };
 // & ModalPropsType;
 
@@ -28,16 +30,16 @@ export default function CalendarScreen(props: CalendarScreenPropsType) {
 
   return (
     <DashboardTemplate {...props}>
-      <section className='my-4 mt-20 flex flex-col items-center justify-center'>
+      <section className='my-4 mt-20 mb-10 flex flex-col items-center justify-center'>
         <TodayTitle title='Agendamentos por data' />
-
-        <Calendar
-          appointments={props.appointments}
-          selectedDate={selectedDate}
-          setSelectedDate={setSelectedDate}
-          handleDayClick={handleDayClick}
-        />
       </section>
+
+      <Calendar
+        appointments={props.appointments}
+        selectedDate={selectedDate}
+        setSelectedDate={setSelectedDate}
+        handleDayClick={handleDayClick}
+      />
 
       <Modal.ModalRoot
         dataType='user'
