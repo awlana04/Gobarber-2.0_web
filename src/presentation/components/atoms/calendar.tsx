@@ -8,14 +8,8 @@ import {
 } from 'react-day-picker';
 import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 import { isToday } from 'date-fns';
-import { AppointmentDataType } from '@/infra/types/data-type';
 
-type CalendarPropsType = {
-  appointments?: AppointmentDataType[];
-  selectedDate?: Date;
-  setSelectedDate?(value?: Date): void;
-  handleDayClick?(day?: Date): void;
-};
+import { CalendarPropsType } from '@/presentation/types/calendar-props-type';
 
 function NextMonthCalendarButton(
   props: ButtonHTMLAttributes<HTMLButtonElement>
@@ -97,7 +91,10 @@ export default function Calendar(props: CalendarPropsType) {
       }}
       locale={ptBR}
       startMonth={new Date()}
-      disabled={[{ dayOfWeek: [0, 6] }, { before: today }]}
+      disabled={[
+        { dayOfWeek: props.barber?.openOnWeekends ? 0 : [0, 6] },
+        { before: today },
+      ]}
       modifiers={{
         booked: props.appointments && [...daysAlreadyBooked],
       }}

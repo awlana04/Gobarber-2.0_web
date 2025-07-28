@@ -35,6 +35,7 @@ export default function UserDashboardScreen(props: UserDashboardScreenType) {
       user={props.user}
       logoutOnclick={props.logoutOnclick}
       setLanguage={props.setLanguage}
+      headerType='dashboard'
     >
       <section
         data-modal={props.isModalOpen}

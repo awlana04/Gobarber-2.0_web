@@ -3,7 +3,7 @@
 import Link from 'next/link';
 
 import { HeaderPropsType } from '@/presentation/types/header-props-type';
-import { ModalPropsType } from '@/presentation/types/modal-props-type';
+import { ModalIsAndSetModalPropsType } from '@/presentation/types/modal-props-type';
 import { AppointmentDataType } from '@/infra/types/data-type';
 
 import DashboardTemplate from '@/templates/dashboard-template';
@@ -14,13 +14,8 @@ import NextActiveAppointmentRow from '@/components/organisms/next-active-appoint
 import AppointmentsByPeriodOfDayRow from '@/components/organisms/appointments-by-period-of-day-row';
 import { Modal } from '@/components/organisms/modal';
 
-type ModalCorePropsType = Pick<
-  ModalPropsType,
-  'isModalOpen' | 'setIsModalOpen'
->;
-
 type BarberDashboardScreenType = HeaderPropsType &
-  ModalCorePropsType & {
+  ModalIsAndSetModalPropsType & {
     appointments: AppointmentDataType[];
     nextAppointment: AppointmentDataType | undefined;
     morningAppointments: AppointmentDataType[];
@@ -34,7 +29,7 @@ export default function BarberDashboardScreen(
   props: BarberDashboardScreenType
 ) {
   return (
-    <DashboardTemplate {...props}>
+    <DashboardTemplate {...props} headerType='dashboard'>
       <div
         data-modal={props.isModalOpen}
         className='my-20 flex w-3xl flex-col content-center justify-center place-self-center data-[modal=true]:opacity-30'

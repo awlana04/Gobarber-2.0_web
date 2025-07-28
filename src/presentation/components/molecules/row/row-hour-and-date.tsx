@@ -5,6 +5,7 @@ import { RowPropsType } from '@/presentation/types/row-props-type';
 import TextWithIcon from '@/atoms/text-with-icon';
 
 import translate from '@/shared/utils/translate';
+import { format } from 'date-fns';
 
 export default function RowHourAndDate(props: RowPropsType) {
   return (
@@ -58,7 +59,11 @@ export default function RowHourAndDate(props: RowPropsType) {
           )
         ) : (
           props.hour && (
-            <TextWithIcon icon={FiClock} color='grey' text={props.hour!} />
+            <TextWithIcon
+              icon={FiClock}
+              color='grey'
+              text={format(props.hour, 'HH:mm')!}
+            />
           )
         )}
       </div>

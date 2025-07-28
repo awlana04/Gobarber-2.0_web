@@ -8,3 +8,8 @@ export type ModalPropsType = {
   setIsModalOpen(value: boolean): void;
   deleteAppointment?(): void;
 };
+
+export type ModalIsAndSetModalPropsType = Pick<
+  ModalPropsType,
+  'isModalOpen' | 'setIsModalOpen'
+>;

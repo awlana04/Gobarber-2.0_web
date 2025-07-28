@@ -1,14 +1,22 @@
 'use client';
 
-import CalendarScreen from '@/presentation/screens/calendar-screen';
-import { AppointmentDataType, UserDataType } from '../types/data-type';
-import Logout from '../utils/logout';
 import { useState, useEffect } from 'react';
+
+import {
+  AppointmentDataType,
+  BarberDataType,
+  UserDataType,
+} from '@/infra/types/data-type';
+
+import Logout from '../utils/logout';
 import FetchAPIData from '../adapters/implementations/fetch-api-data';
 import GetAllAppointmentsAPI from '../api/get-all-appointments-api';
 
+import CalendarPage from '@/core/pages/calendar-page';
+
 type CalendarWindowPropsType = {
   user: UserDataType;
+  barber: BarberDataType;
 };
 
 export default function CalendarWindow(props: CalendarWindowPropsType) {
@@ -29,10 +37,10 @@ export default function CalendarWindow(props: CalendarWindowPropsType) {
   }, []);
 
   return (
-    <CalendarScreen
-      user={props.user}
+    <CalendarPage
       logoutOnclick={async () => await Logout()}
       appointments={barberAppointments}
+      {...props}
     />
   );
 }

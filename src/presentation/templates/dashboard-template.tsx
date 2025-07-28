@@ -8,6 +8,7 @@ import AvatarImage from '@/atoms/avatar-image';
 import translate from '@/shared/utils/translate';
 
 import GoBarberLogo from '@/public/gobarber_logo001.svg';
+import Link from 'next/link';
 
 type DashboardTemplateType = HeaderPropsType & {
   children: React.ReactNode;
@@ -21,7 +22,9 @@ export default function DashboardTemplate({
     <main>
       <header className='flex h-40 flex-row place-content-between justify-between bg-black px-20'>
         <div className='flex flex-row space-x-14'>
-          <Image src={GoBarberLogo} alt={translate('Barber shop image')} />
+          {props.headerType === 'dashboard' && (
+            <Image src={GoBarberLogo} alt={translate('Barber shop image')} />
+          )}
 
           <div className='flex flex-row items-center space-x-4'>
             <div className='px-4'>
@@ -29,13 +32,17 @@ export default function DashboardTemplate({
               <div />
             </div>
 
-            <div>
-              <p className='text-grey text-xl'>
-                {translate('Welcome')},
-                <br />
-              </p>
-              <span className='text-orange text-xl'>{props.user.name}</span>
-            </div>
+            {props.headerType === 'dashboard' && (
+              <div>
+                <p className='text-grey text-xl'>
+                  {translate('Welcome')},
+                  <br />
+                </p>
+                <span className='text-orange text-xl hover:cursor-pointer hover:underline'>
+                  <Link href='./profile'>{props.user.name}</Link>
+                </span>
+              </div>
+            )}
           </div>
         </div>
 

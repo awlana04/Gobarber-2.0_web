@@ -27,7 +27,7 @@ export default function NextActiveAppointmentRow(
             size='extra-large'
             Render={Row.RowHourAndDate}
             dataType='user'
-            hour={format(parseISO(String(props.appointment.date)), 'HH:mm')}
+            hour={props.appointment.date}
           />
         </section>
       )}

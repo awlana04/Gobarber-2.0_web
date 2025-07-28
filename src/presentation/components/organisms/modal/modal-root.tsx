@@ -3,11 +3,13 @@ import { FiX } from 'react-icons/fi';
 import { ModalPropsType } from '@/presentation/types/modal-props-type';
 
 type ModalRootPropsType<T extends ModalPropsType> = T & {
-  Render: React.ComponentType<T>;
+  Render?: React.ComponentType<T>;
+  children?: React.ReactNode;
 };
 
 export default function ModalRoot({
   Render,
+  children,
   ...props
 }: ModalRootPropsType<ModalPropsType>) {
   return (
@@ -29,6 +31,7 @@ export default function ModalRoot({
           </div>
 
           {Render && <Render {...props} />}
+          {children && children}
         </div>
       )}
     </>

@@ -6,6 +6,6 @@ export type RowPropsType = {
   size: 'small' | 'medium' | 'large' | 'extra-large';
   data: BarberDataType & UserDataType;
   dataType: 'user' | 'barber';
-  date?: number;
-  hour?: number;
+  date?: number | Date;
+  hour?: number | Date;
 };
