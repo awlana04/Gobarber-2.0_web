@@ -1,7 +1,7 @@
 import translate from '@/shared/utils/translate';
 
 type TextWithIconPropsType = {
-  text: string | number | Date;
+  text: string | number;
   color: 'orange' | 'white' | 'grey' | 'orange-grey';
   icon: React.ElementType;
 };

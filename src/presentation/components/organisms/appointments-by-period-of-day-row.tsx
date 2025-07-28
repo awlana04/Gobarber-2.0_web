@@ -34,8 +34,10 @@ export default function AppointmentsByPeriodOfDayRow(
               props.dateText}
           </h6>
           <div
-            data-color={props.rowDirection === 'left'}
-            className='data-[color===true]:bg-button-text bg-grey my-4 h-0.5 w-3xl rounded-full'
+            data-color={
+              props.rowDirection === 'left' || props.rowDirection === undefined
+            }
+            className='data-[color=true]:bg-button-text bg-grey my-4 h-0.5 w-3xl rounded-full'
           />
 
           {props.appointments.map((appointment) => (
@@ -44,15 +46,15 @@ export default function AppointmentsByPeriodOfDayRow(
               className='my-4 flex w-3xl flex-row place-content-between'
               onClick={() => {
                 {
-                  props.setAppointmentIDToDelete &&
-                    props.deleteAppointment &&
-                    props.setAppointmentIDToDelete!(appointment.id) &&
+                  if (props.setAppointmentIDToDelete) {
+                    props.setAppointmentIDToDelete!(appointment.id);
                     props.setIsModalOpen!(true);
+                  }
                 }
               }}
             >
               {!props.rowDirection || props.rowDirection === 'left' ? (
-                <div>
+                <div className='flex w-3xl flex-row justify-between'>
                   <TextWithIcon
                     icon={FiCalendar}
                     color='orange-grey'
