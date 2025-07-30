@@ -5,6 +5,7 @@ import { HeaderPropsType } from '@/presentation/types/header-props-type';
 import DashboardTemplate from '@/templates/dashboard-template';
 
 import Button from '@/atoms/button';
+import Link from 'next/link';
 
 type BarberProfileScreenPropsType = HeaderPropsType;
 
@@ -21,8 +22,16 @@ export default function BarberProfileScreen(
         <Button type='button' color='black'>
           Atualizar perfil
         </Button>
+        <Link href={`./profile/update-barber/${props.user.id}`}>
+          <Button type='button' color='black'>
+            Atualizar perfil de barbeiro
+          </Button>
+        </Link>
         <Button type='button' color='black'>
           Ver agendamentos
+        </Button>
+        <Button type='button' color='black'>
+          Ver perfil
         </Button>
 
         <footer className='mt-[65%]'>

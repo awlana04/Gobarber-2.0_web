@@ -20,7 +20,7 @@ export default function FormImagesInput(props: FormImagesInputProps) {
         className='file hidden'
       />
 
-      {props.file && props.fileUrl && (
+      {props.fileUrl && (
         <div className='flex h-fit w-96 flex-wrap gap-4'>
           {props.fileUrl.map((image: any) => {
             return (
@@ -53,7 +53,11 @@ export default function FormImagesInput(props: FormImagesInputProps) {
 
                 <Image
                   key={image}
-                  src={image}
+                  src={
+                    props.file !== undefined
+                      ? image
+                      : `${process.env.NEXT_PUBLIC_BACKEND_URI}/files/${image}`
+                  }
                   alt={image}
                   width={112}
                   height={112}
