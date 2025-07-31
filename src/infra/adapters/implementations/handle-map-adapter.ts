@@ -31,7 +31,11 @@ export default class HandleMapAdapter implements HandleMapAdapterModel {
     });
   }
 
-  addMapPinMarker(mapListener: Map, setPinLocation: any): void {
+  addMapPinMarker(
+    mapListener: Map,
+    setPinLocation: any,
+    defaultLocation?: any
+  ): void {
     const layer = new Vector({
       source: new SourceVector(),
       style: new Style({
@@ -47,7 +51,18 @@ export default class HandleMapAdapter implements HandleMapAdapterModel {
 
     mapListener.addLayer(layer);
 
+    if (defaultLocation) {
+      const marker = new Feature(
+        new Point(transform(defaultLocation, 'EPSG:4326', 'EPSG:3857'))
+      );
+
+      layer.getSource()?.clear();
+      layer.getSource()?.addFeature(marker);
+    }
+
     mapListener.on('click', (event) => {
+      console.log(event.coordinate);
+
       const marker = new Feature(
         new Point(transform(event.coordinate, 'EPSG:3857', 'EPSG:4326'))
       );

@@ -53,7 +53,7 @@ export default function UpdateBarberPage(props: UpdateBarberPagePropsType) {
       }
       handleDescriptionFilled={handleFieldFilled}
       isButtonDisabled={
-        !!(fieldFilled.length !== 2 && fieldErrored !== undefined)
+        !!(fieldFilled.length !== 1 && fieldErrored !== undefined)
       }
       {...props}
     />

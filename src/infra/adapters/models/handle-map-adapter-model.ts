@@ -6,7 +6,11 @@ export default interface HandleMapAdapterModel {
     target: React.RefObject<HTMLDivElement | null>,
     initialView: Coordinate
   ): void;
-  addMapPinMarker(mapListener: any, setPinLocation: any): void;
+  addMapPinMarker(
+    mapListener: any,
+    setPinLocation: any,
+    defaultLocation?: any
+  ): void;
   transformLocation(coordinate: Coordinate): Coordinate;
   getActualUserLocation(setLocation: any, location: any): void;
 }
