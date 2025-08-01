@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
 import { UserDataType, BarberDataType } from '@/infra/types/data-type';
+import separateLatLonLocation from '../utils/separate-lat-lon-location';
 
 type UseHandleSortedBarbersPropsType = {
   user: UserDataType;
@@ -40,19 +41,11 @@ function getDistance(
   return d;
 }
 
-function transformLocation(entity: { location: string }) {
-  const entityLat = entity.location.split(/,+/).at(0);
-  const entityLon = entity.location.split(/,+/).at(1);
-
-  const latitude = Number.parseFloat(entityLat!);
-  const longitude = Number.parseFloat(entityLon!);
-
-  return { latitude, longitude };
-}
-
 function sortDistance(user: UserDataType, barbers: BarberDataType[]) {
-  const userLatitude = transformLocation({ location: user.location }).latitude;
-  const userLongitude = transformLocation({
+  const userLatitude = separateLatLonLocation({
+    location: user.location,
+  }).latitude;
+  const userLongitude = separateLatLonLocation({
     location: user.location,
   }).longitude;
 
@@ -61,14 +54,14 @@ function sortDistance(user: UserDataType, barbers: BarberDataType[]) {
   return barbers
     .filter(
       (barber) =>
-        Number.isNaN(transformLocation(barber).latitude) === false &&
-        Number.isNaN(transformLocation(barber).longitude) === false
+        Number.isNaN(separateLatLonLocation(barber).latitude) === false &&
+        Number.isNaN(separateLatLonLocation(barber).longitude) === false
     )
     .sort((a, b) => {
-      const aLatitude = transformLocation(a).latitude;
-      const aLongitude = transformLocation(a).longitude;
-      const bLatitude = transformLocation(b).latitude;
-      const bLongitude = transformLocation(b).longitude;
+      const aLatitude = separateLatLonLocation(a).latitude;
+      const aLongitude = separateLatLonLocation(a).longitude;
+      const bLatitude = separateLatLonLocation(b).latitude;
+      const bLongitude = separateLatLonLocation(b).longitude;
 
       const aDistance = Number.parseFloat(
         getDistance(

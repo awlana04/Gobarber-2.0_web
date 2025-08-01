@@ -1,10 +1,10 @@
-import HandleMapAdapter from '@/infra/adapters/implementations/handle-map-adapter';
 import { useEffect } from 'react';
+
+import HandleMapAdapter from '@/adapters/implementations/handle-map-adapter';
 
 type UpdateBarberHandlerFactoryPropsType = {
   mapRef: React.RefObject<HTMLDivElement | null>;
   setPinLocation: any;
-
   pinLocation: number[];
 };
 

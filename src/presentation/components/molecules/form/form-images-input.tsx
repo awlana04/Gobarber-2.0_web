@@ -53,11 +53,7 @@ export default function FormImagesInput(props: FormImagesInputProps) {
 
                 <Image
                   key={image}
-                  src={
-                    props.file !== undefined
-                      ? image
-                      : `${process.env.NEXT_PUBLIC_BACKEND_URI}/files/${image}`
-                  }
+                  src={image}
                   alt={image}
                   width={112}
                   height={112}

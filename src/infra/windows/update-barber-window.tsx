@@ -1,14 +1,18 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 
-import { BarberDataType, UserDataType } from '../types/data-type';
+import { BarberDataType, UserDataType } from '@/infra/types/data-type';
 
-import Logout from '../utils/logout';
+import useHandleImagesHook from '@/hooks/use-handle-images-hook';
+import useHandleUserHook from '@/hooks/use-handle-user-hook';
 
-import UpdateBarberPage from '@/core/pages/update-barber-page';
-import UpdateBarberHandlerFactory from '../factories/handlers/update-barber-handler-factory';
-import transformLocationLonLatForm from '../utils/transform-location-lon-lat-form';
+import UpdateBarberHandlerFactory from '@/factories/handlers/update-barber-handler-factory';
+
+import UpdateBarberPage from '@/pages/update-barber-page';
+
+import Logout from '@/infra/utils/logout';
+import separateLatLonLocation from '@/core/utils/separate-lat-lon-location';
 
 type UpdateBarberWindowPropsType = {
   user: UserDataType;
@@ -18,17 +22,33 @@ type UpdateBarberWindowPropsType = {
 export default function UpdateBarberWindow(props: UpdateBarberWindowPropsType) {
   const mapRef = useRef<HTMLDivElement | null>(null);
 
-  const locationTransformed = props.barber.location.split(/,+/).toReversed();
-  const latLocation = Number.parseFloat(locationTransformed[0]);
-  const lonLocation = Number.parseFloat(locationTransformed[1]);
+  const { latitude, longitude } = separateLatLonLocation({
+    location: props.barber.location,
+  });
 
   const [pinLocation, setPinLocation] = useState<number[]>([]);
 
-  useMemo(() => {
-    setPinLocation([lonLocation, latLocation]);
-  }, [latLocation, lonLocation]);
+  const { file, fileUrl, setFile, setFileUrl, handleChange } =
+    useHandleImagesHook();
 
-  console.log(pinLocation);
+  const {
+    isOpenAtNight,
+    isOpenOnWeekends,
+    setIsOpenAtNight,
+    setIsOpenOnWeekends,
+  } = useHandleUserHook();
+
+  useMemo(() => {
+    setIsOpenAtNight(props.barber.openAtNight);
+    setIsOpenOnWeekends(props.barber.openOnWeekends);
+
+    setFileUrl(
+      props.barber.images!.map(
+        (image) => `${process.env.NEXT_PUBLIC_BACKEND_URI}/files/${image}`
+      )
+    );
+    setPinLocation([latitude, longitude]);
+  }, []);
 
   UpdateBarberHandlerFactory({
     mapRef,
@@ -57,15 +77,15 @@ export default function UpdateBarberWindow(props: UpdateBarberWindowPropsType) {
       locationRef={mapRef}
       locationFilled={true}
       locationErrored={false}
-      // file={props.barber.images as unknown as File[]}
-      setFile={() => {}}
-      fileUrl={props.barber.images!}
-      setFileUrl={() => {}}
-      handleChange={() => {}}
-      isOpenAtNight={props.barber.openAtNight}
-      setIsOpenAtNight={() => {}}
-      isOpenOnWeekends={props.barber.openOnWeekends}
-      setIsOpenOnWeekends={() => {}}
+      file={file}
+      setFile={setFile}
+      fileUrl={fileUrl}
+      setFileUrl={setFileUrl}
+      handleChange={handleChange}
+      isOpenAtNight={isOpenAtNight}
+      setIsOpenAtNight={setIsOpenAtNight}
+      isOpenOnWeekends={isOpenOnWeekends}
+      setIsOpenOnWeekends={setIsOpenOnWeekends}
       submitHandler={() => {}}
       user={props.user}
       logoutOnclick={() => Logout()}

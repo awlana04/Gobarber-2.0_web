@@ -52,22 +52,18 @@ export default class HandleMapAdapter implements HandleMapAdapterModel {
     mapListener.addLayer(layer);
 
     if (defaultLocation) {
-      const marker = new Feature(
-        new Point(transform(defaultLocation, 'EPSG:4326', 'EPSG:3857'))
-      );
+      const pin = transform(defaultLocation, 'EPSG:4326', 'EPSG:3857');
 
       layer.getSource()?.clear();
-      layer.getSource()?.addFeature(marker);
+      layer.getSource()?.addFeature(new Feature(new Point(pin)));
     }
 
     mapListener.on('click', (event) => {
-      console.log(event.coordinate);
+      layer.getSource()?.clear();
 
-      const marker = new Feature(
-        new Point(transform(event.coordinate, 'EPSG:3857', 'EPSG:4326'))
-      );
+      const marker = new Feature(new Point(event.coordinate));
 
-      setPinLocation(event.coordinate);
+      setPinLocation(transform(event.coordinate, 'EPSG:3857', 'EPSG:4326'));
 
       layer.getSource()?.clear();
       layer.getSource()?.addFeature(marker);
