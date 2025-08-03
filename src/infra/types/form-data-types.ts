@@ -27,6 +27,22 @@ export type SigninBarberFormDataType = Required<
   pinLocation: number[];
 };
 
+export type UpdateBarberFormDataType = Omit<
+  FormFunctionsSubmitHandlerType<{
+    description?: string;
+    file?: File[];
+    openAtNight?: boolean;
+    openOnWeekends?: boolean;
+  }>,
+  | 'handleEmailUsecase'
+  | 'handlePasswordUsecase'
+  | 'updateStatefulValue'
+  | 'handleDescriptionUsecase'
+  | 'handleNameUsecase'
+> & {
+  pinLocation?: number[];
+};
+
 export type AuthenticateFormDataType = Required<
   Omit<
     FormFunctionsSubmitHandlerType<{

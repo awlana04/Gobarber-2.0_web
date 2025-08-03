@@ -13,6 +13,7 @@ import UpdateBarberPage from '@/pages/update-barber-page';
 
 import Logout from '@/infra/utils/logout';
 import separateLatLonLocation from '@/core/utils/separate-lat-lon-location';
+import UpdateBarberHandlerFormSubmitHandlerFactory from '../factories/handlers/update-barber-form-submit-handler-factory';
 
 type UpdateBarberWindowPropsType = {
   user: UserDataType;
@@ -50,7 +51,7 @@ export default function UpdateBarberWindow(props: UpdateBarberWindowPropsType) {
     setPinLocation([latitude, longitude]);
   }, []);
 
-  UpdateBarberHandlerFactory({
+  const { submitHandler } = UpdateBarberHandlerFormSubmitHandlerFactory({
     mapRef,
     pinLocation,
     setPinLocation,
@@ -67,6 +68,16 @@ export default function UpdateBarberWindow(props: UpdateBarberWindowPropsType) {
     descriptionRef.current! &&
     descriptionRef.current!.value !== null &&
     descriptionRef.current!.value;
+
+  const submit = () =>
+    submitHandler({
+      data: {
+        description: descriptionRef.current?.value,
+        file,
+        openAtNight: isOpenAtNight,
+        openOnWeekends: isOpenOnWeekends,
+      },
+    });
 
   return (
     <UpdateBarberPage
@@ -86,7 +97,7 @@ export default function UpdateBarberWindow(props: UpdateBarberWindowPropsType) {
       setIsOpenAtNight={setIsOpenAtNight}
       isOpenOnWeekends={isOpenOnWeekends}
       setIsOpenOnWeekends={setIsOpenOnWeekends}
-      submitHandler={() => {}}
+      submitHandler={submit}
       user={props.user}
       logoutOnclick={() => Logout()}
       barber={props.barber}
