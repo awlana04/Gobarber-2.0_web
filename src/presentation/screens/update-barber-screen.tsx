@@ -8,18 +8,17 @@ import Button from '@/atoms/button';
 import { Form } from '@/molecules/form';
 
 import DescriptionInputFragment from '@/fragments/description-input-fragment';
-import NameInputFragment from '@/fragments/name-input-fragment';
 
-import ButtonDisabledType from '../types/button-disabled-type';
-import { FormImagesInputProps } from '../types/form-images-input-props-type';
-import { HeaderPropsType } from '../types/header-props-type';
+import ButtonDisabledType from '@/presentation/types/button-disabled-type';
+import { FormImagesInputProps } from '@/presentation/types/form-images-input-props-type';
+import { HeaderPropsType } from '@/presentation/types/header-props-type';
 import {
   NameInputPropsMappedType,
   DescriptionInputPropsMappedType,
   LocationPropsMappedType,
-} from '../types/input-props-mapped-types';
-import { SubmitHandlerType } from '../types/submit-handler-type';
-import { FormTwoRadioButtonProps } from '../types/two-radio-buttons-props-type';
+} from '@/presentation/types/input-props-mapped-types';
+import { SubmitHandlerType } from '@/presentation/types/submit-handler-type';
+import { FormTwoRadioButtonProps } from '@/presentation/types/two-radio-buttons-props-type';
 import { BarberDataType } from '@/infra/types/data-type';
 
 import translate from '@/shared/utils/translate';
@@ -62,16 +61,6 @@ export default function UpdateBarberScreen(props: UpdateBarberScreenPropsType) {
               disabled
             />
           </div>
-
-          <NameInputFragment
-            icon='barber'
-            placeholder={translate('Barber shop name')}
-            nameRef={props.nameRef}
-            nameValue={props.nameValue}
-            nameErrored={props.nameErrored}
-            nameFilled={props.nameFilled}
-            handleNameFilled={props.handleNameFilled}
-          />
 
           <DescriptionInputFragment
             descriptionRef={props.descriptionRef}

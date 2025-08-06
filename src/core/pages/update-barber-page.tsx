@@ -14,7 +14,6 @@ import { useHandleErroredContext } from '@/contexts/use-handle-errored-context';
 import UpdateBarberScreen from '@/presentation/screens/update-barber-screen';
 
 type UpdateBarberPagePropsType = HeaderPropsType &
-  NameInputRefAndValueType &
   DescriptionInputRefAndValueType &
   LocationPropsMappedType &
   SubmitHandlerType & {

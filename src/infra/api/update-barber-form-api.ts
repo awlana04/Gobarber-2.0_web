@@ -1,8 +1,11 @@
-import FetchAPIDataModel from '../adapters/models/fetch-api-data-model';
-import ManageDataInBrowserModel from '../adapters/models/manage-data-in-browser-model';
-import APIBase from '../bases/api-base';
-import { GetCookies } from '../libs/cookies-next-lib';
-import { BarberDataType } from '../types/data-type';
+import { BarberDataType } from '@/infra/types/data-type';
+
+import APIBase from '@/infra/bases/api-base';
+
+import FetchAPIDataModel from '@/adapters/models/fetch-api-data-model';
+import ManageDataInBrowserModel from '@/adapters/models/manage-data-in-browser-model';
+
+import { GetCookies } from '@/infra/libs/cookies-next-lib';
 
 type UpdateBarberFormType = {
   location?: string | any;
@@ -22,20 +25,23 @@ export default class UpdateBarberFormAPI extends APIBase {
 
   public async fake(data: UpdateBarberFormType) {
     const barber: BarberDataType = await GetCookies('barber');
-    console.log(barber.id);
 
-    return await this.fetchAPIData
-      .fetch(`/barbers/${barber.id}`, {
-        method: 'PUT',
-        jsonContent: true,
-        data,
-      })
-      .then(async (response) => {
-        const barberUpdated = await response.json();
-
-        console.log(barberUpdated);
-
-        return barberUpdated;
-      });
+    return await this.fetchAPIData.fetch(`/barbers/${barber.id}`, {
+      method: 'PUT',
+      jsonContent: true,
+      data: {
+        id: barber.id,
+        name: barber.name,
+        location: data.location ? data.location : barber.location,
+        description: data.description ? data.description : barber.description,
+        openAtNight: data.openAtNight,
+        openOnWeekends: data.openOnWeekends,
+        images: barber.images,
+        userId: barber.userId,
+        user: barber.user,
+        createdAt: barber.createdAt,
+        updatedAt: barber.updatedAt,
+      },
+    });
   }
 }

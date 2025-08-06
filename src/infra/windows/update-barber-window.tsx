@@ -69,6 +69,8 @@ export default function UpdateBarberWindow(props: UpdateBarberWindowPropsType) {
     descriptionRef.current!.value !== null &&
     descriptionRef.current!.value;
 
+  console.log(isOpenAtNight, isOpenOnWeekends);
+
   const submit = () =>
     submitHandler({
       data: {
@@ -81,8 +83,6 @@ export default function UpdateBarberWindow(props: UpdateBarberWindowPropsType) {
 
   return (
     <UpdateBarberPage
-      nameValue={props.barber.name}
-      nameRef={barberNameRef}
       descriptionValue={props.barber.description}
       descriptionRef={descriptionRef}
       locationRef={mapRef}

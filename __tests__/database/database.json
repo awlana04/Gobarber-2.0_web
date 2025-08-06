@@ -43,12 +43,29 @@
   ],
   "barbers": [
     {
-      "description": "A place really nice where you can feel free and be yourself.",
-      "file": [],
+      "id": "98k1",
+      "name": "John Barber",
+      "location": "-1.469268614686996,-48.50573938022408",
+      "description": "A really good place!",
       "openAtNight": true,
       "openOnWeekends": false,
-      "location": "-1.427823,-48.48675",
-      "id": "98k1"
+      "images": [
+        "1701987241940-4de2a165543fd7144fadf33c8db285d1.jpg",
+        "1701987367970-1602886.jpg"
+      ],
+      "userId": "a8ja",
+      "user": {
+        "id": "a8ja",
+        "name": "John Barber Doe",
+        "email": "john@barber.com",
+        "password": "12345678",
+        "location": "-48.486750, -1.427823",
+        "avatar": "1701655413394-20210902_122753.jpg",
+        "createdAt": "2025-03-04T22:04:54.067Z",
+        "updatedAt": "2025-03-04T22:04:54.067Z"
+      },
+      "createdAt": "2025-03-04T22:04:54.067Z",
+      "updatedAt": "2025-03-04T22:04:54.067Z"
     },
     {
       "id": "ai9a",
@@ -60,7 +77,7 @@
         "1701987367970-1602886.jpg"
       ],
       "openAtNight": true,
-      "openOnWeekends": true,
+      "openOnWeekends": false,
       "userId": "i58a",
       "createdAt": "2025-03-04T22:04:54.067Z",
       "updatedAt": "2025-03-04T22:04:54.067Z",

@@ -15,7 +15,6 @@ export default class UpdateBarberFormSubmitHandler extends FormSubmitHandlerBase
   }: UpdateBarberFormDataType): Promise<void> {
     await this.updateBarberFormAPI.fake({
       description: data?.description,
-      file: data?.file,
       openAtNight: data?.openAtNight,
       openOnWeekends: data?.openOnWeekends,
       location: pinLocation && transformLocationLonLatForm(pinLocation),
