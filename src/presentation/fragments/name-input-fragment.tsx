@@ -1,6 +1,6 @@
 import { FiUser, FiScissors } from 'react-icons/fi';
 
-import { NameInputPropsMappedType } from '@/presentation/types/input-props-mapped-type';
+import { NameInputPropsMappedType } from '@/presentation/types/input-props-mapped-types';
 
 import { Form } from '@/molecules/form';
 

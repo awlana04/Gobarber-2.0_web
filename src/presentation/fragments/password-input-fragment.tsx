@@ -1,6 +1,6 @@
 import { FiLock } from 'react-icons/fi';
 
-import { PasswordInputPropsMappedType } from '@/presentation/types/input-props-mapped-type';
+import { PasswordInputPropsMappedType } from '@/presentation/types/input-props-mapped-types';
 
 import { Form } from '@/molecules/form';
 

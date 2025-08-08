@@ -1,6 +1,6 @@
 import { FiMail } from 'react-icons/fi';
 
-import { EmailInputPropsMappedType } from '@/presentation/types/input-props-mapped-type';
+import { EmailInputPropsMappedType } from '@/presentation/types/input-props-mapped-types';
 
 import { Form } from '@/molecules/form';
 

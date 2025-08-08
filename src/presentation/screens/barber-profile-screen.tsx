@@ -20,7 +20,9 @@ export default function BarberProfileScreen(
         </h3>
 
         <Button type='button' color='black'>
-          Atualizar perfil
+          <Link href={`./profile/update-user/${props.user.id}`}>
+            Atualizar perfil
+          </Link>
         </Button>
         <Link href={`./profile/update-barber/${props.user.id}`}>
           <Button type='button' color='black'>
