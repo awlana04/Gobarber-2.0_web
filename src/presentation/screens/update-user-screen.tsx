@@ -9,78 +9,68 @@ import { Form } from '@/molecules/form';
 import ButtonDisabledType from '@/presentation/types/button-disabled-type';
 import { HeaderPropsType } from '@/presentation/types/header-props-type';
 import {
-  EmailInputPropsMappedType,
-  NameInputPropsMappedType,
+  ActualPasswordInputPropsMappedType,
+  ConfirmPasswordInputPropsMappedType,
   PasswordInputPropsMappedType,
 } from '@/presentation/types/input-props-mapped-types';
 import { SubmitHandlerType } from '@/presentation/types/submit-handler-type';
-import { BarberDataType } from '@/infra/types/data-type';
 
 import translate from '@/shared/utils/translate';
-import NameInputFragment from '../fragments/name-input-fragment';
-import EmailInputFragment from '../fragments/email-input-fragment';
-import PasswordInputFragment from '../fragments/password-input-fragment';
 
-type EmailValueType = Pick<EmailInputPropsMappedType, 'emailValue'>;
-type NameValueType = Pick<NameInputPropsMappedType, 'nameValue'>;
+import PasswordInputFragment from '../fragments/password-input-fragment';
+import { FiLock, FiMail, FiUser } from 'react-icons/fi';
+import ConfirmPasswordInputFragment from '../fragments/confirm-password-input-fragment';
+import { AvatarInputPropsType } from '../types/avatar-input-props-type';
 
 type UpdateBarberScreenPropsType = HeaderPropsType &
-  EmailValueType &
-  NameValueType &
   PasswordInputPropsMappedType &
   ButtonDisabledType &
-  SubmitHandlerType;
+  SubmitHandlerType &
+  ActualPasswordInputPropsMappedType &
+  ConfirmPasswordInputPropsMappedType &
+  AvatarInputPropsType & {
+    name: string;
+    email: string;
+  };
 
 export default function UpdateUserScreen(props: UpdateBarberScreenPropsType) {
   return (
-    <DashboardTemplate headerType='profile' {...props}>
+    <DashboardTemplate headerType='update' {...props}>
       <section className='mt-40 flex flex-row items-center justify-center pb-20'>
         <Form.Root submitHandler={props.submitHandler}>
-          <h3>Meu perfil</h3>
-          <NameInputFragment
-            handleNameFilled={() => {}}
-            icon='user'
-            nameErrored={false}
-            nameFilled={false}
-            nameRef={null}
-            nameValue={props.nameValue}
-            placeholder={props.nameValue}
-          />
-          <EmailInputFragment
-            emailErrored={false}
-            emailFilled={false}
-            emailRef={null}
-            emailValue={props.emailValue}
-            handleEmailFilled={() => {}}
-          />
+          <Form.Avatar {...props} large={true} />
+
+          <h3 className='text-2xl font-medium'>Meu perfil</h3>
+
+          <div className='bg-input mt-4 flex h-14 w-96 flex-row items-center rounded-2xl py-2 text-white'>
+            <FiUser className='mr-2 ml-7' />
+            <p>{props.name}</p>
+          </div>
+
+          <div className='bg-input mt-4 flex h-14 w-96 flex-row items-center rounded-2xl py-2 text-white'>
+            <FiMail className='mr-2 ml-7' />
+            <p>{props.email}</p>
+          </div>
 
           <div className='mt-10'>
-            <PasswordInputFragment
-              handlePasswordFilled={props.handlePasswordFilled}
-              passwordErrored={props.passwordErrored}
-              passwordFilled={props.passwordFilled}
-              passwordRef={props.passwordRef}
-              passwordValue={props.passwordValue}
+            <Form.Input
+              ref={props.actualPasswordRef}
+              iconName={FiLock}
+              type='password'
+              name='actualPassword'
+              placeholder='Senha atual'
+              errored={props.actualPasswordErrored}
+              filled={props.actualPasswordFilled}
+              handleFilled={props.handleActualPasswordFilled}
             />
 
-            <PasswordInputFragment
-              handlePasswordFilled={props.handlePasswordFilled}
-              passwordErrored={props.passwordErrored}
-              passwordFilled={props.passwordFilled}
-              passwordRef={props.passwordRef}
-              passwordValue={props.passwordValue}
-            />
+            <PasswordInputFragment {...props} />
 
-            <PasswordInputFragment
-              handlePasswordFilled={props.handlePasswordFilled}
-              passwordErrored={props.passwordErrored}
-              passwordFilled={props.passwordFilled}
-              passwordRef={props.passwordRef}
-              passwordValue={props.passwordValue}
-            />
+            <ConfirmPasswordInputFragment {...props} />
 
             <Button type='submit' isButtonDisabled={props.isButtonDisabled}>
-              {translate('Register')}
+              {/* {translate('Register')} */}
+              Atualizar
             </Button>
           </div>
         </Form.Root>

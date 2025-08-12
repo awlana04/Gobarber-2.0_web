@@ -37,6 +37,8 @@ type InputPropsMappedType<Type extends string> = {
 export type NameInputPropsMappedType = Required<InputPropsMappedType<'name'>>;
 export type EmailInputPropsMappedType = Required<InputPropsMappedType<'email'>>;
 export type PasswordInputPropsMappedType = InputPropsMappedType<'password'>;
+export type ActualPasswordInputPropsMappedType =
+  InputPropsMappedType<'actualPassword'>;
 export type ConfirmPasswordInputPropsMappedType =
   InputPropsMappedType<'confirmPassword'>;
 export type TextareaInputPropsMappedType = TextareaPropsMappedType<'textarea'>;

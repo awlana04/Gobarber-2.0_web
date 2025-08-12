@@ -69,8 +69,6 @@ export default function UpdateBarberWindow(props: UpdateBarberWindowPropsType) {
     descriptionRef.current!.value !== null &&
     descriptionRef.current!.value;
 
-  console.log(isOpenAtNight, isOpenOnWeekends);
-
   const submit = () =>
     submitHandler({
       data: {

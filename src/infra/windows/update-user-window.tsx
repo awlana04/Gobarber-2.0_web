@@ -10,10 +10,10 @@ type UpdateUserWindowPropsType = {
 export default function UpdateUserWindow(props: UpdateUserWindowPropsType) {
   return (
     <UpdateUserScreen
-      emailValue={props.user.email}
+      email={props.user.email}
       handlePasswordFilled={() => {}}
       logoutOnclick={() => {}}
-      nameValue={props.user.name}
+      name={props.user.name}
       passwordErrored={false}
       passwordFilled={false}
       passwordRef={null}
@@ -21,6 +21,20 @@ export default function UpdateUserWindow(props: UpdateUserWindowPropsType) {
       user={props.user}
       isButtonDisabled={false}
       passwordValue=''
+      actualPasswordErrored={false}
+      actualPasswordFilled={false}
+      actualPasswordRef={null}
+      confirmPasswordErrored={false}
+      confirmPasswordFilled={false}
+      confirmPasswordRef={null}
+      handleActualPasswordFilled={() => {}}
+      handleConfirmPasswordFilled={() => {}}
+      actualPasswordValue=''
+      confirmPasswordValue=''
+      file={null}
+      fileUrl={`${process.env.NEXT_PUBLIC_BACKEND_URI}/files/${props.user.avatar}`}
+      handleChange={() => {}}
+      handleRemove={() => {}}
     />
   );
 }

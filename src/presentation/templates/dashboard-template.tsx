@@ -11,7 +11,7 @@ import translate from '@/shared/utils/translate';
 import GoBarberLogo from '@/public/gobarber_logo001.svg';
 
 type DashboardTemplateType = HeaderPropsType & {
-  headerType: 'dashboard' | 'profile';
+  headerType: 'dashboard' | 'profile' | 'update';
   children: React.ReactNode;
 };
 
@@ -39,12 +39,14 @@ export default function DashboardTemplate({
             className='flex flex-row items-center space-x-4 data-[dashboard=false]:absolute data-[dashboard=false]:top-24 data-[dashboard=false]:left-[50%] data-[dashboard=false]:-translate-x-[50%]'
           >
             <div className='px-4'>
-              <AvatarImage
-                src={props.user.avatar}
-                size={
-                  props.headerType === 'dashboard' ? 'large' : 'extra-large'
-                }
-              />
+              {props.headerType !== 'update' && (
+                <AvatarImage
+                  src={props.user.avatar}
+                  size={
+                    props.headerType === 'dashboard' ? 'large' : 'extra-large'
+                  }
+                />
+              )}
               <div />
             </div>
 
