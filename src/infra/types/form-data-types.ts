@@ -43,6 +43,19 @@ export type UpdateBarberFormDataType = Omit<
   pinLocation?: number[];
 };
 
+export type UpdateUserFormDataType = Required<
+  Omit<
+    FormFunctionsSubmitHandlerType<{
+      password: string;
+    }>,
+    | 'handleEmailUsecase'
+    | 'handlePasswordUsecase'
+    | 'updateStatefulValue'
+    | 'handleDescriptionUsecase'
+    | 'handleNameUsecase'
+  >
+>;
+
 export type AuthenticateFormDataType = Required<
   Omit<
     FormFunctionsSubmitHandlerType<{

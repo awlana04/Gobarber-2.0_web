@@ -40,7 +40,7 @@ export default class UpdateBarberFormAPI extends APIBase {
         userId: barber.userId,
         user: barber.user,
         createdAt: barber.createdAt,
-        updatedAt: barber.updatedAt,
+        updatedAt: new Date(),
       },
     });
   }

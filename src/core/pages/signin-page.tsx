@@ -33,30 +33,24 @@ export default function SigninPage(props: SigninPagePropsType) {
 
   return (
     <SigninScreen
-      nameRef={props.nameRef}
-      nameValue={props.nameValue}
       nameErrored={
         fieldErrored !== undefined &&
         !!fieldErrored.find((name) => name === 'name')
       }
       nameFilled={!!fieldFilled.find((name) => name === 'name')}
       handleNameFilled={handleFieldFilled}
-      emailRef={props.emailRef}
-      emailValue={props.emailValue}
       emailErrored={
         fieldErrored !== undefined &&
         !!fieldErrored.find((email) => email === 'email')
       }
       emailFilled={!!fieldFilled.find((email) => email === 'email')}
       handleEmailFilled={handleFieldFilled}
-      passwordRef={props.passwordRef}
       passwordErrored={
         fieldErrored !== undefined &&
         !!fieldErrored.find((password) => password === 'password')
       }
       passwordFilled={!!fieldFilled.find((password) => password === 'password')}
       handlePasswordFilled={handleFieldFilled}
-      confirmPasswordRef={props.confirmPasswordRef}
       confirmPasswordErrored={
         fieldErrored !== undefined &&
         !!fieldErrored.find(
@@ -69,14 +63,10 @@ export default function SigninPage(props: SigninPagePropsType) {
         )
       }
       handleConfirmPasswordFilled={handleFieldFilled}
-      file={props.file}
-      fileUrl={props.fileUrl}
-      handleChange={props.handleChange}
-      handleRemove={props.handleRemove}
       isBarber={false}
       isBarberSelected={props.isClientSelected}
       setIsBarberSelected={props.setIsClientSelected}
-      submitHandler={props.submitHandler}
+      {...props}
     />
   );
 }

@@ -5,6 +5,7 @@ import {
   ConfirmPasswordInputPropsMappedType,
   DescriptionInputPropsMappedType,
   LocationInputPropsMappedType,
+  ActualPasswordInputPropsMappedType,
 } from '@/presentation/types/input-props-mapped-types';
 
 export type NameInputRefAndValueType = Pick<
@@ -20,6 +21,11 @@ export type EmailInputRefAndValueType = Pick<
 export type PasswordInputRefType = Pick<
   PasswordInputPropsMappedType,
   'passwordRef'
+>;
+
+export type ActualPasswordInputRefType = Pick<
+  ActualPasswordInputPropsMappedType,
+  'actualPasswordRef'
 >;
 
 export type ConfirmPasswordInputRefType = Pick<

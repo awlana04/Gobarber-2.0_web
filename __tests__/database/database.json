@@ -4,11 +4,11 @@
       "id": "78c3",
       "name": "John Doe",
       "email": "john@doe.com",
-      "password": "12345678",
       "location": "-48.420094, -1.368788",
+      "password": "87654321",
       "avatar": "1701655075798-65423909.png",
       "createdAt": "2025-03-04T22:04:54.067Z",
-      "updatedAt": "2025-03-04T22:04:54.067Z"
+      "updatedAt": "2025-08-14T16:53:56.473Z"
     },
     {
       "id": "b3ae",
