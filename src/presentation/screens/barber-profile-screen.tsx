@@ -29,12 +29,16 @@ export default function BarberProfileScreen(
             Atualizar perfil de barbeiro
           </Button>
         </Link>
-        <Button type='button' color='black'>
-          Ver agendamentos
-        </Button>
-        <Button type='button' color='black'>
-          Ver perfil
-        </Button>
+        <Link href={`./profile/view-appointments/${props.user.id}`}>
+          <Button type='button' color='black'>
+            Ver agendamentos
+          </Button>
+        </Link>
+        <Link href={'./profile/yourself'}>
+          <Button type='button' color='black'>
+            Ver perfil
+          </Button>
+        </Link>
 
         <footer className='mt-[65%]'>
           <Button type='button'>Sair</Button>

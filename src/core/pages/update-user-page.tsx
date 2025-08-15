@@ -1,14 +1,17 @@
 import { SubmitHandlerType } from '@/presentation/types/submit-handler-type';
+import { HeaderPropsType } from '@/presentation/types/header-props-type';
 import {
   ActualPasswordInputRefType,
   ConfirmPasswordInputRefType,
   PasswordInputRefType,
-} from '../types/values-and-refs-input-type';
-import UpdateUserScreen from '@/presentation/screens/update-user-screen';
-import { useHandleErroredContext } from '../contexts/use-handle-errored-context';
-import useHandleFilledHook from '../hooks/use-handle-filled-hook';
+} from '@/core/types/values-and-refs-input-type';
 import { UserDataType } from '@/infra/types/data-type';
-import { HeaderPropsType } from '@/presentation/types/header-props-type';
+
+import { useHandleErroredContext } from '@/contexts/use-handle-errored-context';
+
+import useHandleFilledHook from '@/hooks/use-handle-filled-hook';
+
+import UpdateUserScreen from '@/screens/update-user-screen';
 
 type UpdateUserPagePropsType = PasswordInputRefType &
   ActualPasswordInputRefType &
