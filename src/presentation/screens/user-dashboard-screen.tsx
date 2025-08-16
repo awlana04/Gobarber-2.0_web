@@ -103,6 +103,7 @@ export default function UserDashboardScreen(props: UserDashboardScreenType) {
         headerText='Barbeiros mais próximos'
         isModalOpen={props.isModalOpen}
         setIsModalOpen={props.setIsModalOpen}
+        dataType='barber'
         Render={Modal.ModalRow}
       />
     </DashboardTemplate>

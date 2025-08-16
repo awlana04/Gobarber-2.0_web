@@ -29,7 +29,7 @@ export default function middleware(request: NextRequest) {
 
   if (privateRoutes === false && authToken) {
     redirectURL.pathname =
-      barberCookie !== null ? '/barber/dashboard' : '/user/dashboard';
+      barberCookie !== undefined ? '/barber/dashboard' : '/user/dashboard';
 
     return NextResponse.redirect(redirectURL);
   }

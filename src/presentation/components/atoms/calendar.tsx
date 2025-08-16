@@ -11,6 +11,10 @@ import { isToday } from 'date-fns';
 
 import { CalendarPropsType } from '@/presentation/types/calendar-props-type';
 
+type CalendarAtomPropsType = CalendarPropsType & {
+  isBooked?: boolean;
+};
+
 function NextMonthCalendarButton(
   props: ButtonHTMLAttributes<HTMLButtonElement>
 ) {
@@ -60,14 +64,14 @@ function PreviousMonthCalendarButton(
   );
 }
 
-export default function Calendar(props: CalendarPropsType) {
+export default function Calendar(props: CalendarAtomPropsType) {
   const defaultClassNames = getDefaultClassNames();
 
   const today = new Date();
 
-  const daysAlreadyBooked = props.appointments!.map(
-    (appointment) => new UTCDate(appointment.date)
-  );
+  // const daysAlreadyBooked = props.appointments!.map(
+  //   (appointment) => new UTCDate(appointment.date)
+  // );
 
   return (
     <DayPicker
@@ -96,7 +100,12 @@ export default function Calendar(props: CalendarPropsType) {
         { before: today },
       ]}
       modifiers={{
-        booked: props.appointments && [...daysAlreadyBooked],
+        booked: props.appointments &&
+          props.isBooked && [
+            ...props.appointments.map(
+              (appointment) => new UTCDate(appointment.date)
+            ),
+          ],
       }}
       mode='single'
       modifiersClassNames={{

@@ -55,6 +55,8 @@ export default class AuthenticateFormAPI extends APIBase {
           });
         }
 
+        console.log(user.barber);
+
         return { server: response, user };
       });
   }
@@ -69,6 +71,8 @@ export default class AuthenticateFormAPI extends APIBase {
       const selectedUser: UserDataType = user.find(
         (user) => user.email === data.email && user.password === data.password
       )!;
+
+      let selectedBarber;
 
       // if there's the selected user, then save the data into the browser and create a fake Token
       if (selectedUser) {
@@ -85,17 +89,17 @@ export default class AuthenticateFormAPI extends APIBase {
           );
 
           if (userBarber !== undefined) {
+            selectedBarber = userBarber;
+
             await this.manageDataInBrowser.saveData('barber', userBarber);
           }
-
-          return;
         });
       } else {
         // if there's no user in fake database, throw an Error to be catch in the handler and send it back properly to the user by a toast
         throw new Error('User not found');
       }
 
-      return { server: response };
+      return { server: response, user: selectedUser, barber: selectedBarber };
     });
   }
 }
