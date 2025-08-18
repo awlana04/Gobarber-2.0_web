@@ -1,5 +1,8 @@
-import ViewAppointmentsScreen from '@/presentation/screens/view-appointments-screen';
+import { GetCookies } from '@/infra/libs/cookies-next-lib';
+import ViewAppointmentsWindow from '@/infra/windows/view-appointments-window';
 
 export default async function ViewAppointments() {
-  return <ViewAppointmentsScreen />;
+  const user = await GetCookies('user');
+
+  return <ViewAppointmentsWindow user={user} />;
 }

@@ -7,7 +7,6 @@ import { AppointmentDataType } from '@/infra/types/data-type';
 import TextWithIcon from '@/atoms/text-with-icon';
 
 import { Row } from '@/molecules/row';
-import { UTCDate } from '@date-fns/utc';
 
 type ModalCorePropsType = Pick<Partial<ModalPropsType>, 'setIsModalOpen'>;
 
