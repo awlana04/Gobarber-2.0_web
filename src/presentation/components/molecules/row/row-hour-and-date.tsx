@@ -1,11 +1,11 @@
 import { FiCalendar, FiClock } from 'react-icons/fi';
+import { format } from 'date-fns';
 
 import { RowPropsType } from '@/presentation/types/row-props-type';
 
 import TextWithIcon from '@/atoms/text-with-icon';
 
 import translate from '@/shared/utils/translate';
-import { format } from 'date-fns';
 
 export default function RowHourAndDate(props: RowPropsType) {
   return (

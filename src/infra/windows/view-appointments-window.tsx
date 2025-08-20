@@ -28,12 +28,9 @@ export default function ViewAppointmentsWindow(
 
   const submitHandler = async () => {
     await appointments.fake().then(async (result) => {
-      console.log(result.appointments);
       setBarberAppointments(result.appointments);
     });
   };
-
-  console.log(barberAppointments);
 
   useEffect(() => {
     submitHandler();

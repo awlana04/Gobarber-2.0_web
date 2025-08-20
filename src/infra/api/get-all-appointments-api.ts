@@ -59,7 +59,9 @@ export default class GetAllAppointmentsAPI extends APIBase {
           users
             .filter((user) => user.id === appointment.userId)
             .map((user) => {
-              userData.push(user);
+              if (!userData.find((userStored) => userStored.id === user.id)) {
+                userData.push(user);
+              }
             });
 
           barberData = barbers.find(

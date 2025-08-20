@@ -18,7 +18,11 @@ export default function NextActiveAppointmentRow(
         <section>
           {props.isBarber && (
             <h3 className='text-grey mt-12 mb-5 text-xl'>
-              Atendimento a seguir
+              {props.isBarber ? (
+                <p>Atendimento a seguir</p>
+              ) : (
+                <p>Agendamento ativo</p>
+              )}
             </h3>
           )}
 
@@ -26,7 +30,7 @@ export default function NextActiveAppointmentRow(
             data={props.appointment}
             size='extra-large'
             Render={Row.RowHourAndDate}
-            dataType='user'
+            dataType='barber'
             hour={props.appointment.date}
           />
         </section>
