@@ -4,9 +4,8 @@ import { format, isPast, parseISO } from 'date-fns';
 import { HeaderPropsType } from '../types/header-props-type';
 import { AppointmentDataType } from '@/infra/types/data-type';
 
-import DashboardTemplate from '../templates/dashboard-template';
+import DashboardTemplate from '@/templates/dashboard-template';
 
-import TodayTitle from '@/atoms/today-title';
 import TextWithIcon from '@/atoms/text-with-icon';
 import { Row } from '@/molecules/row';
 import NextActiveAppointmentRow from '@/components/organisms/next-active-appointment-row';
@@ -53,9 +52,8 @@ export default function ViewAppointmentsScreen(
 
   return (
     <DashboardTemplate headerType='profile' {...props}>
-      <div className='mt-36 flex flex-col'>
-        {/* <TodayTitle title='Agendamentos' /> */}
-        <h1 className='text-4xl font-bold'>Agendamentos</h1>
+      <div className='m-auto mt-36 flex w-4xl flex-col pb-20'>
+        <h1 className='mt-4 text-4xl font-bold'>Agendamentos</h1>
 
         <NextActiveAppointmentRow
           appointment={props.nextAppointment}
@@ -65,7 +63,15 @@ export default function ViewAppointmentsScreen(
         {sortedArraysOfEvents.map((date) => (
           <div>
             {Array(date.find((appointmentDate) => appointmentDate.date)).map(
-              (date) => date && <p>{format(date.date, 'dd/MM/y')}</p>
+              (date) =>
+                date && (
+                  <div className='mt-10'>
+                    <p className='text-grey text-xl'>
+                      {format(date.date, 'dd/MM/y')}
+                    </p>
+                    <div className='bg-button-text my-4 h-0.5 w-3xl rounded-full' />
+                  </div>
+                )
             )}
 
             {date.map((appointment) => (

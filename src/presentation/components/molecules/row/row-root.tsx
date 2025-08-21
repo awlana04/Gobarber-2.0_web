@@ -23,11 +23,11 @@ export default function RowRoot({
         />
       )}
 
-      <div className='flex w-3xl flex-row place-content-between items-center justify-between'>
+      <div className='flex w-3xl flex-row place-content-between items-center justify-between p-4'>
         <div
           data-size={props.size}
           data-notlarge={props.size !== 'extra-large'}
-          className='flex flex-row items-center space-x-4 p-4 data-[notlarge=true]:py-6 data-[size=small]:p-0 data-[size=small]:py-4'
+          className='flex flex-row items-center space-x-4 data-[notlarge=true]:py-6 data-[size=small]:p-0 data-[size=small]:py-4'
         >
           {props.isModal === true ||
           props.size === 'medium' ||
