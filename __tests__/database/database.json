@@ -129,5 +129,31 @@
       "userId": "b3ae",
       "barberId": "98k1"
     }
+  ],
+  "ratings": [
+    {
+      "id": "9j1a",
+      "stars": 8.5,
+      "barberId": "98k1",
+      "userId": "b3ae"
+    },
+    {
+      "id": "9j1a",
+      "stars": 9,
+      "barberId": "98k1",
+      "userId": "78c3"
+    },
+    {
+      "id": "9j1a",
+      "stars": 7,
+      "barberId": "98k1",
+      "userId": "b3ae"
+    },
+    {
+      "id": "9j1a",
+      "stars": 9.5,
+      "barberId": "98k1",
+      "userId": "78c3"
+    }
   ]
 }
