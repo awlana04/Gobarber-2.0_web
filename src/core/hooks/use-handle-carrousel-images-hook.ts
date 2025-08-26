@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useMemo } from 'react';
 
 import { BarberDataType } from '@/infra/types/data-type';

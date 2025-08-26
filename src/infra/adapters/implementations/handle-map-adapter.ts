@@ -4,7 +4,7 @@ import { OSM, Vector as SourceVector } from 'ol/source';
 import Vector from 'ol/layer/Vector';
 import { Map } from 'ol';
 import 'ol/ol.css';
-import { fromLonLat, transform, transformExtent } from 'ol/proj';
+import { fromLonLat, transform } from 'ol/proj';
 import { Point } from 'ol/geom';
 import Style from 'ol/style/Style';
 import Icon from 'ol/style/Icon';
@@ -29,6 +29,28 @@ export default class HandleMapAdapter implements HandleMapAdapterModel {
         zoom: 16,
       }),
     });
+  }
+
+  pinMarker(mapListener: any, location: any): void {
+    const layer = new Vector({
+      source: new SourceVector(),
+      style: new Style({
+        image: new Icon({
+          src: `${process.env.NEXT_PUBLIC_FRONTEND_URI}/gobarber_map_pin.svg`,
+          anchor: [0.5, 0.95],
+          anchorXUnits: 'fraction',
+          anchorYUnits: 'fraction',
+          width: 56,
+        }),
+      }),
+    });
+
+    mapListener.addLayer(layer);
+
+    const pin = transform(location, 'EPSG:4326', 'EPSG:3857');
+
+    layer.getSource()?.clear();
+    layer.getSource()?.addFeature(new Feature(new Point(pin)));
   }
 
   addMapPinMarker(
