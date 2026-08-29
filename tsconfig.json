@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -13,7 +17,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "experimentalDecorators": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
     "plugins": [
       {
@@ -21,34 +25,90 @@
       }
     ],
     "paths": {
-      "@/*": ["src/*"],
-      "@/public/*": ["public/*"],
-      "@/components/*": ["src/presentation/components/*"],
-      "@/atoms*": ["src/presentation/components/atoms/*"],
-      "@/molecules/*": ["src/presentation/components/molecules/*"],
-      "@/hooks/*": ["src/core/hooks/*"],
-      "@/contexts/*": ["src/core/contexts/*"],
-      "@/handlers/*": ["src/infra/handlers/*"],
-      "@/libs/*": ["src/core/libs/*"],
-      "@/services/*": ["src/domain/services/*"],
-      "@/core/*": ["src/core/*"],
-      "@/pages/*": ["src/core/pages/*"],
-      "@/screens/*": ["src/presentation/screens/*"],
-      "@/windows/*": ["src/infra/windows/*"],
-      "@/templates/*": ["src/presentation/templates/*"],
-      "@/fragments/*": ["src/presentation/fragments/*"],
-      "@/entities/*": ["src/domain/entities/*"],
-      "@/usecases/*": ["src/core/usecases/*"],
-      "@/infra/*": ["src/infra/*"],
-      "@/api/*": ["src/infra/api/*"],
-      "@/frontend/*": ["src/infra/api/fronted/*"],
-      "@/backend/*": ["src/infra/api/backend/*"],
-      "@/mails/*": ["src/infra/mails/*"],
-      "@/adapters/*": ["src/infra/adapters/*"],
-      "@/factories/*": ["src/infra/factories/*"],
-      "@/messages/*": ["src/core/messages/*"],
-      "@/validations/*": ["src/domain/validations/*"],
-      "@/providers/*": ["src/infra/providers/*"]
+      "@/*": [
+        "src/*"
+      ],
+      "@/public/*": [
+        "public/*"
+      ],
+      "@/components/*": [
+        "src/presentation/components/*"
+      ],
+      "@/atoms*": [
+        "src/presentation/components/atoms/*"
+      ],
+      "@/molecules/*": [
+        "src/presentation/components/molecules/*"
+      ],
+      "@/hooks/*": [
+        "src/core/hooks/*"
+      ],
+      "@/contexts/*": [
+        "src/core/contexts/*"
+      ],
+      "@/handlers/*": [
+        "src/infra/handlers/*"
+      ],
+      "@/libs/*": [
+        "src/core/libs/*"
+      ],
+      "@/services/*": [
+        "src/domain/services/*"
+      ],
+      "@/core/*": [
+        "src/core/*"
+      ],
+      "@/pages/*": [
+        "src/core/pages/*"
+      ],
+      "@/screens/*": [
+        "src/presentation/screens/*"
+      ],
+      "@/windows/*": [
+        "src/infra/windows/*"
+      ],
+      "@/templates/*": [
+        "src/presentation/templates/*"
+      ],
+      "@/fragments/*": [
+        "src/presentation/fragments/*"
+      ],
+      "@/entities/*": [
+        "src/domain/entities/*"
+      ],
+      "@/usecases/*": [
+        "src/core/usecases/*"
+      ],
+      "@/infra/*": [
+        "src/infra/*"
+      ],
+      "@/api/*": [
+        "src/infra/api/*"
+      ],
+      "@/frontend/*": [
+        "src/infra/api/fronted/*"
+      ],
+      "@/backend/*": [
+        "src/infra/api/backend/*"
+      ],
+      "@/mails/*": [
+        "src/infra/mails/*"
+      ],
+      "@/adapters/*": [
+        "src/infra/adapters/*"
+      ],
+      "@/factories/*": [
+        "src/infra/factories/*"
+      ],
+      "@/messages/*": [
+        "src/core/messages/*"
+      ],
+      "@/validations/*": [
+        "src/domain/validations/*"
+      ],
+      "@/providers/*": [
+        "src/infra/providers/*"
+      ]
     }
   },
   "include": [
@@ -57,7 +117,10 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "jest.js",
-    "__mocks__/client.js"
+    "__mocks__/client.js",
+    ".next/dev/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

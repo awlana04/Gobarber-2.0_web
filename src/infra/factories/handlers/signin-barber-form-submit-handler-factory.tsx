@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 
+import { DataType, UserDataType } from '@/infra/types/data-type';
 import { SigninBarberFormDataType } from '@/infra/types/form-data-types';
 
 import { useToastContext } from '@/contexts/use-toast-context';
@@ -24,7 +25,12 @@ type SigninBarberFormSubmitHandlerFactoryType = Pick<
   setPinLocation: any;
 };
 
-type SigninBarberFormSubmitDataType = Pick<SigninBarberFormDataType, 'data'>;
+type SigninBarberFormSubmitDataType = Pick<SigninBarberFormDataType, 'data'> & {
+  cookies: {
+    user: UserDataType;
+    token: string;
+  };
+};
 
 export default function SigninBarberFormSubmitHandlerFactory({
   mapRef,
@@ -58,11 +64,12 @@ export default function SigninBarberFormSubmitHandlerFactory({
   const submitHandler = async (props: SigninBarberFormSubmitDataType) =>
     await signinBarberHandler.submitHandler({
       data: props.data,
+      cookies: props.cookies,
       addToast,
       handleNameUsecase,
       handleDescriptionUsecase,
       pinLocation,
-    });
+    })
 
   return { submitHandler };
 }

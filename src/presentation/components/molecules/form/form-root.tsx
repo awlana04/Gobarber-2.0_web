@@ -1,5 +1,3 @@
-import Form from 'next/form';
-
 import { SubmitHandlerType } from '@/presentation/types/submit-handler-type';
 
 type FormRootProps = SubmitHandlerType & {
@@ -7,5 +5,5 @@ type FormRootProps = SubmitHandlerType & {
 };
 
 export default function FormRoot({ children, ...props }: FormRootProps) {
-  return <Form action={props.submitHandler}>{children}</Form>;
+  return <form action={props.submitHandler}>{children}</form>;
 }

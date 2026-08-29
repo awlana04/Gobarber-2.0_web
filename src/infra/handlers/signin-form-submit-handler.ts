@@ -59,11 +59,11 @@ export default class SigninFormSubmitHandler extends FormSubmitHandlerBase {
                 serverUnhandledError();
               }
 
-              if (status === 200 && serverAlright === true) {
+              if (status === 201 && serverAlright === true) {
                 if (isBarberSelected === true) {
-                  historyRedirect('/signin/barber');
+                  historyRedirect('/user/dashboard');
                 } else {
-                  historyRedirect('/logon');
+                  historyRedirect('/signin/barber');
                 }
               }
 

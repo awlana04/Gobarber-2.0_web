@@ -21,6 +21,7 @@ type BarberDashboardScreenType = HeaderPropsType &
     morningAppointments: AppointmentDataType[];
     afternoonAppointments: AppointmentDataType[];
     eveningAppointments: AppointmentDataType[];
+    appointmentsByDate: AppointmentDataType[];
     setAppointmentIDToDelete(id: string): void;
     deleteAppointment(): void;
   };
@@ -32,9 +33,9 @@ export default function BarberDashboardScreen(
     <DashboardTemplate {...props} headerType='dashboard'>
       <div
         data-modal={props.isModalOpen}
-        className='my-20 flex w-3xl flex-col content-center justify-center place-self-center data-[modal=true]:opacity-30'
+        className='my-20 flex mx-auto w-3xl flex-col content-center justify-center place-self-center data-[modal=true]:opacity-30'
       >
-        <section>
+        <section className='mx-auto'>
           <TodayTitle title='Horários agendados' />
 
           <Link
@@ -50,29 +51,47 @@ export default function BarberDashboardScreen(
           isBarber={true}
         />
 
-        <AppointmentsByPeriodOfDayRow
-          appointments={props.morningAppointments}
-          period='morning'
-          deleteAppointment={props.deleteAppointment}
-          setAppointmentIDToDelete={props.setAppointmentIDToDelete}
-          setIsModalOpen={props.setIsModalOpen}
-        />
+        {props.morningAppointments && 
+          <AppointmentsByPeriodOfDayRow
+            appointments={props.morningAppointments}
+            period='morning'
+            deleteAppointment={props.deleteAppointment}
+            setAppointmentIDToDelete={props.setAppointmentIDToDelete}
+            setIsModalOpen={props.setIsModalOpen}
+          />
+        }
 
-        <AppointmentsByPeriodOfDayRow
-          appointments={props.afternoonAppointments}
-          period='afternoon'
-          deleteAppointment={props.deleteAppointment}
-          setAppointmentIDToDelete={props.setAppointmentIDToDelete}
-          setIsModalOpen={props.setIsModalOpen}
-        />
+        {props.afternoonAppointments &&
+          <AppointmentsByPeriodOfDayRow
+            appointments={props.afternoonAppointments}
+            period='afternoon'
+            deleteAppointment={props.deleteAppointment}
+            setAppointmentIDToDelete={props.setAppointmentIDToDelete}
+            setIsModalOpen={props.setIsModalOpen}
+          />
+        }
+       
+       {props.eveningAppointments &&
+         <AppointmentsByPeriodOfDayRow
+            appointments={props.eveningAppointments}
+            period='evening'
+            deleteAppointment={props.deleteAppointment}
+            setAppointmentIDToDelete={props.setAppointmentIDToDelete}
+            setIsModalOpen={props.setIsModalOpen}
+          />
+       } 
 
-        <AppointmentsByPeriodOfDayRow
-          appointments={props.eveningAppointments}
-          period='evening'
-          deleteAppointment={props.deleteAppointment}
-          setAppointmentIDToDelete={props.setAppointmentIDToDelete}
-          setIsModalOpen={props.setIsModalOpen}
-        />
+       {props.appointmentsByDate &&
+         props.appointmentsByDate.map(appointment => (
+          <AppointmentsByPeriodOfDayRow
+            key={appointment.date}
+            appointments={appointment.appointments}
+            deleteAppointment={props.deleteAppointment}
+            setAppointmentIDToDelete={props.setAppointmentIDToDelete}
+            setIsModalOpen={props.setIsModalOpen}
+            dateText={appointment.date}
+          />
+        ))}
       </div>
 
       <Modal.ModalRoot

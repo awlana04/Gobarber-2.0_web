@@ -19,6 +19,8 @@ export default function SigninWindow() {
 
   const { isClientSelected, setIsClientSelected } = useHandleUserHook();
 
+  console.log(isClientSelected)
+
   const { submitHandler } = SigninFormSubmitHandlerFactory();
 
   const nameValue =

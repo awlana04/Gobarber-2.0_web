@@ -1,8 +1,10 @@
+
 import FormSubmitHandlerBase from '@/infra/bases/form-submit-handler-base';
 
 import APIBaseInterface from '@/infra/interfaces/api-base-interface';
 
 import { SigninBarberFormDataType } from '@/infra/types/form-data-types';
+import { UserDataType } from '@/infra/types/data-type';
 
 import ServerUnhandledErrorMessage from '@/messages/errors/server-unhandled-toast-error-message';
 import SigninBarberToastErrorMessages from '@/messages/errors/signin-barber-toast-error-messages';
@@ -12,6 +14,13 @@ import historyRedirect from '@/infra/utils/history-redirect';
 
 import SigninBarberMailFactory from '@/factories/mails/signin-barber-mail-factory';
 
+type SigninBarberBrowserData = SigninBarberFormDataType & {
+  cookies: {
+    user: UserDataType;
+    token: string;
+  };
+}
+
 export default class SigninBarberFormSubmitHandler extends FormSubmitHandlerBase {
   constructor(private readonly signinBarberFormAPI: APIBaseInterface) {
     super(signinBarberFormAPI);
@@ -19,11 +28,12 @@ export default class SigninBarberFormSubmitHandler extends FormSubmitHandlerBase
 
   public async submitHandler({
     data,
+    cookies,
     addToast,
     handleNameUsecase,
     handleDescriptionUsecase,
     pinLocation,
-  }: SigninBarberFormDataType): Promise<void> {
+  }: SigninBarberBrowserData): Promise<void> {
     const signinBarberErrorToast = () =>
       addToast(SigninBarberToastErrorMessages.BarberShopExists);
     const serverUnhandledError = () =>
@@ -43,6 +53,7 @@ export default class SigninBarberFormSubmitHandler extends FormSubmitHandlerBase
             file: data.file,
             openAtNight: data.openAtNight,
             openOnWeekends: data.openOnWeekends,
+            cookies
           })
           .then(async (result) => {
             const status = result.server.status;
@@ -54,7 +65,7 @@ export default class SigninBarberFormSubmitHandler extends FormSubmitHandlerBase
               serverUnhandledError();
             }
 
-            if (status === 200 && serverAlright === true) {
+            if (status === 201 && serverAlright === true) {
               historyRedirect('/dashboard/barber');
             }
 

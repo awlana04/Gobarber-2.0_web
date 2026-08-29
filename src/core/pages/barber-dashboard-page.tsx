@@ -20,6 +20,7 @@ export default function BarberDashboardPage(
     morningAppointments,
     afternoonAppointments,
     eveningAppointments,
+    appointmentsByDate,
   } = useHandleAppointmentsByPeriodsOfTheDay({
     appointments: props.appointments,
   });
@@ -33,6 +34,7 @@ export default function BarberDashboardPage(
       morningAppointments={morningAppointments}
       afternoonAppointments={afternoonAppointments}
       eveningAppointments={eveningAppointments}
+      appointmentsByDate={appointmentsByDate}
       {...props}
     />
   );

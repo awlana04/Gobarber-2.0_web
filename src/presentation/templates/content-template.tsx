@@ -23,7 +23,7 @@ export default function ContentTemplate({
         <AsideImage src={props.src} alt={props.alt} />
       )}
 
-      <section className='flex w-screen flex-col items-center justify-center'>
+      <section className='flex my-20 w-screen flex-col items-center justify-center'>
         <Image
           src={GoBarberLogo}
           alt={translate('Barber shop image')}

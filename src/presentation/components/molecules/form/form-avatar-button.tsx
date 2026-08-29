@@ -15,7 +15,7 @@ export default function FormAvatarButton(props: FormAvatarButtonPropsType) {
   return (
     <div
       data-large={props.large}
-      className='group hover:bg-input-text flex h-28 w-28 cursor-pointer rounded-full bg-white text-white data-[large=false]:m-auto data-[large=true]:absolute data-[large=true]:top-24 data-[large=true]:left-[50%] data-[large=true]:h-44 data-[large=true]:w-44 data-[large=true]:-translate-x-[50%]'
+      className='group hover:bg-input-text mx-auto mt-6 flex h-28 w-28 cursor-pointer rounded-full bg-white text-white data-[large=false]:m-auto data-[large=true]:absolute data-[large=true]:top-24 data-[large=true]:left-[50%] data-[large=true]:h-44 data-[large=true]:w-44 data-[large=true]:-translate-x-[50%]'
     >
       <input
         type='file'

@@ -114,7 +114,7 @@ export default function Calendar(props: CalendarAtomPropsType) {
       classNames={{
         chevron: 'fill-grey',
         today: 'text-orange rounded-2xl hover:cursor-pointer bg-black',
-        root: `${defaultClassNames.root} text-input-text place-items-center bg-black flex justify-center rounded-2xl w-[350] items-center text-center place-self-center`,
+        root: `${defaultClassNames.root} text-input-text mx-auto place-items-center bg-black flex justify-center rounded-2xl w-[350] items-center text-center place-self-center`,
         month_caption:
           'text-center  text-sm text-white bg-button-text w-[350] items-center h-14 justify-center rounded-tl-2xl content-center rounded-tr-2xl',
         month_grid: 'm-4 place-self-center',

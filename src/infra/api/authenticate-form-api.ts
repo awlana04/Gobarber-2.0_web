@@ -37,7 +37,7 @@ export default class AuthenticateFormAPI extends APIBase {
       })
       .then(async (response) => {
         const user: DataType = await response.json();
-
+        
         // if the user is making the Sign in again, we must ensure there's no other stored data in browser
         await this.manageDataInBrowser.clearAllData();
 
@@ -55,8 +55,6 @@ export default class AuthenticateFormAPI extends APIBase {
           });
         }
 
-        console.log(user.barber);
-
         return { server: response, user };
       });
   }
@@ -71,6 +69,9 @@ export default class AuthenticateFormAPI extends APIBase {
       const selectedUser: UserDataType = user.find(
         (user) => user.email === data.email && user.password === data.password
       )!;
+
+      
+      console.log(selectedUser)
 
       let selectedBarber;
 

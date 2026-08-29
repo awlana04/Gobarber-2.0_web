@@ -14,7 +14,7 @@ export default function BarberProfileScreen(
 ) {
   return (
     <DashboardTemplate {...props} headerType='profile'>
-      <section className='mt-44 flex w-96 flex-col place-content-center items-center justify-center place-self-center'>
+      <section className='mx-auto mt-44 flex w-96 flex-col place-content-center items-center justify-center place-self-center'>
         <h3 className='mb-6 place-self-start text-3xl font-medium'>
           Meu perfil
         </h3>
@@ -39,10 +39,6 @@ export default function BarberProfileScreen(
             Ver perfil
           </Button>
         </Link>
-
-        <footer className='mt-[65%]'>
-          <Button type='button'>Sair</Button>
-        </footer>
       </section>
     </DashboardTemplate>
   );

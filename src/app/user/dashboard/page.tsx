@@ -6,5 +6,7 @@ export default async function User() {
   const user = await GetCookies('user');
   const token = await GetCookies('token');
 
+  console.log(user.avatar)
+
   return <UserDashboardWindow userToken={`${token}`} user={user} />;
 }

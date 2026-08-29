@@ -7,7 +7,7 @@ import translate from '@/shared/utils/translate';
 export default function FormRadioButton(props: RadioButtonPropsType) {
   return (
     <div className='my-2 mt-6 flex items-center justify-center p-4'>
-      <div className='mr-24'>
+      <div className='max-lg:mr-10 max-sm:mr-2 max-sm:my-4 max-md:mr-5 mr-24'>
         <input
           type='radio'
           id='radioButtonYes'

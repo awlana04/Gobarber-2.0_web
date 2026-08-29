@@ -32,18 +32,18 @@ export default function NextActiveAppointmentRow(
               data={props.appointment}
               size='extra-large'
               Render={Row.RowHourAndDate}
-              dataType='barber'
-              hour={props.appointment.date}
-            />
-          ) : (
-            <Row.RowRoot
-              data={props.appointment}
-              size='extra-large'
-              Render={Row.RowHourAndDate}
               dataType='user'
               hour={props.appointment.date}
               date={format(props.appointment.date, 'dd/MM/yy')}
             />
+         ) : (
+           <Row.RowRoot
+             data={props.appointment}
+             size='extra-large'
+             Render={Row.RowHourAndDate}
+             dataType='barber'
+             hour={props.appointment.date}
+           />
           )}
         </section>
       )}

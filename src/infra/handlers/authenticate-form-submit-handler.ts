@@ -51,13 +51,8 @@ export default class AuthenticateFormSubmitHandler extends FormSubmitHandlerBase
               serverUnhandledError();
             }
 
-            console.log(result, result.user, result.user.barber);
-
             if (status === 200 && serverAlright === true) {
-              if (
-                result.user.barber !== undefined ||
-                result.user.barber !== null
-              ) {
+              if (result.user.barber !== null) {
                 historyRedirect('/barber/dashboard');
               } else {
                 historyRedirect('/user/dashboard');

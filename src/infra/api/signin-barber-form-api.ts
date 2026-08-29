@@ -3,8 +3,9 @@ import APIBase from '@/infra/bases/api-base';
 import FetchAPIDataModel from '@/adapters/models/fetch-api-data-model';
 import ManageDataInBrowserModel from '@/adapters/models/manage-data-in-browser-model';
 
-import { DataType } from '@/infra/types/data-type';
 import HTTPResponse from '@/infra/types/http-response';
+
+import { DataType, UserDataType } from '@/infra/types/data-type';
 
 type SigninBarberFormType = {
   name: string | any;
@@ -13,10 +14,10 @@ type SigninBarberFormType = {
   file: File[];
   openAtNight: boolean;
   openOnWeekends: boolean;
-};
-
-type DataStoredInBrowser = {
-  value: DataType;
+  cookies: {
+    user: UserDataType;
+    token: string;
+  };
 };
 
 export default class SigninBarberFormAPI extends APIBase {
@@ -30,16 +31,12 @@ export default class SigninBarberFormAPI extends APIBase {
   public async go(
     data: SigninBarberFormType
   ): Promise<{ server: HTTPResponse; barber?: DataType }> {
-    const token = await this.manageDataInBrowser.getData('token');
-    const user: DataStoredInBrowser =
-      await this.manageDataInBrowser.getData('user');
-
     return await this.fetchAPIData
-      .fetch(`/barbers/${user.value.user.id}`, {
+      .fetch(`/barbers/${data.cookies.user.id}`, {
         jsonContent: true,
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${data.cookies.token}`,
         },
         data: {
           name: data.name,
@@ -47,7 +44,7 @@ export default class SigninBarberFormAPI extends APIBase {
           description: data.description,
           openAtNight: data.openAtNight,
           openOnWeekends: data.openOnWeekends,
-          userId: user.value.user.id,
+          userId: data.cookies.user.id,
         },
       })
       .then(async (response) => {
@@ -65,7 +62,7 @@ export default class SigninBarberFormAPI extends APIBase {
               .fetch(`/barbers/${barber.value.id}`, {
                 method: 'PATCH',
                 headers: {
-                  Authorization: `Bearer ${token}`,
+                  Authorization: `Bearer ${data.cookies.token}`,
                 },
                 data: formData,
               })
@@ -93,17 +90,17 @@ export default class SigninBarberFormAPI extends APIBase {
   }
 
   public async fake(data: SigninBarberFormType) {
-    const user: DataType = JSON.parse(
-      await this.manageDataInBrowser.getData('user')
-    );
+    // const user: DataType = JSON.parse(
+    //   await this.manageDataInBrowser.getData('user')
+    // );
 
-    if (user !== null || user !== undefined) {
+    if (data.cookies.user !== null || data.cookies.user !== undefined) {
       const barber = await this.fetchAPIData.fetch('/barbers/', {
         jsonContent: true,
         method: 'POST',
         data: {
           data,
-          userId: user.user.id,
+          userId: data.cookies.user.id,
         },
       });
 

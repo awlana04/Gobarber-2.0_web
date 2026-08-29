@@ -8,8 +8,14 @@ import useHandleUserHook from '@/hooks/use-handle-user-hook';
 import SigninBarberFormSubmitHandlerFactory from '@/factories/handlers/signin-barber-form-submit-handler-factory';
 
 import SigninBarberPage from '@/pages/signin-barber-page';
+import { UserDataType } from '../types/data-type';
 
-export default function SigninBarberWindow() {
+type SigninBarberWindowProps = {
+  user: UserDataType;
+  token: string;
+};
+
+export default function SigninBarberWindow(props: SigninBarberWindowProps) {
   const [pinLocation, setPinLocation] = useState<number[]>([]);
 
   const barberNameRef = useRef<HTMLInputElement>(null);
@@ -41,8 +47,8 @@ export default function SigninBarberWindow() {
     descriptionRef.current!.value !== null &&
     descriptionRef.current!.value;
 
-  const submit = () => {
-    submitHandler({
+  const submit = async () => {
+    await submitHandler({
       data: {
         barberName: barberNameRef.current!.value,
         description: descriptionRef.current!.value,
@@ -50,6 +56,10 @@ export default function SigninBarberWindow() {
         openAtNight: isOpenAtNight,
         openOnWeekends: isOpenOnWeekends,
       },
+      cookies: {
+        user: props.user,
+        token: props.token,
+      } 
     });
   };
 
