@@ -33,6 +33,7 @@ export default function CalendarScreen(props: CalendarScreenPropsType) {
 
   return (
     <DashboardTemplate {...props} headerType='dashboard'>
+      <div data-modal={props.isModalOpen} className='data-[modal=true]:opacity-30'>
       <section className='my-4 mt-20 mb-10 flex flex-col items-center justify-center'>
         <TodayTitle title='Agendamentos por data' />
       </section>
@@ -44,6 +45,7 @@ export default function CalendarScreen(props: CalendarScreenPropsType) {
         handleDayClick={handleDayClick}
         barber={props.barber}
       />
+      </div>
 
       <Modal.ModalRoot
         dataType='user'

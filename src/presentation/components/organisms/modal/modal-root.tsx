@@ -17,7 +17,7 @@ export default function ModalRoot({
       {props.isModalOpen && (
         <div
           data-user={props.dataType === 'user'}
-          className='bg-button-text fixed top-52 left-[50%] z-100 max-h-screen w-[864] translate-x-[-50%] rounded-2xl pb-6 data-[user=false]:h-[748] data-[user=true]:translate-y-[50%]'
+          className='bg-button-text fixed absolute top-[50%] z-100 left-[50%] h-auto w-[864] translate-x-[-50%] rounded-2xl pb-6 data-[user=false]:h-[748] data-[user=true]:translate-y-[-50%]'
         >
           <div className='absolute top-0 left-0 h-full w-full overflow-auto p-8 px-12'>
             <div className='mb-6 flex flex-row place-content-between items-center'>
