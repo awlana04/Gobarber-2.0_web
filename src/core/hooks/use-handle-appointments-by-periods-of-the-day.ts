@@ -32,17 +32,29 @@ const useHandleAppointmentsByPeriodsOfTheDay = (
     }
   }, [availableAppointments])
 
-  const morningAppointments = useMemo(() => {
+  const nextMorningAppointments = useMemo(() => {
     return appointmentDate.filter(appointment => isToday(appointment.date) || isTomorrow(appointment.date) && parseISO(String(appointment.date)).getHours() < 12);
   }, [availableAppointments]);
 
-  const afternoonAppointments = useMemo(() => {
+  const nextAfternoonAppointments = useMemo(() => {
     return appointmentDate.filter(appointment => isToday(appointment.date) || isTomorrow(appointment.date) && parseISO(String(appointment.date)).getHours() >= 12 && parseISO(String(appointment.date)).getHours() < 18)
  }, [availableAppointments]);
 
-  const eveningAppointments = useMemo(() => {
+  const nextEveningAppointments = useMemo(() => {
     return appointmentDate.filter(appointment => isToday(appointment.date) || isTomorrow(appointment.date) && parseISO(String(appointment.date)).getHours() >= 18 && parseISO(String(appointment.date)).getHours() <= 20);
  }, [availableAppointments]);
+
+  const filterMorningAppointments = useMemo(() => {
+    return appointmentDate.filter(appointment => parseISO(String(appointment.date)).getHours() < 12);
+  }, [availableAppointments]);
+
+  const filterAfternoonAppointments = useMemo(() => {
+    return appointmentDate.filter(appointment => parseISO(String(appointment.date)).getHours() >= 12 && parseISO(String(appointment.date)).getHours() < 18);
+  }, [availableAppointments]);
+
+  const filterEveningAppointments = useMemo(() => {
+    return appointmentDate.filter(appointment => parseISO(String(appointment.date)).getHours() >= 18 && parseISO(String(appointment.date)).getHours() <= 20);
+  }, [availableAppointments]);
 
   const appointmentsByDate = useMemo(() => {
     const byDate: Record<string, UseAppointmentsByPeriodsOfTheDayPropsType> = {};
@@ -66,14 +78,17 @@ const useHandleAppointmentsByPeriodsOfTheDay = (
         date: date,
         appointments: byDate[date]
       }
-    })
+    }).slice(0, 2);
   }, [availableAppointments]);
   
   return {
     nextAppointment,
-    morningAppointments,
-    afternoonAppointments,
-    eveningAppointments,
+    nextMorningAppointments,
+    nextAfternoonAppointments,
+    nextEveningAppointments,
+    filterMorningAppointments,
+    filterAfternoonAppointments,
+    filterEveningAppointments,
     appointmentsByDate,
   };
 };

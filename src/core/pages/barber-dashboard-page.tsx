@@ -17,9 +17,9 @@ export default function BarberDashboardPage(
 ) {
   const {
     nextAppointment,
-    morningAppointments,
-    afternoonAppointments,
-    eveningAppointments,
+    nextMorningAppointments,
+    nextAfternoonAppointments,
+    nextEveningAppointments,
     appointmentsByDate,
   } = useHandleAppointmentsByPeriodsOfTheDay({
     appointments: props.appointments,
@@ -31,9 +31,9 @@ export default function BarberDashboardPage(
       isModalOpen={isModalOpen}
       setIsModalOpen={setIsModalOpen}
       nextAppointment={nextAppointment}
-      morningAppointments={morningAppointments}
-      afternoonAppointments={afternoonAppointments}
-      eveningAppointments={eveningAppointments}
+      morningAppointments={nextMorningAppointments}
+      afternoonAppointments={nextAfternoonAppointments}
+      eveningAppointments={nextEveningAppointments}
       appointmentsByDate={appointmentsByDate}
       {...props}
     />

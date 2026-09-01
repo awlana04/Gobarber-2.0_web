@@ -18,7 +18,7 @@ type CalendarPagePropsType = HeaderPropsType & {
 export default function CalendarPage(props: CalendarPagePropsType) {
   const { selectedDate, setSelectedDate } = useHandleDaySelectedHook();
   const { isModalOpen, setIsModalOpen } = useHandleIsModalOpen();
-  const { morningAppointments, afternoonAppointments, eveningAppointments } =
+  const { filterMorningAppointments, filterAfternoonAppointments, filterEveningAppointments } =
     useHandleAppointmentsByPeriodsOfTheDay({
       appointments: props.appointments.filter((appointment) =>
         isSameDay(selectedDate!, new UTCDate(appointment.date))
@@ -31,9 +31,9 @@ export default function CalendarPage(props: CalendarPagePropsType) {
       setSelectedDate={setSelectedDate}
       isModalOpen={isModalOpen}
       setIsModalOpen={setIsModalOpen}
-      morningAppointments={morningAppointments}
-      afternoonAppointments={afternoonAppointments}
-      eveningAppointments={eveningAppointments}
+      morningAppointments={filterMorningAppointments}
+      afternoonAppointments={filterAfternoonAppointments}
+      eveningAppointments={filterEveningAppointments}
       {...props}
     />
   );
